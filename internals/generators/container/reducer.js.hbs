@@ -42,8 +42,9 @@ export const failure = state =>
 
 /* ------------- Hookup Reducers To Types ------------- */
 
+// should convert uppercase to screaming snake_case
 export default createReducer(initialState, {
-  [Types.EVALUATION_REQUEST]: request,
-  [Types.EVALUATION_SUCCESS]: success,
-  [Types.EVALUATION_FAILURE]: failure,
+  [Types.{{ upperCase name }}_REQUEST]: request,
+  [Types.{{ upperCase name }}_SUCCESS]: success,
+  [Types.{{ upperCase name }}_FAILURE]: failure,
 });
