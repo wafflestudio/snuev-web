@@ -1,14 +1,18 @@
-import React from 'react'
-export default class LectureName extends React.PureComponent {
-  render() {
-    return(
-      <div>
-          <label>
-            Name:
-            <input type="text" name ="lectureName" value={this.props.lectureName} onChange={this.props.onChange} />
-            <input type="text" name ="lectureName" value={this.props.lectureName} onChange={this.props.onChange} />
-          </label>
-      </div>
-    );
-  }
+import React, { PropTypes } from 'react';
+
+export default function LectureName(props) {
+  return (
+    <div>
+      <label>
+        Name:
+        <input type="text" name="lectureName" value={props.lectureName} onChange={props.onChange} />
+        <input type="text" name="lectureName" value={props.lectureName} onChange={props.onChange} />
+      </label>
+    </div>
+  );
 }
+
+LectureName.propTypes = {
+  lectureName: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};

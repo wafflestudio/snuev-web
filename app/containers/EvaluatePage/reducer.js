@@ -37,7 +37,7 @@ export const success = (state, { payload }) =>
   state.merge({ isFetching: false, payload, error: null });
 
 // Something went wrong somewhere.
-export const failure = state =>
+export const failure = (state) =>
   state.merge({ isFetching: false, payload: null, error: true });
 
 /* ------------- Hookup Reducers To Types ------------- */
