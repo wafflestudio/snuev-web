@@ -1,5 +1,8 @@
 import React, { PropTypes } from 'react';
 
+//not use this component now
+//it will be deleted
+
 export default function SubRating(props) {
   return (
     <div>
