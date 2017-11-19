@@ -2,44 +2,37 @@ import React, { PropTypes } from 'react';
 import LectureName from './LectureName';
 import Rating from './Rating';
 import Review from './Review';
-// import styled from 'styled-components';
-
+import * as Style from './index.style';
 
 
 function Evaluation(props) { // eslint-disable-line react/prefer-stateless-function
   return (
     <div>
-      <div>
+      <Style.Header>
         <h1>강의 평가하기</h1>
-      </div>
+      </Style.Header>
       <form>
         <LectureName
           lectureName={props.lectureName}
           onChange={props.handleChange}
         />
         <Rating
-          name="rating"
-          value={props.rating}
+          name="score"
+          value={props.score}
           onChange={props.handleChange}
-          onSliderChange={props.makeHandleSliderChange('rating')}
+          onSliderChange={props.makeHandleSliderChange('score')}
         />
         <Rating
-          name="teachingSkill"
-          value={props.teachingSkill}
+          name="easiness"
+          value={props.easiness}
           onChange={props.handleChange}
-          onSliderChange={props.makeHandleSliderChange('teachingSkill')}
+          onSliderChange={props.makeHandleSliderChange('easiness')}
         />
         <Rating
-          name="looseness"
-          value={props.looseness}
+          name="grading"
+          value={props.grading}
           onChange={props.handleChange}
-          onSliderChange={props.makeHandleSliderChange('looseness')}
-        />
-        <Rating
-          name="gradeSatisfaction"
-          value={props.gradeSatisfaction}
-          onChange={props.handleChange}
-          onSliderChange={props.makeHandleSliderChange('gradeSatisfaction')}
+          onSliderChange={props.makeHandleSliderChange('grading')}
         />
         <Review
           review={props.review}
@@ -52,10 +45,9 @@ function Evaluation(props) { // eslint-disable-line react/prefer-stateless-funct
 
 Evaluation.propTypes = {
   lectureName: PropTypes.string.isRequired,
-  rating: PropTypes.number.isRequired,
-  teachingSkill: PropTypes.number.isRequired,
-  looseness: PropTypes.number.isRequired,
-  gradeSatisfaction: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
+  easiness: PropTypes.number.isRequired,
+  grading: PropTypes.number.isRequired,
   review: PropTypes.string.isRequired,
   handleChange: PropTypes.func.isRequired,
   makeHandleSliderChange: PropTypes.func.isRequired,

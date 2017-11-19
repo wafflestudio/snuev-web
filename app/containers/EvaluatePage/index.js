@@ -16,10 +16,9 @@ export class EvaluatePage extends React.PureComponent { // eslint-disable-line r
     super(props);
     this.state = {
       lectureName: '',
-      rating: 0,
-      teachingSkill: 0,
-      looseness: 0,
-      gradeSatisfaction: 0,
+      score: 0,
+      easiness: 0,
+      grading: 0,
       review: '',
     };
     this.handleChange = this.handleChange.bind(this);
@@ -54,10 +53,9 @@ export class EvaluatePage extends React.PureComponent { // eslint-disable-line r
         </div>
         <Evaluation
           lectureName={this.state.lectureName}
-          rating={this.state.rating}
-          teachingSkill={this.state.teachingSkill}
-          looseness={this.state.looseness}
-          gradeSatisfaction={this.state.gradeSatisfaction}
+          score={this.state.score}
+          easiness={this.state.easiness}
+          grading={this.state.grading}
           review={this.state.review}
           handleChange={this.handleChange}
           makeHandleSliderChange={this.makeHandleSliderChange}
