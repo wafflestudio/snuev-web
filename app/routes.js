@@ -18,59 +18,39 @@ export default function createRoutes(store) {
 
   return [
     {
-      path: '/',
-      name: 'mainPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/MainPage/reducer'),
-          import('containers/MainPage/sagas'),
-          import('containers/MainPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('mainPage', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
-      path: '/login',
-      name: 'loginPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/LoginPage/reducer'),
-          import('containers/LoginPage/sagas'),
-          import('containers/LoginPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('loginPage', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    }, {
       path: '/sign_up',
-      name: 'signUpPage',
+      name: 'signup',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/SignUpPage/reducer'),
-          import('containers/SignUpPage/sagas'),
-          import('containers/SignUpPage'),
+          import('containers/SignupPage/reducer'),
+          import('containers/SignupPage/sagas'),
+          import('containers/SignupPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('signUpPage', reducer.default);
+          injectReducer('signupPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/confirm_email',
+      name: 'confirm_email',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ConfirmEmailPage/reducer'),
+          import('containers/ConfirmEmailPage/sagas'),
+          import('containers/ConfirmEmailPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+        //from here
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('confirmEmailPage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

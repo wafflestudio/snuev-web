@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
 const create = () => {
-  const API_URL = 'https://jsonplaceholder.typicode.com';
+  const API_URL = 'http://localhost:3001';
 
   const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
     const baseURL = customURL || API_URL;
@@ -11,18 +11,21 @@ const create = () => {
 
     httpMethods.forEach((method) => {
       api[method.toLowerCase()] = (endpoint, body, options) =>
-        request(`${baseURL}${endpoint}`, { method, body, headers, ...options });
+        request(`${baseURL}${endpoint}`, { method, body: JSON.stringify(body), headers: headers(), ...options });
     });
 
     return api;
   };
 
-  const api = createAPI(null, { 'Content-Type': 'application/json' });
-  // const authenticatedAPI = createAPI(null, { 'Content-Type': 'application/json', Authorization: `Bearer TOKEN` });
+  const api = createAPI(null, () => ({ 'Content-Type': 'application/json' }));
+  const authenticatedAPI = createAPI(null, () => ({ 'Content-Type': 'application/json', Authorization: localStorage.getItem("auth_token") }));
 
   return {
     getPost: (postId) => api.get(`/posts/${postId}`),
     getPosts: () => api.get('/posts'),
+    signup: (data) => api.post('/v1/user', data),
+    emailConfirmation: (confirmation_token) => api.get(`/v1/user/confirm_email?confirmation_token=${confirmation_token}`),
+    getUser: () => authenticatedAPI.get('/v1/user')
   };
 };
 
