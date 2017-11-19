@@ -1,6 +1,6 @@
 /*
  *
- * {{ properCase name }} reducer
+ * EvaluatePage reducer
  *
  */
 
@@ -11,9 +11,9 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  {{ camelCase name }}Request: ['data'],
-  {{ camelCase name }}Success: ['payload'],
-  {{ camelCase name }}Failure: null,
+  evaluatePageRequest: ['data'],
+  evaluatePageSuccess: ['payload'],
+  evaluatePageFailure: null,
 });
 
 
@@ -44,7 +44,7 @@ export const failure = (state) =>
 
 // should convert uppercase to screaming snake_case
 export default createReducer(initialState, {
-  [Types.{{ upperCase name }}_REQUEST]: request,
-  [Types.{{ upperCase name }}_SUCCESS]: success,
-  [Types.{{ upperCase name }}_FAILURE]: failure,
+  [Types.EVALUATE_PAGE_REQUEST]: request,
+  [Types.EVALUATE_PAGE_SUCCESS]: success,
+  [Types.EVALUATE_PAGE_FAILURE]: failure,
 });
