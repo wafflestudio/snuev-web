@@ -16,22 +16,21 @@ export class ConfirmEmailPage extends React.PureComponent { // eslint-disable-li
     this.getUser = this.getUser.bind(this);
     this.confirmEmail = this.confirmEmail.bind(this);
     this.state = {
-      TOKEN: '',
+      TOKEN: 'mPbZDXXEP-EZfS8OzkNTag',
     };
   }
 
   render() {
-    console.log("asdf");
     return (
       <div>
-        <button value="인증" style={{width:50, height:50}} onClick={this.emailConfirm} />
+        <button value='인증' style={{width:50, height:50}} onClick={ this.confirmEmail } />
         <br/>
-        <button value="사용자 정보" style={{width: 50, height: 50}} onClick={this.getUser} />
+        <button value='사용자 정보' style={{width: 50, height: 50}} onClick={ this.getUser } />
       </div>
     );
   }
 
-  emailConfirm() {
+  confirmEmail() {
     this.props.confirmEmail(this.state.TOKEN);
   }
 
@@ -39,11 +38,6 @@ export class ConfirmEmailPage extends React.PureComponent { // eslint-disable-li
     this.props.getUser();
   }
 }
-
-/*const mapStateToProps = (state) => ({
-  test: 'test '
-
-});*/
 
 const mapDispatchToProps = (dispatch) => ({
   getUser: () => dispatch(Actions.getUserRequest()),
