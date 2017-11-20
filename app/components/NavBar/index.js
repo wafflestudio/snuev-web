@@ -6,11 +6,12 @@
 
 import React from 'react';
 import styled from 'styled-components';
+import { Icon } from 'react-fa';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
-const Wrapper = styled.header`
+const NavWrapper = styled.header`
   position: fixed;
   top: 0;
   left: 0;
@@ -20,7 +21,7 @@ const Wrapper = styled.header`
   margin: 0;
   padding: 10px 20px;
   display: flex;
-  flex-direction: row;
+  justify-content: space-between;
 
   border-bottom: 1px solid #cccccc;
   background-color: white;
@@ -29,29 +30,64 @@ const Wrapper = styled.header`
 const Logo = styled.h1`
   margin: 0;
   font-size: 36px;
-  line-height: 36px;
+  line-height: 40px;
   color: #0065e3;
 `;
 
-const SearchInput = styled.input`
-  font-size: 14px;
-  margin-left: 30px;
-  border-bottom: 2px solid #cccccc;
+const Search = styled.div`
+  flex-basis: 30%;
+  margin-left: 20px;
+  line-height: 40px;
 
-  &:focus {
-    outline: none;
-    border-color: #aaaaaa;
+  input {
+    flex-grow: 1;
+    margin-left: 5px;
+    padding: 6px 10px;
+    width: calc(100% - 30px);
+    font-size: 16px;
+    border-bottom: 2px solid #cccccc;
+
+    &:focus {
+      outline: none;
+      border-color: #aaaaaa;
+    }
+  }
+`;
+
+const NavMenu = styled.ul`
+  flex-direction: row;
+  display: flex;
+  margin: 0 0 0 auto;
+  line-height: 40px;
+  list-style: none;
+  padding-left: 0;
+
+  li {
+    margin-left: 20px;
+    font-size: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
   }
 `;
 
 function NavBar() {
   return (
-    <Wrapper>
+    <NavWrapper>
       <Logo>
         <FormattedMessage {...messages.title} />
       </Logo>
-      <SearchInput type="text" />
-    </Wrapper>
+      <Search>
+        <Icon name="search" />
+        <input type="text" />
+      </Search>
+      <NavMenu>
+        <li><FormattedMessage {...messages.navItems.blog} /></li>
+        <li><FormattedMessage {...messages.navItems.profile} /></li>
+        <li><FormattedMessage {...messages.navItems.logout} /></li>
+      </NavMenu>
+    </NavWrapper>
   );
 }
 

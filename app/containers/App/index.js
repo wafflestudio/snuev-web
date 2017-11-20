@@ -16,7 +16,7 @@ import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
 
 const MainWrapper = styled.div`
-  padding-top: 60px;
+  padding: 100px 45px 40px 45px;
 `;
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function

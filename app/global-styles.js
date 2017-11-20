@@ -2,6 +2,8 @@ import { injectGlobal } from 'styled-components';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
+  @import url(https://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+
   html,
   body {
     height: 100%;
@@ -9,12 +11,12 @@ injectGlobal`
   }
 
   body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
     color: #111111;
   }
 
   body.fontLoaded {
-    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Nanum Gothic', sans-serif;
   }
 
   #app {
