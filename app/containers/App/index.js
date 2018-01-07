@@ -12,6 +12,12 @@
  */
 
 import React from 'react';
+import styled from 'styled-components';
+import NavBar from '../../components/NavBar';
+
+const MainWrapper = styled.div`
+  padding: 100px 45px 40px 45px;
+`;
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -22,7 +28,10 @@ export default class App extends React.PureComponent { // eslint-disable-line re
   render() {
     return (
       <div>
-        {React.Children.toArray(this.props.children)}
+        <NavBar />
+        <MainWrapper>
+          {React.Children.toArray(this.props.children)}
+        </MainWrapper>
       </div>
     );
   }
