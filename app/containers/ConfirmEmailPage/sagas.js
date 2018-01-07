@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types as ConfirmEmailTypes, Creators as ConfirmEmailActions } from './reducer';
 import api from 'services/api';
 

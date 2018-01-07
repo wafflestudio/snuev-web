@@ -38,7 +38,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/confirm_email',
+      path: '/confirm_email/:confirmation_token',
       name: 'confirm_email',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
