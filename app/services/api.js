@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
 const create = () => {
-  const API_URL = 'https://jsonplaceholder.typicode.com';
+  const API_URL = 'https://snuev-backend.herokuapp.com';
 
   const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
     const baseURL = customURL || API_URL;
@@ -17,10 +17,11 @@ const create = () => {
     return api;
   };
 
-  const api = createAPI(null, { 'Content-Type': 'application/json' });
+  const api = createAPI(null, { 'Content-Type': 'application/json', Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MTU0OTc3NTksImlhdCI6MTUxNTMyNDk1OX0.Fr0ucZxgI-CuEjNEghyzaA9VOMoGAuecE4dW2pFSUiY' });
   // const authenticatedAPI = createAPI(null, { 'Content-Type': 'application/json', Authorization: `Bearer TOKEN` });
 
   return {
+    getLectureDetail: (lectureId) => api.get(`/v1/lectures/${lectureId}`),
     getPost: (postId) => api.get(`/posts/${postId}`),
     getPosts: () => api.get('/posts'),
   };
