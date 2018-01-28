@@ -134,24 +134,24 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
         <LoginWrapper>
           <Logo src={LogoImage} />
           <WelcomeText>
-            서울대학교 강의평가서비스에 오신 것을 환영합니다!
+            {messages.welcome}
           </WelcomeText>
           <Input />
-          <Input />
+          <Input type="password" />
           <RecoverPasswordLink>
-            비밀번호를 잊어버렸어요
+            {messages.recoverPassword}
           </RecoverPasswordLink>
           <LoginButton>
             <LoginText>
-              로그인
+              {messages.login}
             </LoginText>
           </LoginButton>
           <SignUpWrapper>
             <SignUpText>
-              아직 계정이 없나요?
+              {messages.signup.question}
             </SignUpText>
             <SignUpLink>
-              회원가입
+              {messages.signup.message}
             </SignUpLink>
           </SignUpWrapper>
 
