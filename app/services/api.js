@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
 const create = () => {
-  const API_URL = 'http://localhost:3001';
+  const API_URL = process.env.API_HOST;
 
   const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
     const baseURL = customURL || API_URL;
