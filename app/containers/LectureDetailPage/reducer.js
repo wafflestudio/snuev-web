@@ -12,7 +12,7 @@ import { fromJS } from 'immutable';
 
 export const { Types, Creators } = createActions({
   getLectureDetailRequest: ['data'],
-  getLectureDetailSuccess: ['payload'],
+  getLectureDetailSuccess: null,
   getLectureDetailFailure: null,
 });
 
@@ -22,26 +22,23 @@ export const { Types, Creators } = createActions({
 export const initialState = fromJS({
   data: null,
   isFetching: false,
-  payload: null,
-  error: false,
+  error: null,
 });
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) => {
-  return state.merge({ data, isFetching: true, payload: null, error: null });
-};
+export const request = (state, { data }) =>
+  state.merge({ data, isFetching: true, error: null });
+
 
 // successful api lookup
-export const success = (state, { payload }) => {
-  console.log(payload);
-  return state.merge({ isFetching: false, payload, error: null });
-};
+export const success = (state) =>
+  state.merge({ isFetching: false, error: null });
 
 // Something went wrong somewhere.
 export const failure = (state) =>
-  state.merge({ isFetching: false, payload: null, error: true });
+  state.merge({ isFetching: false, error: true });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

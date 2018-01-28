@@ -1,11 +1,7 @@
 import request from '../utils/request';
 
 const create = () => {
-<<<<<<< HEAD
-  const API_URL = 'https://snuev-backend.herokuapp.com';
-=======
   const API_URL = process.env.API_HOST;
->>>>>>> 585a6369783f904051696e483e42979f473c2866
 
   const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
     const baseURL = customURL || API_URL;

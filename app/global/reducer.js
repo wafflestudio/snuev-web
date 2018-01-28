@@ -1,26 +1,27 @@
 import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
+import normalize from 'json-api-normalizer';
 
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  sampleRequest: ['keyword'],
+  normalizeData: ['data'],
 });
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  keyword: null,
+  normalizedData: null,
 });
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { keyword }) =>
-  state.merge({ keyword });
+export const normalizeData = (state, { data }) =>
+  state.merge({ normalizedData: normalize(data) });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.SAMPLE_REQUEST]: request,
+  [Types.NORMALIZE_DATA]: normalizeData,
 });
