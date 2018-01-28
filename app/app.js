@@ -13,6 +13,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
+import FontFaceObserver from 'fontfaceobserver';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
 import 'sanitize.css/sanitize.css';
@@ -43,6 +44,15 @@ import './global-styles';
 
 // Import root routes
 import createRoutes from './routes';
+
+const nanumGothicObserver = new FontFaceObserver('Nanum Gothic');
+const nanumMyeongjoObserver = new FontFaceObserver('Nanum Myeongjo');
+
+Promise.all([nanumGothicObserver.load(), nanumMyeongjoObserver.load()]).then(() => {
+  document.body.classList.add('fontLoaded');
+}, () => {
+  document.body.classList.remove('fontLoaded');
+});
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router

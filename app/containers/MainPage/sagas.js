@@ -1,6 +1,6 @@
-import { take, call, put, takeLatest } from 'redux-saga/effects';
+import { call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
-import api from 'services/api';
+import api from '../../services/api';
 
 export function* getEvaluations() {
   const response = yield call(api.getPosts);
