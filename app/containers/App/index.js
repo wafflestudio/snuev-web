@@ -13,7 +13,7 @@
 
 import React from 'react';
 import styled from 'styled-components';
-import NavBar from '../../components/NavBar';
+import NavBar from '../../global/containers/NavBarContainer';
 
 const MainWrapper = styled.div`
   padding: 100px 45px 40px 45px;

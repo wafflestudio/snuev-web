@@ -1,7 +1,7 @@
 import request from '../utils/request';
 
 const create = () => {
-  const API_URL = 'https://jsonplaceholder.typicode.com';
+  const API_URL = 'http://snuev-backend.herokuapp.com/v1';
 
   const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
     const baseURL = customURL || API_URL;
@@ -23,6 +23,7 @@ const create = () => {
   return {
     getPost: (postId) => api.get(`/posts/${postId}`),
     getPosts: () => api.get('/posts'),
+    getLectures: (query) => api.get(`/lectures/search?q=${query}`),
   };
 };
 

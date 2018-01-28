@@ -4,7 +4,7 @@
 *
 */
 
-import React from 'react';
+import React, { PropTypes } from 'react';
 import styled from 'styled-components';
 import { Icon } from 'react-fa';
 
@@ -72,15 +72,23 @@ const NavMenu = styled.ul`
   }
 `;
 
-function NavBar() {
+function NavBar(props) {
   return (
     <NavWrapper>
       <Logo>
         <FormattedMessage {...messages.title} />
       </Logo>
       <Search>
-        <Icon name="search" />
-        <input type="text" />
+        <form
+          onSubmit={props.navBarOnSubmit}
+        >
+          <Icon name="search" />
+          <input
+            type="text"
+            value={props.query}
+            onChange={props.handleChange}
+          />
+        </form>
       </Search>
       <NavMenu>
         <li><FormattedMessage {...messages.navItems.blog} /></li>
@@ -92,7 +100,9 @@ function NavBar() {
 }
 
 NavBar.propTypes = {
-
+  query: PropTypes.string.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  navBarOnSubmit: PropTypes.func.isRequired,
 };
 
 export default NavBar;
