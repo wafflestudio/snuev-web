@@ -122,6 +122,14 @@ const SignUpLink = styled.a`
 `;
 
 export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+  constructor (props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: ''
+    }
+  }
+
   render() {
     return (
       <Background>
@@ -136,8 +144,18 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <WelcomeText>
             {messages.welcome}
           </WelcomeText>
-          <Input />
-          <Input type="password" />
+          <Input
+            type="text"
+            value={this.state.username}
+            onChange={(event) => this.setState({ username: event.target.value })}
+            placeholder={messages.input.usernameHint}
+          />
+          <Input
+            type="password"
+            value={this.state.password}
+            onChange={(event) => this.setState({ password: event.target.value })}
+            placeholder={messages.input.passwordHint}
+          />
           <RecoverPasswordLink>
             {messages.recoverPassword}
           </RecoverPasswordLink>
