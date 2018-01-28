@@ -11,6 +11,10 @@ export default defineMessages({
     defaultMessage: 'SNUEV',
   },
   navItems: {
+    snutt: {
+      id: 'app.components.NavBar.navItems.snutt',
+      defaultMessage: 'SNUTT',
+    },
     blog: {
       id: 'app.components.NavBar.navItems.blog',
       defaultMessage: '블로그',

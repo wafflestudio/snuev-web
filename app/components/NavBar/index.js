@@ -10,28 +10,30 @@ import { Icon } from 'react-fa';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
+import LogoImg from '../../images/logo.png';
+import SnuttLogoImg from '../../images/snutt_logo.svg';
+import NavSearch from '../NavSearch';
 
-const NavWrapper = styled.header`
-  position: fixed;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 100%;
-  height: 60px;
+const NavBarWrapper = styled.header`
+  grid-area: navbar;
   margin: 0;
   padding: 10px 20px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   border-bottom: 1px solid #cccccc;
   background-color: white;
 `;
 
-const Logo = styled.h1`
-  margin: 0;
-  font-size: 36px;
-  line-height: 40px;
-  color: #0065e3;
+const Logo = styled.img`
+  height: 25px;
+`;
+
+const SnuttLogo = styled.img`
+  width: 20px;
+  height: 20px;
+  margin-right: .5em;
 `;
 
 const Search = styled.div`
@@ -74,20 +76,23 @@ const NavMenu = styled.ul`
 
 function NavBar() {
   return (
-    <NavWrapper>
-      <Logo>
-        <FormattedMessage {...messages.title} />
-      </Logo>
+    <NavBarWrapper>
+      <Logo src={LogoImg} />
       <Search>
         <Icon name="search" />
-        <input type="text" />
+        <NavSearch />
       </Search>
       <NavMenu>
+        <li>
+          <a href="https://snutt.kr">
+            <SnuttLogo src={SnuttLogoImg} alt="SNUTT" /><FormattedMessage {...messages.navItems.snutt} />
+          </a>
+        </li>
         <li><FormattedMessage {...messages.navItems.blog} /></li>
         <li><FormattedMessage {...messages.navItems.profile} /></li>
         <li><FormattedMessage {...messages.navItems.logout} /></li>
       </NavMenu>
-    </NavWrapper>
+    </NavBarWrapper>
   );
 }
 

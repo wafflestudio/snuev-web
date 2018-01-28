@@ -14,9 +14,21 @@
 import React from 'react';
 import styled from 'styled-components';
 import NavBar from '../../components/NavBar';
+import SideBar from '../../components/SideBar';
+
+const AppWrapper = styled.div`
+  height: 100%;
+  display: grid;
+  align-content: stretch;
+  grid-template-columns: 300px auto;
+  grid-template-rows: 80px auto;
+  grid-template-areas:
+    "navbar navbar"
+    "sidebar main";
+`;
 
 const MainWrapper = styled.div`
-  padding: 100px 45px 40px 45px;
+  grid-area: main;
 `;
 
 export default class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -27,12 +39,13 @@ export default class App extends React.PureComponent { // eslint-disable-line re
 
   render() {
     return (
-      <div>
+      <AppWrapper>
         <NavBar />
+        <SideBar />
         <MainWrapper>
           {React.Children.toArray(this.props.children)}
         </MainWrapper>
-      </div>
+      </AppWrapper>
     );
   }
 }
