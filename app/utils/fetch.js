@@ -8,7 +8,6 @@ async function parseJSON(response) {
   return response;
 }
 
-export default function request(url, options) {
-  return fetch(url, options)
-    .then(parseJSON);
-}
+export default (url, options) => (
+  fetch(url, options).then(parseJSON)
+);
