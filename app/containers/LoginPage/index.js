@@ -4,17 +4,14 @@
  *
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import styled from 'styled-components';
-import makeSelectLoginPage from './selectors';
+import { Creators as Actions } from '../../global/reducer';
 import messages from './messages';
 import {
   Background,
-  LoginWrapper,
+  LoginForm,
   Logo,
   WelcomeText,
   Input,
@@ -23,18 +20,22 @@ import {
   LoginText,
   SignUpWrapper,
   SignUpText,
-  SignUpLink
-} from './index.style'
+  SignUpLink,
+} from './index.style';
 
-import LogoImage from '../../images/logo.png'
-
-export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor (props) {
+export class LoginPage extends React.PureComponent {
+  constructor(props) {
     super(props);
     this.state = {
       username: '',
-      password: ''
-    }
+      password: '',
+    };
+    this.handleSignIn = this.handleSignIn.bind(this);
+  }
+
+  handleSignIn(event) {
+    event.preventDefault();
+    this.props.signIn(this.state);
   }
 
   render() {
@@ -46,8 +47,8 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
             { name: 'description', content: 'Description of LoginPage' },
           ]}
         />
-        <LoginWrapper>
-          <Logo src={LogoImage} />
+        <LoginForm onSubmit={this.handleSignIn}>
+          <Logo />
           <WelcomeText>
             {messages.welcome}
           </WelcomeText>
@@ -66,7 +67,7 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
           <RecoverPasswordLink>
             {messages.recoverPassword}
           </RecoverPasswordLink>
-          <LoginButton>
+          <LoginButton type="submit">
             <LoginText>
               {messages.login}
             </LoginText>
@@ -79,21 +80,14 @@ export class LoginPage extends React.PureComponent { // eslint-disable-line reac
               {messages.signup.message}
             </SignUpLink>
           </SignUpWrapper>
-
-        </LoginWrapper>
+        </LoginForm>
       </Background>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  LoginPage: makeSelectLoginPage(),
+const mapDispatchToProps = (dispatch) => ({
+  signIn: ({ username, password }) => dispatch(Actions.signInRequest({ username, password })),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);
