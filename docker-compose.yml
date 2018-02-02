@@ -8,8 +8,6 @@ services:
     volumes:
       - '.:/usr/src/app'
       - 'node_modules:/usr/src/app/node_modules'
-    environment:
-      - API_HOST=http://snuev-backend.herokuapp.com
     env_file: .env
 volumes:
   node_modules:

@@ -1,6 +1,7 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
+import { setAuthToken, clearAuthToken } from "../services/localStorage";
 
 export function* getSamples() {
 }
@@ -19,7 +20,7 @@ export function* watchSignInRequest() {
 export function* watchSignOut() {
   while (true) {
     yield take(Types.SIGN_OUT);
-    localStorage.removeItem('auth_token');
+    clearAuthToken();
   }
 }
 
@@ -34,7 +35,7 @@ export function* signIn({ username, password }) {
   const response = yield request.post('/v1/user/sign_in', { username, password });
   if (response.ok) {
     yield put(Actions.signInSuccess(response.data));
-    localStorage.setItem('auth_token', response.data.meta.auth_token);
+    setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
   } else {
     yield put(Actions.signInFailure(response.data));

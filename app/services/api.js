@@ -2,6 +2,7 @@ import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 import fetch from '../utils/fetch';
 import { Creators as AuthActions } from '../global/reducer';
+import { getAuthToken } from "./localStorage";
 
 const createAPI = (customURL, headers, config) => {
   const baseURL = customURL || process.env.API_HOST;
@@ -18,7 +19,7 @@ const createAPI = (customURL, headers, config) => {
         if (method === 'GET' && body) {
           url = `${url}?${queryString.stringify(body)}`;
         }
-        headers.Authorization = localStorage.getItem('auth_token');
+        headers.Authorization = getAuthToken();
         const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
         if (response.status === 401) {
           yield put(AuthActions.SignOut());
