@@ -48,7 +48,7 @@ export default function createRoutes(store) {
         ]);
 
         const renderRoute = loadModule(cb);
-        //from here
+        
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('confirmEmailPage', reducer.default);
           injectSagas(sagas.default);
@@ -71,6 +71,26 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('evaluatePage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/login',
+      name: 'login',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/LoginPage/reducer'),
+          import('containers/LoginPage/sagas'),
+          import('containers/LoginPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('loginPage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

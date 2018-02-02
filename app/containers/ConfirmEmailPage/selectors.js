@@ -19,7 +19,19 @@ const makeSelectConfirmEmailPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
+const makeSelectIsFetching = () => createSelector(
+  selectConfirmEmailPageDomain(),
+  (subState) => subState.get('isFetching')
+);
+
+const makeSelectPayload = () => createSelector(
+  selectConfirmEmailPageDomain(),
+  (subState) => subState.get('payload')
+);
+
 export default makeSelectConfirmEmailPage;
 export {
   selectConfirmEmailPageDomain,
+  makeSelectIsFetching,
+  makeSelectPayload
 };

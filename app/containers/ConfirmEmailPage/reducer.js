@@ -25,7 +25,7 @@ export const { Types, Creators } = createActions({
 
 export const initialState = fromJS({
   data: null,
-  isFetching: false,
+  isFetching: true,
   payload: null,
   error: false,
 });

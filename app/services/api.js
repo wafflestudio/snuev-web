@@ -27,6 +27,7 @@ const create = () => {
     emailConfirmation: (confirmation_token) => api.get(`/v1/user/confirm_email?confirmation_token=${confirmation_token}`),
     getUser: () => authenticatedAPI.get('/v1/user'),
     validate: () => authenticatedAPI.get('/v1/user'),
+    login: (data) => api.post('/v1/user/sign_in', data),
   };
 };
 

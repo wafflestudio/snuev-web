@@ -1,5 +1,6 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types as ConfirmEmailTypes, Creators as ConfirmEmailActions } from './reducer';
+import { browserHistory } from 'react-router';
 import api from 'services/api';
 
 // Individual exports for testing
@@ -13,10 +14,14 @@ export function* confirmEmail(token) {
   console.log(response);
   if (response.ok) {
     console.log(response.data);
-    alert('이메일이 인증되었습니다.');
     yield put(ConfirmEmailActions.confirmEmailSuccess(response.data));
   } else {
     yield put(ConfirmEmailActions.confirmEmailFailure());
+    if (localStorage.getItem('auth_token')) {
+      
+    } else {
+      browserHistory.push('/');
+    }
   }
 }
 
