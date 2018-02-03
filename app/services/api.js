@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 import fetch from '../utils/fetch';
 import { Creators as AuthActions } from '../global/reducer';
-import { getAuthToken } from "./localStorage";
+import { getAuthToken } from './localStorage';
 
 const createAPI = (customURL, headers, config) => {
   const baseURL = customURL || process.env.API_HOST;
@@ -43,3 +43,5 @@ const createAPI = (customURL, headers, config) => {
 
 export const authRequest = createAPI(null, null, { authenticated: true });
 export const request = createAPI();
+
+export default createAPI;
