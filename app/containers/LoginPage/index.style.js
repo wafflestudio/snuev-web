@@ -5,8 +5,8 @@ import LogoImage from '../../images/logo.png';
 
 export const Background = styled.div`
   background-color: #efefef;
-  height: 100%;
   display: flex;
+  flex: 1;
   justify-content: center;
   align-items: center;
 `;
