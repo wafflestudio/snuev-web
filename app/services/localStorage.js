@@ -8,6 +8,3 @@ export const setAuthToken = (token) => {
 export const clearAuthToken = () => {
   localStorage.removeItem('auth_token');
 };
-
-export const authTokenExists = () =>
-  localStorage.getItem('auth_token') !== null;

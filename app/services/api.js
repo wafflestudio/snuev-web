@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 import fetch from '../utils/fetch';
 import { Creators as AuthActions } from '../global/reducer';
-import { getAuthToken, authTokenExists } from './localStorage';
+import { getAuthToken } from './localStorage';
 
 const createAPI = (customURL, headers, config) => {
   const baseURL = customURL || process.env.API_HOST;
@@ -18,8 +18,9 @@ const createAPI = (customURL, headers, config) => {
       if (method === 'GET' && body) {
         url = `${url}?${queryString.stringify(body)}`;
       }
-      if (authTokenExists()) {
-        headers.Authorization = getAuthToken();
+      const authToken = getAuthToken();
+      if (authToken) {
+        headers.Authorization = authToken;
       } else if (authenticated) {
         const error = new Error('Client Error. Auth token does not exist');
         error.errors = [
@@ -35,7 +36,7 @@ const createAPI = (customURL, headers, config) => {
         const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
         return response;
       } catch (error) {
-        if (error.response.status === 401 && authTokenExists()) {
+        if (error.response.status === 401 && authToken) {
           yield put(AuthActions.signOut());
         }
         throw error;
