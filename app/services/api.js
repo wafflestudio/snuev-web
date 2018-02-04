@@ -12,32 +12,38 @@ const createAPI = (customURL, headers, config) => {
 
   const api = {};
 
-  if (authenticated) {
-    httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = function* _(endpoint, body, options) {
-        let url = `${baseURL}${endpoint}`;
-        if (method === 'GET' && body) {
-          url = `${url}?${queryString.stringify(body)}`;
-        }
-        headers.Authorization = getAuthToken();
+  httpMethods.forEach((method) => {
+    api[method.toLowerCase()] = function* _(endpoint, body, options) {
+      let url = `${baseURL}${endpoint}`;
+      if (method === 'GET' && body) {
+        url = `${url}?${queryString.stringify(body)}`;
+      }
+      const authToken = getAuthToken();
+      if (authToken) {
+        headers.Authorization = authToken;
+      } else if (authenticated) {
+        const error = new Error('Client Error. Auth token does not exist');
+        error.errors = [
+          {
+            title: 'Client Error',
+            detail: 'Auth token does not exist',
+            source: {},
+          },
+        ];
+        throw error;
+      }
+      try {
         const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
-        if (response.status === 401) {
-          yield put(AuthActions.SignOut());
-        }
         return response;
-      };
-    });
-  } else {
-    httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = function* _(endpoint, body, options) {
-        let url = `${baseURL}${endpoint}`;
-        if (method === 'GET' && body) {
-          url = `${url}?${queryString.stringify(body)}`;
+      } catch (error) {
+        if (error.response.status === 401 && authToken) {
+          yield put(AuthActions.signOut());
         }
-        return yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
-      };
-    });
-  }
+        throw error;
+      }
+    };
+  });
+
   return api;
 };
 

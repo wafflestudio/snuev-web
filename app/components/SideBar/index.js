@@ -11,7 +11,10 @@ import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
 const SideBarWrapper = styled.aside`
-  grid-area: sidebar;
+  width: 250px;
+  min-width: 250px;
+  height: 100%;
+  border-right: solid 1px #cccccc;
 `;
 
 function SideBar() {

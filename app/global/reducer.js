@@ -8,9 +8,9 @@ export const { Types, Creators } = createActions({
   signInRequest: ['data'],
   signInSuccess: ['payload'],
   signInFailure: ['error'],
-  userInformationRequest: null,
-  userInformationSuccess: ['payload'],
-  userInformationFailure: ['error'],
+  userRequest: null,
+  userSuccess: ['payload'],
+  userFailure: ['error'],
   signOut: null,
 });
 
@@ -18,9 +18,16 @@ export const { Types, Creators } = createActions({
 
 export const initialState = fromJS({
   keyword: null,
-  user: null,
-  isFetching: false,
-  error: null,
+  signIn: {
+    payload: null,
+    isFetching: false,
+    error: null,
+  },
+  user: {
+    payload: null,
+    isFetching: false,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
@@ -29,23 +36,32 @@ export const initialState = fromJS({
 export const search = (state, { keyword }) =>
   state.merge({ keyword });
 
-export const request = (state) =>
-  state.merge({ isFetching: true, error: null });
+export const signInRequest = (state) =>
+  state.mergeDeep({ signIn: { isFetching: true, error: null } });
 
-export const success = (state, { payload }) =>
-  state.merge({ isFetching: false, error: null, user: payload });
+export const signInSuccess = (state, { payload }) =>
+  state.mergeDeep({ signIn: { isFetching: false, error: null, payload } });
 
-export const failure = (state, { error }) =>
-  state.merge({ isFetching: false, error });
+export const signInFailure = (state, { error }) =>
+  state.mergeDeep({ signIn: { isFetching: false, error } });
+
+export const userRequest = (state) =>
+  state.mergeDeep({ user: { isFetching: true, error: null } });
+
+export const userSuccess = (state, { payload }) =>
+  state.mergeDeep({ user: { isFetching: false, error: null, payload } });
+
+export const userFailure = (state, { error }) =>
+  state.mergeDeep({ user: { isFetching: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
   [Types.SAMPLE_REQUEST]: search,
-  [Types.SIGN_IN_REQUEST]: request,
-  [Types.SIGN_IN_SUCCESS]: success,
-  [Types.SIGN_IN_FAILURE]: failure,
-  [Types.USER_INFORMATION_REQUEST]: request,
-  [Types.USER_INFORMATION_SUCCESS]: success,
-  [Types.USER_INFORMATION_FAILURE]: failure,
+  [Types.SIGN_IN_REQUEST]: signInRequest,
+  [Types.SIGN_IN_SUCCESS]: signInSuccess,
+  [Types.SIGN_IN_FAILURE]: signInFailure,
+  [Types.USER_REQUEST]: userRequest,
+  [Types.USER_SUCCESS]: userSuccess,
+  [Types.USER_FAILURE]: userFailure,
 });

@@ -15,10 +15,10 @@ export default defineMessages({
   login: '로그인',
   input: {
     usernameHint: 'mysnu account',
-    passwordHint: 'password'
+    passwordHint: 'password',
   },
   signup: {
     question: '아직 계정이 없나요?',
-    message: '회원가입'
-  }
+    message: '회원가입',
+  },
 });
