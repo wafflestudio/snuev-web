@@ -1,36 +1,46 @@
-import request from '../utils/request';
+import { put } from 'redux-saga/effects';
+import queryString from 'query-string';
+import fetch from '../utils/fetch';
+import { Creators as AuthActions } from '../global/reducer';
+import { getAuthToken } from "./localStorage";
 
-const create = () => {
-  const API_URL = 'http://localhost:3001';
+const createAPI = (customURL, headers, config) => {
+  const baseURL = customURL || process.env.API_HOST;
+  console.log(baseURL);
+  const authenticated = (config && config.authenticated) ? config.authenticated : false;
+  const httpMethods = (config && config.httpMethods) ? config.httpMethods : ['GET', 'POST', 'PUT', 'DELETE'];
+  headers = headers || { 'Content-Type': 'application/json' };
 
-  const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
-    const baseURL = customURL || API_URL;
+  const api = {};
 
-    const api = {};
-    const httpMethods = config.httpMethods && config.httpMethods.length > 0 ? config.httpMethods : ['GET', 'POST', 'PUT', 'DELETE'];
-
+  if (authenticated) {
     httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = (endpoint, body, options) =>
-        request(`${baseURL}${endpoint}`, { method, body: JSON.stringify(body), headers: headers(), ...options });
+      api[method.toLowerCase()] = function* _(endpoint, body, options) {
+        let url = `${baseURL}${endpoint}`;
+        if (method === 'GET' && body) {
+          url = `${url}?${queryString.stringify(body)}`;
+        }
+        headers.Authorization = getAuthToken();
+        const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
+        if (response.status === 401) {
+          yield put(AuthActions.SignOut());
+        }
+        return response;
+      };
     });
-
-    return api;
-  };
-
-  const api = createAPI(null, () => ({ 'Content-Type': 'application/json' }));
-  const authenticatedAPI = createAPI(null, () => ({ 'Content-Type': 'application/json', Authorization: localStorage.getItem("auth_token") }));
-
-  return {
-    getPost: (postId) => api.get(`/posts/${postId}`),
-    getPosts: () => api.get('/posts'),
-    signup: (data) => api.post('/v1/user', data),
-    emailConfirmation: (confirmation_token) => api.get(`/v1/user/confirm_email?confirmation_token=${confirmation_token}`),
-    getUser: () => authenticatedAPI.get('/v1/user'),
-    validate: () => authenticatedAPI.get('/v1/user'),
-    login: (data) => api.post('/v1/user/sign_in', data),
-  };
+  } else {
+    httpMethods.forEach((method) => {
+      api[method.toLowerCase()] = function* _(endpoint, body, options) {
+        let url = `${baseURL}${endpoint}`;
+        if (method === 'GET' && body) {
+          url = `${url}?${queryString.stringify(body)}`;
+        }
+        return yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
+      };
+    });
+  }
+  return api;
 };
 
-console.log('called api create');
-
-export default create();
+export const authRequest = createAPI(null, null, { authenticated: true });
+export const request = createAPI();

@@ -4,72 +4,90 @@
  *
  */
 
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import makeSelectLoginPage from './selectors';
-import { Creators as Actions } from './reducer';
+import Helmet from 'react-helmet';
+import { Creators as Actions } from '../../global/reducer';
+import messages from './messages';
+import {
+  Background,
+  LoginForm,
+  Logo,
+  WelcomeText,
+  Input,
+  RecoverPasswordLink,
+  LoginButton,
+  LoginText,
+  SignUpWrapper,
+  SignUpText,
+  SignUpLink,
+} from './index.style';
 
-export class LoginPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class LoginPage extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
       password: '',
     };
-    this.usernameChange = this.usernameChange.bind(this);
-    this.passwordChange = this.passwordChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-  
-  usernameChange(event) {
-    this.setState({ username: event.target.value });
+    this.handleSignIn = this.handleSignIn.bind(this);
   }
 
-  passwordChange(event) {
-    this.setState({ password: event.target.value });
-  }
-
-  handleSubmit(event) {
+  handleSignIn(event) {
     event.preventDefault();
-    this.props.onLoginRequest({ username: this.state.username, password: this.state.password });
+    this.props.signIn(this.state);
   }
 
   render() {
     return (
-      <div>
-        <form onSubmit = {this.handleSubmit}>
-          <label>
-            아이디 :
-            <input type="text" value={this.state.username} onChange={this.usernameChange}/>
-          </label>
-          <br/>
-          <label>
-            비밀번호 :
-            <input type="password" value={this.state.password} onChange={this.passwordChange}/>
-          </label>
-          <br/>
-          <input type="submit" value="로그인"/>
-        </form>
-      </div>
+      <Background>
+        <Helmet
+          title="LoginPage"
+          meta={[
+            { name: 'description', content: 'Description of LoginPage' },
+          ]}
+        />
+        <LoginForm onSubmit={this.handleSignIn}>
+          <Logo />
+          <WelcomeText>
+            {messages.welcome}
+          </WelcomeText>
+          <Input
+            type="text"
+            value={this.state.username}
+            onChange={(event) => this.setState({ username: event.target.value })}
+            placeholder={messages.input.usernameHint}
+          />
+          <Input
+            type="password"
+            value={this.state.password}
+            onChange={(event) => this.setState({ password: event.target.value })}
+            placeholder={messages.input.passwordHint}
+          />
+          <RecoverPasswordLink>
+            {messages.recoverPassword}
+          </RecoverPasswordLink>
+          <LoginButton type="submit">
+            <LoginText>
+              {messages.login}
+            </LoginText>
+          </LoginButton>
+          <SignUpWrapper>
+            <SignUpText>
+              {messages.signup.question}
+            </SignUpText>
+            <SignUpLink>
+              {messages.signup.message}
+            </SignUpLink>
+          </SignUpWrapper>
+        </LoginForm>
+      </Background>
     );
   }
 }
 
-LoginPage.propTypes = {
-  onLoginRequest: PropTypes.func.isRequired
-};
-
-const mapStateToProps = createStructuredSelector({
-  LoginPage: makeSelectLoginPage(),
+const mapDispatchToProps = (dispatch) => ({
+  signIn: ({ username, password }) => dispatch(Actions.signInRequest({ username, password })),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onLoginRequest: (data) => {
-      dispatch(Actions.loginRequest(data));
-    }
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default connect(null, mapDispatchToProps)(LoginPage);

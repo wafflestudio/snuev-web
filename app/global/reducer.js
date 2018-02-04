@@ -4,39 +4,48 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  validateRequest: ['data'],
-  validateSuccess: ['payload'],
-  validateFailure: ['error'],
+  sampleRequest: ['keyword'],
+  signInRequest: ['data'],
+  signInSuccess: ['payload'],
+  signInFailure: ['error'],
+  userInformationRequest: null,
+  userInformationSuccess: ['payload'],
+  userInformationFailure: ['error'],
+  signOut: null,
 });
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  data: null,
+  keyword: null,
+  user: null,
   isFetching: false,
-  payload: null,
-  error: false,
+  error: null,
 });
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ data, isFetching: true, payload: null, error: null });
+export const search = (state, { keyword }) =>
+  state.merge({ keyword });
 
-// successful api lookup
+export const request = (state) =>
+  state.merge({ isFetching: true, error: null });
+
 export const success = (state, { payload }) =>
-  state.merge({ isFetching: false, payload, error: null });
+  state.merge({ isFetching: false, error: null, user: payload });
 
-// Something went wrong somewhere.
-export const failure = state =>
-  state.merge({ isFetching: false, payload: null, error: true });
-  // body...
+export const failure = (state, { error }) =>
+  state.merge({ isFetching: false, error });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.VALIDATE_REQUEST]: request,
-  [Types.VALIDATE_SUCCESS]: success,
-  [Types.VALIDATE_FAILURE]: failure,
+  [Types.SAMPLE_REQUEST]: search,
+  [Types.SIGN_IN_REQUEST]: request,
+  [Types.SIGN_IN_SUCCESS]: success,
+  [Types.SIGN_IN_FAILURE]: failure,
+  [Types.USER_INFORMATION_REQUEST]: request,
+  [Types.USER_INFORMATION_SUCCESS]: success,
+  [Types.USER_INFORMATION_FAILURE]: failure,
 });

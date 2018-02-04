@@ -1,7 +1,7 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types as ConfirmEmailTypes, Creators as ConfirmEmailActions } from './reducer';
 import { browserHistory } from 'react-router';
-import api from 'services/api';
+import { request } from 'services/api';
 
 // Individual exports for testing
 export function* defaultSaga() {
@@ -10,7 +10,7 @@ export function* defaultSaga() {
 }
 
 export function* confirmEmail(token) {
-  const response = yield call(api.emailConfirmation, token.data);
+  const response = yield request.get(`/v1/user/confirm_email?confirmation_token=${token.data}`, token.data);
   console.log(response);
   if (response.ok) {
     console.log(response.data);
