@@ -38,7 +38,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/login',
+      path: '/sign_in',
       name: 'loginPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([

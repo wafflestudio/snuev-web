@@ -2,7 +2,7 @@ import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 import fetch from '../utils/fetch';
 import { Creators as AuthActions } from '../global/reducer';
-import { getAuthToken } from './localStorage';
+import { getAuthToken, authTokenExists } from './localStorage';
 
 const createAPI = (customURL, headers, config) => {
   const baseURL = customURL || process.env.API_HOST;
@@ -12,32 +12,37 @@ const createAPI = (customURL, headers, config) => {
 
   const api = {};
 
-  if (authenticated) {
-    httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = function* _(endpoint, body, options) {
-        let url = `${baseURL}${endpoint}`;
-        if (method === 'GET' && body) {
-          url = `${url}?${queryString.stringify(body)}`;
-        }
+  httpMethods.forEach((method) => {
+    api[method.toLowerCase()] = function* _(endpoint, body, options) {
+      let url = `${baseURL}${endpoint}`;
+      if (method === 'GET' && body) {
+        url = `${url}?${queryString.stringify(body)}`;
+      }
+      if (authTokenExists()) {
         headers.Authorization = getAuthToken();
+      } else if (authenticated) {
+        const error = new Error('Client Error. Auth token does not exist');
+        error.errors = [
+          {
+            title: 'Client Error',
+            detail: 'Auth token does not exist',
+            source: {},
+          },
+        ];
+        throw error;
+      }
+      try {
         const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
-        if (response.status === 401) {
-          yield put(AuthActions.SignOut());
-        }
         return response;
-      };
-    });
-  } else {
-    httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = function* _(endpoint, body, options) {
-        let url = `${baseURL}${endpoint}`;
-        if (method === 'GET' && body) {
-          url = `${url}?${queryString.stringify(body)}`;
+      } catch (error) {
+        if (error.response.status === 401 && authTokenExists()) {
+          yield put(AuthActions.signOut());
         }
-        return yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
-      };
-    });
-  }
+        throw error;
+      }
+    };
+  });
+
   return api;
 };
 

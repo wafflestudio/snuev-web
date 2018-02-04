@@ -1,7 +1,7 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
-import { setAuthToken, clearAuthToken } from "../services/localStorage";
+import { setAuthToken, clearAuthToken } from '../services/localStorage';
 
 export function* getSamples() {
 }
@@ -26,28 +26,28 @@ export function* watchSignOut() {
 
 export function* watchUserInformationRequest() {
   while (true) {
-    yield take(Types.USER_INFORMATION_REQUEST);
+    yield take(Types.USER_REQUEST);
     yield call(userInformation);
   }
 }
 
 export function* signIn({ username, password }) {
-  const response = yield request.post('/v1/user/sign_in', { username, password });
-  if (response.ok) {
+  try {
+    const response = yield request.post('/v1/user/sign_in', { username, password });
     yield put(Actions.signInSuccess(response.data));
     setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
-  } else {
-    yield put(Actions.signInFailure(response.data));
+  } catch (error) {
+    yield put(Actions.signInFailure(error.errors));
   }
 }
 
 export function* userInformation() {
-  const response = yield authRequest.get('/v1/user');
-  if (response.ok) {
-    yield put(Actions.userInformationSuccess(response.data));
-  } else {
-    yield put(Actions.userInformationFailure(response.data));
+  try {
+    const response = yield authRequest.get('/v1/user');
+    yield put(Actions.userSuccess(response.data));
+  } catch (error) {
+    yield put(Actions.userFailure(error.errors));
   }
 }
 
