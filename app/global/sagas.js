@@ -1,7 +1,7 @@
 import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
-import { setAuthToken, clearAuthToken } from "../services/localStorage";
+import { setAuthToken, clearAuthToken } from '../services/localStorage';
 
 export function* getSamples() {
 }

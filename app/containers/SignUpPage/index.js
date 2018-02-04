@@ -7,12 +7,26 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
-import { createStructuredSelector } from 'reselect';
-import makeSelectSignUpPage from './selectors';
-import messages from './messages';
+import { Creators as Actions } from './reducer';
 
-export class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class SignUpPage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      username: '',
+      email: '',
+      password: '',
+      nickname: '',
+      department: '컴퓨터공학부',
+    };
+    this.handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  handleSignUp(event) {
+    event.preventDefault();
+    this.props.signUp(this.state);
+  }
+
   render() {
     return (
       <div>
@@ -22,24 +36,59 @@ export class SignUpPage extends React.PureComponent { // eslint-disable-line rea
             { name: 'description', content: 'Description of SignUpPage' },
           ]}
         />
-        <FormattedMessage {...messages.header} />
+        <form onSubmit={this.handleSignUp}>
+          <label>
+            이메일 :
+            <input
+              type="text"
+              value={this.state.username}
+              onChange={(event) => this.setState({ username: event.target.value })}
+            />
+            @snu.ac.kr
+          </label>
+          <br />
+          <label>
+            비밀번호 :
+            <input
+              type="password"
+              value={this.state.password}
+              onChange={(event) => this.setState({ password: event.target.value })}
+            />
+          </label>
+          <br />
+          <label>
+            닉네임 :
+            <input
+              type="text"
+              value={this.state.nickname}
+              onChange={(event) => this.setState({ nickname: event.target.value })}
+            />
+          </label>
+          <br />
+          <label>
+            전공 학부 :
+            <select
+              value={this.state.department}
+              onChange={(event) => this.setState({ department: event.target.value })}
+            >
+              <option value="컴퓨터공학부">컴퓨터공학부</option>
+              <option value="전기전자공학부">전기전자공학부</option>
+              <option value="영어영문학과">영어영문학과</option>
+            </select>
+          </label>
+          <br />
+          <input
+            type="submit"
+            value="완료"
+          />
+        </form>
       </div>
     );
   }
 }
 
-SignUpPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = createStructuredSelector({
-  SignUpPage: makeSelectSignUpPage(),
+const mapDispatchToProps = (dispatch) => ({
+  signUp: ({ username, password, nickname }) => dispatch(Actions.signUpRequest({ username, password, nickname })),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(null, mapDispatchToProps)(SignUpPage);

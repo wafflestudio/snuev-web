@@ -98,6 +98,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/confirm_email/:confirmation_token',
+      name: 'confirm_email',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ConfirmEmailPage/reducer'),
+          import('containers/ConfirmEmailPage/sagas'),
+          import('containers/ConfirmEmailPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('confirmEmailPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
