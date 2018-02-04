@@ -79,12 +79,12 @@ export default function createRoutes(store) {
       },
     }, {
       path: '/lecture',
-      name: 'lectureDetail',
+      name: 'lecturePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/LectureDetail/reducer'),
-          import('containers/LectureDetail/sagas'),
-          import('containers/LectureDetail'),
+          import('containers/LecturePage/reducer'),
+          import('containers/LecturePage/sagas'),
+          import('containers/LecturePage'),
         ]);
 
         const renderRoute = loadModule(cb);

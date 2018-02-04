@@ -31,7 +31,7 @@ import {
 
 import withBars from '../../services/withBars';
 
-export class EvaluationDetail extends React.PureComponent {
+export class LecturePage extends React.PureComponent {
   constructor(props) {
     super(props);
   }
@@ -41,9 +41,9 @@ export class EvaluationDetail extends React.PureComponent {
       <Background>
         <div>
           <Helmet
-            title="LectureDetail"
+            title="LecturePage"
             meta={[
-              { name: 'description', content: 'Description of EvaluationDetail' },
+              { name: 'description', content: 'Description of Lecture Page' },
             ]}
           />
         </div>
@@ -113,6 +113,7 @@ export class EvaluationDetail extends React.PureComponent {
         </Wrapper>
         <Evaluation />
         <Evaluation />
+        <Evaluation />
       </Background>
     );
   }
@@ -122,4 +123,4 @@ const mapStateToProps = (state) => ({});
 
 const mapDispatchToProps = (dispatch) => ({});
 
-export default withBars(connect(mapStateToProps, mapDispatchToProps)(EvaluationDetail));
+export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
