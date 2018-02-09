@@ -220,6 +220,7 @@
     "intl": "1.2.5",
     "invariant": "2.2.2",
     "ip": "1.1.4",
+    "json-api-normalize": "^1.1.5",
     "lodash": "4.17.2",
     "minimist": "1.2.0",
     "query-string": "^5.0.1",

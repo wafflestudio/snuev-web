@@ -6,6 +6,7 @@ export default (props) => (
   <Rating
     emptySymbol={props.small ? <SmallStarEmpty /> : <StarEmpty />}
     fullSymbol={props.small ? <SmallStarFull /> : <StarFull />}
+    initialRating={props.score / 2}
     {...props}
   />
 );

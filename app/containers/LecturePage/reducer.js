@@ -7,37 +7,38 @@
 import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
 
+import normalize from '../../services/normalize';
+
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
   getLectureRequest: ['id'],
   getLectureSuccess: ['payload'],
-  getLectureFailure: null,
+  getLectureFailure: ['error'],
 });
 
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  data: null,
   isFetching: false,
   payload: null,
-  error: false,
+  error: null,
 });
 
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ data, isFetching: true, payload: null, error: null });
+export const request = (state) =>
+  state.merge({ isFetching: true, payload: null, error: null });
 
 // successful api lookup
 export const success = (state, { payload }) =>
-  state.merge({ isFetching: false, payload, error: null });
+  state.merge({ isFetching: false, payload: normalize(payload), error: null });
 
 // Something went wrong somewhere.
-export const failure = (state) =>
-  state.merge({ isFetching: false, payload: null, error: true });
+export const failure = (state, { error }) =>
+  state.merge({ isFetching: false, payload: null, error });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

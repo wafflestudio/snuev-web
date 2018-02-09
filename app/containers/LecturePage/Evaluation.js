@@ -38,16 +38,16 @@ const ReviewText = styled.p`
   color: #111111;
 `;
 
-export default () => (
+export default (props) => (
   <Wrapper>
     <ColumnWrapper>
       <RowWrapper>
         <SpaceBetween>
           <div>
             <Score>
-              9.5
+              {props.score.toFixed(1)}
             </Score>
-            <Rating small initialRating={5} readonly />
+            <Rating small score={props.score} readonly />
             <DateText>
               2017/05/12 작성
             </DateText>
