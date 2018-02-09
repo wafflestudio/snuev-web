@@ -73,7 +73,7 @@ export class LecturePage extends React.PureComponent {
               <LectureScore>
                 {lecture.get('score').toFixed(1)}
               </LectureScore>
-              <Rating score={lecture.get('score')} readonly />
+              <Rating initialRating={lecture.get('score')} readonly />
               <ReviewCountText>
                 {messages.evaluationsCount(lecture.get('evaluationsCount'))}
               </ReviewCountText>

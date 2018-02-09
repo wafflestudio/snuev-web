@@ -47,7 +47,7 @@ export default (props) => (
             <Score>
               {props.score.toFixed(1)}
             </Score>
-            <Rating small score={props.score} readonly />
+            <Rating small initialRating={props.score} readonly />
             <DateText>
               2017/05/12 작성
             </DateText>
