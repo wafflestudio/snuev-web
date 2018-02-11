@@ -38,7 +38,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/login',
+      path: '/sign_in',
       name: 'loginPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -78,13 +78,13 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/evaluate',
-      name: 'evaluatePage',
+      path: '/lecture',
+      name: 'lecturePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/EvaluatePage/reducer'),
-          import('containers/EvaluatePage/sagas'),
-          import('containers/EvaluatePage'),
+          import('containers/LecturePage/reducer'),
+          import('containers/LecturePage/sagas'),
+          import('containers/LecturePage'),
         ]);
 
         const renderRoute = loadModule(cb);

@@ -4,16 +4,15 @@
  *
  */
 
-
 import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
 
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  evaluatePageRequest: ['data'],
-  evaluatePageSuccess: ['payload'],
-  evaluatePageFailure: null,
+  getLectureRequest: ['id'],
+  getLectureSuccess: ['payload'],
+  getLectureFailure: null,
 });
 
 
@@ -44,7 +43,7 @@ export const failure = (state) =>
 
 // should convert uppercase to screaming snake_case
 export default createReducer(initialState, {
-  [Types.EVALUATE_PAGE_REQUEST]: request,
-  [Types.EVALUATE_PAGE_SUCCESS]: success,
-  [Types.EVALUATE_PAGE_FAILURE]: failure,
+  [Types.GET_LECTURE_REQUEST]: request,
+  [Types.GET_LECTURE_SUCCESS]: success,
+  [Types.GET_LECTURE_FAILURE]: failure,
 });

@@ -1,32 +1,53 @@
-import request from '../utils/request';
+import { put } from 'redux-saga/effects';
+import queryString from 'query-string';
+import fetch from '../utils/fetch';
+import { Creators as AuthActions } from '../global/reducer';
+import { getAuthToken } from './localStorage';
 
-const create = () => {
-  const API_URL = process.env.API_HOST;
+const createAPI = (customURL, headers, config) => {
+  const baseURL = customURL || process.env.API_HOST;
+  const authenticated = (config && config.authenticated) ? config.authenticated : false;
+  const httpMethods = (config && config.httpMethods) ? config.httpMethods : ['GET', 'POST', 'PUT', 'DELETE'];
+  headers = headers || { 'Content-Type': 'application/json' };
 
-  const createAPI = (customURL, headers, config = { httpMethods: [] }) => {
-    const baseURL = customURL || API_URL;
+  const api = {};
 
-    const api = {};
-    const httpMethods = config.httpMethods && config.httpMethods.length > 0 ? config.httpMethods : ['GET', 'POST', 'PUT', 'DELETE'];
+  httpMethods.forEach((method) => {
+    api[method.toLowerCase()] = function* _(endpoint, body, options) {
+      let url = `${baseURL}${endpoint}`;
+      if (method === 'GET' && body) {
+        url = `${url}?${queryString.stringify(body)}`;
+      }
+      const authToken = getAuthToken();
+      if (authToken) {
+        headers.Authorization = authToken;
+      } else if (authenticated) {
+        const error = new Error('Client Error. Auth token does not exist');
+        error.errors = [
+          {
+            title: 'Client Error',
+            detail: 'Auth token does not exist',
+            source: {},
+          },
+        ];
+        throw error;
+      }
+      try {
+        const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
+        return response;
+      } catch (error) {
+        if (error.response.status === 401 && authToken) {
+          yield put(AuthActions.signOut());
+        }
+        throw error;
+      }
+    };
+  });
 
-    httpMethods.forEach((method) => {
-      api[method.toLowerCase()] = (endpoint, body, options) =>
-        request(`${baseURL}${endpoint}`, { method, body, headers, ...options });
-    });
-
-    return api;
-  };
-
-  const api = createAPI(null, { 'Content-Type': 'application/json', Authorization: 'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJleHAiOjE1MTU0OTc3NTksImlhdCI6MTUxNTMyNDk1OX0.Fr0ucZxgI-CuEjNEghyzaA9VOMoGAuecE4dW2pFSUiY' });
-  // const authenticatedAPI = createAPI(null, { 'Content-Type': 'application/json', Authorization: `Bearer TOKEN` });
-
-  return {
-    getLectureDetail: (lectureId) => api.get(`/v1/lectures/${lectureId}`),
-    getPost: (postId) => api.get(`/posts/${postId}`),
-    getPosts: () => api.get('/posts'),
-  };
+  return api;
 };
 
-console.log('called api create');
+export const authRequest = createAPI(null, null, { authenticated: true });
+export const request = createAPI();
 
-export default create();
+export default createAPI;
