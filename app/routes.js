@@ -78,7 +78,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/lecture',
+      path: '/lectures/:lectureId',
       name: 'lecturePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -90,7 +90,7 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('evaluatePage', reducer.default);
+          injectReducer('lecturePage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
@@ -98,27 +98,6 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/lectures/:lectureId',
-      name: 'lectureDetailPage',
-      getComponent(nextState, cb) {
-        const importModules = Promise.all([
-          import('containers/LectureDetailPage/reducer'),
-          import('containers/LectureDetailPage/sagas'),
-          import('containers/LectureDetailPage'),
-        ]);
-
-        const renderRoute = loadModule(cb);
-
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('lectureDetailPage', reducer.default);
-          injectSagas(sagas.default);
-          renderRoute(component);
-        });
-
-        importModules.catch(errorLoading);
-      },
-    },
-    {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
