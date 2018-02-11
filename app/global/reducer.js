@@ -18,7 +18,7 @@ export const initialState = fromJS({
 
 // request the data from an api
 export const normalizeData = (state, { data }) =>
-  state.merge({ normalizedData: normalize(data) });
+  state.merge({ entities: normalize(data) });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
