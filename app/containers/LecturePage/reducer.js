@@ -1,6 +1,6 @@
 /*
  *
- * LectureDetailPage reducer
+ * LecturePage reducer
  *
  */
 
@@ -37,8 +37,8 @@ export const success = (state) =>
   state.merge({ isFetching: false, error: null });
 
 // Something went wrong somewhere.
-export const failure = (state) =>
-  state.merge({ isFetching: false, error: true });
+export const failure = (state, { error }) =>
+  state.merge({ isFetching: false, error });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

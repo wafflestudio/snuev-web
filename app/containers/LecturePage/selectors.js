@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { makeSelectNormalizedData } from 'global/selectors';
+import { makeSelectEntities } from 'global/selectors';
 import { denormalize } from 'utils/denormalize';
 
 /**
@@ -32,9 +32,9 @@ const makeSelectError = () => createSelector(
 );
 
 const makeSelectLecture = () => createSelector(
-  makeSelectNormalizedData(),
+  makeSelectEntities(),
   selectLectureDetailPageDomain(),
-  (normalizedData, substate) => denormalize(normalizedData, 'lectures', substate.get('data')),
+  (entities, substate) => denormalize(entities, 'lectures', substate.get('data')),
 );
 
 export {

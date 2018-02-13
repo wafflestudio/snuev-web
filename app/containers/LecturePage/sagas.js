@@ -7,13 +7,13 @@ import { request } from '../../services/api';
 
 export function* getLectureDetail({ data: actionData }) {
   const lectureId = actionData;
-  const response = yield request.get(`/v1/lectures/${lectureId}`);
-  if (response.ok) {
+  try {
+    const response = yield request.get(`/v1/lectures/${lectureId}`);
     const { data } = response;
     yield put(GlobalActions.normalizeData(data));
     yield put(Actions.getLectureDetailSuccess());
-  } else {
-    yield put(Actions.getLectureDetailFailure());
+  } catch (error) {
+    yield put(Actions.getLectureDetailFailure(error.errors));
   }
 }
 export function* watchGetLectureDetail() {

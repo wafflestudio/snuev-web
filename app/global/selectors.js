@@ -19,13 +19,13 @@ const makeSelectGlobalPage = () => createSelector(
   (substate) => substate.toJS()
 );
 
-const makeSelectNormalizedData = () => createSelector(
+const makeSelectEntities = () => createSelector(
   selectGlobalDomain(),
-  (substate) => substate.get('normalizedData'),
+  (substate) => substate.get('entities'),
 );
 
 export default selectGlobalDomain;
 export {
   makeSelectGlobalPage,
-  makeSelectNormalizedData,
+  makeSelectEntities,
 };

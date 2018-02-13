@@ -5,8 +5,6 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import Immutable from 'immutable';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -122,15 +120,6 @@ export class LecturePage extends React.PureComponent {
     );
   }
 }
-
-
-LecturePage.propTypes = {
-  onGetLectureDetailRequest: PropTypes.func.isRequired,
-  params: PropTypes.object,
-  isFetching: PropTypes.bool,
-  error: PropTypes.object,
-  lecture: PropTypes.instanceOf(Immutable.Map),
-};
 
 
 const mapStateToProps = createStructuredSelector({
