@@ -7,9 +7,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
 
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
+import { makeSelectError, makeSelectIsFetching, makeSelectLecture } from './selectors';
 import {
   Wrapper,
   ColumnWrapper,
@@ -28,12 +30,12 @@ import {
   LeaveReviewButton,
   LeaveReviewText,
 } from './index.style';
-
+import { Creators as Actions } from './reducer';
 import withBars from '../../services/withBars';
 
 export class LecturePage extends React.PureComponent {
-  constructor(props) {
-    super(props);
+  componentDidMount() {
+    this.props.onGetLectureDetailRequest(this.props.params.lectureId);
   }
 
   render() {
@@ -119,8 +121,20 @@ export class LecturePage extends React.PureComponent {
   }
 }
 
-const mapStateToProps = (state) => ({});
 
-const mapDispatchToProps = (dispatch) => ({});
+const mapStateToProps = createStructuredSelector({
+  isFetching: makeSelectIsFetching(),
+  error: makeSelectError(),
+  lecture: makeSelectLecture(),
+});
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onGetLectureDetailRequest: (lectureId) => {
+      dispatch(Actions.getLectureDetailRequest(lectureId));
+    },
+  };
+}
+
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

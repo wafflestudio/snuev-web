@@ -1,9 +1,11 @@
 import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
+import normalize from 'json-api-normalizer';
 
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
+  normalizeData: ['data'],
   sampleRequest: ['keyword'],
   signInRequest: ['data'],
   signInSuccess: ['payload'],
@@ -17,6 +19,7 @@ export const { Types, Creators } = createActions({
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
+  entities: null,
   keyword: null,
   signIn: {
     payload: null,
@@ -33,6 +36,8 @@ export const initialState = fromJS({
 /* ------------- Reducers ------------- */
 
 // request the data from an api
+export const normalizeData = (state, { data }) =>
+  state.merge({ entities: normalize(data) });
 export const search = (state, { keyword }) =>
   state.merge({ keyword });
 
@@ -57,6 +62,7 @@ export const userFailure = (state, { error }) =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
+  [Types.NORMALIZE_DATA]: normalizeData,
   [Types.SAMPLE_REQUEST]: search,
   [Types.SIGN_IN_REQUEST]: signInRequest,
   [Types.SIGN_IN_SUCCESS]: signInSuccess,
