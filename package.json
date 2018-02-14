@@ -60,7 +60,8 @@
         }
       ],
       "react",
-      "stage-0"
+      "stage-0",
+      "flow"
     ],
     "env": {
       "production": {
@@ -257,6 +258,7 @@
     "babel-plugin-transform-react-constant-elements": "6.9.1",
     "babel-plugin-transform-react-inline-elements": "6.8.0",
     "babel-plugin-transform-react-remove-prop-types": "0.2.11",
+    "babel-preset-flow": "^6.23.0",
     "babel-preset-latest": "6.16.0",
     "babel-preset-react": "6.16.0",
     "babel-preset-react-hmre": "1.1.1",
