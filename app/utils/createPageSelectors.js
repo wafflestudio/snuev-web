@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect';
 
-export const createPageSelectors = (pageName, payloadName) => {
+export const createPageSelectors = (pageName, payloadName, customMakeSelectPage) => {
   const payload = payloadName || 'payload';
-  const makeSelectPage = () => (state) => state.get(pageName);
+  const makeSelectPage = customMakeSelectPage || (() => (state) => state.get(pageName));
   const makeSelectPayload = () => createSelector(
     makeSelectPage(),
     (page) => page.get(payload)

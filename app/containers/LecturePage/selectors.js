@@ -1,11 +1,10 @@
-import { createPageSelectors } from '../../utils/createPageSelectors';
 import { createSelector } from 'reselect';
-import { makeSelectEntities } from 'global/selectors';
-import { denormalize } from 'utils/denormalize';
+import { createPageSelectors } from '../../utils/createPageSelectors';
+import { makeSelectEntities } from '../../global/selectors';
+import { denormalize } from '../../utils/denormalize';
 
 const {
   makeSelectPage,
-  makeSelectData,
   makeSelectIsFetching,
   makeSelectError,
 } = createPageSelectors('lecturePage');
@@ -17,7 +16,6 @@ const makeSelectLecture = () => createSelector(
 );
 
 export {
-  makeSelectData,
   makeSelectIsFetching,
   makeSelectError,
   makeSelectLecture,

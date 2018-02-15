@@ -38,6 +38,7 @@ export const initialState = fromJS({
 // request the data from an api
 export const normalizeData = (state, { data }) =>
   state.merge({ entities: normalize(data) });
+
 export const search = (state, { keyword }) =>
   state.merge({ keyword });
 

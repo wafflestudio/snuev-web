@@ -2,6 +2,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
+
 import { Creators as Actions } from '../../global/reducer';
 import messages from './messages';
 import {
@@ -17,6 +19,7 @@ import {
   SignUpText,
   SignUpLink,
 } from './index.style';
+import { makeSelectSignInIsFetching, makeSelectSignInError } from '../../global/selectors';
 
 type Props = {
   signIn: (State) => void,
@@ -90,8 +93,13 @@ export class LoginPage extends React.PureComponent<Props, State> {
   }
 }
 
+const mapStateToProps = createStructuredSelector({
+  isFetching: makeSelectSignInIsFetching(),
+  error: makeSelectSignInError(),
+});
+
 const mapDispatchToProps = (dispatch: Function) => ({
   signIn: (credentials: { username: string, password: string }) => dispatch(Actions.signInRequest(credentials)),
 });
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
