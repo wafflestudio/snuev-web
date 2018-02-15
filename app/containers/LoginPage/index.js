@@ -1,9 +1,4 @@
-/*
- *
- * LoginPage
- *
- */
-
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -23,17 +18,26 @@ import {
   SignUpLink,
 } from './index.style';
 
-export class LoginPage extends React.PureComponent {
-  constructor(props) {
+type Props = {
+  signIn: (State) => void,
+};
+
+type State = {
+  username: string,
+  password: string,
+};
+
+export class LoginPage extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       username: '',
       password: '',
     };
-    this.handleSignIn = this.handleSignIn.bind(this);
+    (this: any).handleSignIn = this.handleSignIn.bind(this);
   }
 
-  handleSignIn(event) {
+  handleSignIn(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
     this.props.signIn(this.state);
   }
@@ -55,13 +59,13 @@ export class LoginPage extends React.PureComponent {
           <Input
             type="text"
             value={this.state.username}
-            onChange={(event) => this.setState({ username: event.target.value })}
+            onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
             placeholder={messages.input.usernameHint}
           />
           <Input
             type="password"
             value={this.state.password}
-            onChange={(event) => this.setState({ password: event.target.value })}
+            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
             placeholder={messages.input.passwordHint}
           />
           <RecoverPasswordLink>
@@ -86,8 +90,8 @@ export class LoginPage extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  signIn: ({ username, password }) => dispatch(Actions.signInRequest({ username, password })),
+const mapDispatchToProps = (dispatch: Function) => ({
+  signIn: (credentials: { username: string, password: string }) => dispatch(Actions.signInRequest(credentials)),
 });
 
 export default connect(null, mapDispatchToProps)(LoginPage);

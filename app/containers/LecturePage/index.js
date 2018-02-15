@@ -34,7 +34,7 @@ import withBars from '../../services/withBars';
 type Props = {
   lecture?: Object,
   isFetching: boolean,
-  error?: [Object],
+  error?: Object[],
   params: Object,
   getLecture: (id: number) => void,
 };
@@ -144,8 +144,8 @@ const mapStateToProps = createStructuredSelector({
   lecture: makeSelectLecture(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  getLecture: (id) => dispatch(Actions.getLectureDetailRequest(id)),
+const mapDispatchToProps = (dispatch: Function) => ({
+  getLecture: (id: number) => dispatch(Actions.getLectureDetailRequest(id)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
