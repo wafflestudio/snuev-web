@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import Rating from '../../components/Rating';
@@ -38,7 +39,11 @@ const ReviewText = styled.p`
   color: #111111;
 `;
 
-export default (props) => (
+type Props = {
+  score: number,
+};
+
+export default (props: Props) => (
   <Wrapper>
     <ColumnWrapper>
       <RowWrapper>

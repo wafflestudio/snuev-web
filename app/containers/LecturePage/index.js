@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
@@ -30,7 +31,15 @@ import {
 } from './index.style';
 import withBars from '../../services/withBars';
 
-export class LecturePage extends React.PureComponent {
+type Props = {
+  lecture?: Object,
+  isFetching: boolean,
+  error?: [Object],
+  params: Object,
+  getLecture: (id: number) => void,
+};
+
+export class LecturePage extends React.PureComponent<Props> {
   componentWillMount() {
     const id = parseId(this.props.params.lectureId);
     if (id) {
@@ -128,8 +137,6 @@ export class LecturePage extends React.PureComponent {
     );
   }
 }
-
-
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeSelectIsFetching(),
