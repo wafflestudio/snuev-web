@@ -2,20 +2,24 @@ import { createSelector } from 'reselect';
 
 export const createPageSelectors = (pageName, payloadName) => {
   const payload = payloadName || 'payload';
-  const selectPage = (state) => state.get(pageName);
+  const makeSelectPage = () => (state) => state.get(pageName);
   const makeSelectPayload = () => createSelector(
-    selectPage,
+    makeSelectPage(),
     (page) => page.get(payload)
   );
+  const makeSelectData = () => createSelector(
+    makeSelectPage(),
+    (page) => page.get('data')
+  );
   const makeSelectIsFetching = () => createSelector(
-    selectPage,
+    makeSelectPage(),
     (page) => page.get('isFetching')
   );
   const makeSelectError = () => createSelector(
-    selectPage,
+    makeSelectPage(),
     (page) => page.get('error')
   );
   return {
-    selectPage, makeSelectPayload, makeSelectIsFetching, makeSelectError,
+    makeSelectPage, makeSelectPayload, makeSelectData, makeSelectIsFetching, makeSelectError,
   };
 };

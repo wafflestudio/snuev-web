@@ -1,24 +1,26 @@
 import { take, call, put } from 'redux-saga/effects';
+import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request } from '../../services/api';
 
-export function* watchGetLectureRequest() {
+export function* watchGetLectureDetailRequest() {
   while (true) {
-    const { id } = yield take(Types.GET_LECTURE_REQUEST);
-    yield call(getLecture, id);
+    const { data } = yield take(Types.GET_LECTURE_DETAIL_REQUEST);
+    yield call(getLectureDetail, data);
   }
 }
 
-export function* getLecture(id) {
+export function* getLectureDetail(id) {
   try {
     const response = yield request.get(`/v1/lectures/${id}`);
-    yield put(Actions.getLectureSuccess(response.data));
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.getLectureDetailSuccess());
   } catch (error) {
-    yield put(Actions.getLectureFailure(error.errors));
+    yield put(Actions.getLectureDetailFailure(error.errors));
   }
 }
 
 // All sagas to be loaded
 export default [
-  watchGetLectureRequest,
+  watchGetLectureDetailRequest,
 ];

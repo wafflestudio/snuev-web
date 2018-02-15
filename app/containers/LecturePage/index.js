@@ -3,14 +3,13 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
-
 import { Creators as Actions } from './reducer';
-import { makeSelectPayload, makeSelectIsFetching, makeSelectError } from './selectors';
 import messages from './messages';
 import { parseId } from '../../utils/parse';
 
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
+import { makeSelectError, makeSelectIsFetching, makeSelectLecture } from './selectors';
 import {
   Wrapper,
   ColumnWrapper,
@@ -29,12 +28,11 @@ import {
   LeaveReviewButton,
   LeaveReviewText,
 } from './index.style';
-
 import withBars from '../../services/withBars';
 
 export class LecturePage extends React.PureComponent {
   componentWillMount() {
-    const id = parseId(this.props.params.id);
+    const id = parseId(this.props.params.lectureId);
     if (id) {
       this.props.getLecture(id);
     }
@@ -131,14 +129,16 @@ export class LecturePage extends React.PureComponent {
   }
 }
 
+
+
 const mapStateToProps = createStructuredSelector({
-  lecture: makeSelectPayload(),
-  loading: makeSelectIsFetching(),
+  isFetching: makeSelectIsFetching(),
   error: makeSelectError(),
+  lecture: makeSelectLecture(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getLecture: (id) => dispatch(Actions.getLectureRequest(id)),
+  getLecture: (id) => dispatch(Actions.getLectureDetailRequest(id)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

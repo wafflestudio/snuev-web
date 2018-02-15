@@ -7,7 +7,6 @@ export function* getSamples() {
 }
 
 export function* watchSample() {
-  yield takeLatest(Types.SAMPLE_REQUEST, getSamples);
 }
 
 export function* watchSignInRequest() {
