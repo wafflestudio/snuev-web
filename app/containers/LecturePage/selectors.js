@@ -12,11 +12,18 @@ const {
 const makeSelectLecture = () => createSelector(
   makeSelectEntities(),
   makeSelectPage(),
-  (entities, page) => denormalize(entities, 'lectures', page.get('data')),
+  (entities, page) => denormalize(entities, 'lectures', page.getIn(['id', 'lecture'])),
+);
+
+const makeSelectEvaluations = () => createSelector(
+  makeSelectEntities(),
+  makeSelectPage(),
+  (entities, page) => denormalize(entities, 'evaluations', page.getIn(['id', 'evaluation'])),
 );
 
 export {
   makeSelectIsFetching,
   makeSelectError,
   makeSelectLecture,
+  makeSelectEvaluations,
 };

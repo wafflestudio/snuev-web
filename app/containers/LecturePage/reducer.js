@@ -10,14 +10,19 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  getLectureDetailRequest: ['data'],
-  getLectureDetailSuccess: null,
-  getLectureDetailFailure: ['error'],
+  getLectureRequest: ['id'],
+  getLectureSuccess: null,
+  getLectureFailure: ['error'],
+  getEvaluationsSuccess: ['ids'],
 });
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
+  id: {
+    lecture: null,
+    evaluation: null,
+  },
   isFetching: false,
   error: null,
 });
@@ -25,9 +30,8 @@ export const initialState = fromJS({
 /* ------------- Reducers ------------- */
 
 // request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ data, isFetching: true, error: null });
-
+export const request = (state, { id }) =>
+  state.merge({ isFetching: true, error: null }).setIn(['id', 'lecture'], id);
 
 // successful api lookup
 export const success = (state) =>
@@ -35,13 +39,17 @@ export const success = (state) =>
 
 // Something went wrong somewhere.
 export const failure = (state, { error }) =>
-  state.merge({ isFetching: false, error });
+  state.merge({ isFetching: false, error }).setIn(['id', 'lecture'], null);
+
+export const getEvaluationsSuccess = (state, { ids }) =>
+  state.setIn(['id', 'evaluation'], ids);
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 // should convert uppercase to screaming snake_case
 export default createReducer(initialState, {
-  [Types.GET_LECTURE_DETAIL_REQUEST]: request,
-  [Types.GET_LECTURE_DETAIL_SUCCESS]: success,
-  [Types.GET_LECTURE_DETAIL_FAILURE]: failure,
+  [Types.GET_LECTURE_REQUEST]: request,
+  [Types.GET_LECTURE_SUCCESS]: success,
+  [Types.GET_LECTURE_FAILURE]: failure,
+  [Types.GET_EVALUATIONS_SUCCESS]: getEvaluationsSuccess,
 });

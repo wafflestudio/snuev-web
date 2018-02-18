@@ -9,7 +9,7 @@ import messages from './messages';
 
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
-import { makeSelectError, makeSelectIsFetching, makeSelectLecture } from './selectors';
+import { makeSelectError, makeSelectIsFetching, makeSelectLecture, makeSelectEvaluations } from './selectors';
 import {
   Wrapper,
   ColumnWrapper,
@@ -32,6 +32,7 @@ import withBars from '../../services/withBars';
 
 type Props = {
   lecture?: Object,
+  evaluations?: Object[],
   isFetching: boolean,
   error?: Object[],
   params: Object,
@@ -44,7 +45,7 @@ export class LecturePage extends React.PureComponent<Props> {
   }
 
   render() {
-    const { lecture, isFetching, error } = this.props;
+    const { lecture, evaluations, isFetching, error } = this.props;
     if (isFetching || error || !lecture) {
       return (
         <div>
@@ -93,18 +94,18 @@ export class LecturePage extends React.PureComponent<Props> {
           <ColumnWrapper>
             <RowWrapper>
               <LectureInfoText>
-                개설학과
+                {messages.department}
               </LectureInfoText>
               <LectureInfoText>
-                영어영문학과
+                {lecture.getIn(['course', 'department', 'name'])}
               </LectureInfoText>
             </RowWrapper>
             <RowWrapper>
               <LectureInfoText>
-                학년
+                {messages.targetGrade}
               </LectureInfoText>
               <LectureInfoText>
-                3학년
+                {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'grade']))}
               </LectureInfoText>
             </RowWrapper>
           </ColumnWrapper>
@@ -126,9 +127,21 @@ export class LecturePage extends React.PureComponent<Props> {
             </LeaveReviewButton>
           </SpaceBetween>
         </Wrapper>
-        <Evaluation score={8} />
-        <Evaluation score={7.6} />
-        <Evaluation score={5.4} />
+        {evaluations &&
+          evaluations.map((evaluation: Object, index: number) => (
+            <Evaluation
+              key={index}
+              comment={evaluation.get('comment')}
+              score={evaluation.get('score')}
+              easiness={evaluation.get('easiness')}
+              grading={evaluation.get('grading')}
+              createdAt={evaluation.get('createdAt')}
+              updatedAt={evaluation.get('updatedAt')}
+              semesterSeason={evaluation.getIn(['semester', 'season'])}
+              semesterYear={evaluation.getIn(['semester', 'year'])}
+            />
+          ))
+        }
       </Background>
     );
   }
@@ -138,10 +151,11 @@ const mapStateToProps = createStructuredSelector({
   isFetching: makeSelectIsFetching(),
   error: makeSelectError(),
   lecture: makeSelectLecture(),
+  evaluations: makeSelectEvaluations(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  getLecture: (id: number) => dispatch(Actions.getLectureDetailRequest(id)),
+  getLecture: (id: number) => dispatch(Actions.getLectureRequest(id)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
