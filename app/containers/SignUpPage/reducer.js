@@ -1,23 +1,42 @@
-/*
- *
- * SignUpPage reducer
- *
- */
-
+import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
-import {
-  DEFAULT_ACTION,
-} from './constants';
 
-const initialState = fromJS({});
+/* ------------- Types and Action Creators ------------- */
 
-function signUpPageReducer(state = initialState, action) {
-  switch (action.type) {
-    case DEFAULT_ACTION:
-      return state;
-    default:
-      return state;
-  }
-}
+export const { Types, Creators } = createActions({
+  signUpRequest: ['data'],
+  signUpSuccess: ['payload'],
+  signUpFailure: ['error'],
+});
 
-export default signUpPageReducer;
+/* ------------- Initial State ------------- */
+
+export const initialState = fromJS({
+  keyword: null,
+  user: null,
+  isFetching: false,
+  error: null,
+});
+
+/* ------------- Reducers ------------- */
+
+// request the data from an api
+export const search = (state, { keyword }) =>
+  state.merge({ keyword });
+
+export const request = (state) =>
+  state.merge({ isFetching: true, error: null });
+
+export const success = (state, { payload }) =>
+  state.merge({ isFetching: false, error: null, user: payload });
+
+export const failure = (state, { error }) =>
+  state.merge({ isFetching: false, error });
+
+/* ------------- Hookup Reducers To Types ------------- */
+
+export default createReducer(initialState, {
+  [Types.SIGN_UP_REQUEST]: request,
+  [Types.SIGN_UP_SUCCESS]: success,
+  [Types.SIGN_UP_FAILURE]: failure,
+});
