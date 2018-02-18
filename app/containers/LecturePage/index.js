@@ -1,12 +1,11 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
-import { parseId } from '../../utils/parse';
 
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
@@ -41,10 +40,7 @@ type Props = {
 
 export class LecturePage extends React.PureComponent<Props> {
   componentWillMount() {
-    const id = parseId(this.props.params.lectureId);
-    if (id) {
-      this.props.getLecture(id);
-    }
+    this.props.getLecture(this.props.params.lectureId);
   }
 
   render() {
