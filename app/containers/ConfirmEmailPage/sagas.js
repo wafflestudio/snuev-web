@@ -10,10 +10,10 @@ export function* watchConfirmEmailRequest() {
 }
 
 export function* confirmEmail(token) {
-  const response = yield request.get(`/v1/user/confirm_email?confirmation_token=${token}`);
-  if (response.ok) {
+  try {
+    const response = yield request.put(`/v1/user/confirm_email?confirmation_token=${token}`);
     yield put(Actions.confirmEmailSuccess(response.data));
-  } else {
+  } catch (error) {
     yield put(Actions.confirmEmailFailure());
   }
 }

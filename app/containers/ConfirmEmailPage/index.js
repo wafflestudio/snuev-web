@@ -11,13 +11,7 @@ import makeSelectIsFetching, { makeSelectPayload } from './selectors';
 import { Creators as Actions } from './reducer';
 
 export class ConfirmEmailPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  constructor(props) {
-    super(props);
-    this.confirmEmail = this.confirmEmail.bind(this);
-    this.confirmEmail();
-  }
-
-  confirmEmail() {
+  componentDidMount() {
     this.props.confirmEmail(this.props.params.confirmation_token);
   }
 

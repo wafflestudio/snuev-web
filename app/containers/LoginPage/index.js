@@ -76,7 +76,7 @@ export class LoginPage extends React.PureComponent {
             <SignUpText>
               {messages.signup.question}
             </SignUpText>
-            <SignUpLink>
+            <SignUpLink to="sign_up">
               {messages.signup.message}
             </SignUpLink>
           </SignUpWrapper>
