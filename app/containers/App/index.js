@@ -20,7 +20,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { Creators as GlobalActions } from '../../global/reducer';
 import { getAuthToken } from '../../services/localStorage';
-import { makeSelectUser } from '../../global/selectors';
+import { makeSelectUserIsFetching } from '../../global/selectors';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -28,7 +28,7 @@ const AppWrapper = styled.div`
 `;
 
 type Props = {
-  currentUser: {},
+  isFetchingUser: boolean,
   getCurrentUser: () => void,
   children: React.Node,
 };
@@ -41,7 +41,7 @@ class App extends React.PureComponent<Props> {
   }
 
   render() {
-    if (!this.props.currentUser) {
+    if (this.props.isFetchingUser) {
       return (
         <div>
           Loading Screen
@@ -57,7 +57,7 @@ class App extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: makeSelectUser(),
+  isFetchingUser: makeSelectUserIsFetching(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
