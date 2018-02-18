@@ -28,40 +28,40 @@ const AppWrapper = styled.div`
 `;
 
 type Props = {
-  user: {},
-  getUser: () => void,
+  currentUser: {},
+  getCurrentUser: () => void,
   children: React.Node,
 };
 
 class App extends React.PureComponent<Props> {
   componentWillMount() {
     if (getAuthToken()) {
-      this.props.getUser();
+      this.props.getCurrentUser();
     }
   }
 
   render() {
-    if (this.props.user) {
+    if (!this.props.currentUser) {
       return (
-        <AppWrapper>
-          {React.Children.toArray(this.props.children)}
-        </AppWrapper>
+        <div>
+          Loading Screen
+        </div>
       );
     }
     return (
-      <div>
-        Loading Screen
-      </div>
+      <AppWrapper>
+        {React.Children.toArray(this.props.children)}
+      </AppWrapper>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
+  currentUser: makeSelectUser(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  getUser: () => dispatch(GlobalActions.userRequest()),
+  getCurrentUser: () => dispatch(GlobalActions.userRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
