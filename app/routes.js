@@ -42,16 +42,12 @@ export default function createRoutes(store) {
       name: 'loginPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/LoginPage/reducer'),
-          import('containers/LoginPage/sagas'),
           import('containers/LoginPage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('loginPage', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
@@ -78,7 +74,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/lecture',
+      path: '/lectures/:lectureId',
       name: 'lecturePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
@@ -90,7 +86,7 @@ export default function createRoutes(store) {
         const renderRoute = loadModule(cb);
 
         importModules.then(([reducer, sagas, component]) => {
-          injectReducer('evaluatePage', reducer.default);
+          injectReducer('lecturePage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });

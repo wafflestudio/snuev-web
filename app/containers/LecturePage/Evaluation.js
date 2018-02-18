@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import Rating from '../../components/Rating';
@@ -38,16 +39,20 @@ const ReviewText = styled.p`
   color: #111111;
 `;
 
-export default () => (
+type Props = {
+  score: number,
+};
+
+export default (props: Props) => (
   <Wrapper>
     <ColumnWrapper>
       <RowWrapper>
         <SpaceBetween>
           <div>
             <Score>
-              9.5
+              {props.score.toFixed(1)}
             </Score>
-            <Rating small initialRating={5} readonly />
+            <Rating small initialRating={props.score} readonly />
             <DateText>
               2017/05/12 작성
             </DateText>
