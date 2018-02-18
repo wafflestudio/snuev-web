@@ -4,7 +4,6 @@
  *
  */
 
-
 import { createReducer, createActions } from 'reduxsauce';
 import { fromJS } from 'immutable';
 
@@ -13,14 +12,12 @@ import { fromJS } from 'immutable';
 export const { Types, Creators } = createActions({
   getLectureDetailRequest: ['data'],
   getLectureDetailSuccess: null,
-  getLectureDetailFailure: null,
+  getLectureDetailFailure: ['error'],
 });
-
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  data: null,
   isFetching: false,
   error: null,
 });
