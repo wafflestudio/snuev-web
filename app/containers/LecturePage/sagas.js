@@ -13,8 +13,8 @@ export function* watchGetLectureDetailRequest() {
 export function* getLectureDetail(id) {
   try {
     const response = yield request.get(`/v1/lectures/${id}`);
-    yield put(GlobalActions.normalizeData(response.data));
     yield put(Actions.getLectureDetailSuccess());
+    yield put(GlobalActions.normalizeData(response.data));
   } catch (error) {
     yield put(Actions.getLectureDetailFailure(error.errors));
   }
