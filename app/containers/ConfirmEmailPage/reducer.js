@@ -12,7 +12,7 @@ import { fromJS } from 'immutable';
 
 export const { Types, Creators } = createActions({
   confirmEmailRequest: ['data'],
-  confirmEmailSuccess: ['payload'],
+  confirmEmailSuccess: null,
   confirmEmailFailure: ['error'],
 });
 
@@ -22,7 +22,7 @@ export const { Types, Creators } = createActions({
 export const initialState = fromJS({
   data: null,
   isFetching: true,
-  payload: null,
+  success: false,
   error: null,
 });
 
@@ -30,15 +30,15 @@ export const initialState = fromJS({
 
 // request the data from an api
 export const request = (state, { data }) =>
-  state.merge({ data, isFetching: true, payload: null, error: null });
+  state.merge({ data, isFetching: true, success: false, error: null });
 
 // successful api lookup
-export const success = (state, { payload }) =>
-  state.merge({ isFetching: false, payload, error: null });
+export const success = (state) =>
+  state.merge({ isFetching: false, success: true, error: null });
 
 // Something went wrong somewhere.
 export const failure = (state) =>
-  state.merge({ isFetching: false, payload: null, error: true });
+  state.merge({ isFetching: false, success: false, error: true });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

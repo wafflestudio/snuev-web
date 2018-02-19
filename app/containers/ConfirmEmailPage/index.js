@@ -1,43 +1,45 @@
-/*
- *
- * ConfirmEmailPage
- *
- */
-
+// @flow
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import makeSelectIsFetching, { makeSelectPayload } from './selectors';
 import { Creators as Actions } from './reducer';
+import { makeSelectIsFetching, makeSelectSuccess, makeSelectError } from './selectors';
+import { getAuthToken } from '../../services/localStorage';
 
-export class ConfirmEmailPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+type Props = {
+  isFetching: boolean,
+  error?: Object[],
+  success: boolean,
+  params: Object,
+  confirmEmail: (token: string) => void,
+};
+
+export class ConfirmEmailPage extends React.PureComponent<Props> { // eslint-disable-line react/prefer-stateless-function
   componentDidMount() {
     this.props.confirmEmail(this.props.params.confirmation_token);
   }
 
   render() {
-    if (this.props.isFetching.isFetching) {
+    if (this.props.isFetching) {
       return (
         <div>
           로딩중입니다.
         </div>
       );
     }
-    if (this.props.payload) {
+    if (this.props.success) {
       return (
         <div>
           이메일 인증에 성공하였습니다.
-        </div>
+        </div> 
       );
     }
-    if (localStorage.getItem('auth_token')) {
+    if (getAuthToken()) {
       return (
         <div>
           이메일 인증에 실패하였습니다.
           <br />
-          <button
-            type="button"
-          >
+          <button>
             이메일 재전송
           </button>
         </div>
@@ -53,11 +55,12 @@ export class ConfirmEmailPage extends React.PureComponent { // eslint-disable-li
 
 const mapStateToProps = createStructuredSelector({
   isFetching: makeSelectIsFetching(),
-  payload: makeSelectPayload(),
+  error: makeSelectError(),
+  success: makeSelectSuccess(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  confirmEmail: (TOKEN) => dispatch(Actions.confirmEmailRequest(TOKEN)),
+const mapDispatchToProps = (dispatch: Function) => ({
+  confirmEmail: (token: string) => dispatch(Actions.confirmEmailRequest(token)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmEmailPage);

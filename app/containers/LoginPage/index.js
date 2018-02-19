@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-
 import { Creators as Actions } from '../../global/reducer';
 import messages from './messages';
 import {

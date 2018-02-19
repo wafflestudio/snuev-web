@@ -18,7 +18,7 @@ export function* signUp({ username, password, nickname }) {
     setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
   } catch (error) {
-    yield put(Actions.signUpFailure(response.data));
+    yield put(Actions.signUpFailure(error.errors));
   }
 }
 

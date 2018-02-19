@@ -1,12 +1,8 @@
-/*
- *
- * SignUpPage
- *
- */
-
+// @flow
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 import {
@@ -23,9 +19,22 @@ import {
   LoginText,
   LoginLink,
 } from './index.style';
+import { makeSelectIsFetching, makeSelectError } from './selectors';
 
-export class SignUpPage extends React.PureComponent {
-  constructor(props) {
+type Props = {
+  signUp: (State) => void,
+};
+
+type State = {
+  username: string,
+  password: string,
+  nickname: string,
+  department: string,
+};
+
+
+export class SignUpPage extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
     super(props);
     this.state = {
       username: '',
@@ -33,10 +42,10 @@ export class SignUpPage extends React.PureComponent {
       nickname: '',
       department: '컴퓨터공학부',
     };
-    this.handleSignUp = this.handleSignUp.bind(this);
+    (this: any).handleSignUp = this.handleSignUp.bind(this);
   }
 
-  handleSignUp(event) {
+  handleSignUp(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
     this.props.signUp(this.state);
   }
@@ -58,8 +67,8 @@ export class SignUpPage extends React.PureComponent {
           <Input
             type="text"
             value={this.state.username}
-            onChange={(event) => this.setState({ username: event.target.value })}
-            placeholder={messages.input.emailHint}
+            onChange={({ target }) => this.setState({ username: target.value })}
+            placeholder={messages.input.usernameHint}
           />
           <UsernameInputText>
             {messages.usernameInputText}
@@ -67,18 +76,18 @@ export class SignUpPage extends React.PureComponent {
           <Input
             type="password"
             value={this.state.password}
-            onChange={(event) => this.setState({ password: event.target.value })}
+            onChange={({ target }) => this.setState({ password: target.value })}
             placeholder={messages.input.passwordHint}
           />
           <Input
             type="text"
             value={this.state.nickname}
-            onChange={(event) => this.setState({ nickname: event.target.value })}
+            onChange={({ target }) => this.setState({ nickname: target.value })}
             placeholder={messages.input.nicknameHint}
           />
           <DepartmentInput>
               value={this.state.department}
-              onChange={(event) => this.setState({ department: event.target.value })}>
+              onChange={({ target }) => this.setState({ department: target.value })}>
               <option value="컴퓨터공학부">컴퓨터공학부</option>
               <option value="전기전자공학부">전기전자공학부</option>
               <option value="영어영문학과">영어영문학과</option>
@@ -102,8 +111,13 @@ export class SignUpPage extends React.PureComponent {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  signUp: ({ username, password, nickname }) => dispatch(Actions.signUpRequest({ username, password, nickname })),
+const mapStateToProps = createStructuredSelector({
+  isFetching: makeSelectIsFetching(),
+  error: makeSelectError(),
 });
 
-export default connect(null, mapDispatchToProps)(SignUpPage);
+const mapDispatchToProps = (dispatch: Function) => ({
+  signUp: (credentials: { username: string, password: string, nickname: string }) => dispatch(Actions.signUpRequest(credentials)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

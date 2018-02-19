@@ -4,7 +4,7 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  signUpRequest: null,
+  signUpRequest: ['data'],
   signUpSuccess: null,
   signUpFailure: ['error'],
 });

@@ -1,25 +1,19 @@
 import { createSelector } from 'reselect';
+import { createPageSelectors } from '../../utils/createPageSelectors';
 
-/**
- * Direct selector to the signUpPage state domain
- */
-const selectSignUpPageDomain = () => (state) => state.get('signUpPage');
+const {
+  makeSelectPage,
+  makeSelectIsFetching,
+  makeSelectError,
+} = createPageSelectors('signUpPage');
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by SignUpPage
- */
-
-const makeSelectSignUpPage = () => createSelector(
-  selectSignUpPageDomain(),
-  (substate) => substate.toJS()
+const makeSelectSignUp = () => createSelector(
+  makeSelectPage(),
+  (page) => page.get('signUp')
 );
 
-export default makeSelectSignUpPage;
 export {
-  selectSignUpPageDomain,
+  makeSelectIsFetching,
+  makeSelectError,
+  makeSelectSignUp,
 };
