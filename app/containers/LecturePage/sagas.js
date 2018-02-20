@@ -1,8 +1,7 @@
-import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put } from 'redux-saga/effects';
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request } from '../../services/api';
-import { makeSelectUser } from '../../global/selectors';
 
 export function* watchGetLectureRequest() {
   while (true) {
@@ -16,22 +15,30 @@ export function* getLecture(id) {
     const response = yield request.get(`/v1/lectures/${id}`);
     yield put(Actions.getLectureSuccess());
     yield put(GlobalActions.normalizeData(response.data));
-    const user = yield select(makeSelectUser());
-    if (user.get('isConfirmed')) {
-      yield call(getEvaluations, id);
-    }
   } catch (error) {
     yield put(Actions.getLectureFailure(error.errors));
   }
 }
 
-export function* getEvaluations(id) {
-  const response = yield request.get(`/v1/lectures/${id}/evaluations`);
-  yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
-  yield put(GlobalActions.normalizeData(response.data));
+export function* watchGetEvaluationsRequest() {
+  while (true) {
+    const { id, page } = yield take(Types.GET_EVALUATIONS_REQUEST);
+    yield call(getEvaluations, id, page);
+  }
+}
+
+export function* getEvaluations(id, page) {
+  try {
+    const response = yield request.get(`/v1/lectures/${id}/evaluations`, { page });
+    yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
+    yield put(GlobalActions.normalizeData(response.data));
+  } catch (error) {
+    yield put(Actions.getEvaluationsFailure(error.errors));
+  }
 }
 
 // All sagas to be loaded
 export default [
   watchGetLectureRequest,
+  watchGetEvaluationsRequest,
 ];

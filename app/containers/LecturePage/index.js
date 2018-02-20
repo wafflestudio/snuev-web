@@ -3,13 +3,22 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
+import { Map, List } from 'immutable';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
-import { makeSelectError, makeSelectIsFetching, makeSelectLecture, makeSelectEvaluations } from './selectors';
+import {
+  makeSelectLecture,
+  makeSelectLectureIsFetching,
+  makeSelectLectureError,
+  makeSelectEvaluations,
+  makeSelectEvaluationsIsFetching,
+  makeSelectEvaluationsError,
+} from './selectors';
+import { makeSelectUser } from '../../global/selectors';
 import {
   Wrapper,
   ColumnWrapper,
@@ -31,22 +40,37 @@ import {
 import withBars from '../../services/withBars';
 
 type Props = {
-  lecture?: Object,
-  evaluations?: Object[],
-  isFetching: boolean,
-  error?: Object[],
-  params: Object,
+  user?: Map<string, any>,
+  lecture?: Map<string, any>,
+  lectureIsFetching: boolean,
+  lectureError?: {}[],
+  evaluations?: List<Map<string, any>>,
+  evaluationsIsFetching: boolean,
+  evaluationsError?: List<Map<string, any>>,
+  params: { lectureId: number },
   getLecture: (id: number) => void,
+  getEvaluations: (lectureId: number, page: number) => void,
 };
 
 export class LecturePage extends React.PureComponent<Props> {
-  componentWillMount() {
-    this.props.getLecture(this.props.params.lectureId);
+  componentDidMount() {
+    const lectureId = this.props.params.lectureId;
+    this.props.getLecture(lectureId);
+    if (this.props.user && this.props.user.get('isConfirmed')) {
+      this.props.getEvaluations(lectureId, 1);
+    }
   }
 
   render() {
-    const { lecture, evaluations, isFetching, error } = this.props;
-    if (isFetching || error || !lecture) {
+    const {
+      lecture,
+      lectureIsFetching,
+      lectureError,
+      evaluations,
+      evaluationsIsFetching,
+      evaluationsError,
+    } = this.props;
+    if (lectureIsFetching || lectureError || !lecture) {
       return (
         <div>
           Loading... or error
@@ -141,14 +165,18 @@ export class LecturePage extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
+  user: makeSelectUser(),
   lecture: makeSelectLecture(),
+  lectureIsFetching: makeSelectLectureIsFetching(),
+  lectureError: makeSelectLectureError(),
   evaluations: makeSelectEvaluations(),
+  evaluationsIsFetching: makeSelectEvaluationsIsFetching(),
+  evaluationsError: makeSelectEvaluationsError(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   getLecture: (id: number) => dispatch(Actions.getLectureRequest(id)),
+  getEvaluations: (id: number, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
