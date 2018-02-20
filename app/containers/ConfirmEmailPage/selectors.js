@@ -7,12 +7,10 @@ const {
   makeSelectPage,
   makeSelectIsFetching,
   makeSelectError,
-} = createPageSelectors('confirmEmailPage');
+  makeSelectPayload,
+} = createPageSelectors('confirmEmailPage', 'success');
 
-const makeSelectSuccess = () => createSelector(
-  makeSelectPage(),
-  (page) => page.get('success')
-);
+const makeSelectSuccess = makeSelectPayload;
 
 export {
   makeSelectIsFetching,

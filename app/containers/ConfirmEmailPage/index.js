@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
@@ -14,7 +14,7 @@ type Props = {
   confirmEmail: (token: string) => void,
 };
 
-export class ConfirmEmailPage extends React.PureComponent<Props> { // eslint-disable-line react/prefer-stateless-function
+export class ConfirmEmailPage extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.confirmEmail(this.props.params.confirmation_token);
   }

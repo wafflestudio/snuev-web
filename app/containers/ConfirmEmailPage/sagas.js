@@ -12,7 +12,7 @@ export function* watchConfirmEmailRequest() {
 export function* confirmEmail(token) {
   try {
     const response = yield request.put(`/v1/user/confirm_email?confirmation_token=${token}`);
-    yield put(Actions.confirmEmailSuccess(response.data));
+    yield put(Actions.confirmEmailSuccess());
   } catch (error) {
     yield put(Actions.confirmEmailFailure());
   }

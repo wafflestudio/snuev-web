@@ -5,12 +5,10 @@ const {
   makeSelectPage,
   makeSelectIsFetching,
   makeSelectError,
-} = createPageSelectors('signUpPage');
+  makeSelectPayload,
+} = createPageSelectors('signUpPage', 'signUp');
 
-const makeSelectSignUp = () => createSelector(
-  makeSelectPage(),
-  (page) => page.get('signUp')
-);
+const makeSelectSignUp = makeSelectPayload;
 
 export {
   makeSelectIsFetching,

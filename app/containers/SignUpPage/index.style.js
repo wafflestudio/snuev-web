@@ -56,7 +56,7 @@ export const Input = styled.input`
   margin-top: 20px;
 `;
 
-export const UsernameInputText = styled.text`서울대학교 이메일 인증이 필요합니다. 마이스누(mySNU) 계정명과 동일하게 입력해주세요.
+export const UsernameInputText = styled.text`
   width: 460px;
   height: 15px;
   font-family: NanumGothic;
@@ -72,7 +72,7 @@ export const UsernameInputText = styled.text`서울대학교 이메일 인증이
 
 export const DepartmentInput = styled.select`
   width: 460px;
-  height: 45px;서울대학교 이메일 인증이 필요합니다. 마이스누(mySNU) 계정명과 동일하게 입력해주세요.
+  height: 45px;
   border-radius: 3px;
   background-color: #ffffff;
   border: solid 1px #cccccc;
@@ -91,7 +91,7 @@ export const SignUpText = styled.text`
   width: 70px;
   height: 19px;
   font-family: AppleSDGothicNeo;
-  font-size: 16px;서울대학교 이메일 인증이 필요합니다. 마이스누(mySNU) 계정명과 동일하게 입력해주세요.
+  font-size: 16px;
   font-weight: bold;
   font-style: normal;
   font-stretch: normal;
@@ -107,7 +107,7 @@ export const LoginWrapper = styled.div`
   display: flex;
   flex: 1;
   margin-top: 8px;
-  padding-left: 6px;서울대학교 이메일 인증이 필요합니다. 마이스누(mySNU) 계정명과 동일하게 입력해주세요.
+  padding-left: 6px;
 `;
 
 export const LoginText = styled.text`
