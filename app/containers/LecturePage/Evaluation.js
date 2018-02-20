@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { Map } from 'immutable';
 
 import Rating from '../../components/Rating';
 import { parseSemesterSeason, parseDate } from '../../utils/parse';
@@ -42,39 +43,37 @@ const ReviewText = styled.p`
 `;
 
 type Props = {
-  comment: string,
-  score: number,
-  easiness: number,
-  grading: number,
-  createdAt: string,
-  updatedAt: string,
-  semesterSeason: string,
-  semesterYear: number,
+  evaluation: Map<string, any>,
 };
 
-export default (props: Props) => (
+export default ({ evaluation }: Props) => (
   <Wrapper>
     <ColumnWrapper>
       <RowWrapper>
         <SpaceBetween>
           <div>
             <Score>
-              {props.score.toFixed(1)}
+              {evaluation.get('score').toFixed(1)}
             </Score>
-            <Rating small initialRating={props.score} readonly />
+            <Rating small initialRating={evaluation.get('score')} readonly />
             <DateText>
-              {props.createdAt === props.updatedAt ? `${parseDate(props.createdAt)} 작성` : `${parseDate(props.updatedAt)} 수정`}
+              {evaluation.createdAt === evaluation.get('updatedAt') ?
+                `${parseDate(evaluation.get('createdAt'))} 작성` :
+                `${parseDate(evaluation.get('updatedAt'))} 수정`}
             </DateText>
           </div>
           <div>
             <SemesterText>
-              {props.semesterSeason && props.semesterYear ? `${props.semesterYear} ${parseSemesterSeason(props.semesterSeason)}` : ''}
+              {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?
+                `${evaluation.getIn(['semester', 'year'])} ${parseSemesterSeason(evaluation.getIn(['semester', 'season']))}` :
+                ''
+              }
             </SemesterText>
           </div>
         </SpaceBetween>
       </RowWrapper>
       <ReviewText>
-        {props.comment}
+        {evaluation.get('comment')}
       </ReviewText>
     </ColumnWrapper>
   </Wrapper>

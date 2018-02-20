@@ -6,12 +6,11 @@ export const numberWithCommas = (number) =>
 export const parseSemesterSeason = (season) => {
   switch (season) {
     case 'spring':
-      return '봄 계절';
+      return '1학기';
     case 'summer':
       return '여름 계절';
     case 'fall':
-    case 'autumn':
-      return '가을 계절';
+      return '2학기';
     case 'winter':
       return '겨울 계절';
     default:

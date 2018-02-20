@@ -131,14 +131,7 @@ export class LecturePage extends React.PureComponent<Props> {
           evaluations.map((evaluation: Object, index: number) => (
             <Evaluation
               key={index}
-              comment={evaluation.get('comment')}
-              score={evaluation.get('score')}
-              easiness={evaluation.get('easiness')}
-              grading={evaluation.get('grading')}
-              createdAt={evaluation.get('createdAt')}
-              updatedAt={evaluation.get('updatedAt')}
-              semesterSeason={evaluation.getIn(['semester', 'season'])}
-              semesterYear={evaluation.getIn(['semester', 'year'])}
+              evaluation={evaluation}
             />
           ))
         }
