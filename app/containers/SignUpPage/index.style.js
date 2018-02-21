@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import LogoImage from '../../images/logo.png';
 
 export const Background = styled.div`
-  background-color: #efefef;
+  background-color: #ffffff;
   display: flex;
   flex: 1;
   justify-content: center;
@@ -13,8 +13,6 @@ export const Background = styled.div`
 `;
 
 export const SignUpForm = styled.form`
-  width: 1440px;
-  height: 1024px;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
@@ -25,14 +23,12 @@ const LogoFrame = styled.img`
   width: 182px;
   height: 39px;
   object-fit: contain;
-  margin-top: 235px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
 `;
 
 export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
 
 export const CreateAccountText = styled.p`
-  width: 120px;
   height: 29px;
   font-family: AppleSDGothicNeo;
   font-size: 24px;
@@ -43,8 +39,8 @@ export const CreateAccountText = styled.p`
   letter-spacing: normal;
   text-align: center;
   color: #222222;
-  color: var(--black);
-  margin-bottom: 32px;
+  color: #111111;
+  margin-bottom: 12px;
 `;
 
 export const Input = styled.input`
@@ -88,7 +84,6 @@ export const SignUpButton = styled.button`
 `;
 
 export const SignUpText = styled.text`
-  width: 70px;
   height: 19px;
   font-family: AppleSDGothicNeo;
   font-size: 16px;
@@ -111,7 +106,6 @@ export const LoginWrapper = styled.div`
 `;
 
 export const LoginText = styled.text`
-  width: 111.3px;
   height: 15px;
   font-family: NanumGothic;
   font-size: 12px;
@@ -122,10 +116,10 @@ export const LoginText = styled.text`
   letter-spacing: normal;
   text-align: left;
   color: #111111;
+  margin-right: 30px;
 `;
 
 export const LoginLink = styled(Link)`
-  width: 55.7px;
   height: 15px;
   font-family: AppleSDGothicNeo;
   font-size: 12px;

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import LogoImage from '../../images/logo.png';
 
 export const Background = styled.div`
-  background-color: #efefef;
+  background-color: #ffffff;
   display: flex;
   flex: 1;
   justify-content: center;
