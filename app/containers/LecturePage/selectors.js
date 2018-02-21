@@ -25,21 +25,24 @@ const makeSelectLecture = () => createSelector(
 const makeSelectLectureIsFetching = lectureSelectorMakers.makeSelectIsFetching;
 const makeSelectLectureError = lectureSelectorMakers.makeSelectError;
 
-const evaluationsSelectorMakers = createPageSelectors(makeSelectEvaluationsHelper);
+const evaluationsSelectorMakers = createPageSelectors(makeSelectEvaluationsHelper, 'hasMore');
 
 const makeSelectEvaluations = () => createSelector(
   makeSelectEntities(),
   evaluationsSelectorMakers.makeSelectPage(),
   (entities, evaluations) => denormalize(entities, 'evaluations', evaluations.get('ids')),
 );
+const makeSelectEvaluationsHasMore = evaluationsSelectorMakers.makeSelectHasMore;
 const makeSelectEvaluationsIsFetching = evaluationsSelectorMakers.makeSelectIsFetching;
 const makeSelectEvaluationsError = evaluationsSelectorMakers.makeSelectError;
+
 
 export {
   makeSelectLecture,
   makeSelectLectureIsFetching,
   makeSelectLectureError,
   makeSelectEvaluations,
+  makeSelectEvaluationsHasMore,
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
 };

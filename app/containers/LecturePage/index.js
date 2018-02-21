@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { Map, List } from 'immutable';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
@@ -15,6 +16,7 @@ import {
   makeSelectLectureIsFetching,
   makeSelectLectureError,
   makeSelectEvaluations,
+  makeSelectEvaluationsHasMore,
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
 } from './selectors';
@@ -45,6 +47,7 @@ type Props = {
   lectureIsFetching: boolean,
   lectureError?: {}[],
   evaluations?: List<Map<string, any>>,
+  evaluationsHasMore: boolean,
   evaluationsIsFetching: boolean,
   evaluationsError?: List<Map<string, any>>,
   params: { lectureId: number },
@@ -54,10 +57,14 @@ type Props = {
 
 export class LecturePage extends React.PureComponent<Props> {
   componentDidMount() {
-    const lectureId = this.props.params.lectureId;
-    this.props.getLecture(lectureId);
+    this.props.getLecture(this.props.params.lectureId);
+    (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
+    this.loadMoreEvaluations(1);
+  }
+
+  loadMoreEvaluations(page: number) {
     if (this.props.user && this.props.user.get('isConfirmed')) {
-      this.props.getEvaluations(lectureId, 1);
+      this.props.getEvaluations(this.props.params.lectureId, page);
     }
   }
 
@@ -67,8 +74,7 @@ export class LecturePage extends React.PureComponent<Props> {
       lectureIsFetching,
       lectureError,
       evaluations,
-      evaluationsIsFetching,
-      evaluationsError,
+      evaluationsHasMore,
     } = this.props;
     if (lectureIsFetching || lectureError || !lecture) {
       return (
@@ -152,12 +158,20 @@ export class LecturePage extends React.PureComponent<Props> {
           </SpaceBetween>
         </Wrapper>
         {evaluations &&
-          evaluations.map((evaluation: Object, index: number) => (
-            <Evaluation
-              key={index}
-              evaluation={evaluation}
-            />
-          ))
+          <InfiniteScroll
+            pageStart={1}
+            hasMore={evaluationsHasMore}
+            loadMore={this.loadMoreEvaluations}
+          >
+            <div>
+              {evaluations.map((evaluation: Object, index: number) => (
+                <Evaluation
+                  key={index}
+                  evaluation={evaluation}
+                />
+              ))}
+            </div>
+          </InfiniteScroll>
         }
       </Background>
     );
@@ -170,6 +184,7 @@ const mapStateToProps = createStructuredSelector({
   lectureIsFetching: makeSelectLectureIsFetching(),
   lectureError: makeSelectLectureError(),
   evaluations: makeSelectEvaluations(),
+  evaluationsHasMore: makeSelectEvaluationsHasMore(),
   evaluationsIsFetching: makeSelectEvaluationsIsFetching(),
   evaluationsError: makeSelectEvaluationsError(),
 });

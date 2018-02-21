@@ -1,4 +1,4 @@
-import { take, call, put } from 'redux-saga/effects';
+import { take, call, put, takeEvery } from 'redux-saga/effects';
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request } from '../../services/api';
@@ -21,13 +21,10 @@ export function* getLecture(id) {
 }
 
 export function* watchGetEvaluationsRequest() {
-  while (true) {
-    const { id, page } = yield take(Types.GET_EVALUATIONS_REQUEST);
-    yield call(getEvaluations, id, page);
-  }
+  yield takeEvery(Types.GET_EVALUATIONS_REQUEST, getEvaluations);
 }
 
-export function* getEvaluations(id, page) {
+export function* getEvaluations({ id, page }) {
   try {
     const response = yield request.get(`/v1/lectures/${id}/evaluations`, { page });
     yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));

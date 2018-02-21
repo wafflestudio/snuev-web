@@ -281,6 +281,7 @@
     "react-dom": "15.4.1",
     "react-fa": "^5.0.0",
     "react-helmet": "3.2.2",
+    "react-infinite-scroller": "^1.1.3",
     "react-intl": "2.1.5",
     "react-rating": "^1.0.4",
     "react-redux": "4.4.6",

@@ -27,7 +27,8 @@ export const initialState = fromJS({
     error: null,
   },
   evaluations: {
-    ids: null,
+    ids: [],
+    hasMore: false,
     isFetching: false,
     error: null,
   },
@@ -45,13 +46,27 @@ export const lectureFailure = (state, { error }) =>
   state.mergeDeep({ lecture: { id: null, isFetching: false, error } });
 
 export const evaluationsRequest = (state) =>
-  state.mergeDeep({ lecture: { isFetching: true, error: null } });
+  state.mergeDeep({ evaluations: { isFetching: true, error: null } });
 
-export const evaluationsSuccess = (state, { ids }) =>
-  state.mergeDeep({ lecture: { ids, isFetching: false, error: null } });
+export const evaluationsSuccess = (state, { ids }) => ids.length ?
+  state.mergeDeep({
+    evaluations: {
+      ids: state.getIn(['evaluations', 'ids']).concat(ids),
+      hasMore: true,
+      isFetching: false,
+      error: null,
+    },
+  }) :
+  state.mergeDeep({
+    evaluations: {
+      hasMore: false,
+      isFetching: false,
+      error: null,
+    },
+  });
 
 export const evaluationsFailure = (state, { error }) =>
-  state.mergeDeep({ lecture: { isFetching: false, error } });
+  state.mergeDeep({ evaluations: { isFetching: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
