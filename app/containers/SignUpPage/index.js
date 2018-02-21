@@ -1,45 +1,123 @@
-/*
- *
- * SignUpPage
- *
- */
-
+// @flow
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectSignUpPage from './selectors';
+import { Creators as Actions } from './reducer';
 import messages from './messages';
+import {
+  Background,
+  SignUpForm,
+  Logo,
+  CreateAccountText,
+  Input,
+  UsernameInputText,
+  DepartmentInput,
+  SignUpButton,
+  SignUpText,
+  LoginWrapper,
+  LoginText,
+  LoginLink,
+} from './index.style';
+import { makeSelectIsFetching, makeSelectError } from './selectors';
 
-export class SignUpPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+type Props = {
+  signUp: (State) => void,
+};
+
+type State = {
+  username: string,
+  password: string,
+  nickname: string,
+  department: string,
+};
+
+
+export class SignUpPage extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      username: '',
+      password: '',
+      nickname: '',
+      department: '컴퓨터공학부',
+    };
+    (this: any).handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  handleSignUp(event: SyntheticEvent<HTMLButtonElement>) {
+    event.preventDefault();
+    this.props.signUp(this.state);
+  }
+
   render() {
     return (
-      <div>
+      <Background>
         <Helmet
           title="SignUpPage"
           meta={[
             { name: 'description', content: 'Description of SignUpPage' },
           ]}
         />
-        <FormattedMessage {...messages.header} />
-      </div>
+        <SignUpForm onSubmit={this.handleSignUp}>
+          <Logo />
+          <CreateAccountText>
+            {messages.createAccount}
+          </CreateAccountText>
+          <Input
+            type="text"
+            value={this.state.username}
+            onChange={({ target }) => this.setState({ username: target.value })}
+            placeholder={messages.input.usernameHint}
+          />
+          <UsernameInputText>
+            {messages.usernameInputText}
+          </UsernameInputText>
+          <Input
+            type="password"
+            value={this.state.password}
+            onChange={({ target }) => this.setState({ password: target.value })}
+            placeholder={messages.input.passwordHint}
+          />
+          <Input
+            type="text"
+            value={this.state.nickname}
+            onChange={({ target }) => this.setState({ nickname: target.value })}
+            placeholder={messages.input.nicknameHint}
+          />
+          <DepartmentInput>
+              value={this.state.department}
+              onChange={({ target }) => this.setState({ department: target.value })}>
+              <option value="컴퓨터공학부">컴퓨터공학부</option>
+              <option value="전기전자공학부">전기전자공학부</option>
+              <option value="영어영문학과">영어영문학과</option>
+          </DepartmentInput>
+          <SignUpButton type="submit">
+            <SignUpText>
+              {messages.signup}
+            </SignUpText>
+          </SignUpButton>
+          <LoginWrapper>
+            <LoginText>
+              {messages.login.question}
+            </LoginText>
+            <LoginLink to="sign_in">
+              {messages.login.message}
+            </LoginLink>
+          </LoginWrapper>
+        </SignUpForm>
+      </Background>
     );
   }
 }
 
-SignUpPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-};
-
 const mapStateToProps = createStructuredSelector({
-  SignUpPage: makeSelectSignUpPage(),
+  isFetching: makeSelectIsFetching(),
+  error: makeSelectError(),
 });
 
-function mapDispatchToProps(dispatch) {
-  return {
-    dispatch,
-  };
-}
+const mapDispatchToProps = (dispatch: Function) => ({
+  signUp: (credentials: { username: string, password: string, nickname: string }) => dispatch(Actions.signUpRequest(credentials)),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

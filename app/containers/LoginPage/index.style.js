@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 import LogoImage from '../../images/logo.png';
 
@@ -100,7 +101,7 @@ export const SignUpText = styled.text`
   color: #111111;
 `;
 
-export const SignUpLink = styled.a`
+export const SignUpLink = styled(Link)`
   width: 46px;
   height: 14px;
   font-family: NanumGothic;

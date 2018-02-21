@@ -1,17 +1,19 @@
 import { createSelector } from 'reselect';
 import { createPageSelectors } from '../../utils/createPageSelectors';
+import { makeSelectEntities } from '../../global/selectors';
+import { denormalize } from '../../utils/denormalize';
 
 const {
   makeSelectPage,
   makeSelectIsFetching,
   makeSelectError,
   makeSelectPayload,
-} = createPageSelectors('signUpPage', 'signUp');
+} = createPageSelectors('confirmEmailPage', 'success');
 
-const makeSelectSignUp = makeSelectPayload;
+const makeSelectSuccess = makeSelectPayload;
 
 export {
   makeSelectIsFetching,
   makeSelectError,
-  makeSelectSignUp,
+  makeSelectSuccess,
 };
