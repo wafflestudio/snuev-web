@@ -6,7 +6,7 @@ const makeSelectGlobal = () => (state) => state.get('global');
 
 const makeSelectEntities = () => createSelector(
   makeSelectGlobal(),
-  (global) => global.get('entities'),
+  (global) => global.get('entities')
 );
 
 const makeSelectSignInHelper = () => createSelector(
@@ -18,19 +18,20 @@ const makeSelectUserHelper = () => createSelector(
   (global) => global.get('user')
 );
 
-const signInSelectors = createPageSelectors(null, null, makeSelectSignInHelper);
-const makeSelectSignInPayload = signInSelectors.makeSelectPayload;
-const makeSelectSignInIsFetching = signInSelectors.makeSelectIsFetching;
-const makeSelectSignInError = signInSelectors.makeSelectError;
+const signInSelectorMakers = createPageSelectors(makeSelectSignInHelper);
+const makeSelectSignInPayload = signInSelectorMakers.makeSelectPayload;
+const makeSelectSignInIsFetching = signInSelectorMakers.makeSelectIsFetching;
+const makeSelectSignInError = signInSelectorMakers.makeSelectError;
 
-const userSelectors = createPageSelectors(null, null, makeSelectUserHelper);
+const userSelectorMakers = createPageSelectors(makeSelectUserHelper);
+
 const makeSelectUser = () => createSelector(
   makeSelectEntities(),
-  makeSelectUserHelper(),
+  userSelectorMakers.makeSelectPage(),
   (entities, user) => denormalize(entities, 'users', user.get('id')),
 );
-const makeSelectUserIsFetching = userSelectors.makeSelectIsFetching;
-const makeSelectUserError = userSelectors.makeSelectError;
+const makeSelectUserIsFetching = userSelectorMakers.makeSelectIsFetching;
+const makeSelectUserError = userSelectorMakers.makeSelectError;
 
 
 export {
