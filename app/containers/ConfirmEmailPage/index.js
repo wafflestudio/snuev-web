@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
@@ -31,7 +31,7 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
       return (
         <div>
           이메일 인증에 성공하였습니다.
-        </div> 
+        </div>
       );
     }
     if (getAuthToken()) {
