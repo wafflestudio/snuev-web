@@ -1,11 +1,27 @@
-// import { take, call, put, select } from 'redux-saga/effects';
+import { take, call, put, takeLatest } from 'redux-saga/effects';
+import { request } from 'services/api';
+import { setAuthToken } from 'services/localStorage';
+import { Types, Creators as Actions } from './reducer';
+import { userInformation } from '../../global/sagas';
 
-// Individual exports for testing
-export function* defaultSaga() {
-  // See example in containers/HomePage/sagas.js
+export function* watchSignUpRequest() {
+  while (true) {
+    const { data } = yield take(Types.SIGN_UP_REQUEST);
+    yield call(signUp, data);
+  }
 }
 
-// All sagas to be loaded
+export function* signUp({ username, password, nickname }) {
+  try {
+    const response = yield request.post('/v1/user', { username, password, nickname });
+    yield put(Actions.signUpSuccess());
+    setAuthToken(response.data.meta.auth_token);
+    yield call(userInformation);
+  } catch (error) {
+    yield put(Actions.signUpFailure(error.errors));
+  }
+}
+
 export default [
-  defaultSaga,
+  watchSignUpRequest,
 ];

@@ -3,7 +3,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-
 import { Creators as Actions } from '../../global/reducer';
 import messages from './messages';
 import {
@@ -83,7 +82,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
             <SignUpText>
               {messages.signup.question}
             </SignUpText>
-            <SignUpLink>
+            <SignUpLink to="sign_up">
               {messages.signup.message}
             </SignUpLink>
           </SignUpWrapper>
