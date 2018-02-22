@@ -36,4 +36,4 @@ And you need to run the following code whenever you want to use it.
 docker-compose up
 ```
 
-Then the client will be running at http:localhost:3000.
+Then the client will be running at http://localhost:3000.
