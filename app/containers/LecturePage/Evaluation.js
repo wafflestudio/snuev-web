@@ -57,7 +57,7 @@ export default ({ evaluation }: Props) => (
             </Score>
             <Rating small initialRating={evaluation.get('score')} readonly />
             <DateText>
-              {evaluation.createdAt === evaluation.get('updatedAt') ?
+              {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
                 `${parseDate(evaluation.get('createdAt'))} 작성` :
                 `${parseDate(evaluation.get('updatedAt'))} 수정`}
             </DateText>

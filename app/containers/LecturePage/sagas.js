@@ -1,4 +1,4 @@
-import { take, call, put, takeEvery } from 'redux-saga/effects';
+import { take, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../../services/api';
@@ -34,8 +34,23 @@ export function* getEvaluations({ id, page }) {
   }
 }
 
+export function* watchCreateEvaluationRequest() {
+  yield takeLatest(Types.CREATE_EVALUATION_REQUEST, createEvaluation);
+}
+
+export function* createEvaluation({ id, data }) {
+  try {
+    const response = yield authRequest.post(`/v1/lectures/${id}/evaluations`, { evaluation: data });
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.createEvaluationSuccess(response.data.data.id));
+  } catch (error) {
+    yield put(Actions.createEvaluationFailure(error.errors));
+  }
+}
+
 // All sagas to be loaded
 export default [
   watchGetLectureRequest,
   watchGetEvaluationsRequest,
+  watchCreateEvaluationRequest,
 ];

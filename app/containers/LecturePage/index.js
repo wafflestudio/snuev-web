@@ -3,12 +3,13 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import { Map, List } from 'immutable';
+import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 
+import EvaluationForm from './EvaluationForm';
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
 import {
@@ -43,7 +44,7 @@ import withBars from '../../services/withBars';
 type Props = {
   lecture?: Map<string, any>,
   lectureIsFetching: boolean,
-  lectureError?: {}[],
+  lectureError?: List<Map<string, any>>,
   evaluations?: List<Map<string, any>>,
   evaluationsHasMore: boolean,
   evaluationsIsFetching: boolean,
@@ -89,6 +90,7 @@ export class LecturePage extends React.PureComponent<Props> {
             ]}
           />
         </div>
+        <EvaluationForm />
         <LectureNameWrapper>
           <LectureName>
             {lecture.get('course').get('name')}

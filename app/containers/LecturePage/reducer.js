@@ -16,6 +16,9 @@ export const { Types, Creators } = createActions({
   getEvaluationsRequest: ['id', 'page'],
   getEvaluationsSuccess: ['ids'],
   getEvaluationsFailure: ['error'],
+  createEvaluationRequest: ['id', 'data'],
+  createEvaluationSuccess: ['id'],
+  createEvaluationFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -29,6 +32,10 @@ export const initialState = fromJS({
   evaluations: {
     ids: [],
     hasMore: false,
+    isFetching: false,
+    error: null,
+  },
+  evaluationForm: {
     isFetching: false,
     error: null,
   },
@@ -68,6 +75,23 @@ export const evaluationsSuccess = (state, { ids }) => ids.length ?
 export const evaluationsFailure = (state, { error }) =>
   state.mergeDeep({ evaluations: { isFetching: false, error } });
 
+export const evaluationFormRequest = (state) =>
+  state.mergeDeep({ evaluationForm: { isFetching: true, error: null } });
+
+export const evaluationFormSuccess = (state, { id }) =>
+  state.mergeDeep({
+    evaluations: {
+      ids: state.getIn(['evaluations', 'ids']).unshift(id),
+    },
+    evaluationForm: {
+      isFetching: false,
+      error: null,
+    },
+  });
+
+export const evaluationFormFailure = (state, { error }) =>
+  state.mergeDeep({ evaluationForm: { isFetching: false, error } });
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 // should convert uppercase to screaming snake_case
@@ -78,4 +102,7 @@ export default createReducer(initialState, {
   [Types.GET_EVALUATIONS_REQUEST]: evaluationsRequest,
   [Types.GET_EVALUATIONS_SUCCESS]: evaluationsSuccess,
   [Types.GET_EVALUATIONS_FAILURE]: evaluationsFailure,
+  [Types.CREATE_EVALUATION_REQUEST]: evaluationFormRequest,
+  [Types.CREATE_EVALUATION_SUCCESS]: evaluationFormSuccess,
+  [Types.CREATE_EVALUATION_FAILURE]: evaluationFormFailure,
 });

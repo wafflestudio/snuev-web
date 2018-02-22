@@ -15,6 +15,11 @@ const makeSelectEvaluationsHelper = () => createSelector(
   (page) => page.get('evaluations')
 );
 
+const makeSelectEvaluationFormHelper = () => createSelector(
+  makeSelectPage(),
+  (page) => page.get('evaluationForm')
+);
+
 const lectureSelectorMakers = createPageSelectors(makeSelectLectureHelper);
 
 const makeSelectLecture = () => createSelector(
@@ -36,6 +41,10 @@ const makeSelectEvaluationsHasMore = evaluationsSelectorMakers.makeSelectHasMore
 const makeSelectEvaluationsIsFetching = evaluationsSelectorMakers.makeSelectIsFetching;
 const makeSelectEvaluationsError = evaluationsSelectorMakers.makeSelectError;
 
+const evaluationFormSelectorMakers = createPageSelectors(makeSelectEvaluationFormHelper);
+
+const makeSelectEvaluationFormIsFetching = evaluationFormSelectorMakers.makeSelectIsFetching;
+const makeSelectEvaluationFormError = evaluationFormSelectorMakers.makeSelectError;
 
 export {
   makeSelectLecture,
@@ -45,4 +54,6 @@ export {
   makeSelectEvaluationsHasMore,
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
+  makeSelectEvaluationFormIsFetching,
+  makeSelectEvaluationFormError,
 };
