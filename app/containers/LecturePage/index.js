@@ -20,7 +20,6 @@ import {
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
 } from './selectors';
-import { makeSelectUser } from '../../global/selectors';
 import {
   Wrapper,
   ColumnWrapper,
@@ -42,7 +41,6 @@ import {
 import withBars from '../../services/withBars';
 
 type Props = {
-  user?: Map<string, any>,
   lecture?: Map<string, any>,
   lectureIsFetching: boolean,
   lectureError?: {}[],
@@ -63,9 +61,7 @@ export class LecturePage extends React.PureComponent<Props> {
   }
 
   loadMoreEvaluations(page: number) {
-    if (this.props.user && this.props.user.get('isConfirmed')) {
-      this.props.getEvaluations(this.props.params.lectureId, page);
-    }
+    this.props.getEvaluations(this.props.params.lectureId, page);
   }
 
   render() {
@@ -179,7 +175,6 @@ export class LecturePage extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  user: makeSelectUser(),
   lecture: makeSelectLecture(),
   lectureIsFetching: makeSelectLectureIsFetching(),
   lectureError: makeSelectLectureError(),

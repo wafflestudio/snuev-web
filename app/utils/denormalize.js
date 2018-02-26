@@ -3,7 +3,7 @@ import { fromJS, List } from 'immutable';
 
 export const denormalize = (normalizedData, modelName, id) => {
   try {
-    return fromJS(build(normalizedData.toJS(), modelName, List.isList(id) ? id.toJS() : id));
+    return id ? fromJS(build(normalizedData.toJS(), modelName, List.isList(id) ? id.toJS() : id)) : null;
   } catch (err) {
     // isFetching or an error, ...
     return null;
