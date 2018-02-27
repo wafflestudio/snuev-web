@@ -74,6 +74,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/sign_up/complete',
+      name: 'signUpCompletePage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/SignUpCompletePage/reducer'),
+          import('containers/SignUpCompletePage/sagas'),
+          import('containers/SignUpCompletePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('signUpCompletePage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '/lectures/:lectureId',
       name: 'lecturePage',
       getComponent(nextState, cb) {
