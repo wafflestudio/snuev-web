@@ -14,11 +14,13 @@ export const RowWrapper = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   height: 100%;
+  width: 100%;
   flex-direction: column;
 `;
 
 export const SpaceBetween = styled.div`
   display: flex;
+  height: 100%;
   width: 100%;
   justify-content: space-between;
 `;
@@ -130,3 +132,29 @@ export const LeaveReviewText = styled.text`
   text-align: center;
   color: #ffffff;
 `;
+
+export const CloseIcon = styled.span`
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}`;

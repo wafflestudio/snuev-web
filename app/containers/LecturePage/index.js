@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
+import Modal from 'react-modal';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
@@ -38,6 +39,7 @@ import {
   EvaluationHeaderText,
   LeaveReviewButton,
   LeaveReviewText,
+  CloseIcon,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -54,7 +56,18 @@ type Props = {
   getEvaluations: (lectureId: number, page: number) => void,
 };
 
-export class LecturePage extends React.PureComponent<Props> {
+type State = {
+  evaluationFormOpen: boolean,
+};
+
+export class LecturePage extends React.PureComponent<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      evaluationFormOpen: false,
+    };
+  }
+
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
     (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
@@ -90,7 +103,22 @@ export class LecturePage extends React.PureComponent<Props> {
             ]}
           />
         </div>
-        <EvaluationForm />
+        <Modal
+          style={{
+            content: {
+              height: '340px',
+              display: 'flex',
+              flex: 1,
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '0px',
+            },
+          }}
+          isOpen={this.state.evaluationFormOpen}
+        >
+          <EvaluationForm />
+          <CloseIcon onClick={() => this.setState({ evaluationFormOpen: false })} />
+        </Modal>
         <LectureNameWrapper>
           <LectureName>
             {lecture.get('course').get('name')}
@@ -148,7 +176,7 @@ export class LecturePage extends React.PureComponent<Props> {
                 {messages.evaluationsCount(lecture.get('evaluationsCount'))}
               </ReviewCountText>
             </div>
-            <LeaveReviewButton>
+            <LeaveReviewButton onClick={() => this.setState({ evaluationFormOpen: true })}>
               <LeaveReviewText>
                 {messages.leaveReview}
               </LeaveReviewText>
