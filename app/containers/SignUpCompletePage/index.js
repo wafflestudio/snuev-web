@@ -53,8 +53,4 @@ const mapStateToProps = createStructuredSelector({
   error: makeSelectError(),
 });
 
-const mapDispatchToProps = (dispatch: Function) => ({
-  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpCompletePage);
+export default connect(mapStateToProps)(SignUpCompletePage);
