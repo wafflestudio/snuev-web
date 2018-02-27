@@ -9,16 +9,15 @@ import { Creators as Actions } from '../reducer';
 
 import messages from './messages';
 import {
-  ColumnWrapper,
-  RowWrapper,
-} from '../index.style';
-import {
   Background,
   SpaceBetween,
   LectureName,
   ExplanationText,
   SubmitButton,
   SubmitText,
+  RatingWrapper,
+  StarRatingWrapper,
+  CriteriaWrapper,
   CriteriaText,
   CommentInput,
 } from './index.style';
@@ -75,51 +74,45 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     }
     return (
       <Background onSubmit={this.handleSubmit}>
-        <ColumnWrapper>
-          <div>
-            <SpaceBetween>
-              <div>
-                <LectureName>
-                  {lecture.get('name')}
-                </LectureName>
-                <ExplanationText>
-                  에 대한 강의평을 작성합니다.
-                </ExplanationText>
-              </div>
-              <SubmitButton type="submit">
-                <SubmitText>
-                  등록
-                </SubmitText>
-              </SubmitButton>
-            </SpaceBetween>
-          </div>
-          <div>
-            <ColumnWrapper>
-              <div>
-                <CriteriaText>
-                  {messages.criteria.score}
-                </CriteriaText>
-                <Rating initialRating={this.state.score} onChange={this.makeHandleRate('score')} />
-              </div>
-              <div>
-                <CriteriaText>
-                  {messages.criteria.easiness}
-                </CriteriaText>
-                <Rating initialRating={this.state.easiness} onChange={this.makeHandleRate('easiness')} />
-              </div>
-              <div>
-                <CriteriaText>
-                  {messages.criteria.grading}
-                </CriteriaText>
-                <Rating initialRating={this.state.grading} onChange={this.makeHandleRate('grading')} />
-              </div>
-            </ColumnWrapper>
-            <CommentInput
-              value={this.state.comment}
-              onChange={({ target }) => this.setState({ comment: target.value })} // eslint-disable-line
-            />
-          </div>
-        </ColumnWrapper>
+        <div>
+          <SpaceBetween>
+            <div>
+              <LectureName>
+                {lecture.get('name')}</LectureName>
+              <ExplanationText>
+                에 대한 강의평을 작성합니다.
+              </ExplanationText>
+            </div>
+            <SubmitButton type="submit">
+              <SubmitText>
+                등록
+              </SubmitText>
+            </SubmitButton>
+          </SpaceBetween>
+        </div>
+        <RatingWrapper>
+          <StarRatingWrapper>
+            <CriteriaWrapper>
+              <CriteriaText>
+                {messages.criteria.score}</CriteriaText>
+              <Rating initialRating={this.state.score} onChange={this.makeHandleRate('score')} />
+            </CriteriaWrapper>
+            <CriteriaWrapper>
+              <CriteriaText>
+                {messages.criteria.easiness}</CriteriaText>
+              <Rating initialRating={this.state.easiness} onChange={this.makeHandleRate('easiness')} />
+            </CriteriaWrapper>
+            <CriteriaWrapper>
+              <CriteriaText>
+                {messages.criteria.grading}</CriteriaText>
+              <Rating initialRating={this.state.grading} onChange={this.makeHandleRate('grading')} />
+            </CriteriaWrapper>
+          </StarRatingWrapper>
+          <CommentInput
+            value={this.state.comment}
+            onChange={({ target }) => this.setState({ comment: target.value })} // eslint-disable-line
+          />
+        </RatingWrapper>
       </Background>
     );
   }

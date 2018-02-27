@@ -4,16 +4,15 @@ export const Background = styled.form`
   background-color: #ffffff;
   display: flex;
   flex: 1;
-  height: 340px;
-  width: 800px;
-  min-height: 340px;
-  border: solid 1px #cccccc;
+  max-width: 800px;
+  flex-direction: column;
 `;
 
 export const SpaceBetween = styled.div`
   display: flex;
   flex: 1;
   justify-content: space-between;
+  width: 100%;
 `;
 
 export const LectureName = styled.text`
@@ -62,9 +61,31 @@ export const SubmitText = styled.text`
   color: #ffffff;
 `;
 
+export const RatingWrapper = styled.div`
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 30px;
+`;
+
+export const StarRatingWrapper = styled.div`
+  display: flex;
+  height: 180px;
+  width: 100%;
+  flex-direction: column;
+`;
+
+export const CriteriaWrapper = styled.div`
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: space-between;
+  width: 270px;
+`;
+
 export const CriteriaText = styled.text`
-  width: 200px;
-  height: 19px;
+  width: 100px;
   font-family: AppleSDGothicNeo;
   font-size: 16px;
   font-weight: normal;
@@ -78,17 +99,10 @@ export const CriteriaText = styled.text`
 
 // TODO: create separate component for CommentInput to show warning when comment is under 10 characters
 export const CommentInput = styled.textarea`
-  width: 460px;
-  height: 180px;
+  width: 1000px;
+  height: 230px;
   border-radius: 3px;
   background-color: #ffffff;
   box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
   border: solid 1px #979797;
-`;
-
-export const Block = styled.div`
-  background-color: #ffffff;
-  min-height: 100px;
-  min-width: 100px;
-  border: solid 1px #cccccc;
 `;
