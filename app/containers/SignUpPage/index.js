@@ -1,5 +1,5 @@
 // @flow
-import React, { PropTypes } from 'react';
+import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -66,7 +66,7 @@ export class SignUpPage extends React.PureComponent<Props, State> {
           <Input
             type="text"
             value={this.state.username}
-            onChange={({ target }) => this.setState({ username: target.value })}
+            onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
             placeholder={messages.input.usernameHint}
           />
           <UsernameInputText>
@@ -75,21 +75,22 @@ export class SignUpPage extends React.PureComponent<Props, State> {
           <Input
             type="password"
             value={this.state.password}
-            onChange={({ target }) => this.setState({ password: target.value })}
+            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
             placeholder={messages.input.passwordHint}
           />
           <Input
             type="text"
             value={this.state.nickname}
-            onChange={({ target }) => this.setState({ nickname: target.value })}
+            onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
             placeholder={messages.input.nicknameHint}
           />
-          <DepartmentInput>
-              value={this.state.department}
-              onChange={({ target }) => this.setState({ department: target.value })}>
-              <option value="컴퓨터공학부">컴퓨터공학부</option>
-              <option value="전기전자공학부">전기전자공학부</option>
-              <option value="영어영문학과">영어영문학과</option>
+          <DepartmentInput
+            value={this.state.department}
+            onChange={({ target }) => this.setState({ department: target.value })} // eslint-disable-line
+          >
+            <option value="컴퓨터공학부">컴퓨터공학부</option>
+            <option value="전기전자공학부">전기전자공학부</option>
+            <option value="영어영문학과">영어영문학과</option>
           </DepartmentInput>
           <SignUpButton type="submit">
             <SignUpText>

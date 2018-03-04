@@ -17,10 +17,11 @@ import * as React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { Map } from 'immutable';
 
 import { Creators as GlobalActions } from '../../global/reducer';
 import { getAuthToken } from '../../services/localStorage';
-import { makeSelectUserIsFetching } from '../../global/selectors';
+import { makeSelectUser, makeSelectUserIsFetching } from '../../global/selectors';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -28,20 +29,22 @@ const AppWrapper = styled.div`
 `;
 
 type Props = {
-  isFetchingUser: boolean,
+  user: Map<string, any>,
+  userIsFetching: boolean,
   getCurrentUser: () => void,
   children: React.Node,
 };
 
 class App extends React.PureComponent<Props> {
-  componentWillMount() {
+  componentDidMount() {
     if (getAuthToken()) {
       this.props.getCurrentUser();
     }
   }
 
   render() {
-    if (this.props.isFetchingUser) {
+    const { user, userIsFetching } = this.props;
+    if ((getAuthToken() && !user) || userIsFetching) {
       return (
         <div>
           Loading Screen
@@ -57,7 +60,8 @@ class App extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetchingUser: makeSelectUserIsFetching(),
+  user: makeSelectUser(),
+  userIsFetching: makeSelectUserIsFetching(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

@@ -15,7 +15,7 @@ export function* watchSignUpRequest() {
 export function* signUp({ username, password, nickname }) {
   try {
     const response = yield request.post('/v1/user', { username, password, nickname });
-    yield put(Actions.signUpSuccess(response.data));
+    yield put(Actions.signUpSuccess());
     setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
     browserHistory.push('sign_up/complete');

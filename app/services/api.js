@@ -33,7 +33,7 @@ const createAPI = (customURL, headers, config) => {
         throw error;
       }
       try {
-        const response = yield fetch(url, { method, body: JSON.stringify(body), headers, ...options });
+        const response = yield fetch(url, { method, body: method === 'GET' ? null : JSON.stringify(body), headers, ...options });
         return response;
       } catch (error) {
         if (error.response.status === 401 && authToken) {

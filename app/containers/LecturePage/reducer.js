@@ -10,38 +10,72 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  getLectureDetailRequest: ['data'],
-  getLectureDetailSuccess: null,
-  getLectureDetailFailure: ['error'],
+  getLectureRequest: ['id'],
+  getLectureSuccess: null,
+  getLectureFailure: ['error'],
+  getEvaluationsRequest: ['id', 'page'],
+  getEvaluationsSuccess: ['ids'],
+  getEvaluationsFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  isFetching: false,
-  error: null,
+  lecture: {
+    id: null,
+    isFetching: false,
+    error: null,
+  },
+  evaluations: {
+    ids: [],
+    hasMore: false,
+    isFetching: false,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
 
-// request the data from an api
-export const request = (state, { data }) =>
-  state.merge({ data, isFetching: true, error: null });
+export const lectureRequest = (state, { id }) =>
+  state.mergeDeep({ lecture: { id, isFetching: true, error: null } });
 
+export const lectureSuccess = (state) =>
+  state.mergeDeep({ lecture: { isFetching: false, error: null } });
 
-// successful api lookup
-export const success = (state) =>
-  state.merge({ isFetching: false, error: null });
+export const lectureFailure = (state, { error }) =>
+  state.mergeDeep({ lecture: { id: null, isFetching: false, error } });
 
-// Something went wrong somewhere.
-export const failure = (state, { error }) =>
-  state.merge({ isFetching: false, error });
+export const evaluationsRequest = (state) =>
+  state.mergeDeep({ evaluations: { isFetching: true, error: null } });
+
+export const evaluationsSuccess = (state, { ids }) => ids.length ?
+  state.mergeDeep({
+    evaluations: {
+      ids: state.getIn(['evaluations', 'ids']).concat(ids),
+      hasMore: true,
+      isFetching: false,
+      error: null,
+    },
+  }) :
+  state.mergeDeep({
+    evaluations: {
+      hasMore: false,
+      isFetching: false,
+      error: null,
+    },
+  });
+
+export const evaluationsFailure = (state, { error }) =>
+  state.mergeDeep({ evaluations: { isFetching: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 // should convert uppercase to screaming snake_case
 export default createReducer(initialState, {
-  [Types.GET_LECTURE_DETAIL_REQUEST]: request,
-  [Types.GET_LECTURE_DETAIL_SUCCESS]: success,
-  [Types.GET_LECTURE_DETAIL_FAILURE]: failure,
+  [Types.GET_LECTURE_REQUEST]: lectureRequest,
+  [Types.GET_LECTURE_SUCCESS]: lectureSuccess,
+  [Types.GET_LECTURE_FAILURE]: lectureFailure,
+  [Types.GET_EVALUATIONS_REQUEST]: evaluationsRequest,
+  [Types.GET_EVALUATIONS_SUCCESS]: evaluationsSuccess,
+  [Types.GET_EVALUATIONS_FAILURE]: evaluationsFailure,
 });
