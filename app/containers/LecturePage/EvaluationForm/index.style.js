@@ -18,7 +18,7 @@ export const Header = styled.div`
 
 export const LectureName = styled.text`
   height: 29px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 24px;
   font-weight: bold;
   font-style: normal;
@@ -31,7 +31,7 @@ export const LectureName = styled.text`
 
 export const ExplanationText = styled.text`
   height: 20px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 16px;
   font-weight: normal;
   font-style: normal;
@@ -53,7 +53,7 @@ export const SubmitButton = styled.button`
 
 export const SubmitText = styled.text`
   height: 19px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 16px;
   font-weight: bold;
   font-style: normal;
@@ -62,14 +62,6 @@ export const SubmitText = styled.text`
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
-`;
-
-export const RatingWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 30px;
 `;
 
 export const StarRatingWrapper = styled.div`
@@ -89,7 +81,7 @@ export const CriteriaWrapper = styled.div`
 
 export const CriteriaText = styled.text`
   width: 90px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 16px;
   font-weight: normal;
   font-style: normal;

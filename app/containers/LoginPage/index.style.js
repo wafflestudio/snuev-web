@@ -37,7 +37,7 @@ export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
 export const WelcomeText = styled.p`
   width: 273px;
   height: 42px;
-  font-family: NanumMyeongo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 18px;
   font-weight: bold;
   text-align: center;
@@ -57,7 +57,7 @@ export const Input = styled.input`
 export const RecoverPasswordLink = styled.a`
   width: 128px;
   height: 14px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: bold;
   text-align: left;
@@ -78,7 +78,7 @@ export const LoginButton = styled.button`
 export const LoginText = styled.text`
   width: 46px;
   height: 17px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   font-weight: bold;
   text-align: center;
@@ -95,7 +95,7 @@ export const SignUpWrapper = styled.div`
 export const SignUpText = styled.text`
   width: 104px;
   height: 14px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   text-align: left;
   color: #111111;
@@ -104,7 +104,7 @@ export const SignUpText = styled.text`
 export const SignUpLink = styled(Link)`
   width: 46px;
   height: 14px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: bold;
   text-align: left;
