@@ -2,10 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
-import { Creators as Actions } from './reducer';
 import messages from './messages';
-import { makeSelectIsFetching, makeSelectError } from './selectors';
 import {
   Background,
   SignUpCompleteForm,
@@ -48,13 +45,4 @@ export class SignUpCompletePage extends React.PureComponent<any> {
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
-});
-
-const mapDispatchToProps = (dispatch: Function) => ({
-  
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpCompletePage);
+export default connect(null, null)(SignUpCompletePage);

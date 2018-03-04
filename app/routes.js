@@ -78,16 +78,12 @@ export default function createRoutes(store) {
       name: 'signUpCompletePage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          import('containers/SignUpCompletePage/reducer'),
-          import('containers/SignUpCompletePage/sagas'),
           import('containers/SignUpCompletePage'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component]) => {
-          injectReducer('signUpCompletePage', reducer.default);
-          injectSagas(sagas.default);
+        importModules.then(([component]) => {
           renderRoute(component);
         });
 
