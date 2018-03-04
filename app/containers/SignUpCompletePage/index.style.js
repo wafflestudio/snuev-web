@@ -13,15 +13,6 @@ export const Background = styled.div`
   flex-direction: column;
 `;
 
-export const SignUpCompleteForm = styled.form`
-  width: 1440px;
-  height: 1024px;
-  background-color: #ffffff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
 const LogoFrame = styled.img`
   width: 182px;
   height: 39px;

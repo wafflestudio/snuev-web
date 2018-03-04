@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Helmet from 'react-helmet';
+import { injectIntl, FormattedHTMLMessage, IntlProvider } from 'react-intl';
 import messages from './messages';
 import {
   Background,
@@ -12,29 +13,31 @@ import {
   ReturnLink,
 } from './index.style';
 
-export default () => (
-  <Background>
-    <Helmet
-      title="SignUpCompletePage"
-      meta={[
-        { name: 'description', content: 'Description of SignUpCompletePage' },
-      ]}
-    />
-    <Logo />
-    <WaitingText>
-      {messages.waiting}
-    </WaitingText>
-    <WebMailText>
-      {messages.webMailSent}
-      <br />
-      {messages.checkMail}
-    </WebMailText>
-    <ReturnLink to="/">
-      <ReturnButton>
-        <ReturnText>
-          {messages.returnText}
-        </ReturnText>
-      </ReturnButton>
-    </ReturnLink>
-  </Background>
+const SignUpCompletePage = () => (
+  <IntlProvider messages={messages}>
+    <Background>
+      <Helmet
+        title="SignUpCompletePage"
+        meta={[
+          { name: 'description', content: 'Description of SignUpCompletePage' },
+        ]}
+      />
+      <Logo />
+      <WaitingText>
+        {messages.waiting}
+      </WaitingText>
+      <WebMailText>
+        <FormattedHTMLMessage id="webmailSent" />
+      </WebMailText>
+      <ReturnLink to="/">
+        <ReturnButton>
+          <ReturnText>
+            {messages.returnText}
+          </ReturnText>
+        </ReturnButton>
+      </ReturnLink>
+    </Background>
+  </IntlProvider>
 );
+
+export default injectIntl(SignUpCompletePage);
