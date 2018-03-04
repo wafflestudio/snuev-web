@@ -1,11 +1,9 @@
 // @flow
 import React from 'react';
-import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import messages from './messages';
 import {
   Background,
-  SignUpCompleteForm,
   Logo,
   WaitingText,
   WebMailText,
@@ -30,7 +28,7 @@ export class SignUpCompletePage extends React.PureComponent<any> {
         </WaitingText>
         <WebMailText>
           {messages.webMailSent}
-          <br/>
+          <br />
           {messages.checkMail}
         </WebMailText>
         <ReturnLink to="/">
@@ -45,4 +43,4 @@ export class SignUpCompletePage extends React.PureComponent<any> {
   }
 }
 
-export default connect(null, null)(SignUpCompletePage);
+export default SignUpCompletePage;
