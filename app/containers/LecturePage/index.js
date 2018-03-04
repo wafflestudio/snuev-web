@@ -12,6 +12,7 @@ import messages from './messages';
 import EvaluationForm from './EvaluationForm';
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
+import { makeSelectUser } from '../../global/selectors';
 import {
   makeSelectLecture,
   makeSelectLectureIsFetching,
@@ -44,6 +45,7 @@ import {
 import withBars from '../../services/withBars';
 
 type Props = {
+  user?: Map<string, any>,
   lecture?: Map<string, any>,
   lectureIsFetching: boolean,
   lectureError?: List<Map<string, any>>,
@@ -75,7 +77,9 @@ export class LecturePage extends React.PureComponent<Props, State> {
   }
 
   loadMoreEvaluations(page: number) {
-    this.props.getEvaluations(this.props.params.lectureId, page);
+    if (this.props.user && this.props.user.get('isConfirmed')) {
+      this.props.getEvaluations(this.props.params.lectureId, page);
+    }
   }
 
   render() {
@@ -164,11 +168,13 @@ export class LecturePage extends React.PureComponent<Props, State> {
                 {messages.evaluationsCount(lecture.get('evaluationsCount'))}
               </ReviewCountText>
             </div>
-            <LeaveReviewButton onClick={() => this.setState({ evaluationFormOpen: true })}>
-              <LeaveReviewText>
-                {messages.leaveReview}
-              </LeaveReviewText>
-            </LeaveReviewButton>
+            {(this.props.user && this.props.user.get('isConfirmed')) &&
+              <LeaveReviewButton onClick={() => this.setState({ evaluationFormOpen: true })}>
+                <LeaveReviewText>
+                  {messages.leaveReview}
+                </LeaveReviewText>
+              </LeaveReviewButton>
+            }
           </SpaceBetween>
         </Wrapper>
         {evaluations &&
@@ -193,6 +199,7 @@ export class LecturePage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
+  user: makeSelectUser(),
   lecture: makeSelectLecture(),
   lectureIsFetching: makeSelectLectureIsFetching(),
   lectureError: makeSelectLectureError(),

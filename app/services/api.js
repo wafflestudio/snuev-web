@@ -1,9 +1,8 @@
-import { put, select } from 'redux-saga/effects';
+import { put } from 'redux-saga/effects';
 import queryString from 'query-string';
 import isFunction from 'lodash/isFunction';
 import fetch from '../utils/fetch';
 import { Creators as AuthActions } from '../global/reducer';
-import { makeSelectUser } from '../global/selectors';
 import { getAuthToken } from './localStorage';
 import isGenerator from '../utils/isGenerator';
 
@@ -56,11 +55,7 @@ const createAPI = (customURL, headers, checkPermission) => {
   return api;
 };
 
-export const tokenRequest = createAPI(null, null, () => getAuthToken());
-export const authRequest = createAPI(null, null, function* () {
-  const user = yield select(makeSelectUser());
-  return user && user.get('isConfirmed');
-});
+export const authRequest = createAPI(null, null, getAuthToken);
 export const request = createAPI();
 
 export default createAPI;

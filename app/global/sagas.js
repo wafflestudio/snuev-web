@@ -1,6 +1,6 @@
 import { take, call, put } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
-import { request, tokenRequest } from '../services/api';
+import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
 
 export function* getSamples() {
@@ -43,7 +43,7 @@ export function* signIn({ username, password }) {
 
 export function* userInformation() {
   try {
-    const response = yield tokenRequest.get('/v1/user');
+    const response = yield authRequest.get('/v1/user');
     yield put(Actions.userSuccess(response.data.data.id));
     yield put(Actions.normalizeData(response.data));
   } catch (error) {
