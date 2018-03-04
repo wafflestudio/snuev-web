@@ -47,6 +47,7 @@ export function* userInformation() {
     yield put(Actions.userSuccess(response.data.data.id));
     yield put(Actions.normalizeData(response.data));
   } catch (error) {
+    yield put(Actions.signOut());
     yield put(Actions.userFailure(error.errors));
   }
 }

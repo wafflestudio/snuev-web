@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import React from 'react';
+import Modal from 'react-modal';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -32,6 +34,23 @@ export const Background = styled.div`
   padding: 50px;
   flex-direction: column;
 `;
+
+export const EvaluationFormModal = (props) => (
+  <Modal
+    {...props}
+    style={{
+      content: {
+        height: '340px',
+        minWidth: '1000px',
+        display: 'flex',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0px',
+      },
+    }}
+  />
+);
 
 export const LectureNameWrapper = styled.div`
   width: 100%;

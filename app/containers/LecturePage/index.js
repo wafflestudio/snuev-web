@@ -5,7 +5,6 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
-import Modal from 'react-modal';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
@@ -28,6 +27,7 @@ import {
   RowWrapper,
   SpaceBetween,
   Background,
+  EvaluationFormModal,
   LectureNameWrapper,
   LectureName,
   ProfessorName,
@@ -95,30 +95,18 @@ export class LecturePage extends React.PureComponent<Props, State> {
     }
     return (
       <Background>
-        <div>
-          <Helmet
-            title="LecturePage"
-            meta={[
-              { name: 'description', content: 'Description of Lecture Page' },
-            ]}
-          />
-        </div>
-        <Modal
-          style={{
-            content: {
-              height: '340px',
-              display: 'flex',
-              flex: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
-              padding: '0px',
-            },
-          }}
+        <Helmet
+          title="LecturePage"
+          meta={[
+            { name: 'description', content: 'Description of Lecture Page' },
+          ]}
+        />
+        <EvaluationFormModal
           isOpen={this.state.evaluationFormOpen}
         >
           <EvaluationForm />
           <CloseIcon onClick={() => this.setState({ evaluationFormOpen: false })} />
-        </Modal>
+        </EvaluationFormModal>
         <LectureNameWrapper>
           <LectureName>
             {lecture.get('course').get('name')}
