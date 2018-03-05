@@ -32,7 +32,6 @@ type State = {
   department: string,
 };
 
-
 export class SignUpPage extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);

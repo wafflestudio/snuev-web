@@ -74,6 +74,22 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/sign_up/complete',
+      name: 'signUpCompletePage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/SignUpCompletePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([component]) => {
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
       path: '/lectures/:lectureId',
       name: 'lecturePage',
       getComponent(nextState, cb) {
