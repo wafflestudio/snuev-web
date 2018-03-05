@@ -54,22 +54,14 @@ type Props = {
   evaluationsIsFetching: boolean,
   evaluationsError?: List<Map<string, any>>,
   params: { lectureId: number },
+  evaluationFormOpen: boolean,
   getLecture: (id: number) => void,
   getEvaluations: (lectureId: number, page: number) => void,
+  openEvaluationForm: () => void,
+  closeEvaluationForm: () => void,
 };
 
-type State = {
-  evaluationFormOpen: boolean,
-};
-
-export class LecturePage extends React.PureComponent<Props, State> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      evaluationFormOpen: false,
-    };
-  }
-
+export class LecturePage extends React.PureComponent<Props> {
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
     (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
@@ -106,10 +98,10 @@ export class LecturePage extends React.PureComponent<Props, State> {
           ]}
         />
         <EvaluationFormModal
-          isOpen={this.state.evaluationFormOpen}
+          isOpen={this.props.evaluationFormOpen}
         >
           <EvaluationForm />
-          <CloseIcon onClick={() => this.setState({ evaluationFormOpen: false })} />
+          <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
         <LectureNameWrapper>
           <LectureName>
@@ -169,7 +161,7 @@ export class LecturePage extends React.PureComponent<Props, State> {
               </ReviewCountText>
             </div>
             {(this.props.user && this.props.user.get('isConfirmed')) &&
-              <LeaveReviewButton onClick={() => this.setState({ evaluationFormOpen: true })}>
+              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
                 <LeaveReviewText>
                   {messages.leaveReview}
                 </LeaveReviewText>
@@ -207,11 +199,14 @@ const mapStateToProps = createStructuredSelector({
   evaluationsHasMore: makeSelectEvaluationsHasMore(),
   evaluationsIsFetching: makeSelectEvaluationsIsFetching(),
   evaluationsError: makeSelectEvaluationsError(),
+  evaluationFormOpen: (state: Map<string, any>) => state.getIn(['lecturePage', 'evaluationFormOpen']),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   getLecture: (id: number) => dispatch(Actions.getLectureRequest(id)),
   getEvaluations: (id: number, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
+  openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
+  closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

@@ -34,6 +34,23 @@ export function* getEvaluations({ id, page }) {
   }
 }
 
+export function* watchGetMyEvaluationRequest() {
+  while (true) {
+    const { id } = yield take(Types.GET_MY_EVALUATION_REQUEST);
+    yield call(getMyEvaluation, id);
+  }
+}
+
+export function* getMyEvaluation(id) {
+  try {
+    const response = yield authRequest.get(`/v1/lectures/${id}/evaluations/mine`);
+    yield put(Actions.getMyEvaluationSuccess(response.data.data[0].id));
+    yield put(GlobalActions.normalizeData(response.data));
+  } catch (error) {
+    yield put(Actions.getMyEvaluationFailure(error.errors));
+  }
+}
+
 export function* watchCreateEvaluationRequest() {
   yield takeLatest(Types.CREATE_EVALUATION_REQUEST, createEvaluation);
 }
@@ -48,9 +65,25 @@ export function* createEvaluation({ id, data }) {
   }
 }
 
+export function* watchUpdateEvaluationRequest() {
+  yield takeLatest(Types.UPDATE_EVALUATION_REQUEST, updateEvaluation);
+}
+
+export function* updateEvaluation({ lectureId, evaluationId, data }) {
+  try {
+    const response = yield authRequest.put(`/v1/lectures/${lectureId}/evaluations/${evaluationId}`, { evaluation: data });
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.updateEvaluationSuccess());
+  } catch (error) {
+    yield put(Actions.updateEvaluationFailure(error.errors));
+  }
+}
+
 // All sagas to be loaded
 export default [
   watchGetLectureRequest,
   watchGetEvaluationsRequest,
+  watchGetMyEvaluationRequest,
   watchCreateEvaluationRequest,
+  watchUpdateEvaluationRequest,
 ];

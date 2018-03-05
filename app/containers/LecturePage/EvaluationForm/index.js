@@ -2,7 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { List, Map } from 'immutable';
+import { Map } from 'immutable';
 
 import Rating from '../../../components/Rating';
 import { Creators as Actions } from '../reducer';
@@ -22,15 +22,16 @@ import {
 } from './index.style';
 import {
   makeSelectLecture,
-  makeSelectEvaluationFormIsFetching,
-  makeSelectEvaluationFormError,
+  makeSelectMyEvaluation,
 } from '../selectors';
 
 type Props = {
+  getMyEvaluation: (number) => void,
   createEvaluation: (number, State) => void,
+  updateEvaluation: (number, number, State) => void,
   lecture: Map<string, any>,
-  isFetching: boolean,
-  error: List<Map<string, any>>,
+  myEvaluation: Map<string, any>,
+  closeEvaluationForm: () => void,
 };
 
 type State = {
@@ -53,9 +54,30 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     (this: any).makeHandleRate = this.makeHandleRate.bind(this);
   }
 
+  componentDidMount() {
+    if (this.props.lecture.get('evaluated')) {
+      this.props.getMyEvaluation(this.props.lecture.get('id'));
+    }
+  }
+
+  componentWillReceiveProps(props: Props) {
+    const { myEvaluation } = props;
+    this.setState({
+      comment: myEvaluation.get('comment'),
+      score: myEvaluation.get('score'),
+      easiness: myEvaluation.get('easiness'),
+      grading: myEvaluation.get('grading'),
+    });
+  }
+
   handleSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    this.props.createEvaluation(this.props.lecture.get('id'), this.state);
+    if (this.props.lecture.get('evaluated')) {
+      this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), this.state);
+    } else {
+      this.props.createEvaluation(this.props.lecture.get('id'), this.state);
+    }
+    this.props.closeEvaluationForm();
   }
 
   makeHandleRate(criteria: string) {
@@ -77,7 +99,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
           <LectureName>
             {lecture.get('name')}</LectureName>
           <ExplanationText>
-            에 대한 강의평을 작성합니다.
+            {messages.explanation}
           </ExplanationText>
         </Header>
         <StarRatingWrapper>
@@ -103,7 +125,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
         />
         <SubmitButton type="submit">
           <SubmitText>
-            등록
+            {this.props.lecture.get('evaluated') ? messages.edit : messages.submit}
           </SubmitText>
         </SubmitButton>
       </Wrapper>
@@ -113,12 +135,14 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
 const mapStateToProps = createStructuredSelector({
   lecture: makeSelectLecture(),
-  isFetching: makeSelectEvaluationFormIsFetching(),
-  error: makeSelectEvaluationFormError(),
+  myEvaluation: makeSelectMyEvaluation(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
+  getMyEvaluation: (lectureId: number) => dispatch(Actions.getMyEvaluationRequest(lectureId)),
   createEvaluation: (lectureId: number, data: State) => dispatch(Actions.createEvaluationRequest(lectureId, data)),
+  updateEvaluation: (lectureId: number, evaluationId: number, data: State) => dispatch(Actions.updateEvaluationRequest(lectureId, evaluationId, data)),
+  closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EvaluationForm);

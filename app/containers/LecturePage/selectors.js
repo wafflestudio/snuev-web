@@ -15,9 +15,9 @@ const makeSelectEvaluationsHelper = () => createSelector(
   (page) => page.get('evaluations')
 );
 
-const makeSelectEvaluationFormHelper = () => createSelector(
+const makeSelectMyEvaluationHelper = () => createSelector(
   makeSelectPage(),
-  (page) => page.get('evaluationForm')
+  (page) => page.get('myEvaluation')
 );
 
 const lectureSelectorMakers = createPageSelectors(makeSelectLectureHelper);
@@ -41,10 +41,13 @@ const makeSelectEvaluationsHasMore = evaluationsSelectorMakers.makeSelectHasMore
 const makeSelectEvaluationsIsFetching = evaluationsSelectorMakers.makeSelectIsFetching;
 const makeSelectEvaluationsError = evaluationsSelectorMakers.makeSelectError;
 
-const evaluationFormSelectorMakers = createPageSelectors(makeSelectEvaluationFormHelper);
+const myEvaluationSelectorMakers = createPageSelectors(makeSelectMyEvaluationHelper);
 
-const makeSelectEvaluationFormIsFetching = evaluationFormSelectorMakers.makeSelectIsFetching;
-const makeSelectEvaluationFormError = evaluationFormSelectorMakers.makeSelectError;
+const makeSelectMyEvaluation = () => createSelector(
+  makeSelectEntities(),
+  myEvaluationSelectorMakers.makeSelectPage(),
+  (entities, createEvaluation) => denormalize(entities, 'evaluations', createEvaluation.get('id')),
+);
 
 export {
   makeSelectLecture,
@@ -54,6 +57,5 @@ export {
   makeSelectEvaluationsHasMore,
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
-  makeSelectEvaluationFormIsFetching,
-  makeSelectEvaluationFormError,
+  makeSelectMyEvaluation,
 };

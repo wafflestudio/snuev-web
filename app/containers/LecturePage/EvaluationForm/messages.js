@@ -5,6 +5,8 @@ const messages = {
     easiness: '난이도',
     grading: '학점 만족도',
   },
+  submit: '등록',
+  edit: '수정',
 };
 
 export default messages;
