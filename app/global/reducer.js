@@ -61,7 +61,7 @@ export const userFailure = (state, { error }) =>
   state.mergeDeep({ user: { isFetching: false, error, id: null } });
 
 export const signOut = (state) =>
-  state.mergeDeep({ user: { id: null } });
+  state.mergeDeep({ user: { id: null }, entities: { user: null } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
