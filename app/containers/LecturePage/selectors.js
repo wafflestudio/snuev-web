@@ -46,7 +46,7 @@ const myEvaluationSelectorMakers = createPageSelectors(makeSelectMyEvaluationHel
 const makeSelectMyEvaluation = () => createSelector(
   makeSelectEntities(),
   myEvaluationSelectorMakers.makeSelectPage(),
-  (entities, createEvaluation) => denormalize(entities, 'evaluations', createEvaluation.get('id')),
+  (entities, myEvaluation) => denormalize(entities, 'evaluations', myEvaluation.get('id'))
 );
 
 export {

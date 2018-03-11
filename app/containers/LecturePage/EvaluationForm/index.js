@@ -31,7 +31,6 @@ type Props = {
   updateEvaluation: (number, number, State) => void,
   lecture: Map<string, any>,
   myEvaluation: Map<string, any>,
-  closeEvaluationForm: () => void,
 };
 
 type State = {
@@ -72,12 +71,11 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
   handleSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    if (this.props.lecture.get('evaluated')) {
+    if (this.props.myEvaluation.get('id')) {
       this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), this.state);
     } else {
       this.props.createEvaluation(this.props.lecture.get('id'), this.state);
     }
-    this.props.closeEvaluationForm();
   }
 
   makeHandleRate(criteria: string) {
@@ -142,7 +140,6 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getMyEvaluation: (lectureId: number) => dispatch(Actions.getMyEvaluationRequest(lectureId)),
   createEvaluation: (lectureId: number, data: State) => dispatch(Actions.createEvaluationRequest(lectureId, data)),
   updateEvaluation: (lectureId: number, evaluationId: number, data: State) => dispatch(Actions.updateEvaluationRequest(lectureId, evaluationId, data)),
-  closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EvaluationForm);
