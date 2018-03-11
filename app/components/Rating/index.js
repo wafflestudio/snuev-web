@@ -9,13 +9,15 @@ type Props = {
 };
 
 export default (props: Props) => {
-  let { initialRating, ...otherProps } = props;
-  initialRating = (initialRating || 0) / 2;
+  const { small, ...otherProps } = props;
   return (
     <Rating
-      emptySymbol={props.small ? <SmallStarEmpty /> : <StarEmpty />}
-      fullSymbol={props.small ? <SmallStarFull /> : <StarFull />}
-      initialRating={initialRating}
+      emptySymbol={small ? <SmallStarEmpty /> : <StarEmpty />}
+      fullSymbol={small ? <SmallStarFull /> : <StarFull />}
+      start={0}
+      stop={10}
+      step={2}
+      fractions={2}
       {...otherProps}
     />
   );

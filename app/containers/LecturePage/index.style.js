@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import React from 'react';
+import Modal from 'react-modal';
 
 export const Wrapper = styled.div`
   width: 100%;
@@ -14,11 +16,13 @@ export const RowWrapper = styled.div`
 export const ColumnWrapper = styled.div`
   display: flex;
   height: 100%;
+  width: 100%;
   flex-direction: column;
 `;
 
 export const SpaceBetween = styled.div`
   display: flex;
+  height: 100%;
   width: 100%;
   justify-content: space-between;
 `;
@@ -31,6 +35,23 @@ export const Background = styled.div`
   flex-direction: column;
 `;
 
+export const EvaluationFormModal = (props) => (
+  <Modal
+    {...props}
+    style={{
+      content: {
+        height: '340px',
+        minWidth: '1000px',
+        display: 'flex',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '0px',
+      },
+    }}
+  />
+);
+
 export const LectureNameWrapper = styled.div`
   width: 100%;
   padding-bottom: 20px;
@@ -39,7 +60,7 @@ export const LectureNameWrapper = styled.div`
 
 export const LectureName = styled.text`
   height: 41px;
-  font-family: NanumMyeongjo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 36px;
   font-weight: bold;
   text-align: left;
@@ -49,7 +70,7 @@ export const LectureName = styled.text`
 
 export const ProfessorName = styled.text`
   height: 16px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   text-align: left;
   color: #666666;
@@ -60,7 +81,7 @@ export const ProfessorName = styled.text`
 export const LectureScore = styled.text`
   width: 55px;
   height: 41px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 36px;
   font-weight: bold;
   text-align: left;
@@ -71,7 +92,7 @@ export const LectureScore = styled.text`
 export const ReviewCountText = styled.text`
   width: 96px;
   height: 16px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   text-align: left;
   color: #111111;
@@ -81,7 +102,7 @@ export const ReviewCountText = styled.text`
 export const HitsText = styled.text`
   width: 69px;
   height: 16px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   text-align: left;
   color: #666666;
@@ -89,7 +110,7 @@ export const HitsText = styled.text`
 `;
 
 export const SummaryText = styled.p`
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   line-height: 1.43;
   text-align: left;
@@ -99,7 +120,7 @@ export const SummaryText = styled.p`
 `;
 
 export const LectureInfoText = styled.text`
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   line-height: 1.43;
   text-align: left;
@@ -109,7 +130,7 @@ export const LectureInfoText = styled.text`
 `;
 
 export const EvaluationHeaderText = styled.text`
-  font-family: NanumMyeongjo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 24px;
   font-weight: bold;
   text-align: left;
@@ -120,13 +141,39 @@ export const LeaveReviewButton = styled.button`
   width: 109px;
   height: 36px;
   border-radius: 3px;
-  background-color: #2066be;
+  background-color: ${(props) => props.theme.color.primary};
   align-self: center;
 `;
 
 export const LeaveReviewText = styled.text`
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   text-align: center;
   color: #ffffff;
 `;
+
+export const CloseIcon = styled.span`
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  width: 32px;
+  height: 32px;
+  opacity: 0.3;
+  &:hover {
+    opacity: 1;
+  }
+  &:before, &:after {
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}`;

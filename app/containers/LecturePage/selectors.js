@@ -15,6 +15,11 @@ const makeSelectEvaluationsHelper = () => createSelector(
   (page) => page.get('evaluations')
 );
 
+const makeSelectMyEvaluationHelper = () => createSelector(
+  makeSelectPage(),
+  (page) => page.get('myEvaluation')
+);
+
 const lectureSelectorMakers = createPageSelectors(makeSelectLectureHelper);
 
 const makeSelectLecture = () => createSelector(
@@ -36,6 +41,13 @@ const makeSelectEvaluationsHasMore = evaluationsSelectorMakers.makeSelectHasMore
 const makeSelectEvaluationsIsFetching = evaluationsSelectorMakers.makeSelectIsFetching;
 const makeSelectEvaluationsError = evaluationsSelectorMakers.makeSelectError;
 
+const myEvaluationSelectorMakers = createPageSelectors(makeSelectMyEvaluationHelper);
+
+const makeSelectMyEvaluation = () => createSelector(
+  makeSelectEntities(),
+  myEvaluationSelectorMakers.makeSelectPage(),
+  (entities, myEvaluation) => denormalize(entities, 'evaluations', myEvaluation.get('id'))
+);
 
 export {
   makeSelectLecture,
@@ -45,4 +57,5 @@ export {
   makeSelectEvaluationsHasMore,
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
+  makeSelectMyEvaluation,
 };

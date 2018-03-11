@@ -3,14 +3,16 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import { Map, List } from 'immutable';
+import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 
+import EvaluationForm from './EvaluationForm';
 import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
+import { makeSelectUser } from '../../global/selectors';
 import {
   makeSelectLecture,
   makeSelectLectureIsFetching,
@@ -20,13 +22,13 @@ import {
   makeSelectEvaluationsIsFetching,
   makeSelectEvaluationsError,
 } from './selectors';
-import { makeSelectUser } from '../../global/selectors';
 import {
   Wrapper,
   ColumnWrapper,
   RowWrapper,
   SpaceBetween,
   Background,
+  EvaluationFormModal,
   LectureNameWrapper,
   LectureName,
   ProfessorName,
@@ -38,6 +40,7 @@ import {
   EvaluationHeaderText,
   LeaveReviewButton,
   LeaveReviewText,
+  CloseIcon,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -45,14 +48,17 @@ type Props = {
   user?: Map<string, any>,
   lecture?: Map<string, any>,
   lectureIsFetching: boolean,
-  lectureError?: {}[],
+  lectureError?: List<Map<string, any>>,
   evaluations?: List<Map<string, any>>,
   evaluationsHasMore: boolean,
   evaluationsIsFetching: boolean,
   evaluationsError?: List<Map<string, any>>,
   params: { lectureId: number },
+  evaluationFormOpen: boolean,
   getLecture: (id: number) => void,
   getEvaluations: (lectureId: number, page: number) => void,
+  openEvaluationForm: () => void,
+  closeEvaluationForm: () => void,
 };
 
 export class LecturePage extends React.PureComponent<Props> {
@@ -85,14 +91,18 @@ export class LecturePage extends React.PureComponent<Props> {
     }
     return (
       <Background>
-        <div>
-          <Helmet
-            title="LecturePage"
-            meta={[
-              { name: 'description', content: 'Description of Lecture Page' },
-            ]}
-          />
-        </div>
+        <Helmet
+          title="LecturePage"
+          meta={[
+            { name: 'description', content: 'Description of Lecture Page' },
+          ]}
+        />
+        <EvaluationFormModal
+          isOpen={this.props.evaluationFormOpen}
+        >
+          <EvaluationForm />
+          <CloseIcon onClick={this.props.closeEvaluationForm} />
+        </EvaluationFormModal>
         <LectureNameWrapper>
           <LectureName>
             {lecture.get('course').get('name')}
@@ -150,11 +160,13 @@ export class LecturePage extends React.PureComponent<Props> {
                 {messages.evaluationsCount(lecture.get('evaluationsCount'))}
               </ReviewCountText>
             </div>
-            <LeaveReviewButton>
-              <LeaveReviewText>
-                {messages.leaveReview}
-              </LeaveReviewText>
-            </LeaveReviewButton>
+            {(this.props.user && this.props.user.get('isConfirmed')) &&
+              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+                <LeaveReviewText>
+                  {messages.leaveReview}
+                </LeaveReviewText>
+              </LeaveReviewButton>
+            }
           </SpaceBetween>
         </Wrapper>
         {evaluations &&
@@ -187,11 +199,14 @@ const mapStateToProps = createStructuredSelector({
   evaluationsHasMore: makeSelectEvaluationsHasMore(),
   evaluationsIsFetching: makeSelectEvaluationsIsFetching(),
   evaluationsError: makeSelectEvaluationsError(),
+  evaluationFormOpen: (state: Map<string, any>) => state.getIn(['lecturePage', 'evaluationFormOpen']),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   getLecture: (id: number) => dispatch(Actions.getLectureRequest(id)),
   getEvaluations: (id: number, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
+  openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
+  closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
