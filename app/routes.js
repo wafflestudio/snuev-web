@@ -111,7 +111,7 @@ export default function createRoutes(store) {
       },
     }, {
       path: '/confirm_email/:confirmation_token',
-      name: 'confirm_email',
+      name: 'confirmEmailPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           import('containers/ConfirmEmailPage/reducer'),
@@ -123,6 +123,66 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('confirmEmailPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/profile',
+      name: 'profilePage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ProfilePage/reducer'),
+          import('containers/ProfilePage/sagas'),
+          import('containers/ProfilePage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('profilePage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/reset_password',
+      name: 'resetPasswordPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/ResetPasswordPage/reducer'),
+          import('containers/ResetPasswordPage/sagas'),
+          import('containers/ResetPasswordPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('resetPasswordPage', reducer.default);
+          injectSagas(sagas.default);
+          renderRoute(component);
+        });
+
+        importModules.catch(errorLoading);
+      },
+    }, {
+      path: '/new_password/:reset_token',
+      name: 'newPasswordPage',
+      getComponent(nextState, cb) {
+        const importModules = Promise.all([
+          import('containers/NewPasswordPage/reducer'),
+          import('containers/NewPasswordPage/sagas'),
+          import('containers/NewPasswordPage'),
+        ]);
+
+        const renderRoute = loadModule(cb);
+
+        importModules.then(([reducer, sagas, component]) => {
+          injectReducer('newPasswordPage', reducer.default);
           injectSagas(sagas.default);
           renderRoute(component);
         });
