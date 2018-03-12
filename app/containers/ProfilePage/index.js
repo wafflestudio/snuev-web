@@ -55,9 +55,9 @@ export class ProfilePage extends React.PureComponent<Props, State> {
     return (
       <div>
         <Helmet
-          title="SignUpCompletePage"
+          title="ProfilePage"
           meta={[
-            { name: 'description', content: 'Description of SignUpCompletePage' },
+            { name: 'description', content: 'Description of ProfilePage' },
           ]}
         />
         <form onSubmit={this.handleUpdateProfile}>
