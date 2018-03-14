@@ -21,16 +21,17 @@ import {
   CommentInput,
 } from './index.style';
 import {
+  makeSelectPage,
   makeSelectLecture,
   makeSelectMyEvaluation,
 } from '../selectors';
 
 type Props = {
+  lecture: Map<string, any>,
+  myEvaluation: Map<string, any>,
   getMyEvaluation: (number) => void,
   createEvaluation: (number, State) => void,
   updateEvaluation: (number, number, State) => void,
-  lecture: Map<string, any>,
-  myEvaluation: Map<string, any>,
 };
 
 type State = {
@@ -132,6 +133,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
+  page: makeSelectPage(),
   lecture: makeSelectLecture(),
   myEvaluation: makeSelectMyEvaluation(),
 });
