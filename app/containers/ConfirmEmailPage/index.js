@@ -2,14 +2,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import { Map } from 'immutable';
 import { Creators as Actions } from './reducer';
-import { makeSelectIsFetching, makeSelectSuccess, makeSelectError } from './selectors';
+import { makeSelectPage } from './selectors';
 import { getAuthToken } from '../../services/localStorage';
 
 type Props = {
-  isFetching: boolean,
-  error?: Object[],
-  success: boolean,
+  page: Map<string, any>,
   params: Object,
   confirmEmail: (token: string) => void,
 };
@@ -20,14 +19,14 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
   }
 
   render() {
-    if (this.props.isFetching) {
+    if (this.props.page.get('isFetching')) {
       return (
         <div>
           로딩중입니다.
         </div>
       );
     }
-    if (this.props.success) {
+    if (this.props.page.get('success')) {
       return (
         <div>
           이메일 인증에 성공하였습니다.
@@ -54,9 +53,7 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
-  success: makeSelectSuccess(),
+  page: makeSelectPage(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

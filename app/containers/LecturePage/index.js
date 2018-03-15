@@ -14,13 +14,9 @@ import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
 import { makeSelectUser } from '../../global/selectors';
 import {
+  makeSelectPage,
   makeSelectLecture,
-  makeSelectLectureIsFetching,
-  makeSelectLectureError,
   makeSelectEvaluations,
-  makeSelectEvaluationsHasMore,
-  makeSelectEvaluationsIsFetching,
-  makeSelectEvaluationsError,
 } from './selectors';
 import {
   Wrapper,
@@ -45,16 +41,12 @@ import {
 import withBars from '../../services/withBars';
 
 type Props = {
-  user?: Map<string, any>,
-  lecture?: Map<string, any>,
-  lectureIsFetching: boolean,
-  lectureError?: List<Map<string, any>>,
-  evaluations?: List<Map<string, any>>,
-  evaluationsHasMore: boolean,
-  evaluationsIsFetching: boolean,
-  evaluationsError?: List<Map<string, any>>,
+  user: Map<string, any>,
+  page: Map<string, any>,
+  lecture: Map<string, any>,
+  evaluations: List<Map<string, any>>,
+  myEvaluation: Map<string, any>,
   params: { lectureId: number },
-  evaluationFormOpen: boolean,
   getLecture: (id: number) => void,
   getEvaluations: (lectureId: number, page: number) => void,
   openEvaluationForm: () => void,
@@ -76,13 +68,12 @@ export class LecturePage extends React.PureComponent<Props> {
 
   render() {
     const {
+      user,
+      page,
       lecture,
-      lectureIsFetching,
-      lectureError,
       evaluations,
-      evaluationsHasMore,
     } = this.props;
-    if (lectureIsFetching || lectureError || !lecture) {
+    if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
         <div>
           Loading... or error
@@ -98,7 +89,7 @@ export class LecturePage extends React.PureComponent<Props> {
           ]}
         />
         <EvaluationFormModal
-          isOpen={this.props.evaluationFormOpen}
+          isOpen={this.props.page.get('evaluationFormOpen')}
         >
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
@@ -160,7 +151,7 @@ export class LecturePage extends React.PureComponent<Props> {
                 {messages.evaluationsCount(lecture.get('evaluationsCount'))}
               </ReviewCountText>
             </div>
-            {(this.props.user && this.props.user.get('isConfirmed')) &&
+            {(user && user.get('isConfirmed')) &&
               <LeaveReviewButton onClick={this.props.openEvaluationForm}>
                 <LeaveReviewText>
                   {messages.leaveReview}
@@ -172,7 +163,7 @@ export class LecturePage extends React.PureComponent<Props> {
         {evaluations &&
           <InfiniteScroll
             pageStart={1}
-            hasMore={evaluationsHasMore}
+            hasMore={page.get('evaluationsHasMore')}
             loadMore={this.loadMoreEvaluations}
           >
             <div>
@@ -192,14 +183,9 @@ export class LecturePage extends React.PureComponent<Props> {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  page: makeSelectPage(),
   lecture: makeSelectLecture(),
-  lectureIsFetching: makeSelectLectureIsFetching(),
-  lectureError: makeSelectLectureError(),
   evaluations: makeSelectEvaluations(),
-  evaluationsHasMore: makeSelectEvaluationsHasMore(),
-  evaluationsIsFetching: makeSelectEvaluationsIsFetching(),
-  evaluationsError: makeSelectEvaluationsError(),
-  evaluationFormOpen: (state: Map<string, any>) => state.getIn(['lecturePage', 'evaluationFormOpen']),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
