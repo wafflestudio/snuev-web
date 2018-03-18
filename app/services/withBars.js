@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 
 import NavBar from '../components/NavBar';
-import SideBar from '../components/SideBar';
+import SideBar from '../containers/SideBar';
 
 import {
   makeSelectAppLayout,

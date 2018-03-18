@@ -47,6 +47,11 @@ export const initialState = fromJS({
     isFetching: false,
     error: null,
   },
+  lectures: {
+    ids: [],
+    isFetching: false,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
