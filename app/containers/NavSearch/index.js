@@ -9,6 +9,7 @@ import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectCourses,
 } from '../../global/selectors';
+import { AutoCompleteItem } from './index.style';
 
 type Props = {
   courses: Map<string, any>,
@@ -49,10 +50,9 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
           this.setState({ query: course.name });
         }}
         renderItem={(course: Map<string, any>, isHighlighted: boolean) => (
-          <div
-            className={`item ${isHighlighted ? 'item-highlighted' : ''}`}
-            key={course.id}
-          >{course.name}</div>
+          <AutoCompleteItem active={isHighlighted} key={course.id}>
+            {course.name}
+          </AutoCompleteItem>
         )}
       />
     );
