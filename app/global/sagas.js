@@ -1,13 +1,7 @@
-import { take, call, put } from 'redux-saga/effects';
+import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
-
-export function* getSamples() {
-}
-
-export function* watchSample() {
-}
 
 export function* watchSignInRequest() {
   while (true) {
@@ -52,9 +46,23 @@ export function* userInformation() {
   }
 }
 
+export function* watchSearchCoursesRequest() {
+  yield takeLatest(Types.SEARCH_COURSES_REQUEST, searchCourses);
+}
+
+export function* searchCourses(action) {
+  try {
+    const response = yield request.get(`/v1/courses/search?q=${action.query}`);
+    yield put(Actions.searchCoursesSuccess(response.data.data.map((course) => course.id) || []));
+    yield put(Actions.normalizeData(response.data));
+  } catch (error) {
+    yield put(Actions.searchCoursesFailure(error.errors));
+  }
+}
+
 export default [
-  watchSample,
   watchSignInRequest,
   watchSignOut,
   watchUserInformationRequest,
+  watchSearchCoursesRequest,
 ];

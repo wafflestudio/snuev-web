@@ -14,8 +14,15 @@ const makeSelectUser = () => createSelector(
   (entities, global) => denormalize(entities, 'users', global.getIn(['user', 'id'])),
 );
 
+const makeSelectCourses = () => createSelector(
+  makeSelectEntities(),
+  makeSelectGlobal(),
+  (entities, global) => denormalize(entities, 'courses', global.getIn(['courses', 'ids'])),
+);
+
 export {
   makeSelectGlobal,
   makeSelectEntities,
   makeSelectUser,
+  makeSelectCourses,
 };
