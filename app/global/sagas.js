@@ -38,8 +38,8 @@ export function* signIn({ username, password }) {
 export function* userInformation() {
   try {
     const response = yield authRequest.get('/v1/user');
-    yield put(Actions.userSuccess(response.data.data.id));
     yield put(Actions.normalizeData(response.data));
+    yield put(Actions.userSuccess(response.data.data.id));
   } catch (error) {
     yield put(Actions.signOut());
     yield put(Actions.userFailure(error.errors));
@@ -53,8 +53,8 @@ export function* watchSearchCoursesRequest() {
 export function* searchCourses(action) {
   try {
     const response = yield request.get(`/v1/courses/search?q=${action.query}`);
-    yield put(Actions.searchCoursesSuccess(response.data.data.map((course) => course.id) || []));
     yield put(Actions.normalizeData(response.data));
+    yield put(Actions.searchCoursesSuccess(response.data.data.map((course) => course.id) || []));
   } catch (error) {
     yield put(Actions.searchCoursesFailure(error.errors));
   }
