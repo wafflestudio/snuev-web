@@ -7,9 +7,8 @@ import SnuttLogoImage from '../../images/snutt_logo.svg';
 export const NavBarWrapper = styled.header`
   display: flex;
   justify-content: space-between;
-  height: 100px;
+  height: ${(props) => props.theme.navBarHeight}px;
   align-items: center;
-  border-bottom: 1px solid #cccccc;
   background-color: white;
 `;
 

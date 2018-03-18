@@ -26,6 +26,8 @@ import { makeSelectUser, makeSelectGlobal } from '../../global/selectors';
 const AppWrapper = styled.div`
   display: flex;
   height: 100%;
+  margin: 0 auto;
+  max-width: ${(props) => props.theme.appMaxWidth}px;
 `;
 
 type Props = {

@@ -5,7 +5,6 @@
 */
 
 import React from 'react';
-import { Icon } from 'react-fa';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
@@ -17,7 +16,6 @@ const NavBar = () => (
   <NavBarWrapper>
     <Logo />
     <Search>
-      <Icon name="search" />
       <NavSearch />
     </Search>
     <NavMenu>
