@@ -34,27 +34,34 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     }
   }
 
+  handleSubmit = (event: Event) => {
+    event.preventDefault();
+    this.props.searchLectures(this.state.query);
+  }
+
   render() {
     const courses = this.props.courses ? this.props.courses.toJS() : [];
 
     return (
-      <Autocomplete
-        inputProps={{ id: 'search-query' }}
-        value={this.state.query}
-        items={courses}
-        getItemValue={(course: Map<string, any>) => course.name}
-        onChange={(event: SyntheticInputEvent<HTMLInputEvent>, query: string) => {
-          this.setState({ query });
-        }}
-        onSelect={(query: string, course: Map<string, any>) => {
-          this.setState({ query: course.name });
-        }}
-        renderItem={(course: Map<string, any>, isHighlighted: boolean) => (
-          <AutoCompleteItem active={isHighlighted} key={course.id}>
-            {course.name}
-          </AutoCompleteItem>
-        )}
-      />
+      <form onSubmit={this.handleSubmit}>
+        <Autocomplete
+          inputProps={{ id: 'search-query' }}
+          value={this.state.query}
+          items={courses}
+          getItemValue={(course: Map<string, any>) => course.name}
+          onChange={(event: SyntheticInputEvent<HTMLInputEvent>, query: string) => {
+            this.setState({ query });
+          }}
+          onSelect={(query: string, course: Map<string, any>) => {
+            this.setState({ query: course.name });
+          }}
+          renderItem={(course: Map<string, any>, isHighlighted: boolean) => (
+            <AutoCompleteItem active={isHighlighted} key={course.id}>
+              {course.name}
+            </AutoCompleteItem>
+          )}
+        />
+      </form>
     );
   }
 }
@@ -65,6 +72,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   searchCourses: (query: string) => dispatch(GlobalActions.searchCoursesRequest(query)),
+  searchLectures: (query: string) => dispatch(GlobalActions.searchLecturesRequest(query)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavSearch);
