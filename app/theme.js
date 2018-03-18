@@ -32,6 +32,7 @@ const theme = {
   },
   fontFamily: {
     sansSerif: '"Apple SD Gothic Neo", "Malgun Gothic", Roboto, Noto, "Noto Sans CJK KR", sans-serif',
+    number: '\'Lato\', sans-serif',
   },
   fontWeight: {
     bold: 'bold',

@@ -14,6 +14,7 @@ export const LectureWrapper = styled.div`
 `;
 
 export const LectureScore = styled.text`
+  font-family: ${(props) => props.theme.fontFamily.number};
   font-size: ${(props) => props.theme.fontSize.score3}px;
   line-height: ${(props) => props.theme.fontSize.score3}px;
   color: ${(props) => props.theme.color.score3};
