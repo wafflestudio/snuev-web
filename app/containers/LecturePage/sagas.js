@@ -13,8 +13,8 @@ export function* watchGetLectureRequest() {
 export function* getLecture(id) {
   try {
     const response = yield request.get(`/v1/lectures/${id}`);
-    yield put(Actions.getLectureSuccess());
     yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.getLectureSuccess());
   } catch (error) {
     yield put(Actions.getLectureFailure(error.errors));
   }
@@ -27,8 +27,8 @@ export function* watchGetEvaluationsRequest() {
 export function* getEvaluations({ id, page }) {
   try {
     const response = yield authRequest.get(`/v1/lectures/${id}/evaluations`, { page });
-    yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
     yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
   } catch (error) {
     yield put(Actions.getEvaluationsFailure(error.errors));
   }
@@ -45,8 +45,8 @@ export function* getMyEvaluation(id) {
   try {
     const response = yield authRequest.get(`/v1/lectures/${id}/evaluations/mine`);
     if (response.data.data[0]) {
-      yield put(Actions.getMyEvaluationSuccess(response.data.data[0].id));
       yield put(GlobalActions.normalizeData(response.data));
+      yield put(Actions.getMyEvaluationSuccess(response.data.data[0].id));
     } else {
       yield put(Actions.getMyEvaluationSuccess(null));
     }
