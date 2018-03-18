@@ -16,6 +16,7 @@ export const LectureWrapper = styled.div`
 export const LectureScore = styled.text`
   font-size: ${(props) => props.theme.fontSize.score3}px;
   line-height: ${(props) => props.theme.fontSize.score3}px;
+  color: ${(props) => props.theme.color.score3};
 `;
 
 export const LectureDetail = styled.div`
@@ -26,6 +27,7 @@ export const LectureDetail = styled.div`
 export const LectureName = styled.text`
   font-size: ${(props) => props.theme.fontSize.header3}px;
   line-height: ${(props) => props.theme.fontSize.score3}px;
+  color: ${(props) => props.theme.color.header3};
   display: block;
   white-space: nowrap;
   overflow: hidden;
@@ -38,5 +40,6 @@ export const LectureMeta = styled.div`
 
 export const LectureMetaEntry = styled.text`
   font-size: ${(props) => props.theme.fontSize.body2}px;
+  color: ${(props) => props.theme.color.body2};
   margin-right: 12px;
 `;

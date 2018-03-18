@@ -59,6 +59,7 @@ export const LectureWrapper = styled.div`
 export const LectureName = styled.text`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.header1}px;
+  color: ${(props) => props.theme.color.header1};
   font-weight: bold;
   text-align: left;
 `;
@@ -78,6 +79,7 @@ export const LectureInfoText = styled.text`
   margin-bottom: 10px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.body2}px;
+  color: ${(props) => props.theme.color.body2};
 `;
 
 export const LectureScore = styled.text`
@@ -93,6 +95,7 @@ export const LectureScoreLabel = styled.text`
 export const LectureScoreValue = styled.text`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.score1}px;
+  color: ${(props) => props.theme.color.score1};
 `;
 
 export const LectureSummary = styled.p`
