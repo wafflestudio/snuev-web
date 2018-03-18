@@ -5,11 +5,15 @@ import LogoImage from '../../images/logo.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 
 export const NavBarWrapper = styled.header`
+  top: 0;
+  position: fixed;
   display: flex;
+  width: 100%;
+  max-width: ${(props) => props.theme.appMaxWidth}px;
   justify-content: space-between;
   height: ${(props) => props.theme.navBarHeight}px;
   align-items: center;
-  background-color: white;
+  background-color: rgba(255,255,255,.97);
 `;
 
 const LogoFrame = styled.img`
