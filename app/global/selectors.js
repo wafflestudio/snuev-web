@@ -8,6 +8,11 @@ const makeSelectEntities = () => createSelector(
   (global) => global.get('entities')
 );
 
+const makeSelectAppLayout = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('appLayout'),
+);
+
 const makeSelectUser = () => createSelector(
   makeSelectEntities(),
   makeSelectGlobal(),
@@ -22,6 +27,7 @@ const makeSelectCourses = () => createSelector(
 
 export {
   makeSelectGlobal,
+  makeSelectAppLayout,
   makeSelectEntities,
   makeSelectUser,
   makeSelectCourses,
