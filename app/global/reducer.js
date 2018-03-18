@@ -72,13 +72,13 @@ export const signOut = (state) =>
   state.mergeDeep({ user: { id: null }, entities: { user: null } });
 
 export const searchCoursesRequest = (state, { query }) =>
-  state.mergeDeep({ query, courses: { ids: [], isFetching: true, error: null } });
+  state.setIn(['courses', 'ids'], []).mergeDeep({ query, courses: { isFetching: true, error: null } });
 
 export const searchCoursesSuccess = (state, { ids }) =>
-  state.mergeDeep({ courses: { ids, isFetching: false, error: null } });
+  state.setIn(['courses', 'ids'], ids).mergeDeep({ courses: { isFetching: false, error: null } });
 
 export const searchCoursesFailure = (state, { error }) =>
-  state.mergeDeep({ courses: { ids: [], isFetching: false, error } });
+  state.setIn(['courses', 'ids'], []).mergeDeep({ courses: { isFetching: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
