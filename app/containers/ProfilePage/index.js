@@ -30,7 +30,7 @@ export class ProfilePage extends React.PureComponent<Props, State> {
       password: '',
       password_confirmation: '',
       nickname: '',
-      department_id: '2',
+      department_id: '',
     };
     (this: any).handleUpdateProfile = this.handleUpdateProfile.bind(this);
   }
@@ -40,10 +40,12 @@ export class ProfilePage extends React.PureComponent<Props, State> {
   }
 
   componentWillReceiveProps() {
-    this.setState({
-      nickname: this.props.user.get('nickname'),
-      department_id: this.props.user.get('department'),
-    });
+    if (this.props.user) {
+      this.setState({
+        nickname: this.props.user.get('nickname'),
+        department_id: this.props.user.getIn(['department', 'id']),
+      });
+    }
   }
 
   handleUpdateProfile(event: SyntheticEvent<HTMLButtonElement>) {
@@ -55,39 +57,39 @@ export class ProfilePage extends React.PureComponent<Props, State> {
     return (
       <div>
         <Helmet
-          title="SignUpCompletePage"
+          title="ProfilePage"
           meta={[
-            { name: 'description', content: 'Description of SignUpCompletePage' },
+            { name: 'description', content: 'Description of ProfilePage' },
           ]}
         />
         <form onSubmit={this.handleUpdateProfile}>
           <input
             type="password"
             value={this.state.password}
-            onChange={({ target }: { target: HTMLInputElement }) => this.setState({ password: target.value })}
+            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
             placeholder={'비밀번호'}
           />
           <br />
           <input
             type="password"
             value={this.state.password_confirmation}
-            onChange={({ target }: { target: HTMLInputElement }) => this.setState({ password_confirmation: target.value })}
+            onChange={({ target }) => this.setState({ password_confirmation: target.value })} // eslint-disable-line
             placeholder={'비밀번호 확인'}
           />
           <br />
           <input
             type="text"
             value={this.state.nickname}
-            onChange={({ target }: { target: HTMLInputElement }) => this.setState({ nickname: target.value })}
+            onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
             placeholder={'별명'}
           />
           <br />
           <select
             value={this.state.department_id}
-            onChange={({ target }: { target: any }) => this.setState({ department_id: target.value })}
+            onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
           >
             {!!this.props.departments &&
-              this.props.departments.map((department: any, id: number) => (
+              this.props.departments.map((department: any, id: string) => (
                 <option value={department.get('id')} key={id}>
                   {department.get('name')}
                 </option>
