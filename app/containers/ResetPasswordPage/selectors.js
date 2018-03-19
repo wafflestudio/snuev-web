@@ -1,11 +1,5 @@
-import { createPageSelectors } from '../../utils/createPageSelectors';
-
-const {
-  makeSelectIsFetching,
-  makeSelectError,
-} = createPageSelectors('resetPasswordPage');
+const makeSelectPage = () => (state) => state.get('resetPasswordPage');
 
 export {
-  makeSelectIsFetching,
-  makeSelectError,
+  makeSelectPage,
 };

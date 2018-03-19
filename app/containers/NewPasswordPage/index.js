@@ -5,7 +5,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 // import messages from './messages';
-import { makeSelectIsFetching, makeSelectError } from './selectors';
+import { makeSelectPage } from './selectors';
 
 type Props = {
   params: Object,
@@ -57,8 +57,7 @@ export class newPasswordPage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
+  page: makeSelectPage(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
