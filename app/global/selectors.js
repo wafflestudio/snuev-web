@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import { List } from 'immutable';
 import { denormalize } from '../utils/denormalize';
 
 const makeSelectGlobal = () => (state) => state.get('global');
@@ -22,13 +23,13 @@ const makeSelectUser = () => createSelector(
 const makeSelectCourses = () => createSelector(
   makeSelectEntities(),
   makeSelectGlobal(),
-  (entities, global) => denormalize(entities, 'courses', global.getIn(['courses', 'ids'])),
+  (entities, global) => denormalize(entities, 'courses', global.getIn(['courses', 'ids'])) || List(),
 );
 
 const makeSelectLectures = () => createSelector(
   makeSelectEntities(),
   makeSelectGlobal(),
-  (entities, global) => denormalize(entities, 'lectures', global.getIn(['lectures', 'ids'])),
+  (entities, global) => denormalize(entities, 'lectures', global.getIn(['lectures', 'ids'])) || List(),
 );
 
 export {
