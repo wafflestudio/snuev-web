@@ -18,7 +18,7 @@ import {
   SignUpText,
   SignUpLink,
 } from './index.style';
-import { makeSelectSignInIsFetching, makeSelectSignInError } from '../../global/selectors';
+import { makeSelectGlobal } from '../../global/selectors';
 
 type Props = {
   signIn: (State) => void,
@@ -93,8 +93,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectSignInIsFetching(),
-  error: makeSelectSignInError(),
+  global: makeSelectGlobal(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

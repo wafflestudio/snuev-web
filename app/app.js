@@ -13,9 +13,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { applyRouterMiddleware, Router, browserHistory } from 'react-router';
-import FontFaceObserver from 'fontfaceobserver';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { useScroll } from 'react-router-scroll';
+import { ThemeProvider } from 'styled-components';
 import 'sanitize.css/sanitize.css';
 
 // Import root app
@@ -45,14 +45,8 @@ import './global-styles';
 // Import root routes
 import createRoutes from './routes';
 
-const nanumGothicObserver = new FontFaceObserver('Nanum Gothic');
-const nanumMyeongjoObserver = new FontFaceObserver('Nanum Myeongjo');
-
-Promise.all([nanumGothicObserver.load(), nanumMyeongjoObserver.load()]).then(() => {
-  document.body.classList.add('fontLoaded');
-}, () => {
-  document.body.classList.remove('fontLoaded');
-});
+// Import themes
+import theme from './theme';
 
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
@@ -77,17 +71,19 @@ const rootRoute = {
 const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
-      <LanguageProvider messages={messages}>
-        <Router
-          history={history}
-          routes={rootRoute}
-          render={
-            // Scroll to top when going to a new page, imitating default browser
-            // behaviour
-            applyRouterMiddleware(useScroll())
-          }
-        />
-      </LanguageProvider>
+      <ThemeProvider theme={theme}>
+        <LanguageProvider messages={messages}>
+          <Router
+            history={history}
+            routes={rootRoute}
+            render={
+              // Scroll to top when going to a new page, imitating default browser
+              // behaviour
+              applyRouterMiddleware(useScroll())
+            }
+          />
+        </LanguageProvider>
+      </ThemeProvider>
     </Provider>,
     document.getElementById('app')
   );

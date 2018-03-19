@@ -30,7 +30,7 @@ export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
 
 export const CreateAccountText = styled.p`
   height: 29px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 24px;
   font-weight: bold;
   font-style: normal;
@@ -55,7 +55,7 @@ export const Input = styled.input`
 export const UsernameInputText = styled.text`
   width: 460px;
   height: 15px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 10px;
   font-weight: normal;
   line-height: 15px;
@@ -85,7 +85,7 @@ export const SignUpButton = styled.button`
 
 export const SignUpText = styled.text`
   height: 19px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 16px;
   font-weight: bold;
   font-style: normal;
@@ -107,7 +107,7 @@ export const LoginWrapper = styled.div`
 
 export const LoginText = styled.text`
   height: 15px;
-  font-family: NanumGothic;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -121,7 +121,7 @@ export const LoginText = styled.text`
 
 export const LoginLink = styled(Link)`
   height: 15px;
-  font-family: AppleSDGothicNeo;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: bold;
   font-style: normal;

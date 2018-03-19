@@ -19,7 +19,7 @@ import {
   LoginText,
   LoginLink,
 } from './index.style';
-import { makeSelectIsFetching, makeSelectError } from './selectors';
+import { makeSelectPage } from './selectors';
 
 type Props = {
   signUp: (State) => void,
@@ -112,8 +112,7 @@ export class SignUpPage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
+  page: makeSelectPage,
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

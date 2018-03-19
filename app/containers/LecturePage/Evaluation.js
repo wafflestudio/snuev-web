@@ -8,9 +8,15 @@ import { parseSemesterSeason, parseDate } from '../../utils/parse';
 
 import { Wrapper, ColumnWrapper, RowWrapper, SpaceBetween } from './index.style';
 
+type Theme = {
+  fontFamily: {
+    sansSerif: string,
+  },
+};
+
 const Score = styled.text`
   height: 23px;
-  font-family: NanumGothic;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
   font-weight: bold;
   text-align: left;
@@ -20,7 +26,7 @@ const Score = styled.text`
 `;
 
 const DateText = styled.text`
-  font-family: NanumGothic;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   text-align: left;
   color: #666666;
@@ -28,14 +34,14 @@ const DateText = styled.text`
 `;
 
 const SemesterText = styled.text`
-  font-family: NanumGothic;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   text-align: left;
   color: #111111;
 `;
 
 const ReviewText = styled.p`
-  font-family: NanumGothic;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   line-height: 1.43;
   text-align: left;
@@ -57,7 +63,7 @@ export default ({ evaluation }: Props) => (
             </Score>
             <Rating small initialRating={evaluation.get('score')} readonly />
             <DateText>
-              {evaluation.createdAt === evaluation.get('updatedAt') ?
+              {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
                 `${parseDate(evaluation.get('createdAt'))} 작성` :
                 `${parseDate(evaluation.get('updatedAt'))} 수정`}
             </DateText>

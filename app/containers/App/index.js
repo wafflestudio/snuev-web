@@ -21,7 +21,7 @@ import { Map } from 'immutable';
 
 import { Creators as GlobalActions } from '../../global/reducer';
 import { getAuthToken } from '../../services/localStorage';
-import { makeSelectUser, makeSelectUserIsFetching } from '../../global/selectors';
+import { makeSelectUser, makeSelectGlobal } from '../../global/selectors';
 
 const AppWrapper = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const AppWrapper = styled.div`
 
 type Props = {
   user: Map<string, any>,
-  userIsFetching: boolean,
+  global: Map<string, any>,
   getCurrentUser: () => void,
   children: React.Node,
 };
@@ -43,8 +43,8 @@ class App extends React.PureComponent<Props> {
   }
 
   render() {
-    const { user, userIsFetching } = this.props;
-    if ((getAuthToken() && !user) || userIsFetching) {
+    const { user, global } = this.props;
+    if ((getAuthToken() && !user) || global.getIn(['user', 'isFetching'])) {
       return (
         <div>
           Loading Screen
@@ -61,7 +61,7 @@ class App extends React.PureComponent<Props> {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
-  userIsFetching: makeSelectUserIsFetching(),
+  global: makeSelectGlobal(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
