@@ -60,6 +60,9 @@ export const userSuccess = (state, { id }) =>
 export const userFailure = (state, { error }) =>
   state.mergeDeep({ user: { isFetching: false, error, id: null } });
 
+export const signOut = (state) =>
+  state.mergeDeep({ user: { id: null }, entities: { user: null } });
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
@@ -71,4 +74,5 @@ export default createReducer(initialState, {
   [Types.USER_REQUEST]: userRequest,
   [Types.USER_SUCCESS]: userSuccess,
   [Types.USER_FAILURE]: userFailure,
+  [Types.SIGN_OUT]: signOut,
 });

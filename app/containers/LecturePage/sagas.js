@@ -1,7 +1,7 @@
-import { take, call, put, takeEvery } from 'redux-saga/effects';
+import { take, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
-import { request } from '../../services/api';
+import { request, authRequest } from '../../services/api';
 
 export function* watchGetLectureRequest() {
   while (true) {
@@ -26,7 +26,7 @@ export function* watchGetEvaluationsRequest() {
 
 export function* getEvaluations({ id, page }) {
   try {
-    const response = yield request.get(`/v1/lectures/${id}/evaluations`, { page });
+    const response = yield authRequest.get(`/v1/lectures/${id}/evaluations`, { page });
     yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
     yield put(GlobalActions.normalizeData(response.data));
   } catch (error) {
@@ -34,8 +34,64 @@ export function* getEvaluations({ id, page }) {
   }
 }
 
+export function* watchGetMyEvaluationRequest() {
+  while (true) {
+    const { id } = yield take(Types.GET_MY_EVALUATION_REQUEST);
+    yield call(getMyEvaluation, id);
+  }
+}
+
+export function* getMyEvaluation(id) {
+  try {
+    const response = yield authRequest.get(`/v1/lectures/${id}/evaluations/mine`);
+    if (response.data.data[0]) {
+      yield put(Actions.getMyEvaluationSuccess(response.data.data[0].id));
+      yield put(GlobalActions.normalizeData(response.data));
+    } else {
+      yield put(Actions.getMyEvaluationSuccess(null));
+    }
+  } catch (error) {
+    yield put(Actions.getMyEvaluationFailure(error.errors));
+  }
+}
+
+export function* watchCreateEvaluationRequest() {
+  yield takeLatest(Types.CREATE_EVALUATION_REQUEST, createEvaluation);
+}
+
+export function* createEvaluation({ id, data }) {
+  try {
+    const response = yield authRequest.post(`/v1/lectures/${id}/evaluations`, { evaluation: data });
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.createEvaluationSuccess(response.data.data.id));
+    yield put(Actions.closeEvaluationForm());
+    yield put(Actions.getLectureRequest(id));
+  } catch (error) {
+    yield put(Actions.createEvaluationFailure(error.errors));
+  }
+}
+
+export function* watchUpdateEvaluationRequest() {
+  yield takeLatest(Types.UPDATE_EVALUATION_REQUEST, updateEvaluation);
+}
+
+export function* updateEvaluation({ lectureId, evaluationId, data }) {
+  try {
+    const response = yield authRequest.put(`/v1/lectures/${lectureId}/evaluations/${evaluationId}`, { evaluation: data });
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.updateEvaluationSuccess());
+    yield put(Actions.closeEvaluationForm());
+    yield put(Actions.getLectureRequest(lectureId));
+  } catch (error) {
+    yield put(Actions.updateEvaluationFailure(error.errors));
+  }
+}
+
 // All sagas to be loaded
 export default [
   watchGetLectureRequest,
   watchGetEvaluationsRequest,
+  watchGetMyEvaluationRequest,
+  watchCreateEvaluationRequest,
+  watchUpdateEvaluationRequest,
 ];
