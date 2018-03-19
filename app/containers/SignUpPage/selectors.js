@@ -1,11 +1,20 @@
+import { createSelector } from 'reselect';
 import { createPageSelectors } from '../../utils/createPageSelectors';
+import { makeSelectEntities } from '../../global/selectors';
+import { denormalize } from '../../utils/denormalize';
 
 const {
   makeSelectIsFetching,
   makeSelectError,
 } = createPageSelectors('signUpPage');
 
+const makeSelectDepartments = () => createSelector(
+  makeSelectEntities(),
+  (entities) => denormalize(entities, 'departments', null),
+);
+
 export {
   makeSelectIsFetching,
   makeSelectError,
+  makeSelectDepartments,
 };

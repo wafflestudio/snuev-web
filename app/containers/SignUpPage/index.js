@@ -19,17 +19,19 @@ import {
   LoginText,
   LoginLink,
 } from './index.style';
-import { makeSelectIsFetching, makeSelectError } from './selectors';
+import { makeSelectIsFetching, makeSelectError, makeSelectDepartments } from './selectors';
 
 type Props = {
+  departments: any,
   signUp: (State) => void,
+  getDepartments: () => void,
 };
 
 type State = {
   username: string,
   password: string,
   nickname: string,
-  department: string,
+  department_id: string,
 };
 
 export class SignUpPage extends React.PureComponent<Props, State> {
@@ -39,9 +41,13 @@ export class SignUpPage extends React.PureComponent<Props, State> {
       username: '',
       password: '',
       nickname: '',
-      department: '컴퓨터공학부',
+      department_id: '',
     };
     (this: any).handleSignUp = this.handleSignUp.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.getDepartments();
   }
 
   handleSignUp(event: SyntheticEvent<HTMLButtonElement>) {
@@ -85,12 +91,16 @@ export class SignUpPage extends React.PureComponent<Props, State> {
             placeholder={messages.input.nicknameHint}
           />
           <DepartmentInput
-            value={this.state.department}
-            onChange={({ target }) => this.setState({ department: target.value })} // eslint-disable-line
+            value={this.state.department_id}
+            onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
           >
-            <option value="컴퓨터공학부">컴퓨터공학부</option>
-            <option value="전기전자공학부">전기전자공학부</option>
-            <option value="영어영문학과">영어영문학과</option>
+            {!!this.props.departments &&
+              this.props.departments.map((department: any, id: string) => (
+                <option value={department.get('id')} key={id}>
+                  {department.get('name')}
+                </option>
+              ))
+            }
           </DepartmentInput>
           <SignUpButton type="submit">
             <SignUpText>
@@ -114,10 +124,12 @@ export class SignUpPage extends React.PureComponent<Props, State> {
 const mapStateToProps = createStructuredSelector({
   isFetching: makeSelectIsFetching(),
   error: makeSelectError(),
+  departments: makeSelectDepartments(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  signUp: (credentials: { username: string, password: string, nickname: string }) => dispatch(Actions.signUpRequest(credentials)),
+  signUp: (credentials: { username: string, password: string, nickname: string, department_id: string }) => dispatch(Actions.signUpRequest(credentials)),
+  getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

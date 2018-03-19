@@ -7,6 +7,9 @@ export const { Types, Creators } = createActions({
   signUpRequest: ['data'],
   signUpSuccess: null,
   signUpFailure: ['error'],
+  getDepartmentsRequest: null,
+  getDepartmentsSuccess: null,
+  getDepartmentsFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -33,4 +36,7 @@ export default createReducer(initialState, {
   [Types.SIGN_UP_REQUEST]: request,
   [Types.SIGN_UP_SUCCESS]: success,
   [Types.SIGN_UP_FAILURE]: failure,
+  [Types.GET_DEPARTMENTS_REQUEST]: request,
+  [Types.GET_DEPARTMENTS_SUCCESS]: success,
+  [Types.GET_DEPARTMENTS_FAILURE]: failure,
 });
