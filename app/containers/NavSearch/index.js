@@ -40,7 +40,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
   }
 
   render() {
-    const courses = this.props.courses ? this.props.courses.toJS() : [];
+    const courses = this.props.courses.toJS();
 
     return (
       <form onSubmit={this.handleSubmit}>
