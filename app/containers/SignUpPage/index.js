@@ -122,7 +122,7 @@ export class SignUpPage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  page: makeSelectPage,
+  page: makeSelectPage(),
   departments: makeSelectDepartments(),
 });
 

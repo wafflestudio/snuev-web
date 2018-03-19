@@ -1,15 +1,8 @@
 import { createSelector } from 'reselect';
-import { createPageSelectors } from '../../utils/createPageSelectors';
 import { makeSelectEntities } from '../../global/selectors';
 import { denormalize } from '../../utils/denormalize';
 
-const {
-  makeSelectIsFetching,
-  makeSelectError,
-  makeSelectPayload,
-} = createPageSelectors('profilePage', 'profile');
-
-const makeSelectProfile = makeSelectPayload;
+const makeSelectPage = () => (state) => state.get('profilePage');
 
 const makeSelectDepartments = () => createSelector(
   makeSelectEntities(),
@@ -17,8 +10,6 @@ const makeSelectDepartments = () => createSelector(
 );
 
 export {
-  makeSelectIsFetching,
-  makeSelectError,
-  makeSelectProfile,
+  makeSelectPage,
   makeSelectDepartments,
 };

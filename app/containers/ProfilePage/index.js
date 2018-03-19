@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 // import messages from './messages';
 import withBars from '../../services/withBars';
-import { makeSelectIsFetching, makeSelectError, makeSelectDepartments } from './selectors';
+import { makeSelectPage, makeSelectDepartments } from './selectors';
 import { makeSelectUser } from '../../global/selectors';
 
 type Props = {
@@ -107,8 +107,7 @@ export class ProfilePage extends React.PureComponent<Props, State> {
 }
 
 const mapStateToProps = createStructuredSelector({
-  isFetching: makeSelectIsFetching(),
-  error: makeSelectError(),
+  page: makeSelectPage(),
   departments: makeSelectDepartments(),
   user: makeSelectUser(),
 });
