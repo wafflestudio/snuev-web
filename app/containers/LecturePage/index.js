@@ -60,7 +60,7 @@ export class LecturePage extends React.Component<Props> {
     this.loadMoreEvaluations(1);
   }
 
-  componentWillReceiveProps(nextProps: Object) {
+  componentWillReceiveProps(nextProps: Props) {
     const nextLectureId = nextProps.params.lectureId;
     if (nextLectureId !== this.props.params.lectureId) {
       this.props.getLecture(nextLectureId);
