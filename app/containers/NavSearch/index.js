@@ -27,7 +27,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     };
   }
 
-  componentDidUpdate(prevProps: Object, prevState: Object) {
+  componentDidUpdate(prevProps: Props, prevState: State) {
     const { query } = this.state;
     if (query !== prevState.query) {
       this.props.searchCourses(query);
@@ -48,14 +48,14 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
           inputProps={{ id: 'search-query' }}
           value={this.state.query}
           items={courses}
-          getItemValue={(course: Map<string, any>) => course.name}
+          getItemValue={(course: { name: string }) => course.name}
           onChange={(event: SyntheticInputEvent<HTMLInputEvent>, query: string) => {
             this.setState({ query });
           }}
-          onSelect={(query: string, course: Map<string, any>) => {
+          onSelect={(query: string, course: { name: string }) => {
             this.setState({ query: course.name });
           }}
-          renderItem={(course: Map<string, any>, isHighlighted: boolean) => (
+          renderItem={(course: { id: string, name: string }, isHighlighted: boolean) => (
             <AutoCompleteItem active={isHighlighted} key={course.id}>
               {course.name}
             </AutoCompleteItem>
