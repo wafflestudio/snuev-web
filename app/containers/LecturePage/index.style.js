@@ -7,31 +7,9 @@ export const Wrapper = styled.div`
   padding: 20px;
 `;
 
-export const RowWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-`;
-
-export const ColumnWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-`;
-
-export const SpaceBetween = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: space-between;
-`;
-
-// index.js
-
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 30px;
 `;
 
 export const EvaluationFormModal = (props) => (
@@ -107,12 +85,11 @@ export const EvaluationsWrapper = styled.div`
   padding-top: 45px;
 `;
 
-export const EvaluationHeaderText = styled.text`
+export const EvaluationsHeader = styled.text`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 24px;
+  font-size: ${(props) => props.theme.fontSize.header2}px;
+  color: ${(props) => props.theme.color.header2};
   font-weight: bold;
-  text-align: left;
-  color: #111111;
 `;
 
 export const LeaveReviewButton = styled.button`

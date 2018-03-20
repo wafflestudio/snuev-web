@@ -19,14 +19,13 @@ import {
 } from './selectors';
 import {
   EvaluationsWrapper,
-  SpaceBetween,
   Background,
   EvaluationFormModal,
   LectureName,
   LectureScore,
   LectureSummary,
   LectureInfoText,
-  EvaluationHeaderText,
+  EvaluationsHeader,
   LeaveReviewButton,
   LeaveReviewText,
   CloseIcon,
@@ -133,20 +132,16 @@ export class LecturePage extends React.Component<Props> {
           </LectureSummary>
         </LectureWrapper>
         <EvaluationsWrapper>
-          <SpaceBetween>
-            <div>
-              <EvaluationHeaderText>
-                {messages.evaluation.header}
-              </EvaluationHeaderText>
-            </div>
-            {(user && user.get('isConfirmed')) &&
-              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-                <LeaveReviewText>
-                  {messages.leaveReview}
-                </LeaveReviewText>
-              </LeaveReviewButton>
-            }
-          </SpaceBetween>
+          <EvaluationsHeader>
+            {messages.evaluation.header}
+          </EvaluationsHeader>
+          {(user && user.get('isConfirmed')) &&
+            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+              <LeaveReviewText>
+                {messages.leaveReview}
+              </LeaveReviewText>
+            </LeaveReviewButton>
+          }
         </EvaluationsWrapper>
         {evaluations &&
           <InfiniteScroll
