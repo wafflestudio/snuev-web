@@ -6,8 +6,9 @@ import { createStructuredSelector } from 'reselect';
 import makeSelectMainPage from './selectors';
 import messages from './messages';
 import { Creators as Actions } from './reducer';
+import withBars from '../../services/withBars';
 
-export class MainPage extends React.PureComponent {
+export class MainPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { payload } = this.props.MainPage;
     const { fetchEvaluation } = this.props;
@@ -41,4 +42,4 @@ const mapDispatchToProps = (dispatch) => ({
   fetchEvaluation: () => dispatch(Actions.evaluationRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default withBars(connect(mapStateToProps, mapDispatchToProps)(MainPage));

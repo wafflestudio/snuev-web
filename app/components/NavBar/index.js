@@ -9,7 +9,7 @@ import { Icon } from 'react-fa';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import NavSearch from '../NavSearch';
+import NavSearch from '../../containers/NavSearch';
 
 import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu } from './index.style';
 
