@@ -7,6 +7,7 @@ import { createStructuredSelector } from 'reselect';
 
 import {
   makeSelectLectures,
+  makeSelectGlobal,
 } from '../../global/selectors';
 
 import {
@@ -17,26 +18,27 @@ import Lecture from './Lecture';
 
 type Props = {
   lectures: List<Map<string, any>>,
-  location: { search: string },
+  location: {},
+  global: Map<string, any>,
 };
 
-class SideBar extends React.Component<Props> { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    const { lectures, location } = this.props;
-    return (
-      <SideBarWrapper>
-        {lectures.map((lecture: Map<string, any>) => (
-          <Link key={lecture.get('id')} to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }}>
-            <Lecture lecture={lecture} />
-          </Link>
-        ))}
-      </SideBarWrapper>
-    );
-  }
-}
+const SideBar = ({ lectures, location, global }: Props) => (
+  <SideBarWrapper>
+    {global.getIn(['lectures', 'isFetching']) ? (
+      <div>Loading...</div>
+    ) : (
+      lectures.map((lecture: Map<string, any>) => (
+        <Link key={lecture.get('id')} to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }}>
+          <Lecture lecture={lecture} />
+        </Link>
+      ))
+    )}
+  </SideBarWrapper>
+);
 
 const mapStateToProps = createStructuredSelector({
   lectures: makeSelectLectures(),
+  global: makeSelectGlobal(),
 });
 
 export default withRouter(connect(mapStateToProps)(SideBar));
