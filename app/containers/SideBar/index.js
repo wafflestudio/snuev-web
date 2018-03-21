@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
+import { List, Map } from 'immutable';
 
 import {
   makeSelectLectures,
