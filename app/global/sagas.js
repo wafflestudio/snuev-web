@@ -1,14 +1,8 @@
-import { take, call, put } from 'redux-saga/effects';
+import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
-
-export function* getSamples() {
-}
-
-export function* watchSample() {
-}
 
 export function* watchSignInRequest() {
   while (true) {
@@ -50,17 +44,47 @@ export function* signIn({ username, password }) {
 export function* userInformation() {
   try {
     const response = yield authRequest.get('/v1/user');
-    yield put(Actions.userSuccess(response.data.data.id));
     yield put(Actions.normalizeData(response.data));
+    yield put(Actions.userSuccess(response.data.data.id));
   } catch (error) {
     yield put(Actions.signOut());
     yield put(Actions.userFailure(error.errors));
   }
 }
 
+export function* watchSearchCoursesRequest() {
+  yield takeLatest(Types.SEARCH_COURSES_REQUEST, searchCourses);
+}
+
+export function* searchCourses({ query }) {
+  try {
+    const response = yield request.get(`/v1/courses/search?q=${query}`);
+    yield put(Actions.normalizeData(response.data));
+    yield put(Actions.searchCoursesSuccess(response.data.data.map((course) => course.id)));
+  } catch (error) {
+    yield put(Actions.searchCoursesFailure(error.errors));
+  }
+}
+
+export function* watchSearchLecturesRequest() {
+  yield takeLatest(Types.SEARCH_LECTURES_REQUEST, searchLectures);
+}
+
+export function* searchLectures({ query }) {
+  try {
+    yield put(Actions.showSideBar());
+    const response = yield request.get(`/v1/lectures/search?q=${query}`);
+    yield put(Actions.normalizeData(response.data));
+    yield put(Actions.searchLecturesSuccess(response.data.data.map((lecture) => lecture.id)));
+  } catch (error) {
+    yield put(Actions.searchLecturesFailure(error.errors));
+  }
+}
+
 export default [
-  watchSample,
   watchSignInRequest,
   watchSignOut,
   watchUserInformationRequest,
+  watchSearchCoursesRequest,
+  watchSearchLecturesRequest,
 ];

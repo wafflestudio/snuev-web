@@ -6,7 +6,7 @@ import { FormattedMessage } from 'react-intl';
 import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import messages from './messages';
-import NavSearch from '../NavSearch';
+import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectUser } from '../../global/selectors';
 import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu } from './index.style';

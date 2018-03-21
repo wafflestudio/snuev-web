@@ -53,11 +53,18 @@ type Props = {
   closeEvaluationForm: () => void,
 };
 
-export class LecturePage extends React.PureComponent<Props> {
+export class LecturePage extends React.Component<Props> {
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
     (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
     this.loadMoreEvaluations(1);
+  }
+
+  componentWillReceiveProps(nextProps: Props) {
+    const nextLectureId = nextProps.params.lectureId;
+    if (nextLectureId !== this.props.params.lectureId) {
+      this.props.getLecture(nextLectureId);
+    }
   }
 
   loadMoreEvaluations(page: number) {

@@ -14,11 +14,22 @@ export const { Types, Creators } = createActions({
   userSuccess: ['id'],
   userFailure: ['error'],
   signOut: null,
+  searchCoursesRequest: ['query'],
+  searchCoursesSuccess: ['ids'],
+  searchCoursesFailure: ['error'],
+  searchLecturesRequest: ['query'],
+  searchLecturesSuccess: ['ids'],
+  searchLecturesFailure: ['error'],
+  showSideBar: null,
+  hideSideBar: null,
 });
 
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
+  appLayout: {
+    showSideBar: false,
+  },
   entities: null,
   keyword: null,
   signIn: {
@@ -28,6 +39,16 @@ export const initialState = fromJS({
   },
   user: {
     id: null,
+    isFetching: false,
+    error: null,
+  },
+  courses: {
+    ids: [],
+    isFetching: false,
+    error: null,
+  },
+  lectures: {
+    ids: [],
     isFetching: false,
     error: null,
   },
@@ -63,6 +84,30 @@ export const userFailure = (state, { error }) =>
 export const signOut = (state) =>
   state.mergeDeep({ user: { id: null }, entities: { user: null } });
 
+export const searchCoursesRequest = (state, { query }) =>
+  state.setIn(['courses', 'ids'], []).mergeDeep({ query, courses: { isFetching: true, error: null } });
+
+export const searchCoursesSuccess = (state, { ids }) =>
+  state.setIn(['courses', 'ids'], ids).mergeDeep({ courses: { isFetching: false, error: null } });
+
+export const searchCoursesFailure = (state, { error }) =>
+  state.setIn(['courses', 'ids'], []).mergeDeep({ courses: { isFetching: false, error } });
+
+export const searchLecturesRequest = (state) =>
+  state.setIn(['lectures', 'ids'], []).mergeDeep({ lectures: { isFetching: true, error: null } });
+
+export const searchLecturesSuccess = (state, { ids }) =>
+  state.setIn(['lectures', 'ids'], ids).mergeDeep({ lectures: { isFetching: false, error: null } });
+
+export const searchLecturesFailure = (state, { error }) =>
+  state.setIn(['lectures', 'ids'], []).mergeDeep({ lectures: { isFetching: false, error } });
+
+export const showSideBar = (state) =>
+  state.setIn(['appLayout', 'showSideBar'], true);
+
+export const hideSideBar = (state) =>
+  state.setIn(['appLayout', 'showSideBar'], false);
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
@@ -75,4 +120,12 @@ export default createReducer(initialState, {
   [Types.USER_SUCCESS]: userSuccess,
   [Types.USER_FAILURE]: userFailure,
   [Types.SIGN_OUT]: signOut,
+  [Types.SEARCH_COURSES_REQUEST]: searchCoursesRequest,
+  [Types.SEARCH_COURSES_SUCCESS]: searchCoursesSuccess,
+  [Types.SEARCH_COURSES_FAILURE]: searchCoursesFailure,
+  [Types.SEARCH_LECTURES_REQUEST]: searchLecturesRequest,
+  [Types.SEARCH_LECTURES_SUCCESS]: searchLecturesSuccess,
+  [Types.SEARCH_LECTURES_FAILURE]: searchLecturesFailure,
+  [Types.SHOW_SIDE_BAR]: showSideBar,
+  [Types.HIDE_SIDE_BAR]: hideSideBar,
 });
