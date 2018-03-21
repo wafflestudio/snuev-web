@@ -13,6 +13,8 @@ import { AutoCompleteItem } from './index.style';
 
 type Props = {
   courses: Map<string, any>,
+  searchCourses: (string) => void,
+  searchLectures: (string) => void,
 };
 
 type State = {
