@@ -2,6 +2,7 @@ import { take, call, put, takeLatest } from 'redux-saga/effects';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
+import { addQuery } from '../utils/query';
 
 export function* watchSignInRequest() {
   while (true) {
@@ -65,8 +66,9 @@ export function* watchSearchLecturesRequest() {
 }
 
 export function* searchLectures({ query }) {
+  yield addQuery({ q: query });
+  yield put(Actions.showSideBar());
   try {
-    yield put(Actions.showSideBar());
     const response = yield request.get(`/v1/lectures/search?q=${query}`);
     yield put(Actions.normalizeData(response.data));
     yield put(Actions.searchLecturesSuccess(response.data.data.map((lecture) => lecture.id)));
