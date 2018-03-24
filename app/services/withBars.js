@@ -13,9 +13,13 @@ import {
 } from '../global/selectors';
 
 const RowWrapper = styled.div`
-  margin-top: ${(props: Object) => props.theme.navBarHeight}px;
-  display: flex;
-  flex: 1;
+`;
+
+const MainContent = styled.div`
+  padding-top: ${(props: {}) => props.theme.navBarHeight + 30}px;
+  margin-left: ${(props: {}) =>
+    props.showSideBar ?
+      `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
 `;
 
 type Props = {
@@ -34,7 +38,9 @@ export default (Component: React.Component) => connect(mapStateToProps)(
         {props.appLayout.get('showSideBar') &&
           <SideBar />
         }
-        <Component {...props} />
+        <MainContent showSideBar={props.appLayout.get('showSideBar')}>
+          <Component {...props} />
+        </MainContent>
       </RowWrapper>
     </div>
   )
