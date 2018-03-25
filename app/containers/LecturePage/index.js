@@ -10,7 +10,6 @@ import { Creators as Actions } from './reducer';
 import messages from './messages';
 
 import EvaluationForm from './EvaluationForm';
-import Rating from '../../components/Rating';
 import Evaluation from './Evaluation';
 import { makeSelectUser } from '../../global/selectors';
 import {
@@ -19,24 +18,22 @@ import {
   makeSelectEvaluations,
 } from './selectors';
 import {
-  Wrapper,
-  ColumnWrapper,
-  RowWrapper,
-  SpaceBetween,
+  EvaluationsWrapper,
   Background,
   EvaluationFormModal,
-  LectureNameWrapper,
   LectureName,
-  ProfessorName,
   LectureScore,
-  ReviewCountText,
-  HitsText,
-  SummaryText,
+  LectureSummary,
   LectureInfoText,
-  EvaluationHeaderText,
+  EvaluationsHeader,
   LeaveReviewButton,
   LeaveReviewText,
   CloseIcon,
+  LectureInfo,
+  LectureBasicInfo,
+  LectureScoreLabel,
+  LectureScoreValue,
+  LectureWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -101,72 +98,51 @@ export class LecturePage extends React.Component<Props> {
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
-        <LectureNameWrapper>
+        <LectureWrapper>
           <LectureName>
             {lecture.get('course').get('name')}
           </LectureName>
-          <ProfessorName>
-            {lecture.get('professor').get('name')}
-          </ProfessorName>
-        </LectureNameWrapper>
-        <Wrapper>
-          <ColumnWrapper>
-            <RowWrapper>
-              <LectureScore>
-                {lecture.get('score').toFixed(1)}
-              </LectureScore>
-              <Rating initialRating={lecture.get('score')} readonly />
-              <ReviewCountText>
-                {messages.evaluationsCount(lecture.get('evaluationsCount'))}
-              </ReviewCountText>
-            </RowWrapper>
-            <HitsText>
-              {messages.hitsCount(3139)}
-            </HitsText>
-            <SummaryText>
-              영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가 다루어질 수 있다.
-            </SummaryText>
-          </ColumnWrapper>
-        </Wrapper>
-        <Wrapper>
-          <ColumnWrapper>
-            <RowWrapper>
+          <LectureInfo>
+            <LectureBasicInfo>
               <LectureInfoText>
-                {messages.department}
+                {messages.professor(lecture.get('professor').get('name'))}
               </LectureInfoText>
               <LectureInfoText>
                 {lecture.getIn(['course', 'department', 'name'])}
               </LectureInfoText>
-            </RowWrapper>
-            <RowWrapper>
               <LectureInfoText>
-                {messages.targetGrade}
+                {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
               </LectureInfoText>
-              <LectureInfoText>
-                {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'grade']))}
-              </LectureInfoText>
-            </RowWrapper>
-          </ColumnWrapper>
-        </Wrapper>
-        <Wrapper>
-          <SpaceBetween>
-            <div>
-              <EvaluationHeaderText>
-                {messages.evaluation.header}
-              </EvaluationHeaderText>
-              <ReviewCountText>
-                {messages.evaluationsCount(lecture.get('evaluationsCount'))}
-              </ReviewCountText>
-            </div>
-            {(user && user.get('isConfirmed')) &&
-              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-                <LeaveReviewText>
-                  {messages.leaveReview}
-                </LeaveReviewText>
-              </LeaveReviewButton>
-            }
-          </SpaceBetween>
-        </Wrapper>
+            </LectureBasicInfo>
+            <LectureScore>
+              <LectureScoreLabel>{messages.score}</LectureScoreLabel>
+              <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
+            </LectureScore>
+            <LectureScore>
+              <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
+              <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
+            </LectureScore>
+            <LectureScore>
+              <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
+              <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
+            </LectureScore>
+          </LectureInfo>
+          <LectureSummary>
+            영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가 다루어질 수 있다.
+          </LectureSummary>
+        </LectureWrapper>
+        <EvaluationsWrapper>
+          <EvaluationsHeader>
+            {messages.evaluation.header}
+          </EvaluationsHeader>
+          {(user && user.get('isConfirmed')) &&
+            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+              <LeaveReviewText>
+                {messages.leaveReview}
+              </LeaveReviewText>
+            </LeaveReviewButton>
+          }
+        </EvaluationsWrapper>
         {evaluations &&
           <InfiniteScroll
             pageStart={1}

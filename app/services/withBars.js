@@ -12,15 +12,14 @@ import {
   makeSelectAppLayout,
 } from '../global/selectors';
 
-const ColumnWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  flex-direction: column;
+const RowWrapper = styled.div`
 `;
 
-const RowWrapper = styled.div`
-  display: flex;
-  flex: 1;
+const MainContent = styled.div`
+  padding-top: ${(props: {}) => props.theme.navBarHeight + 30}px;
+  margin-left: ${(props: {}) =>
+    props.showSideBar ?
+      `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
 `;
 
 type Props = {
@@ -33,14 +32,16 @@ const mapStateToProps = createStructuredSelector({
 
 export default (Component: React.Component) => connect(mapStateToProps)(
   (props: Props) => (
-    <ColumnWrapper>
+    <div>
       <NavBar />
       <RowWrapper>
         {props.appLayout.get('showSideBar') &&
           <SideBar />
         }
-        <Component {...props} />
+        <MainContent showSideBar={props.appLayout.get('showSideBar')}>
+          <Component {...props} />
+        </MainContent>
       </RowWrapper>
-    </ColumnWrapper>
+    </div>
   )
 );
