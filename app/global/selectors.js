@@ -32,6 +32,13 @@ const makeSelectLectures = () => createSelector(
   (entities, global) => denormalize(entities, 'lectures', global.getIn(['lectures', 'ids'])) || List(),
 );
 
+const makeSelectRoute = () => (state) => state.get('route');
+
+const makeSelectPrev = () => createSelector(
+  makeSelectRoute(),
+  (route) => route.get('locationBeforeTransitions'),
+);
+
 export {
   makeSelectGlobal,
   makeSelectAppLayout,
@@ -39,4 +46,5 @@ export {
   makeSelectUser,
   makeSelectCourses,
   makeSelectLectures,
+  makeSelectPrev,
 };

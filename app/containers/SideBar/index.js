@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import { List, Map } from 'immutable';
 
 import {
   makeSelectLectures,
