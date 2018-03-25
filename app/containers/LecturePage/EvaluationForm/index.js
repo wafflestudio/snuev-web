@@ -72,7 +72,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
   handleSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    if (this.props.myEvaluation.get('id')) {
+    if (this.props.myEvaluation && this.props.myEvaluation.get('id')) {
       this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), this.state);
     } else {
       this.props.createEvaluation(this.props.lecture.get('id'), this.state);
