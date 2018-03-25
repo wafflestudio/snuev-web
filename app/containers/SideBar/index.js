@@ -2,7 +2,7 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
+import { withRouter, Link } from 'react-router';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
 
@@ -19,16 +19,17 @@ const SideBarWrapper = styled.aside`
 
 type Props = {
   lectures: List<Map<string, any>>,
+  location: { search: string },
 };
 
 class SideBar extends React.Component<Props> { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const { lectures } = this.props;
+    const { lectures, location } = this.props;
     return (
       <SideBarWrapper>
         {lectures.map((lecture: Map<string, any>) => (
           <div key={lecture.get('id')}>
-            <Link to={`/lectures/${lecture.get('id')}`}>
+            <Link to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }}>
               {lecture.get('name')}
             </Link>
           </div>
@@ -42,4 +43,4 @@ const mapStateToProps = createStructuredSelector({
   lectures: makeSelectLectures(),
 });
 
-export default connect(mapStateToProps)(SideBar);
+export default withRouter(connect(mapStateToProps)(SideBar));
