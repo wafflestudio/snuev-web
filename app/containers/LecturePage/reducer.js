@@ -39,7 +39,7 @@ export const initialState = fromJS({
   },
   evaluations: {
     ids: [],
-    hasMore: false,
+    hasMore: true,
     isFetching: false,
     error: null,
   },
@@ -62,7 +62,12 @@ export const initialState = fromJS({
 /* ------------- Reducers ------------- */
 
 export const lectureRequest = (state, { id }) =>
-  state.mergeDeep({ lecture: { id, isFetching: true, error: null } });
+  state.mergeDeep({
+    lecture: { id, isFetching: true, error: null },
+  }).merge({
+    evaluations: initialState.get('evaluations'),
+    myEvaluation: initialState.get('myEvaluation'),
+  });
 
 export const lectureSuccess = (state) =>
   state.mergeDeep({ lecture: { isFetching: false, error: null } });
@@ -76,7 +81,7 @@ export const evaluationsRequest = (state) =>
 export const evaluationsSuccess = (state, { ids }) => ids.length ?
   state.mergeDeep({
     evaluations: {
-      ids: state.getIn(['evaluations', 'ids']).concat(ids),
+      ids: state.getIn(['evaluations', 'ids']).concat(ids).toSet().toList(),
       hasMore: true,
       isFetching: false,
       error: null,

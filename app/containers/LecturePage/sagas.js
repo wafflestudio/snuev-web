@@ -1,4 +1,4 @@
-import { take, call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { take, call, put, takeEvery, takeLatest, race } from 'redux-saga/effects';
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../../services/api';
@@ -26,9 +26,14 @@ export function* watchGetEvaluationsRequest() {
 
 export function* getEvaluations({ id, page }) {
   try {
-    const response = yield authRequest.get(`/v1/lectures/${id}/evaluations`, { page });
-    yield put(GlobalActions.normalizeData(response.data));
-    yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
+    const { response } = yield race({
+      response: authRequest.get(`/v1/lectures/${id}/evaluations`, { page }),
+      cancel: take(Types.GET_LECTURE_REQUEST),
+    });
+    if (response) {
+      yield put(GlobalActions.normalizeData(response.data));
+      yield put(Actions.getEvaluationsSuccess(response.data.data.map((evaluation) => evaluation.id)));
+    }
   } catch (error) {
     yield put(Actions.getEvaluationsFailure(error.errors));
   }
