@@ -3,7 +3,7 @@ import React from 'react';
 import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
@@ -75,9 +75,9 @@ export class NavBar extends React.PureComponent<Props> {
             </a>
           </li>
           <li>
-            <a href="/sign_in">
+            <Link to="/sign_in">
               <FormattedMessage {...messages.navItems.login} />
-            </a>
+            </Link>
           </li>
         </NavMenu>
       </NavBarWrapper>
