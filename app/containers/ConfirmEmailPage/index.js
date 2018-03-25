@@ -11,6 +11,7 @@ type Props = {
   page: Map<string, any>,
   params: Object,
   confirmEmail: (token: string) => void,
+  resendEmail: () => void,
 };
 
 export class ConfirmEmailPage extends React.PureComponent<Props> {
@@ -19,14 +20,14 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
   }
 
   render() {
-    if (this.props.page.get('isFetching')) {
+    if (this.props.page.getIn(['confirmEmail', 'isFetching'])) {
       return (
         <div>
           로딩중입니다.
         </div>
       );
     }
-    if (this.props.page.get('success')) {
+    if (this.props.page.getIn(['confirmEmail', 'success'])) {
       return (
         <div>
           이메일 인증에 성공하였습니다.
@@ -38,7 +39,7 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
         <div>
           이메일 인증에 실패하였습니다.
           <br />
-          <button>
+          <button onClick={this.props.resendEmail}>
             이메일 재전송
           </button>
         </div>
@@ -58,6 +59,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   confirmEmail: (token: string) => dispatch(Actions.confirmEmailRequest(token)),
+  resendEmail: () => dispatch(Actions.resendEmailRequest()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmEmailPage);

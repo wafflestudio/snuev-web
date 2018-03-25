@@ -15,10 +15,6 @@ export default defineMessages({
       id: 'app.components.NavBar.navItems.snutt',
       defaultMessage: 'SNUTT',
     },
-    blog: {
-      id: 'app.components.NavBar.navItems.blog',
-      defaultMessage: '블로그',
-    },
     profile: {
       id: 'app.components.NavBar.navItems.profile',
       defaultMessage: '내 정보',
@@ -26,6 +22,10 @@ export default defineMessages({
     logout: {
       id: 'app.components.NavBar.navItems.logout',
       defaultMessage: '로그아웃',
+    },
+    login: {
+      id: 'app.components.NavBar.navItems.login',
+      defaultMessage: '로그인',
     },
   },
 });

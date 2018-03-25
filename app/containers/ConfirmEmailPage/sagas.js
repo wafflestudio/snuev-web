@@ -1,5 +1,5 @@
-import { take, call, put, takeLatest } from 'redux-saga/effects';
-import { request } from 'services/api';
+import { take, call, put } from 'redux-saga/effects';
+import { request, authRequest } from 'services/api';
 import { Types, Creators as Actions } from './reducer';
 
 export function* watchConfirmEmailRequest() {
@@ -11,13 +11,30 @@ export function* watchConfirmEmailRequest() {
 
 export function* confirmEmail(token) {
   try {
-    const response = yield request.put(`/v1/user/confirm_email?confirmation_token=${token}`);
+    yield request.put(`/v1/user/confirm_email?confirmation_token=${token}`);
     yield put(Actions.confirmEmailSuccess());
   } catch (error) {
-    yield put(Actions.confirmEmailFailure());
+    yield put(Actions.confirmEmailFailure(error.errors));
+  }
+}
+
+export function* watchResendEmailRequest() {
+  while (true) {
+    yield take(Types.RESEND_EMAIL_REQUEST);
+    yield call(resendEmail);
+  }
+}
+
+export function* resendEmail() {
+  try {
+    yield authRequest.post('/v1/user/confirm_email');
+    yield put(Actions.resendEmailSuccess());
+  } catch (error) {
+    yield put(Actions.resendEmailFailure(error.errors));
   }
 }
 
 export default[
   watchConfirmEmailRequest,
+  watchResendEmailRequest,
 ];

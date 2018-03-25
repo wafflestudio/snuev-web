@@ -1,27 +1,21 @@
 import { take, call, put } from 'redux-saga/effects';
-import { request } from 'services/api';
-import { setAuthToken } from 'services/localStorage';
+import { request, authRequest } from 'services/api';
 import { Creators as GlobalActions } from 'global/reducer';
-import { browserHistory } from 'react-router';
 import { Types, Creators as Actions } from './reducer';
-import { userInformation } from '../../global/sagas';
 
-export function* watchSignUpRequest() {
+export function* watchUpdateProfileRequest() {
   while (true) {
-    const { data } = yield take(Types.SIGN_UP_REQUEST);
-    yield call(signUp, data);
+    const { data } = yield take(Types.UPDATE_PROFILE_REQUEST);
+    yield call(updateProfile, data);
   }
 }
 
-export function* signUp({ username, password, nickname, department_id }) {
+export function* updateProfile({ password, password_confirmation, nickname, department_id }) {
   try {
-    const response = yield request.post('/v1/user', { username, password, nickname, department_id });
-    yield put(Actions.signUpSuccess());
-    setAuthToken(response.data.meta.auth_token);
-    yield call(userInformation);
-    browserHistory.push('sign_up/complete');
+    const response = yield authRequest.put('/v1/user', { password, password_confirmation, nickname, department_id });
+    yield put(Actions.updateProfileSuccess(response.data));
   } catch (error) {
-    yield put(Actions.signUpFailure(error.errors));
+    yield put(Actions.updateProfileFailure(error.errors));
   }
 }
 
@@ -43,6 +37,6 @@ export function* getDepartments() {
 }
 
 export default [
-  watchSignUpRequest,
+  watchUpdateProfileRequest,
   watchGetDepartmentsRequest,
 ];

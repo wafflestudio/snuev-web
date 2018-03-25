@@ -4,9 +4,9 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  signUpRequest: ['data'],
-  signUpSuccess: null,
-  signUpFailure: ['error'],
+  updateProfileRequest: ['data'],
+  updateProfileSuccess: null,
+  updateProfileFailure: ['error'],
   getDepartmentsRequest: null,
   getDepartmentsSuccess: null,
   getDepartmentsFailure: ['error'],
@@ -33,9 +33,9 @@ export const failure = (state, { error }) =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.SIGN_UP_REQUEST]: request,
-  [Types.SIGN_UP_SUCCESS]: success,
-  [Types.SIGN_UP_FAILURE]: failure,
+  [Types.UPDATE_PROFILE_REQUEST]: request,
+  [Types.UPDATE_PROFILE_SUCCESS]: success,
+  [Types.UPDATE_PROFILE_FAILURE]: failure,
   [Types.GET_DEPARTMENTS_REQUEST]: request,
   [Types.GET_DEPARTMENTS_SUCCESS]: success,
   [Types.GET_DEPARTMENTS_FAILURE]: failure,

@@ -4,12 +4,9 @@ import { fromJS } from 'immutable';
 /* ------------- Types and Action Creators ------------- */
 
 export const { Types, Creators } = createActions({
-  signUpRequest: ['data'],
-  signUpSuccess: null,
-  signUpFailure: ['error'],
-  getDepartmentsRequest: null,
-  getDepartmentsSuccess: null,
-  getDepartmentsFailure: ['error'],
+  resetPasswordRequest: ['data'],
+  resetPasswordSuccess: null,
+  resetPasswordFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -33,10 +30,7 @@ export const failure = (state, { error }) =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.SIGN_UP_REQUEST]: request,
-  [Types.SIGN_UP_SUCCESS]: success,
-  [Types.SIGN_UP_FAILURE]: failure,
-  [Types.GET_DEPARTMENTS_REQUEST]: request,
-  [Types.GET_DEPARTMENTS_SUCCESS]: success,
-  [Types.GET_DEPARTMENTS_FAILURE]: failure,
+  [Types.RESET_PASSWORD_REQUEST]: request,
+  [Types.RESET_PASSWORD_SUCCESS]: success,
+  [Types.RESET_PASSWORD_FAILURE]: failure,
 });
