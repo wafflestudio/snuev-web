@@ -3,10 +3,9 @@ import React from 'react';
 import styled from 'styled-components';
 import { Map } from 'immutable';
 
-import Rating from '../../components/Rating';
 import { parseSemesterSeason, parseDate } from '../../utils/parse';
 
-import { Wrapper, ColumnWrapper, RowWrapper, SpaceBetween } from './index.style';
+import messages from './messages';
 
 type Theme = {
   fontFamily: {
@@ -14,23 +13,32 @@ type Theme = {
   },
 };
 
-const Score = styled.text`
-  height: 23px;
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
-  font-size: 20px;
-  font-weight: bold;
-  text-align: left;
-  color: #1854e7;
-  margin-left: 10px;
-  margin-right: 7px;
+const EvaluationWrapper = styled.div`
+  margin-top: 30px;
+`;
+
+const EvaluationHeader = styled.div`
+  display: flex;
+`;
+
+export const EvaluationScore = styled.text`
+  margin-right: 14px;
+`;
+
+export const EvaluationScoreLabel = styled.text`
+  opacity: .6;
+`;
+
+export const EvaluationScoreValue = styled.text`
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
+  font-size: ${(props: { theme: Theme }) => props.theme.fontSize.score2}px;
+  color: ${(props: { theme: Theme }) => props.theme.color.score2};
+  margin-right: .1em;
 `;
 
 const DateText = styled.text`
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
-  font-size: 13px;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
   text-align: left;
-  color: #666666;
-  margin-left: 10px;
 `;
 
 const SemesterText = styled.text`
@@ -42,10 +50,11 @@ const SemesterText = styled.text`
 
 const ReviewText = styled.p`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  line-height: 1.43;
-  text-align: left;
-  color: #111111;
+  font-size: ${(props: { theme: Theme }) => props.theme.fontSize.body1}px;
+  color: ${(props: { theme: Theme }) => props.theme.color.body1};
+  margin: 20px 0;
+  padding-left: 20px;
+  border-left: 1px solid rgba(0,0,0,.2);
 `;
 
 type Props = {
@@ -53,34 +62,34 @@ type Props = {
 };
 
 export default ({ evaluation }: Props) => (
-  <Wrapper>
-    <ColumnWrapper>
-      <RowWrapper>
-        <SpaceBetween>
-          <div>
-            <Score>
-              {evaluation.get('score').toFixed(1)}
-            </Score>
-            <Rating small initialRating={evaluation.get('score')} readonly />
-            <DateText>
-              {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
-                `${parseDate(evaluation.get('createdAt'))} 작성` :
-                `${parseDate(evaluation.get('updatedAt'))} 수정`}
-            </DateText>
-          </div>
-          <div>
-            <SemesterText>
-              {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?
-                `${evaluation.getIn(['semester', 'year'])} ${parseSemesterSeason(evaluation.getIn(['semester', 'season']))}` :
-                ''
-              }
-            </SemesterText>
-          </div>
-        </SpaceBetween>
-      </RowWrapper>
-      <ReviewText>
-        {evaluation.get('comment')}
-      </ReviewText>
-    </ColumnWrapper>
-  </Wrapper>
+  <EvaluationWrapper>
+    <EvaluationHeader>
+      <EvaluationScore>
+        <EvaluationScoreValue>{evaluation.get('score')}</EvaluationScoreValue>
+        <EvaluationScoreLabel>/{messages.score}</EvaluationScoreLabel>
+      </EvaluationScore>
+      <EvaluationScore>
+        <EvaluationScoreValue>{evaluation.get('easiness')}</EvaluationScoreValue>
+        <EvaluationScoreLabel>/{messages.easiness}</EvaluationScoreLabel>
+      </EvaluationScore>
+      <EvaluationScore>
+        <EvaluationScoreValue>{evaluation.get('grading')}</EvaluationScoreValue>
+        <EvaluationScoreLabel>/{messages.grading}</EvaluationScoreLabel>
+      </EvaluationScore>
+      <SemesterText>
+        {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?
+          `${evaluation.getIn(['semester', 'year'])} ${parseSemesterSeason(evaluation.getIn(['semester', 'season']))}` :
+          ''
+        }
+      </SemesterText>
+    </EvaluationHeader>
+    <ReviewText>
+      {evaluation.get('comment')}
+    </ReviewText>
+    <DateText>
+      {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
+        `${parseDate(evaluation.get('createdAt'))}` :
+        `${parseDate(evaluation.get('updatedAt'))}`}
+    </DateText>
+  </EvaluationWrapper>
 );

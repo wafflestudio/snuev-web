@@ -2,45 +2,44 @@
 
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import styled from 'styled-components';
+import { withRouter, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 
 import {
   makeSelectLectures,
+  makeSelectGlobal,
 } from '../../global/selectors';
 
-const SideBarWrapper = styled.aside`
-  width: 250px;
-  min-width: 250px;
-  height: 100%;
-  border-right: solid 1px #cccccc;
-`;
+import {
+  SideBarWrapper,
+} from './index.style';
+
+import Lecture from './Lecture';
 
 type Props = {
   lectures: List<Map<string, any>>,
+  location: {},
+  global: Map<string, any>,
 };
 
-class SideBar extends React.Component<Props> { // eslint-disable-line react/prefer-stateless-function
-  render() {
-    const { lectures } = this.props;
-    return (
-      <SideBarWrapper>
-        {lectures.map((lecture: Map<string, any>) => (
-          <div key={lecture.get('id')}>
-            <Link to={`/lectures/${lecture.get('id')}`}>
-              {lecture.get('name')}
-            </Link>
-          </div>
-        ))}
-      </SideBarWrapper>
-    );
-  }
-}
+const SideBar = ({ lectures, location, global }: Props) => (
+  <SideBarWrapper>
+    {global.getIn(['lectures', 'isFetching']) ? (
+      <div>Loading...</div>
+    ) : (
+      lectures.map((lecture: Map<string, any>) => (
+        <Link key={lecture.get('id')} to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }}>
+          <Lecture lecture={lecture} />
+        </Link>
+      ))
+    )}
+  </SideBarWrapper>
+);
 
 const mapStateToProps = createStructuredSelector({
   lectures: makeSelectLectures(),
+  global: makeSelectGlobal(),
 });
 
-export default connect(mapStateToProps)(SideBar);
+export default withRouter(connect(mapStateToProps)(SideBar));

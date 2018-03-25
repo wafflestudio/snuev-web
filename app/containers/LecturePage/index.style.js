@@ -5,33 +5,10 @@ import Modal from 'react-modal';
 export const Wrapper = styled.div`
   width: 100%;
   padding: 20px;
-  border-bottom: solid 1px #cccccc;
 `;
-
-export const RowWrapper = styled.div`
-  display: flex;
-  align-items: flex-end;
-`;
-
-export const ColumnWrapper = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  flex-direction: column;
-`;
-
-export const SpaceBetween = styled.div`
-  display: flex;
-  height: 100%;
-  width: 100%;
-  justify-content: space-between;
-`;
-
-// index.js
 
 export const Background = styled.div`
   display: flex;
-  padding: 50px;
   flex-direction: column;
 `;
 
@@ -52,89 +29,67 @@ export const EvaluationFormModal = (props) => (
   />
 );
 
-export const LectureNameWrapper = styled.div`
-  width: 100%;
-  padding-bottom: 20px;
-  border-bottom: solid 1px #cccccc;
+export const LectureWrapper = styled.div`
+  padding-bottom: 30px;
+  border-bottom: 1px dashed rgba(0,0,0,.4);
 `;
 
 export const LectureName = styled.text`
-  height: 41px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 36px;
+  font-size: ${(props) => props.theme.fontSize.header1}px;
+  color: ${(props) => props.theme.color.header1};
   font-weight: bold;
   text-align: left;
-  color: #111111;
-  margin-bottom: 25px;
 `;
 
-export const ProfessorName = styled.text`
-  height: 16px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  text-align: left;
-  color: #666666;
-  margin-left: 14px;
-  margin-bottom: 28px;
+export const LectureInfo = styled.div`
+  display: flex;
+  margin-top: 40px;
 `;
 
-export const LectureScore = styled.text`
-  width: 55px;
-  height: 41px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 36px;
-  font-weight: bold;
-  text-align: left;
-  color: #0065e3;
-  margin-right: 10px;
-`;
-
-export const ReviewCountText = styled.text`
-  width: 96px;
-  height: 16px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  text-align: left;
-  color: #111111;
-  margin-left: 10px;
-`;
-
-export const HitsText = styled.text`
-  width: 69px;
-  height: 16px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  text-align: left;
-  color: #666666;
-  margin-top: 13px;
-`;
-
-export const SummaryText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  line-height: 1.43;
-  text-align: left;
-  color: #111111;
-  margin-top: 21px;
-  padding-right: 200px;
+export const LectureBasicInfo = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: auto;
 `;
 
 export const LectureInfoText = styled.text`
+  margin-bottom: 10px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  line-height: 1.43;
-  text-align: left;
-  color: #111111;
-  width: 130px;
-  margin: 5px 0px;
+  font-size: ${(props) => props.theme.fontSize.body2}px;
+  color: ${(props) => props.theme.color.body2};
 `;
 
-export const EvaluationHeaderText = styled.text`
+export const LectureScore = styled.text`
+  display: flex;
+  flex-direction: column;
+  margin-left: 48px;
+  text-align: center;
+`;
+
+export const LectureScoreLabel = styled.text`
+`;
+
+export const LectureScoreValue = styled.text`
+  font-family: ${(props) => props.theme.fontFamily.number};
+  font-size: ${(props) => props.theme.fontSize.score1}px;
+  color: ${(props) => props.theme.color.score1};
+`;
+
+export const LectureSummary = styled.p`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 24px;
+  margin: 30px 0 0 0;
+`;
+
+export const EvaluationsWrapper = styled.div`
+  padding-top: 45px;
+`;
+
+export const EvaluationsHeader = styled.text`
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-size: ${(props) => props.theme.fontSize.header2}px;
+  color: ${(props) => props.theme.color.header2};
   font-weight: bold;
-  text-align: left;
-  color: #111111;
 `;
 
 export const LeaveReviewButton = styled.button`
