@@ -26,6 +26,7 @@ export const EvaluationFormModal = (props) => (
         padding: '0px',
       },
     }}
+    appElement={document.getElementById('app')}
   />
 );
 
