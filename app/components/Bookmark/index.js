@@ -1,77 +1,55 @@
 // @flow
 import * as React from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
 import messages from './messages';
-import { Creators as Actions } from '../../global/reducer';
 import {
   UnclickedButton,
   ClickedButton,
 } from './index.style';
-import { makeSelectLecture } from '../../containers/LecturePage/selectors';
 
 type Props = {
   lecture: Map<string, any>,
-  bookmark: (lectureId: string) => void,
-  deleteBookmark: (lectureId: string) => void,
+  initialMark: boolean,
+  onPressWhenMarked: (id: string) => void,
+  onPressWhenNotMarked: (id: string) => void,
 };
 
 type State = {
-  dirtyFlag: boolean,
+  marked: boolean,
 };
 
 export class Bookmark extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      dirtyFlag: false,
+      marked: this.props.initialMark,
     };
-    (this: any).handleBookmark = this.handleBookmark.bind(this);
-    (this: any).handleDeleteBookmark = this.handleDeleteBookmark.bind(this);
+    (this: any).onPress = this.onPress.bind(this);
   }
 
-  componentWillReceiveProps() {
-    this.setState({ dirtyFlag: this.props.lecture.get('bookmarked') });
-  }
-
-  handleBookmark(event: SyntheticEvent<HTMLButtonElement>) {
+  onPress(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    this.props.bookmark(this.props.lecture.get('id'));
-    this.setState({ dirtyFlag: true });
-  }
-
-  handleDeleteBookmark(event: SyntheticEvent<HTMLButtonElement>) {
-    event.preventDefault();
-    this.props.deleteBookmark(this.props.lecture.get('id'));
-    this.setState({ dirtyFlag: false });
+    if (this.state.marked) this.props.onPressWhenMarked(this.props.lecture.get('id'));
+    else this.props.onPressWhenNotMarked(this.props.lecture.get('id'));
+    this.setState({ marked: !this.state.marked });
   }
 
   render() {
-    const dirtyFlag = this.state.dirtyFlag;
+    const marked = this.state.marked;
 
-    if (dirtyFlag) {
+    if (marked) {
       return (
-        <ClickedButton onClick={this.handleDeleteBookmark}>
+        <ClickedButton onClick={this.onPress}>
           {messages.bookmark}
         </ClickedButton>
       );
     }
     return (
-      <UnclickedButton onClick={this.handleBookmark}>
+      <UnclickedButton onClick={this.onPress}>
         {messages.bookmark}
       </UnclickedButton>
     );
   }
 }
 
-const mapStateToProps = createStructuredSelector({
-  lecture: makeSelectLecture(),
-});
-
-const mapDispatchToProps = (dispatch: Function) => ({
-  bookmark: (lectureId: string) => dispatch(Actions.bookmarkRequest(lectureId)),
-  deleteBookmark: (lectureId: string) => dispatch(Actions.deleteBookmarkRequest(lectureId)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Bookmark);
+export default Bookmark;

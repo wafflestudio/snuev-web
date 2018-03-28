@@ -13,6 +13,7 @@ import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
 import { makeSelectUser } from '../../global/selectors';
+import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectPage,
   makeSelectLecture,
@@ -48,6 +49,8 @@ type Props = {
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
+  bookmark: (id: string) => void,
+  deleteBookmark: (id: string) => void,
 };
 
 export class LecturePage extends React.Component<Props> {
@@ -105,7 +108,13 @@ export class LecturePage extends React.Component<Props> {
           <LectureName>
             {lecture.get('course').get('name')}
           </LectureName>
-          <Bookmark />
+          <Bookmark
+            lecture={lecture}
+            initialMark={lecture.get('bookmarked')}
+            onPressWhenMarked={this.props.deleteBookmark}
+            onPressWhenNotMarked={this.props.bookmark}
+            isFail={!!page.getIn(['bookmark', 'error'])}
+          />
           <LectureInfo>
             <LectureBasicInfo>
               <LectureInfoText>
@@ -182,6 +191,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
+  bookmark: (id: number) => dispatch(GlobalActions.bookmarkRequest(id)),
+  deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

@@ -82,33 +82,33 @@ export function* searchLectures({ query }) {
 
 export function* watchBookmarkRequest() {
   while (true) {
-    const { data } = yield take(Types.BOOKMARK_REQUEST);
-    yield call(bookmark, data);
+    const { id } = yield take(Types.BOOKMARK_REQUEST);
+    yield call(bookmark, id);
   }
 }
 
 export function* bookmark(lectureId) {
   try {
     yield request.post(`/v1/lectures/${lectureId}/bookmark`);
-    yield put(Actions.bookmarkSuccess());
+    yield put(Actions.bookmarkSuccess(lectureId));
   } catch (error) {
-    yield put(Actions.bookmarkFailure(error.errors));
+    yield put(Actions.bookmarkFailure(lectureId, error.errors));
   }
 }
 
 export function* watchDeleteBookmarkRequest() {
   while (true) {
-    const { data } = yield take(Types.DELETE_BOOKMARK_REQUEST);
-    yield call(deleteBookmark, data);
+    const { id } = yield take(Types.DELETE_BOOKMARK_REQUEST);
+    yield call(deleteBookmark, id);
   }
 }
 
 export function* deleteBookmark(lectureId) {
   try {
     yield request.delete(`/v1/lectures/${lectureId}/bookmark`);
-    yield put(Actions.deleteBookmarkSuccess());
+    yield put(Actions.deleteBookmarkSuccess(lectureId));
   } catch (error) {
-    yield put(Actions.deleteBookmarkFailure(error.errors));
+    yield put(Actions.deleteBookmarkFailure(lectureId, error.errors));
   }
 }
 

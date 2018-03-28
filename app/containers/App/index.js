@@ -22,12 +22,17 @@ import { Map } from 'immutable';
 import { Creators as GlobalActions } from '../../global/reducer';
 import { getAuthToken } from '../../services/localStorage';
 import { makeSelectUser, makeSelectGlobal } from '../../global/selectors';
+import { media } from '../../style-utils';
 
 const AppWrapper = styled.div`
   display: flex;
   height: 100%;
   margin: 0 auto;
   max-width: ${(props) => props.theme.appMaxWidth}px;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  ${media.desktop`
+    margin: 0 30px;
+  `}
 `;
 
 type Props = {

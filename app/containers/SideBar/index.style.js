@@ -44,4 +44,7 @@ export const LectureMetaEntry = styled.div`
   font-size: ${(props) => props.theme.fontSize.body2}px;
   color: ${(props) => props.theme.color.body2};
   margin-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;

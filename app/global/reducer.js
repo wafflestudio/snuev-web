@@ -22,12 +22,12 @@ export const { Types, Creators } = createActions({
   searchLecturesFailure: ['error'],
   showSideBar: null,
   hideSideBar: null,
-  bookmarkRequest: ['data'],
-  bookmarkSuccess: null,
-  bookmarkFailure: ['error'],
-  deleteBookmarkRequest: ['data'],
-  deleteBookmarkSuccess: null,
-  deleteBookmarkFailure: ['error'],
+  bookmarkRequest: ['id'],
+  bookmarkSuccess: ['id'],
+  bookmarkFailure: ['id', 'error'],
+  deleteBookmarkRequest: ['id'],
+  deleteBookmarkSuccess: ['id'],
+  deleteBookmarkFailure: ['id', 'error'],
   getBookmarkedRequest: null,
   getBookmarkedSuccess: null,
   getBookmarkedFailure: ['error'],
@@ -61,10 +61,8 @@ export const initialState = fromJS({
     isFetching: false,
     error: null,
   },
-  bookmark: {
-    isFetching: false,
-    error: null,
-  },
+  bookmarks: {},
+  bookmarkedLectures: null,
 });
 
 /* ------------- Reducers ------------- */
@@ -121,14 +119,14 @@ export const showSideBar = (state) =>
 export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
-export const bookmarkRequest = (state) =>
-  state.mergeDeep({ bookmark: { isFetching: true, error: null } });
+export const bookmarkRequest = (state, { id }) =>
+  state.setIn(['bookmarks', id], { isFetching: true, dirtyBookmarked: true, error: null });
 
-export const bookmarkSuccess = (state) =>
-  state.mergeDeep({ bookmark: { isFetching: false, error: null } });
+export const bookmarkSuccess = (state, { id }) =>
+  state.setIn(['bookmarks', id], { isFetching: false, dirtyBookmarked: false, error: null });
 
-export const bookmarkFailure = (state, { error }) =>
-  state.mergeDeep({ bookmark: { isFetching: false, error } });
+export const bookmarkFailure = (state, { id, error }) =>
+  state.setIn(['bookmarks', id], { isFetching: false, dirtyBookmarked: false, error });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

@@ -22,6 +22,7 @@ const makeSelectMyEvaluation = () => createSelector(
   (entities, page) => denormalize(entities, 'evaluations', page.getIn(['myEvaluation', 'id']))
 );
 
+
 export {
   makeSelectPage,
   makeSelectLecture,
