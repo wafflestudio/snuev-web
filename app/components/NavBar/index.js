@@ -9,7 +9,15 @@ import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectUser } from '../../global/selectors';
-import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu } from './index.style';
+import {
+  NavBarWrapper,
+  Logo,
+  SnuttLogo,
+  Search,
+  NavMenu,
+  UserButton,
+  LogoutButton,
+} from './index.style';
 
 type Props = {
   user: any,
@@ -44,18 +52,20 @@ export class NavBar extends React.PureComponent<Props> {
               </a>
             </li>
             <li>
-              <FormattedMessage
-                id="user.nickname"
-                defaultMessage="{nickname} 님"
-                values={{
-                  nickname: this.props.user.get('nickname'),
-                }}
-              />
+              <UserButton>
+                <FormattedMessage
+                  id="user.nickname"
+                  defaultMessage="{nickname} 님"
+                  values={{
+                    nickname: this.props.user.get('nickname'),
+                  }}
+                />
+              </UserButton>
             </li>
             <li>
-              <button onClick={this.handleLogOut}>
+              <LogoutButton onClick={this.handleLogOut}>
                 <FormattedMessage {...messages.navItems.logout} />
-              </button>
+              </LogoutButton>
             </li>
           </NavMenu>
         </NavBarWrapper>

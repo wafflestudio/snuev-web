@@ -67,3 +67,11 @@ export const NavMenu = styled.ul`
     }
   }
 `;
+
+export const UserButton = styled.button`
+  cursor: pointer;
+`;
+
+export const LogoutButton = styled.button`
+  cursor: pointer;
+`;
