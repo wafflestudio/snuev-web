@@ -9,6 +9,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 
+import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
 import { makeSelectUser } from '../../global/selectors';
@@ -104,6 +105,7 @@ export class LecturePage extends React.Component<Props> {
           <LectureName>
             {lecture.get('course').get('name')}
           </LectureName>
+          <Bookmark />
           <LectureInfo>
             <LectureBasicInfo>
               <LectureInfoText>

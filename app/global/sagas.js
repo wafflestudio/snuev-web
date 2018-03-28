@@ -80,10 +80,61 @@ export function* searchLectures({ query }) {
   }
 }
 
+export function* watchBookmarkRequest() {
+  while (true) {
+    const { data } = yield take(Types.BOOKMARK_REQUEST);
+    yield call(bookmark, data);
+  }
+}
+
+export function* bookmark(lectureId) {
+  try {
+    yield request.post(`/v1/lectures/${lectureId}/bookmark`);
+    yield put(Actions.bookmarkSuccess());
+  } catch (error) {
+    yield put(Actions.bookmarkFailure(error.errors));
+  }
+}
+
+export function* watchDeleteBookmarkRequest() {
+  while (true) {
+    const { data } = yield take(Types.DELETE_BOOKMARK_REQUEST);
+    yield call(deleteBookmark, data);
+  }
+}
+
+export function* deleteBookmark(lectureId) {
+  try {
+    yield request.delete(`/v1/lectures/${lectureId}/bookmark`);
+    yield put(Actions.deleteBookmarkSuccess());
+  } catch (error) {
+    yield put(Actions.deleteBookmarkFailure(error.errors));
+  }
+}
+
+export function* watchGetBookmarkedRequest() {
+  while (true) {
+    yield take(Types.GET_BOOKMARKED_REQUEST);
+    yield call(getBookmarked);
+  }
+}
+
+export function* getBookmarked() {
+  try {
+    yield request.get('/v1/lectures/bookmarked');
+    yield put(Actions.getBookmarkedSuccess());
+  } catch (error) {
+    yield put(Actions.getBookmarkedFailure(error.errors));
+  }
+}
+
 export default [
   watchSignInRequest,
   watchSignOut,
   watchUserInformationRequest,
   watchSearchCoursesRequest,
   watchSearchLecturesRequest,
+  watchBookmarkRequest,
+  watchDeleteBookmarkRequest,
+  watchGetBookmarkedRequest,
 ];

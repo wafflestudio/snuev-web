@@ -22,6 +22,15 @@ export const { Types, Creators } = createActions({
   searchLecturesFailure: ['error'],
   showSideBar: null,
   hideSideBar: null,
+  bookmarkRequest: ['data'],
+  bookmarkSuccess: null,
+  bookmarkFailure: ['error'],
+  deleteBookmarkRequest: ['data'],
+  deleteBookmarkSuccess: null,
+  deleteBookmarkFailure: ['error'],
+  getBookmarkedRequest: null,
+  getBookmarkedSuccess: null,
+  getBookmarkedFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -49,6 +58,10 @@ export const initialState = fromJS({
   },
   lectures: {
     ids: [],
+    isFetching: false,
+    error: null,
+  },
+  bookmark: {
     isFetching: false,
     error: null,
   },
@@ -108,6 +121,15 @@ export const showSideBar = (state) =>
 export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
+export const bookmarkRequest = (state) =>
+  state.mergeDeep({ bookmark: { isFetching: true, error: null } });
+
+export const bookmarkSuccess = (state) =>
+  state.mergeDeep({ bookmark: { isFetching: false, error: null } });
+
+export const bookmarkFailure = (state, { error }) =>
+  state.mergeDeep({ bookmark: { isFetching: false, error } });
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
@@ -128,4 +150,13 @@ export default createReducer(initialState, {
   [Types.SEARCH_LECTURES_FAILURE]: searchLecturesFailure,
   [Types.SHOW_SIDE_BAR]: showSideBar,
   [Types.HIDE_SIDE_BAR]: hideSideBar,
+  [Types.BOOKMARK_REQUEST]: bookmarkRequest,
+  [Types.BOOKMARK_SUCCESS]: bookmarkSuccess,
+  [Types.BOOKMARK_FAILURE]: bookmarkFailure,
+  [Types.DELETE_BOOKMARK_REQUEST]: bookmarkRequest,
+  [Types.DELETE_BOOKMARK_SUCCESS]: bookmarkSuccess,
+  [Types.DELETE_BOOKMARK_FAILURE]: bookmarkFailure,
+  [Types.GET_BOOKMARKED_REQUEST]: bookmarkRequest,
+  [Types.GET_BOOKMARKED_SUCCESS]: bookmarkSuccess,
+  [Types.GET_BOOKMARKED_FAILURE]: bookmarkFailure,
 });
