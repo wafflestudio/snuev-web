@@ -1,6 +1,5 @@
 // @flow
 import React from 'react';
-import { Icon } from 'react-fa';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
@@ -9,7 +8,7 @@ import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectUser } from '../../global/selectors';
-import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu } from './index.style';
+import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper } from './index.style';
 
 type Props = {
   user: any,
@@ -29,12 +28,12 @@ export class NavBar extends React.PureComponent<Props> {
   }
 
   render() {
-    if (this.props.user) {
-      return (
-        <NavBarWrapper>
+    const { user } = this.props;
+    return (
+      <NavBarWrapper>
+        <NavBarInnerWrapper>
           <Logo />
           <Search>
-            <Icon name="search" />
             <NavSearch />
           </Search>
           <NavMenu>
@@ -43,43 +42,31 @@ export class NavBar extends React.PureComponent<Props> {
                 <SnuttLogo alt="SNUTT" /><FormattedMessage {...messages.navItems.snutt} />
               </a>
             </li>
-            <li>
-              <FormattedMessage
-                id="user.nickname"
-                defaultMessage="{nickname} 님"
-                values={{
-                  nickname: this.props.user.get('nickname'),
-                }}
-              />
-            </li>
-            <li>
-              <button onClick={this.handleLogOut}>
-                <FormattedMessage {...messages.navItems.logout} />
-              </button>
-            </li>
+            {user && [
+              <li key="1">
+                <FormattedMessage
+                  id="user.nickname"
+                  defaultMessage="{nickname} 님"
+                  values={{
+                    nickname: this.props.user.get('nickname'),
+                  }}
+                />
+              </li>,
+              <li key="2">
+                <button onClick={this.handleLogOut}>
+                  <FormattedMessage {...messages.navItems.logout} />
+                </button>
+              </li>,
+            ]}
+            {!user &&
+              <li>
+                <Link to="/sign_in">
+                  <FormattedMessage {...messages.navItems.login} />
+                </Link>
+              </li>
+          }
           </NavMenu>
-        </NavBarWrapper>
-      );
-    }
-    return (
-      <NavBarWrapper>
-        <Logo />
-        <Search>
-          <Icon name="search" />
-          <NavSearch />
-        </Search>
-        <NavMenu>
-          <li>
-            <a href="https://snutt.kr">
-              <SnuttLogo alt="SNUTT" /><FormattedMessage {...messages.navItems.snutt} />
-            </a>
-          </li>
-          <li>
-            <Link to="/sign_in">
-              <FormattedMessage {...messages.navItems.login} />
-            </Link>
-          </li>
-        </NavMenu>
+        </NavBarInnerWrapper>
       </NavBarWrapper>
     );
   }

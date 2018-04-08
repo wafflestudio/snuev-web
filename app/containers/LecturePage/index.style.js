@@ -38,7 +38,7 @@ export const LectureName = styled.text`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.header1}px;
   color: ${(props) => props.theme.color.header1};
-  font-weight: bold;
+  font-weight: 500;
   text-align: left;
 `;
 
@@ -89,7 +89,7 @@ export const EvaluationsHeader = styled.text`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.header2}px;
   color: ${(props) => props.theme.color.header2};
-  font-weight: bold;
+  font-weight: 500;
 `;
 
 export const LeaveReviewButton = styled.button`
