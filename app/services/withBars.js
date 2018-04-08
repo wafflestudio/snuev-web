@@ -12,9 +12,6 @@ import {
   makeSelectAppLayout,
 } from '../global/selectors';
 
-const RowWrapper = styled.div`
-`;
-
 const MainContent = styled.div`
   padding-top: ${(props: {}) => props.theme.navBarHeight + 30}px;
   margin-left: ${(props: {}) =>
@@ -34,14 +31,12 @@ export default (Component: React.Component) => connect(mapStateToProps)(
   (props: Props) => (
     <div>
       <NavBar />
-      <RowWrapper>
-        {props.appLayout.get('showSideBar') &&
-          <SideBar />
-        }
-        <MainContent showSideBar={props.appLayout.get('showSideBar')}>
-          <Component {...props} />
-        </MainContent>
-      </RowWrapper>
+      {props.appLayout.get('showSideBar') &&
+        <SideBar />
+      }
+      <MainContent showSideBar={props.appLayout.get('showSideBar')}>
+        <Component {...props} />
+      </MainContent>
     </div>
   )
 );
