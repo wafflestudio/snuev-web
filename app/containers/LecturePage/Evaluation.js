@@ -66,9 +66,10 @@ export const VoteButton = styled.button`
 type Props = {
   evaluation: Map<string, any>,
   voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => void,
+  lectureId: number,
 };
 
-export default ({ evaluation, voteEvaluation }: Props) => (
+export default ({ evaluation, voteEvaluation, lectureId }: Props) => (
   <EvaluationWrapper>
     <EvaluationHeader>
       <EvaluationScore>
@@ -99,10 +100,9 @@ export default ({ evaluation, voteEvaluation }: Props) => (
         `${parseDate(evaluation.get('updatedAt'))}`}
     </DateText>
     <div style={{ float: 'right' }}>
-      <VoteButton onClick={() => voteEvaluation(1, 3, '+1')}>up</VoteButton>
-      {/* 위에 1, 3, '+1' 부분 추가로 구현해야 함*/}
+      <VoteButton onClick={() => voteEvaluation(lectureId, evaluation.get('id'), '+1')}>up</VoteButton>
       {`${evaluation.get('upvotesCount')}`}
-      <VoteButton>down</VoteButton>
+      <VoteButton onClick={() => voteEvaluation(lectureId, evaluation.get('id'), '-1')}>down</VoteButton>
       {`${evaluation.get('downvotesCount')}`}
     </div>
   </EvaluationWrapper>

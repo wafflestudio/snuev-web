@@ -156,6 +156,7 @@ export class LecturePage extends React.Component<Props> {
                 <Evaluation
                   key={index}
                   evaluation={evaluation}
+                  lectureId={lecture.get('id')}
                   voteEvaluation={voteEvaluation}
                 />
               ))}
