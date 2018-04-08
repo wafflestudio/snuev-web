@@ -57,11 +57,18 @@ const ReviewText = styled.p`
   border-left: 1px solid rgba(0,0,0,.2);
 `;
 
+export const VoteButton = styled.button`
+  border-radius: 3px;
+  background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
+  margin-right: 10px;
+`;
+
 type Props = {
   evaluation: Map<string, any>,
+  voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => void,
 };
 
-export default ({ evaluation }: Props) => (
+export default ({ evaluation, voteEvaluation }: Props) => (
   <EvaluationWrapper>
     <EvaluationHeader>
       <EvaluationScore>
@@ -91,5 +98,11 @@ export default ({ evaluation }: Props) => (
         `${parseDate(evaluation.get('createdAt'))}` :
         `${parseDate(evaluation.get('updatedAt'))}`}
     </DateText>
+    <div style={{ float: 'right' }}>
+      <VoteButton onClick={() => voteEvaluation(1, 3, '+1')}>up</VoteButton>
+      {`${evaluation.get('upvotesCount')}`}
+      <VoteButton>down</VoteButton>
+      {`${evaluation.get('downvotesCount')}`}
+    </div>
   </EvaluationWrapper>
 );

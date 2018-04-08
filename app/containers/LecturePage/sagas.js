@@ -87,6 +87,21 @@ export function* updateEvaluation({ lectureId, evaluationId, data }) {
   }
 }
 
+export function* watchVoteEvaluationRequest() {
+  yield takeLatest(Types.VOTE_EVALUATION_REQUEST, voteEvaluationRequest);
+}
+
+export function* voteEvaluationRequest({ lectureId, evaluationId, direction }) {
+  try {
+    const response = yield authRequest.post(`/v1/lectures/${lectureId}/evaluations/${evaluationId}/vote`, { vote: { direction } });
+    yield put(GlobalActions.normalizeData(response.data));
+    yield put(Actions.voteEvaluationSuccess());
+    yield put(Actions.getLectureRequest(lectureId));
+  } catch (error) {
+    yield put(Actions.voteEvaluationFailure(error.errors));
+  }
+}
+
 // All sagas to be loaded
 export default [
   watchGetLectureRequest,
@@ -94,4 +109,5 @@ export default [
   watchGetMyEvaluationRequest,
   watchCreateEvaluationRequest,
   watchUpdateEvaluationRequest,
+  watchVoteEvaluationRequest,
 ];
