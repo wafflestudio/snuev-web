@@ -32,7 +32,9 @@ export class NavBar extends React.PureComponent<Props> {
     return (
       <NavBarWrapper>
         <NavBarInnerWrapper>
-          <Logo />
+          <Link to="/">
+            <Logo />
+          </Link>
           <Search>
             <NavSearch />
           </Search>
