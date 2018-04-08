@@ -100,6 +100,7 @@ export default ({ evaluation, voteEvaluation }: Props) => (
     </DateText>
     <div style={{ float: 'right' }}>
       <VoteButton onClick={() => voteEvaluation(1, 3, '+1')}>up</VoteButton>
+      {/* 위에 1, 3, '+1' 부분 추가로 구현해야 함*/}
       {`${evaluation.get('upvotesCount')}`}
       <VoteButton>down</VoteButton>
       {`${evaluation.get('downvotesCount')}`}
