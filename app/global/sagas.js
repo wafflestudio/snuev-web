@@ -1,8 +1,10 @@
-import { take, call, put, takeLatest } from 'redux-saga/effects';
+import { take, call, put, takeLatest, select } from 'redux-saga/effects';
+import { browserHistory } from 'react-router';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
 import { addQuery } from '../utils/query';
+import { makeSelectPrev } from './selectors';
 
 export function* watchSignInRequest() {
   while (true) {
@@ -31,6 +33,7 @@ export function* signIn({ username, password }) {
     yield put(Actions.signInSuccess(response.data));
     setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
+    yield select(makeSelectPrev()) ? history.back() : browserHistory.push('/');
   } catch (error) {
     yield put(Actions.signInFailure(error.errors));
   }

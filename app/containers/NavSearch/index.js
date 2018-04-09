@@ -11,10 +11,15 @@ import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectCourses,
 } from '../../global/selectors';
-import { AutoCompleteItem } from './index.style';
+import {
+  AutoCompleteMenu,
+  AutoCompleteItem,
+} from './index.style';
 
 type Props = {
   courses: Map<string, any>,
+  searchCourses: (string) => void,
+  searchLectures: (string) => void,
   location: { search: string },
 };
 
@@ -51,16 +56,22 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
   }
 
   render() {
+    const { searchCourses } = this.props;
     const courses = this.props.courses.toJS();
 
     return (
       <form onSubmit={this.handleSubmit}>
         <Autocomplete
-          inputProps={{ id: 'search-query' }}
+          inputProps={{
+            id: 'search-query',
+            onFocus: () => searchCourses(this.state.query),
+          }}
+          wrapperStyle={{ diplay: 'block' }}
+          renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}
           items={courses}
           getItemValue={(course: { name: string }) => course.name}
-          onChange={(event: SyntheticInputEvent<HTMLInputEvent>, query: string) => {
+          onChange={(event: Event, query: string) => {
             this.setState({ query });
           }}
           onSelect={(query: string, course: { name: string }) => {

@@ -42,20 +42,22 @@ type Props = {
   page: Map<string, any>,
   lecture: Map<string, any>,
   evaluations: List<Map<string, any>>,
-  myEvaluation: Map<string, any>,
-  params: { lectureId: number },
-  getLecture: (id: number) => void,
-  getEvaluations: (lectureId: number, page: number) => void,
-  voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => void,
+  params: { lectureId: string },
+  getLecture: (id: string) => void,
+  getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
+  voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => void,
 };
 
 export class LecturePage extends React.Component<Props> {
+  constructor(props: Props) {
+    super(props);
+    (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
+  }
+
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
-    (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
-    this.loadMoreEvaluations(1);
   }
 
   componentWillReceiveProps(nextProps: Props) {
@@ -145,12 +147,13 @@ export class LecturePage extends React.Component<Props> {
             </LeaveReviewButton>
           }
         </EvaluationsWrapper>
-        {evaluations &&
-          <InfiniteScroll
-            pageStart={1}
-            hasMore={page.get('evaluationsHasMore')}
-            loadMore={this.loadMoreEvaluations}
-          >
+        <InfiniteScroll
+          pageStart={0}
+          hasMore={page.getIn(['evaluations', 'hasMore'])}
+          loadMore={this.loadMoreEvaluations}
+        >
+          <div>
+            {this.props.evaluations &&
             <div>
               {evaluations.map((evaluation: Object, index: number) => (
                 <Evaluation
@@ -161,8 +164,9 @@ export class LecturePage extends React.Component<Props> {
                 />
               ))}
             </div>
-          </InfiniteScroll>
-        }
+            }
+          </div>
+        </InfiniteScroll>
       </Background>
     );
   }
@@ -176,8 +180,8 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  getLecture: (id: number) => dispatch(Actions.getLectureRequest(id)),
-  getEvaluations: (id: number, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
+  getLecture: (id: string) => dispatch(Actions.getLectureRequest(id)),
+  getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
   voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => dispatch(Actions.voteEvaluationRequest(lectureId, evaluationId, direction)),

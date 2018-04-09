@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 import { makeSelectEntities } from '../../global/selectors';
 import { denormalize } from '../../utils/denormalize';
 
-const makeSelectPage = () => (state) => state.get('signUpPage');
+const makeSelectPage = () => (state) => state.get('profilePage');
 
 const makeSelectDepartments = () => createSelector(
   makeSelectEntities(),
