@@ -33,7 +33,12 @@ export function* signIn({ username, password }) {
     yield put(Actions.signInSuccess(response.data));
     setAuthToken(response.data.meta.auth_token);
     yield call(userInformation);
-    yield select(makeSelectPrev()) ? history.back() : browserHistory.push('/');
+    const prev = yield select(makeSelectPrev());
+    if (prev) {
+      history.back();
+    } else {
+      browserHistory.push('/');
+    }
   } catch (error) {
     yield put(Actions.signInFailure(error.errors));
   }
