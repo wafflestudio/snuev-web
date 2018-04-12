@@ -52,21 +52,20 @@ type Props = {
 export class LecturePage extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
+    (this: any).loadEvaluations = this.loadEvaluations.bind(this);
   }
 
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const nextLectureId = nextProps.params.lectureId;
-    if (nextLectureId !== this.props.params.lectureId) {
-      this.props.getLecture(nextLectureId);
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.params.lectureId !== this.props.params.lectureId) {
+      this.props.getLecture(this.props.params.lectureId);
     }
   }
 
-  loadMoreEvaluations(page: number) {
+  loadEvaluations(page: number) {
     if (this.props.user && this.props.user.get('isConfirmed')) {
       this.props.getEvaluations(this.props.params.lectureId, page);
     }
@@ -148,7 +147,7 @@ export class LecturePage extends React.Component<Props> {
         <InfiniteScroll
           pageStart={0}
           hasMore={page.getIn(['evaluations', 'hasMore'])}
-          loadMore={this.loadMoreEvaluations}
+          loadMore={this.loadEvaluations}
         >
           <div>
             {this.props.evaluations &&
