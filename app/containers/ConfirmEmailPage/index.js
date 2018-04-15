@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import qs from 'query-string';
 import { Map } from 'immutable';
 import { Creators as Actions } from './reducer';
 import { makeSelectPage } from './selectors';
@@ -16,7 +17,7 @@ type Props = {
 
 export class ConfirmEmailPage extends React.PureComponent<Props> {
   componentDidMount() {
-    this.props.confirmEmail(this.props.params.confirmation_token);
+    this.props.confirmEmail(qs.parse(this.props.location.search).confirmation_token);
   }
 
   render() {
