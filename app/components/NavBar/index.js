@@ -46,13 +46,15 @@ export class NavBar extends React.PureComponent<Props> {
             </li>
             {user && [
               <li key="1">
-                <FormattedMessage
-                  id="user.nickname"
-                  defaultMessage="{nickname} 님"
-                  values={{
-                    nickname: this.props.user.get('nickname'),
-                  }}
-                />
+                <Link to="/profile">
+                  <FormattedMessage
+                    id="user.nickname"
+                    defaultMessage="{nickname} 님"
+                    values={{
+                      nickname: this.props.user.get('nickname'),
+                    }}
+                  />
+                </Link>
               </li>,
               <li key="2">
                 <button onClick={this.handleLogOut}>
