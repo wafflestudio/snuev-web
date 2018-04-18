@@ -55,6 +55,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     };
     (this: any).handleSubmit = this.handleSubmit.bind(this);
     (this: any).makeHandleRate = this.makeHandleRate.bind(this);
+    (this: React.PureComponent).makeHandleChange = this.makeHandleChange.bind(this);
   }
 
   componentDidMount() {
@@ -84,6 +85,14 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
   makeHandleRate(criteria: string) {
     return (value: number) => this.setState({ [criteria]: value });
+  }
+
+  makeHandleChange(key: string) {
+    return (event: SyntheticEvent) => {
+      this.setState({
+        [key]: event.target.value,
+      });
+    };
   }
 
   render() {
@@ -130,7 +139,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
         <CommentInput
           placeholder="강의평을 입력해주세요..."
           value={this.state.comment}
-          onChange={({ target }) => this.setState({ comment: target.value })}
+          onChange={this.makeHandleChange('comment')}
         />
         <SubmitButton type="submit">
           <SubmitText>

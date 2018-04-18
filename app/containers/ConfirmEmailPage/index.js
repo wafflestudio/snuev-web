@@ -44,13 +44,12 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
           유효하지 않은 페이지입니다.
         </div>
       );
-    } else {
-      return (
-        <div>
-          이메일 인증에 성공하였습니다.
-        </div>
-      );
     }
+    return (
+      <div>
+          이메일 인증에 성공하였습니다.
+      </div>
+    );
   }
 }
 
