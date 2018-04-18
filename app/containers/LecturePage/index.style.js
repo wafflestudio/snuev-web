@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
 
+Modal.setAppElement('#app');
+
 export const Wrapper = styled.div`
   width: 100%;
   padding: 20px;
@@ -16,14 +18,19 @@ export const EvaluationFormModal = (props) => (
   <Modal
     {...props}
     style={{
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, .10)',
+      },
       content: {
-        height: '340px',
-        minWidth: '1000px',
-        display: 'flex',
-        flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0px',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        padding: '60px 60px 40px 60px',
       },
     }}
   />

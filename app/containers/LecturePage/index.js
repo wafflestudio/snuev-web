@@ -37,6 +37,7 @@ import {
 } from './index.style';
 import withBars from '../../services/withBars';
 
+
 type Props = {
   user: Map<string, any>,
   page: Map<string, any>,

@@ -11,7 +11,6 @@ export const NavBarWrapper = styled.header`
   right: 0;
   position: fixed;
   width: 100%;
-  z-index: 10;
   height: ${(props) => props.theme.navBarHeight}px;
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,.2);

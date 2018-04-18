@@ -27,29 +27,30 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
         </div>
       );
     }
-    if (this.props.page.getIn(['confirmEmail', 'success'])) {
+    if (!this.props.page.getIn(['confirmEmail', 'success'])) {
+      if (getAuthToken()) {
+        return (
+          <div>
+            이메일 인증에 실패하였습니다.
+            <br />
+            <button onClick={this.props.resendEmail}>
+              이메일 재전송
+            </button>
+          </div>
+        );
+      }
+      return (
+        <div>
+          유효하지 않은 페이지입니다.
+        </div>
+      );
+    } else {
       return (
         <div>
           이메일 인증에 성공하였습니다.
         </div>
       );
     }
-    if (getAuthToken()) {
-      return (
-        <div>
-          이메일 인증에 실패하였습니다.
-          <br />
-          <button onClick={this.props.resendEmail}>
-            이메일 재전송
-          </button>
-        </div>
-      );
-    }
-    return (
-      <div>
-        유효하지 않은 페이지입니다.
-      </div>
-    );
   }
 }
 
