@@ -44,16 +44,3 @@ export const CommentInput = styled.textarea`
   
   margin-bottom: 15px;
 `;
-
-export const FlatButton = styled.button`
-  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
-  margin-left: 30px;
-  cursor: pointer;
-  font-weight: 500;
-`;
-
-export const Buttons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-`;

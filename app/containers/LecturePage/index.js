@@ -34,6 +34,8 @@ import {
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
+  FlatButton,
+  Buttons,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -99,6 +101,16 @@ export class LecturePage extends React.Component<Props> {
         >
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
+          <Buttons>
+            <div>
+              <FlatButton cancel onClick={this.props.closeEvaluationForm}>
+                취소
+              </FlatButton>
+              <FlatButton>
+                {this.props.lecture.get('evaluated') ? '수정' : '완료'}
+              </FlatButton>
+            </div>
+          </Buttons>
         </EvaluationFormModal>
         <LectureWrapper>
           <LectureName>

@@ -1,6 +1,6 @@
 // @flow
 import React from 'react';
-import Slider from './react-slider';
+import Slider from 'rc-slider';
 import './slider.css';
 
 import {
@@ -32,14 +32,37 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
   constructor(props: Props) {
     super(props);
     this.makeHandle = this.makeHandle.bind(this);
+    this.marks = {
+      1: '',
+      2: '',
+      3: '',
+      4: '',
+      5: '',
+      6: '',
+      7: '',
+      8: '',
+      9: '',
+    };
+    this.refRoot = React.createRef();
+  }
+
+  componentDidMount() {
+    const railDiv = this.refRoot.current.querySelector('.rc-slider-rail');
+    const startMark = document.createElement('div');
+    startMark.style.cssText = 'width: 2px;height: 14px;background-color: #4f48c4;position: absolute;left: 0;bottom: -6px;';
+    const endMark = document.createElement('div');
+    endMark.style.cssText = 'width: 2px;height: 14px;background-color: #cccccc;position: absolute;right: 0;bottom: -6px;';
+    railDiv.appendChild(startMark);
+    railDiv.appendChild(endMark);
   }
 
   makeHandle(props: any) {
+    const { value, dragging, index, ...restProps } = props; // eslint-disable-line
     return (
       <OnClickWrapper offset={props.offset} isDragging={props.dragging}>
         <HandleWrapper isDragging={props.dragging}>
           <RelativeDiv>
-            <Slider.Handle {...props} />
+            <Slider.Handle {...restProps} />
           </RelativeDiv>
         </HandleWrapper>
       </OnClickWrapper>
@@ -49,7 +72,7 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
   render() {
     const { value, name, width, onChange } = this.props;
     return (
-      <SliderWrapper width={width}>
+      <SliderWrapper width={width} innerRef={this.refRoot}>
         <SliderLabel>
           <Name>{name}</Name>
           <Score>{value}</Score>
@@ -60,6 +83,19 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
           value={value}
           onChange={onChange}
           handle={this.makeHandle}
+          marks={this.marks}
+          activeDotStyle={{
+            visibility: 'hidden',
+          }}
+          dotStyle={{
+            width: '1px',
+            height: '6px',
+            borderRadius: 0,
+            border: 'none',
+            backgroundColor: '#cccccc',
+            bottom: '0',
+            marginLeft: '-1px',
+          }}
         />
       </SliderWrapper>
     );
