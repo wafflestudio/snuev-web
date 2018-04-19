@@ -1,13 +1,16 @@
 // @flow
 import React from 'react';
-import Slider from 'rc-slider';
-import 'rc-slider/assets/index.css';
+import Slider from './react-slider';
+import './slider.css';
 
 import {
   SliderWrapper,
   SliderLabel,
   Name,
   Score,
+  HandleWrapper,
+  RelativeDiv,
+  OnClickWrapper,
 } from './index.style';
 
 type Props ={
@@ -26,6 +29,23 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
     width: '150px',
   };
 
+  constructor(props: Props) {
+    super(props);
+    this.makeHandle = this.makeHandle.bind(this);
+  }
+
+  makeHandle(props: any) {
+    return (
+      <OnClickWrapper offset={props.offset} isDragging={props.dragging}>
+        <HandleWrapper isDragging={props.dragging}>
+          <RelativeDiv>
+            <Slider.Handle {...props} />
+          </RelativeDiv>
+        </HandleWrapper>
+      </OnClickWrapper>
+    );
+  }
+
   render() {
     const { value, name, width, onChange } = this.props;
     return (
@@ -35,10 +55,11 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
           <Score>{value}</Score>
         </SliderLabel>
         <Slider
-          min={1}
+          min={0}
           max={10}
           value={value}
           onChange={onChange}
+          handle={this.makeHandle}
         />
       </SliderWrapper>
     );

@@ -12,12 +12,12 @@ import {
   Wrapper,
   Header,
   LectureName,
-  SubmitButton,
-  SubmitText,
+  Buttons,
   RatingWrapper,
   CommentInput,
   SubHeader,
   RatingMargin,
+  FlatButton,
 } from './index.style';
 import {
   makeSelectPage,
@@ -84,7 +84,11 @@ class EvaluationForm extends React.PureComponent<Props, State> {
   }
 
   makeHandleRate(criteria: string) {
-    return (value: number) => this.setState({ [criteria]: value });
+    return (value: number) => {
+      if (value >= 1) {
+        this.setState({ [criteria]: value });
+      }
+    };
   }
 
   makeHandleChange(key: string) {
@@ -141,11 +145,16 @@ class EvaluationForm extends React.PureComponent<Props, State> {
           value={this.state.comment}
           onChange={this.makeHandleChange('comment')}
         />
-        <SubmitButton type="submit">
-          <SubmitText>
-            {this.props.lecture.get('evaluated') ? messages.edit : messages.submit}
-          </SubmitText>
-        </SubmitButton>
+        <Buttons>
+          <div>
+            <FlatButton type="submit" cancel>
+              {messages.cancel}
+            </FlatButton>
+            <FlatButton type="submit">
+              {this.props.lecture.get('evaluated') ? messages.edit : messages.submit}
+            </FlatButton>
+          </div>
+        </Buttons>
       </Wrapper>
     );
   }

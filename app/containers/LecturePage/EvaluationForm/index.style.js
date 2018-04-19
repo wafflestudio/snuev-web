@@ -21,28 +21,6 @@ export const LectureName = styled.text`
   font-weight: 500;
 `;
 
-export const SubmitButton = styled.button`
-  width: 180px;
-  height: 45px;
-  grid-area: action;
-  border-radius: 3px;
-  background-color: #2568BB;
-  margin-left: auto;
-`;
-
-export const SubmitText = styled.text`
-  height: 19px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ffffff;
-`;
-
 export const RatingWrapper = styled.div`
   display: flex;
   justify-content: center;
@@ -65,4 +43,17 @@ export const CommentInput = styled.textarea`
   }
   
   margin-bottom: 15px;
+`;
+
+export const FlatButton = styled.button`
+  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
+  margin-left: 30px;
+  cursor: pointer;
+  font-weight: 500;
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 `;

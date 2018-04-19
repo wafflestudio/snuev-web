@@ -13,7 +13,7 @@ module.exports = (options) => ({
   }, options.output), // Merge with env dependent settings
   module: {
     loaders: [{
-      test: /\.js$/, // Transform all .js files required somewhere with Babel
+      test: /\.(js|jsx)$/, // Transform all .js, jsx files required somewhere with Babel
       loader: 'babel-loader',
       exclude: /node_modules/,
       query: options.babelQuery,
@@ -24,7 +24,7 @@ module.exports = (options) => ({
       // they will be a part of our compilation either way.
       // So, no need for ExtractTextPlugin here.
       test: /\.css$/,
-      include: /node_modules/,
+      include: [/node_modules/, /app/],
       loaders: ['style-loader', 'css-loader'],
     }, {
       test: /\.(eot|svg|ttf|woff|woff2)$/,
