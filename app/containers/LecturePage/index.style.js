@@ -22,6 +22,8 @@ export const EvaluationFormModal = (props) => (
         backgroundColor: 'rgba(0, 0, 0, .10)',
       },
       content: {
+        border: 'none',
+        borderRadius: '4px',
         alignItems: 'center',
         justifyContent: 'center',
         top: '50%',
@@ -30,6 +32,7 @@ export const EvaluationFormModal = (props) => (
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
+        marginTop: '10px',
         padding: '60px 60px 40px 60px',
       },
     }}
