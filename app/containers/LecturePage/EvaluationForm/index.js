@@ -15,15 +15,13 @@ import {
   CommentInput,
   SubHeader,
   RatingMargin,
+  CreateIcon,
 } from './index.style';
 import {
   makeSelectPage,
   makeSelectLecture,
   makeSelectMyEvaluation,
 } from '../selectors';
-import CreateIcon from '../../../images/ic-write-small.png';
-import CreateIcon2X from '../../../images/ic-write-small@2x.png';
-import CreateIcon3X from '../../../images/ic-write-small@3x.png';
 
 
 type Props = {
@@ -107,7 +105,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     }
     return (
       <Wrapper onSubmit={this.handleSubmit}>
-        <img src={CreateIcon} alt="create_icon" srcSet={`${CreateIcon2X} 2x, ${CreateIcon3X} 3x`} />
+        <CreateIcon alt="create_icon" />
         <SubHeader>강의평 작성</SubHeader>
         <Header>
           <LectureName>

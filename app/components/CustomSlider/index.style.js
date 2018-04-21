@@ -66,3 +66,17 @@ export const RelativeDiv = styled.div`
   position: relative;
 `;
 
+export const activeDotStyle = {
+  visibility: 'hidden',
+};
+
+export const dotStyle = {
+  width: '1px',
+  height: '6px',
+  borderRadius: 0,
+  border: 'none',
+  backgroundColor: '#cccccc',
+  bottom: '0',
+  marginLeft: '-1px',
+};
+

@@ -11,6 +11,8 @@ import {
   HandleWrapper,
   RelativeDiv,
   OnClickWrapper,
+  activeDotStyle,
+  dotStyle,
 } from './index.style';
 
 type Props ={
@@ -33,6 +35,8 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
     super(props);
     this.makeHandle = this.makeHandle.bind(this);
     this.marks = {
+      // rc-slider의 marks 기능을 이용하여 vertical marks를 표현.
+      // string을 수정하여 vertical mark 아래 라벨을 넣을 수 있다.
       1: '',
       2: '',
       3: '',
@@ -84,18 +88,8 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
           onChange={onChange}
           handle={this.makeHandle}
           marks={this.marks}
-          activeDotStyle={{
-            visibility: 'hidden',
-          }}
-          dotStyle={{
-            width: '1px',
-            height: '6px',
-            borderRadius: 0,
-            border: 'none',
-            backgroundColor: '#cccccc',
-            bottom: '0',
-            marginLeft: '-1px',
-          }}
+          activeDotStyle={activeDotStyle}
+          dotStyle={dotStyle}
         />
       </SliderWrapper>
     );

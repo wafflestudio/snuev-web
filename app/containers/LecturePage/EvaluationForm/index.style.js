@@ -1,4 +1,8 @@
+import React from 'react';
 import styled from 'styled-components';
+import CreateIconSrc from '../../../images/ic-write-small.png';
+import CreateIcon2XSrc from '../../../images/ic-write-small@2x.png';
+import CreateIcon3XSrc from '../../../images/ic-write-small@3x.png';
 
 export const Wrapper = styled.form`
   background-color: #ffffff;
@@ -44,3 +48,9 @@ export const CommentInput = styled.textarea`
   
   margin-bottom: 15px;
 `;
+
+const CreateIconFrame = styled.img`
+`;
+
+export const CreateIcon = (props) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
+
