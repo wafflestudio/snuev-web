@@ -34,19 +34,6 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
   constructor(props: Props) {
     super(props);
     this.makeHandle = this.makeHandle.bind(this);
-    this.marks = {
-      // rc-slider의 marks 기능을 이용하여 vertical marks를 표현.
-      // string을 수정하여 vertical mark 아래 라벨을 넣을 수 있다.
-      1: '',
-      2: '',
-      3: '',
-      4: '',
-      5: '',
-      6: '',
-      7: '',
-      8: '',
-      9: '',
-    };
     this.refRoot = React.createRef();
   }
 
@@ -87,7 +74,19 @@ class CustomSlider extends React.Component<Props, State> { // eslint-disable-lin
           value={value}
           onChange={onChange}
           handle={this.makeHandle}
-          marks={this.marks}
+          marks={{
+            // rc-slider의 marks 기능을 이용하여 vertical marks를 표현.
+            // string을 수정하여 vertical mark 아래 라벨을 넣을 수 있다.
+            1: '',
+            2: '',
+            3: '',
+            4: '',
+            5: '',
+            6: '',
+            7: '',
+            8: '',
+            9: '',
+          }}
           activeDotStyle={activeDotStyle}
           dotStyle={dotStyle}
         />
