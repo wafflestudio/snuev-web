@@ -276,6 +276,7 @@
     "lodash": "4.17.2",
     "minimist": "1.2.0",
     "query-string": "^5.0.1",
+    "rc-slider": "^8.6.1",
     "react": "^16.3.1",
     "react-autocomplete": "^1.7.2",
     "react-dom": "^16.3.1",

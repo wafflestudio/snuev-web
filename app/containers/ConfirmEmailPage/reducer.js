@@ -47,7 +47,7 @@ export const resendEmailSuccess = (state) =>
   state.mergeDeep({ resendEmail: { isFetching: false, success: true, error: null } });
 
 export const resendEmailFailure = (state, { error }) =>
-  state.mergeDeep({ resendEmail: { isFething: false, success: true, error } });
+  state.mergeDeep({ resendEmail: { isFetching: false, success: true, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 

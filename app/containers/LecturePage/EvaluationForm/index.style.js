@@ -1,102 +1,56 @@
+import React from 'react';
 import styled from 'styled-components';
+import CreateIconSrc from '../../../images/ic-write-small.png';
+import CreateIcon2XSrc from '../../../images/ic-write-small@2x.png';
+import CreateIcon3XSrc from '../../../images/ic-write-small@3x.png';
 
 export const Wrapper = styled.form`
   background-color: #ffffff;
-  display: grid;
-  width: 100%;
-  grid-template-rows: 70px auto;
-  grid-template-column: 400px auto auto;
-  grid-template-areas:
-    "header header action"
-    "slider comment comment";
-  padding: 0px 90px 0px 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 `;
 
 export const Header = styled.div`
-  grid-area: header
+  font-size: 30px;
+`;
+
+export const SubHeader = styled.div`
+  opacity: 0.8;
+  font-size: 16px;
 `;
 
 export const LectureName = styled.text`
-  height: 29px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 24px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #4a4a4a;
+  font-weight: 500;
 `;
 
-export const ExplanationText = styled.text`
-  height: 20px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: 1.25;
-  letter-spacing: normal;
-  text-align: left;
-  color: #111111;
-`;
-
-export const SubmitButton = styled.button`
-  width: 180px;
-  height: 45px;
-  grid-area: action;
-  border-radius: 3px;
-  background-color: #2568BB;
-  margin-left: auto;
-`;
-
-export const SubmitText = styled.text`
-  height: 19px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 16px;
-  font-weight: bold;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: #ffffff;
-`;
-
-export const StarRatingWrapper = styled.div`
+export const RatingWrapper = styled.div`
   display: flex;
-  grid-area: slider;
-  height: 180px;
-  flex-direction: column;
+  justify-content: center;
+  margin: 20px -40px 30px;
 `;
 
-export const CriteriaWrapper = styled.div`
-  display: flex;
-  flex: 1;
-  align-items: center;
-  justify-content: space-between;
-  width: 240px;
+export const RatingMargin = styled.div`
+  margin: 0px 40px;
 `;
 
-export const CriteriaText = styled.text`
-  width: 90px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
-  color: #111111;
-`;
-
-// TODO: create separate component for CommentInput to show warning when comment is under 10 characters
 export const CommentInput = styled.textarea`
-  grid-area: comment;
-  border-radius: 3px;
-  background-color: #ffffff;
-  box-shadow: inset 0 1px 3px 0 rgba(0, 0, 0, 0.5);
-  border: solid 1px #979797;
+  width: 100%;
+  height: 200px;
+  border-top: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  resize: none;
+  padding: 21px 0px;  
+  &:focus {
+    outline: none; 
+  }
+  
+  margin-bottom: 15px;
 `;
+
+const CreateIconFrame = styled.img`
+`;
+
+export const CreateIcon = (props) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
+
