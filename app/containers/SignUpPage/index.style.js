@@ -52,7 +52,7 @@ export const Input = styled.input`
   margin-top: 20px;
 `;
 
-export const UsernameInputText = styled.text`
+export const UsernameInputText = styled.div`
   width: 460px;
   height: 15px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
@@ -83,7 +83,7 @@ export const SignUpButton = styled.button`
   margin-top: 20px;
 `;
 
-export const SignUpText = styled.text`
+export const SignUpText = styled.div`
   height: 19px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 16px;
@@ -105,7 +105,7 @@ export const LoginWrapper = styled.div`
   padding-left: 6px;
 `;
 
-export const LoginText = styled.text`
+export const LoginText = styled.div`
   height: 15px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
