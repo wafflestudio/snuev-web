@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import LogoImage from '../../images/logo.png';
+import LogoImage from '../../images/img-gnb-logo.png';
 
 export const Background = styled.div`
   background-color: #ffffff;

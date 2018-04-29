@@ -12,6 +12,7 @@ import {
   makeSelectCourses,
 } from '../../global/selectors';
 import {
+  SearchInput,
   AutoCompleteMenu,
   AutoCompleteItem,
 } from './index.style';
@@ -67,6 +68,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             onFocus: () => searchCourses(this.state.query),
           }}
           wrapperStyle={{ diplay: 'block' }}
+          renderInput={(({ ref, ...props }: {}) => <SearchInput innerRef={ref} {...props} />)}
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}
           items={courses}
