@@ -44,24 +44,31 @@ export class NavBar extends React.PureComponent<Props> {
                 <SnuttLogo alt="SNUTT" /><FormattedMessage {...messages.navItems.snutt} />
               </a>
             </li>
-            {user && [
-              <li key="1">
-                <Link to="/profile">
-                  <FormattedMessage
-                    id="user.nickname"
-                    defaultMessage="{nickname} 님"
-                    values={{
-                      nickname: this.props.user.get('nickname'),
-                    }}
-                  />
-                </Link>
-              </li>,
-              <li key="2">
-                <button onClick={this.handleLogOut}>
-                  <FormattedMessage {...messages.navItems.logout} />
-                </button>
-              </li>,
-            ]}
+            {user &&
+              <React.Fragment>
+                <li className="bookmarks">
+                  <button>
+                    <FormattedMessage {...messages.navItems.bookmarks} />
+                  </button>
+                </li>
+                <li>
+                  <Link to="/profile">
+                    <FormattedMessage
+                      id="user.nickname"
+                      defaultMessage="{nickname} 님"
+                      values={{
+                        nickname: this.props.user.get('nickname'),
+                      }}
+                    />
+                  </Link>
+                </li>
+                <li>
+                  <button onClick={this.handleLogOut}>
+                    <FormattedMessage {...messages.navItems.logout} />
+                  </button>
+                </li>
+              </React.Fragment>
+            }
             {!user &&
               <li>
                 <Link to="/sign_in">
