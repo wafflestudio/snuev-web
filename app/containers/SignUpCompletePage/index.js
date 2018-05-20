@@ -5,13 +5,17 @@ import { injectIntl, FormattedHTMLMessage, IntlProvider } from 'react-intl';
 import messages from './messages';
 import {
   Background,
-  Logo,
-  WaitingText,
-  WebMailText,
+  InnerContainer,
+  EmailIcon,
+  TitleText,
+  BodyText,
+  ContentContainer,
+  EmailContainer,
+  EmailText,
   ReturnButton,
   ReturnText,
-  ReturnLink,
 } from './index.style';
+import DottedLine from '../../components/DottedLine';
 
 const SignUpCompletePage = () => (
   <IntlProvider messages={messages}>
@@ -22,20 +26,29 @@ const SignUpCompletePage = () => (
           { name: 'description', content: 'Description of SignUpCompletePage' },
         ]}
       />
-      <Logo />
-      <WaitingText>
-        {messages.waiting}
-      </WaitingText>
-      <WebMailText>
-        <FormattedHTMLMessage id="webmailSent" />
-      </WebMailText>
-      <ReturnLink to="/">
-        <ReturnButton>
+      <InnerContainer>
+        <DottedLine />
+        <ContentContainer>
+          <EmailIcon />
+          <TitleText>
+            <FormattedHTMLMessage id="title" />
+          </TitleText>
+          <BodyText>
+            <FormattedHTMLMessage id="body" />
+          </BodyText>
+          <EmailContainer>
+            <EmailText>
+              example@my.snu.ac.kr
+            </EmailText>
+          </EmailContainer>
+        </ContentContainer>
+        <DottedLine />
+        <ReturnButton to="/">
           <ReturnText>
-            {messages.returnText}
+            <FormattedHTMLMessage id="back" />
           </ReturnText>
         </ReturnButton>
-      </ReturnLink>
+      </InnerContainer>
     </Background>
   </IntlProvider>
 );

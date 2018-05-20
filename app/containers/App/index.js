@@ -28,7 +28,6 @@ const AppWrapper = styled.div`
   display: flex;
   height: 100%;
   margin: 0 auto;
-  max-width: ${(props) => props.theme.appMaxWidth}px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   ${media.desktop`
     margin: 0 30px;

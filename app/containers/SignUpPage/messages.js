@@ -10,17 +10,17 @@ export default defineMessages({
     id: 'app.containers.SignUpPage.header',
     defaultMessage: 'This is SignUpPage container !',
   },
-  createAccount: '계정 만들기',
-  usernameInputText: '서울대학교 이메일 인증이 필요합니다. 마이스누(mySNU) 계정명과 동일하게 입력해주세요.',
+  createAccount: '가입하기',
+  usernameInputText: '서울대학교 이메일 인증이 필요하므로<br />마이스누 계정과 동일하게 입력해주세요.',
   input: {
     usernameHint: '마이스누 계정',
     passwordHint: '비밀번호',
     nicknameHint: '별명',
     departmentHint: '학과명',
   },
-  signup: '회원가입',
-  login: {
-    question: '이미 계정이 있나요?',
-    message: '로그인하기',
+  signup: '가입',
+  back: {
+    text: '로그인하러 가기',
+    hint: '계정이 이미 있다면?',
   },
 });

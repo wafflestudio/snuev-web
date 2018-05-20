@@ -2,23 +2,27 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { injectIntl, FormattedHTMLMessage, IntlProvider } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 import {
   Background,
+  InnerContainer,
+  ContentContainer,
   SignUpForm,
-  Logo,
+  SignUpIcon,
   CreateAccountText,
   Input,
   UsernameInputText,
   DepartmentInput,
   SignUpButton,
   SignUpText,
-  LoginWrapper,
-  LoginText,
-  LoginLink,
+  BackButton,
+  BackText,
+  BackHintText,
 } from './index.style';
+import DottedLine from '../../components/DottedLine';
 import { makeSelectPage, makeSelectDepartments } from './selectors';
 
 type Props = {
@@ -57,66 +61,75 @@ export class SignUpPage extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <Background>
-        <Helmet
-          title="SignUpPage"
-          meta={[
-            { name: 'description', content: 'Description of SignUpPage' },
-          ]}
-        />
-        <SignUpForm onSubmit={this.handleSignUp}>
-          <Logo />
-          <CreateAccountText>
-            {messages.createAccount}
-          </CreateAccountText>
-          <Input
-            type="text"
-            value={this.state.username}
-            onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
-            placeholder={messages.input.usernameHint}
+      <IntlProvider messages={messages}>
+        <Background>
+          <Helmet
+            title="SignUpPage"
+            meta={[
+              { name: 'description', content: 'Description of SignUpPage' },
+            ]}
           />
-          <UsernameInputText>
-            {messages.usernameInputText}
-          </UsernameInputText>
-          <Input
-            type="password"
-            value={this.state.password}
-            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
-            placeholder={messages.input.passwordHint}
-          />
-          <Input
-            type="text"
-            value={this.state.nickname}
-            onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
-            placeholder={messages.input.nicknameHint}
-          />
-          <DepartmentInput
-            value={this.state.department_id}
-            onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
-          >
-            {!!this.props.departments &&
-              this.props.departments.map((department: any, id: string) => (
-                <option value={department.get('id')} key={id}>
-                  {department.get('name')}
-                </option>
-              ))
-            }
-          </DepartmentInput>
-          <SignUpButton type="submit">
-            <SignUpText>
-              {messages.signup}
-            </SignUpText>
-          </SignUpButton>
-          <LoginWrapper>
-            <LoginText>
-              {messages.login.question}
-            </LoginText>
-            <LoginLink to="sign_in">
-              {messages.login.message}
-            </LoginLink>
-          </LoginWrapper>
-        </SignUpForm>
-      </Background>
+          <InnerContainer>
+            <DottedLine />
+            <ContentContainer>
+              <SignUpForm onSubmit={this.handleSignUp}>
+                <SignUpIcon />
+                <CreateAccountText>
+                  {messages.createAccount}
+                </CreateAccountText>
+                <div>
+                  <Input
+                    type="text"
+                    value={this.state.username}
+                    onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                    placeholder={messages.input.usernameHint}
+                  />
+                  <UsernameInputText>
+                    <FormattedHTMLMessage id="usernameInputText" />
+                  </UsernameInputText>
+                </div>
+                <Input
+                  type="text"
+                  value={this.state.nickname}
+                  onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
+                  placeholder={messages.input.nicknameHint}
+                />
+                <Input
+                  type="password"
+                  value={this.state.password}
+                  onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
+                  placeholder={messages.input.passwordHint}
+                />
+                <DepartmentInput
+                  value={this.state.department_id}
+                  onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
+                >
+                  {!!this.props.departments &&
+                  this.props.departments.map((department: any, id: string) => (
+                    <option value={department.get('id')} key={id}>
+                      {department.get('name')}
+                    </option>
+                  ))
+                  }
+                </DepartmentInput>
+                <SignUpButton type="submit">
+                  <SignUpText>
+                    {messages.signup}
+                  </SignUpText>
+                </SignUpButton>
+                <BackButton to="/sign_in" />
+                <BackText>
+                  {messages.back.text}
+                </BackText>
+                <BackHintText>
+                  {messages.back.hint}
+                </BackHintText>
+              </SignUpForm>
+            </ContentContainer>
+            <DottedLine />
+          </InnerContainer>
+        </Background>
+      </IntlProvider>
     );
   }
 }
@@ -131,4 +144,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignUpPage));
