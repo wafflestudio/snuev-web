@@ -4,27 +4,25 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
 
-import Rating from '../../../components/Rating';
 import { Creators as Actions } from '../reducer';
+import CustomSlider from '../../../components/CustomSlider';
 
-import messages from './messages';
 import {
   Wrapper,
   Header,
   LectureName,
-  ExplanationText,
-  SubmitButton,
-  SubmitText,
-  StarRatingWrapper,
-  CriteriaWrapper,
-  CriteriaText,
+  RatingWrapper,
   CommentInput,
+  SubHeader,
+  RatingMargin,
+  CreateIcon,
 } from './index.style';
 import {
   makeSelectPage,
   makeSelectLecture,
   makeSelectMyEvaluation,
 } from '../selectors';
+
 
 type Props = {
   lecture: Map<string, any>,
@@ -46,12 +44,13 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     super(props);
     this.state = {
       comment: '',
-      score: 0,
-      easiness: 0,
-      grading: 0,
+      score: 5,
+      easiness: 5,
+      grading: 5,
     };
     (this: any).handleSubmit = this.handleSubmit.bind(this);
     (this: any).makeHandleRate = this.makeHandleRate.bind(this);
+    (this: React.PureComponent).makeHandleChange = this.makeHandleChange.bind(this);
   }
 
   componentDidMount() {
@@ -80,7 +79,19 @@ class EvaluationForm extends React.PureComponent<Props, State> {
   }
 
   makeHandleRate(criteria: string) {
-    return (value: number) => this.setState({ [criteria]: value });
+    return (value: number) => {
+      if (value >= 1) {
+        this.setState({ [criteria]: value });
+      }
+    };
+  }
+
+  makeHandleChange(key: string) {
+    return (event: SyntheticEvent) => {
+      this.setState({
+        [key]: event.target.value,
+      });
+    };
   }
 
   render() {
@@ -94,39 +105,41 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     }
     return (
       <Wrapper onSubmit={this.handleSubmit}>
+        <CreateIcon alt="create_icon" />
+        <SubHeader>강의평 작성</SubHeader>
         <Header>
           <LectureName>
-            {lecture.get('name')}</LectureName>
-          <ExplanationText>
-            {messages.explanation}
-          </ExplanationText>
+            {lecture.get('name')}
+          </LectureName>
         </Header>
-        <StarRatingWrapper>
-          <CriteriaWrapper>
-            <CriteriaText>
-              {messages.criteria.score}</CriteriaText>
-            <Rating initialRating={this.state.score} onChange={this.makeHandleRate('score')} />
-          </CriteriaWrapper>
-          <CriteriaWrapper>
-            <CriteriaText>
-              {messages.criteria.easiness}</CriteriaText>
-            <Rating initialRating={this.state.easiness} onChange={this.makeHandleRate('easiness')} />
-          </CriteriaWrapper>
-          <CriteriaWrapper>
-            <CriteriaText>
-              {messages.criteria.grading}</CriteriaText>
-            <Rating initialRating={this.state.grading} onChange={this.makeHandleRate('grading')} />
-          </CriteriaWrapper>
-        </StarRatingWrapper>
+        <RatingWrapper>
+          <RatingMargin>
+            <CustomSlider
+              name="총점"
+              value={this.state.score}
+              onChange={this.makeHandleRate('score')}
+            />
+          </RatingMargin>
+          <RatingMargin>
+            <CustomSlider
+              name="난이도 쉬움"
+              value={this.state.easiness}
+              onChange={this.makeHandleRate('easiness')}
+            />
+          </RatingMargin>
+          <RatingMargin>
+            <CustomSlider
+              name="학점 잘 줌"
+              value={this.state.grading}
+              onChange={this.makeHandleRate('grading')}
+            />
+          </RatingMargin>
+        </RatingWrapper>
         <CommentInput
+          placeholder="강의평을 입력해주세요..."
           value={this.state.comment}
-          onChange={({ target }) => this.setState({ comment: target.value })} // eslint-disable-line
+          onChange={this.makeHandleChange('comment')}
         />
-        <SubmitButton type="submit">
-          <SubmitText>
-            {this.props.lecture.get('evaluated') ? messages.edit : messages.submit}
-          </SubmitText>
-        </SubmitButton>
       </Wrapper>
     );
   }

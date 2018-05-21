@@ -9,7 +9,7 @@ import {
 
 type Props = {
   lecture: Map<string, any>,
-  initialMark: boolean,
+  isFetching: any,
   onPressWhenMarked: (id: string) => void,
   onPressWhenNotMarked: (id: string) => void,
 };
@@ -18,13 +18,17 @@ type State = {
   marked: boolean,
 };
 
-export class Bookmark extends React.PureComponent<Props, State> {
+export default class Bookmark extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      marked: this.props.initialMark,
+      marked: this.props.lecture.get('bookmarked'),
     };
     (this: any).onPress = this.onPress.bind(this);
+  }
+
+  componentWillReceiveProps() {
+    this.setState({ marked: this.props.lecture.get('bookmarked') });
   }
 
   onPress(event: SyntheticEvent<HTMLButtonElement>) {
@@ -36,20 +40,23 @@ export class Bookmark extends React.PureComponent<Props, State> {
 
   render() {
     const marked = this.state.marked;
-
     if (marked) {
       return (
-        <ClickedButton onClick={this.onPress}>
+        <ClickedButton
+          onClick={this.onPress}
+          disable={false || this.props.isFetching}
+        >
           {messages.bookmark}
         </ClickedButton>
       );
     }
     return (
-      <UnclickedButton onClick={this.onPress}>
+      <UnclickedButton
+        onClick={this.onPress}
+        disable={false || this.props.isFetching}
+      >
         {messages.bookmark}
       </UnclickedButton>
     );
   }
 }
-
-export default Bookmark;

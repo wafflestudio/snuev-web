@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
+import qs from 'query-string';
 import { Map } from 'immutable';
 import { Creators as Actions } from './reducer';
 import { makeSelectPage } from './selectors';
@@ -16,7 +17,7 @@ type Props = {
 
 export class ConfirmEmailPage extends React.PureComponent<Props> {
   componentDidMount() {
-    this.props.confirmEmail(this.props.params.confirmation_token);
+    this.props.confirmEmail(qs.parse(this.props.location.search).confirmation_token);
   }
 
   render() {
@@ -27,27 +28,27 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
         </div>
       );
     }
-    if (this.props.page.getIn(['confirmEmail', 'success'])) {
+    if (!this.props.page.getIn(['confirmEmail', 'success'])) {
+      if (getAuthToken()) {
+        return (
+          <div>
+            이메일 인증에 실패하였습니다.
+            <br />
+            <button onClick={this.props.resendEmail}>
+              이메일 재전송
+            </button>
+          </div>
+        );
+      }
       return (
         <div>
-          이메일 인증에 성공하였습니다.
-        </div>
-      );
-    }
-    if (getAuthToken()) {
-      return (
-        <div>
-          이메일 인증에 실패하였습니다.
-          <br />
-          <button onClick={this.props.resendEmail}>
-            이메일 재전송
-          </button>
+          유효하지 않은 페이지입니다.
         </div>
       );
     }
     return (
       <div>
-        유효하지 않은 페이지입니다.
+          이메일 인증에 성공하였습니다.
       </div>
     );
   }

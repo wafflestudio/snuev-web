@@ -12,7 +12,7 @@ import messages from './messages';
 import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
-import { makeSelectUser } from '../../global/selectors';
+import { makeSelectUser, makeSelectBookmarks } from '../../global/selectors';
 import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectPage,
@@ -36,8 +36,11 @@ import {
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
+  FlatButton,
+  Buttons,
 } from './index.style';
 import withBars from '../../services/withBars';
+
 
 type Props = {
   user: Map<string, any>,
@@ -45,6 +48,7 @@ type Props = {
   lecture: Map<string, any>,
   evaluations: List<Map<string, any>>,
   params: { lectureId: string },
+  bookmarks: Map<string, any>,
   getLecture: (id: string) => void,
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
@@ -56,21 +60,20 @@ type Props = {
 export class LecturePage extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    (this: any).loadMoreEvaluations = this.loadMoreEvaluations.bind(this);
+    (this: any).loadEvaluations = this.loadEvaluations.bind(this);
   }
 
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
   }
 
-  componentWillReceiveProps(nextProps: Props) {
-    const nextLectureId = nextProps.params.lectureId;
-    if (nextLectureId !== this.props.params.lectureId) {
-      this.props.getLecture(nextLectureId);
+  componentDidUpdate(prevProps: Props) {
+    if (prevProps.params.lectureId !== this.props.params.lectureId) {
+      this.props.getLecture(this.props.params.lectureId);
     }
   }
 
-  loadMoreEvaluations(page: number) {
+  loadEvaluations(page: number) {
     if (this.props.user && this.props.user.get('isConfirmed')) {
       this.props.getEvaluations(this.props.params.lectureId, page);
     }
@@ -82,6 +85,7 @@ export class LecturePage extends React.Component<Props> {
       page,
       lecture,
       evaluations,
+      bookmarks,
     } = this.props;
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
@@ -99,10 +103,20 @@ export class LecturePage extends React.Component<Props> {
           ]}
         />
         <EvaluationFormModal
-          isOpen={this.props.page.get('evaluationFormOpen')}
+          isOpen={page.get('evaluationFormOpen')}
         >
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
+          <Buttons>
+            <div>
+              <FlatButton cancel onClick={this.props.closeEvaluationForm}>
+                취소
+              </FlatButton>
+              <FlatButton>
+                {lecture.get('evaluated') ? '수정' : '완료'}
+              </FlatButton>
+            </div>
+          </Buttons>
         </EvaluationFormModal>
         <LectureWrapper>
           <LectureName>
@@ -110,10 +124,9 @@ export class LecturePage extends React.Component<Props> {
           </LectureName>
           <Bookmark
             lecture={lecture}
-            initialMark={lecture.get('bookmarked')}
             onPressWhenMarked={this.props.deleteBookmark}
             onPressWhenNotMarked={this.props.bookmark}
-            isFail={!!page.getIn(['bookmark', 'error'])}
+            isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
           />
           <LectureInfo>
             <LectureBasicInfo>
@@ -159,7 +172,7 @@ export class LecturePage extends React.Component<Props> {
         <InfiniteScroll
           pageStart={0}
           hasMore={page.getIn(['evaluations', 'hasMore'])}
-          loadMore={this.loadMoreEvaluations}
+          loadMore={this.loadEvaluations}
         >
           <div>
             {this.props.evaluations &&
@@ -184,6 +197,7 @@ const mapStateToProps = createStructuredSelector({
   page: makeSelectPage(),
   lecture: makeSelectLecture(),
   evaluations: makeSelectEvaluations(),
+  bookmarks: makeSelectBookmarks(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

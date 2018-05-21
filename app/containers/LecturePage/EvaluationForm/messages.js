@@ -1,5 +1,4 @@
 const messages = {
-  explanation: '에 대한 강의평을 작성합니다.',
   criteria: {
     score: '평점',
     easiness: '난이도',
@@ -7,6 +6,7 @@ const messages = {
   },
   submit: '등록',
   edit: '수정',
+  cancel: '취소',
 };
 
 export default messages;

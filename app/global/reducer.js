@@ -120,13 +120,13 @@ export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
 export const bookmarkRequest = (state, { id }) =>
-  state.setIn(['bookmarks', id], { isFetching: true, dirtyBookmarked: true, error: null });
+  state.setIn(['bookmarks', id], fromJS({ isFetching: true, error: null }));
 
 export const bookmarkSuccess = (state, { id }) =>
-  state.setIn(['bookmarks', id], { isFetching: false, dirtyBookmarked: false, error: null });
+  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error: null }));
 
 export const bookmarkFailure = (state, { id, error }) =>
-  state.setIn(['bookmarks', id], { isFetching: false, dirtyBookmarked: false, error });
+  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error }));
 
 /* ------------- Hookup Reducers To Types ------------- */
 

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
 
+Modal.setAppElement('#app');
+
 export const Wrapper = styled.div`
   width: 100%;
   padding: 20px;
@@ -16,14 +18,22 @@ export const EvaluationFormModal = (props) => (
   <Modal
     {...props}
     style={{
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, .10)',
+      },
       content: {
-        height: '340px',
-        minWidth: '1000px',
-        display: 'flex',
-        flex: 1,
+        border: 'none',
+        borderRadius: '4px',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '0px',
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)',
+        marginTop: '10px',
+        padding: '60px 60px 40px 60px',
       },
     }}
     appElement={document.getElementById('app')}
@@ -35,7 +45,7 @@ export const LectureWrapper = styled.div`
   border-bottom: 1px dashed rgba(0,0,0,.4);
 `;
 
-export const LectureName = styled.text`
+export const LectureName = styled.div`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.header1}px;
   color: ${(props) => props.theme.color.header1};
@@ -54,24 +64,24 @@ export const LectureBasicInfo = styled.div`
   margin-right: auto;
 `;
 
-export const LectureInfoText = styled.text`
+export const LectureInfoText = styled.span`
   margin-bottom: 10px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.body2}px;
   color: ${(props) => props.theme.color.body2};
 `;
 
-export const LectureScore = styled.text`
+export const LectureScore = styled.span`
   display: flex;
   flex-direction: column;
   margin-left: 48px;
   text-align: center;
 `;
 
-export const LectureScoreLabel = styled.text`
+export const LectureScoreLabel = styled.span`
 `;
 
-export const LectureScoreValue = styled.text`
+export const LectureScoreValue = styled.span`
   font-family: ${(props) => props.theme.fontFamily.number};
   font-size: ${(props) => props.theme.fontSize.score1}px;
   color: ${(props) => props.theme.color.score1};
@@ -86,7 +96,7 @@ export const EvaluationsWrapper = styled.div`
   padding-top: 45px;
 `;
 
-export const EvaluationsHeader = styled.text`
+export const EvaluationsHeader = styled.span`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: ${(props) => props.theme.fontSize.header2}px;
   color: ${(props) => props.theme.color.header2};
@@ -101,7 +111,7 @@ export const LeaveReviewButton = styled.button`
   align-self: center;
 `;
 
-export const LeaveReviewText = styled.text`
+export const LeaveReviewText = styled.span`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   text-align: center;
@@ -132,4 +142,20 @@ export const CloseIcon = styled.span`
   &:after {
     transform: rotate(-45deg);
   }
-}`;
+`;
+
+export const FlatButton = styled.button`
+  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
+  margin-left: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  &:focus {
+    outline: 0;
+  }
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;

@@ -6,7 +6,7 @@ const makeSelectGlobal = () => (state) => state.get('global');
 
 const makeSelectEntities = () => createSelector(
   makeSelectGlobal(),
-  (global) => global.get('entities')
+  (global) => global.get('entities'),
 );
 
 const makeSelectAppLayout = () => createSelector(
@@ -39,6 +39,11 @@ const makeSelectPrev = () => createSelector(
   (route) => route.get('locationBeforeTransitions'),
 );
 
+const makeSelectBookmarks = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('bookmarks'),
+);
+
 export {
   makeSelectGlobal,
   makeSelectAppLayout,
@@ -47,4 +52,5 @@ export {
   makeSelectCourses,
   makeSelectLectures,
   makeSelectPrev,
+  makeSelectBookmarks,
 };
