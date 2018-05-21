@@ -20,7 +20,7 @@ export const SubHeader = styled.div`
   font-size: 16px;
 `;
 
-export const LectureName = styled.text`
+export const LectureName = styled.div`
   font-size: 24px;
   font-weight: 500;
 `;
@@ -41,11 +41,11 @@ export const CommentInput = styled.textarea`
   border-top: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   resize: none;
-  padding: 21px 0px;  
+  padding: 21px 0px;
   &:focus {
-    outline: none; 
+    outline: none;
   }
-  
+
   margin-bottom: 15px;
 `;
 

@@ -2,8 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { media } from '../../style-utils';
-import LogoImage from '../../images/logo.png';
+import LogoImage from '../../images/img-gnb-logo.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
+import IconSearch from '../../images/ic-search.png';
+import IconBookmark from '../../images/ic-bookmark.png';
 
 export const NavBarWrapper = styled.header`
   top: 0;
@@ -14,6 +16,7 @@ export const NavBarWrapper = styled.header`
   height: ${(props) => props.theme.navBarHeight}px;
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,.2);
+  z-index: 1;
 `;
 
 export const NavBarInnerWrapper = styled.div`
@@ -29,7 +32,7 @@ export const NavBarInnerWrapper = styled.div`
 `;
 
 const LogoFrame = styled.img`
-  height: 25px;
+  height: 29px;
 `;
 
 export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
@@ -46,23 +49,15 @@ export const Search = styled.div`
   flex-basis: 30%;
   flex-grow: 1;
   flex-shrink: 0;
-  max-width: 320px;
+  box-sizing: border-box;
+  max-width: 260px;
   margin: 0 20px;
-  line-height: 44px;
-  height: 44px;
-  border-radius: 22px;
-  border: solid 1px #979797;
-
-  input {
-    width: 100%;
-    height: 100%;
-    margin: 0 20px;
-    font-size: ${(props) => props.theme.fontSize.body1}px;
-
-    &:focus {
-      outline: none;
-    }
-  }
+  padding-left: 35px;
+  line-height: 38px;
+  height: 38px;
+  border-bottom: solid 1px rgba(0,0,0,.6);
+  background: url(${IconSearch}) no-repeat 0% 50%;
+  background-size: 30px 30px;
 `;
 
 export const NavMenu = styled.ul`
@@ -74,12 +69,19 @@ export const NavMenu = styled.ul`
   padding-left: 0;
 
   li {
-    margin-left: 44px;
+    margin-left: 40px;
 
     button, a, span {
       font-size: ${(props) => props.theme.fontSize.body2}px;
       color: ${(props) => props.theme.color.body2};
     }
+
+    &.bookmarks {
+      padding-left: 20px;
+      background: url(${IconBookmark}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+    }
+
     &:first-child {
       margin-left: 0;
     }

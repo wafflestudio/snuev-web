@@ -21,27 +21,27 @@ const EvaluationHeader = styled.div`
   display: flex;
 `;
 
-export const EvaluationScore = styled.text`
+export const EvaluationScore = styled.div`
   margin-right: 14px;
 `;
 
-export const EvaluationScoreLabel = styled.text`
+export const EvaluationScoreLabel = styled.div`
   opacity: .6;
 `;
 
-export const EvaluationScoreValue = styled.text`
+export const EvaluationScoreValue = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
   font-size: ${(props: { theme: Theme }) => props.theme.fontSize.score2}px;
   color: ${(props: { theme: Theme }) => props.theme.color.score2};
   margin-right: .1em;
 `;
 
-const DateText = styled.text`
+const DateText = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
   text-align: left;
 `;
 
-const SemesterText = styled.text`
+const SemesterText = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   text-align: left;

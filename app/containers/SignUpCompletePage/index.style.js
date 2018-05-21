@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import LogoImage from '../../images/logo.png';
+import LogoImage from '../../images/img-gnb-logo.png';
 
 export const Background = styled.div`
   background-color: #ffffff;
@@ -35,7 +35,7 @@ export const WaitingText = styled.p`
   color: var(--black);
 `;
 
-export const WebMailText = styled.text`
+export const WebMailText = styled.div`
   height: 50px;
   font-family: AppleSDGothicNeo;
   font-size: 16px;
@@ -61,7 +61,7 @@ export const ReturnButton = styled.button`
   background-color: #2066be;
 `;
 
-export const ReturnText = styled.text`
+export const ReturnText = styled.div`
   width: 46px;
   height: 19px;
   font-family: AppleSDGothicNeo;

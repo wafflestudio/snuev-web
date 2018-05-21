@@ -13,7 +13,11 @@ export default defineMessages({
   navItems: {
     snutt: {
       id: 'app.components.NavBar.navItems.snutt',
-      defaultMessage: 'SNUTT',
+      defaultMessage: 'SNUTT 바로가기',
+    },
+    bookmarks: {
+      id: 'app.components.NavBar.navItems.bookmarks',
+      defaultMessage: '관심 강의',
     },
     profile: {
       id: 'app.components.NavBar.navItems.profile',

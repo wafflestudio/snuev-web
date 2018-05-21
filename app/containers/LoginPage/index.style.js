@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import LogoImage from '../../images/logo.png';
+import LogoImage from '../../images/img-gnb-logo.png';
 
 export const Background = styled.div`
   background-color: #ffffff;
@@ -75,7 +75,7 @@ export const LoginButton = styled.button`
   margin-top: 20px;
 `;
 
-export const LoginText = styled.text`
+export const LoginText = styled.div`
   width: 46px;
   height: 17px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
@@ -92,7 +92,7 @@ export const SignUpWrapper = styled.div`
   align-self: left;
 `;
 
-export const SignUpText = styled.text`
+export const SignUpText = styled.div`
   width: 104px;
   height: 14px;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
