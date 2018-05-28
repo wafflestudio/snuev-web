@@ -120,12 +120,21 @@ export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
 export const bookmarkRequest = (state, { id }) =>
-  state.setIn(['bookmarks', id], fromJS({ isFetching: true, error: null }));
+  state.setIn(['bookmarks', id], fromJS({ isFetching: true }));
 
 export const bookmarkSuccess = (state, { id }) =>
-  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error: null }));
+  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error: null })).setIn(['entities', 'lectures', `${id}`, 'attributes', 'bookmarked'], true);
 
 export const bookmarkFailure = (state, { id, error }) =>
+  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error }));
+
+export const deleteBookmarkRequest = (state, { id }) =>
+  state.setIn(['bookmarks', id], fromJS({ isFetching: true }));
+
+export const deleteBookmarkSuccess = (state, { id }) =>
+  state.setIn(['bookmarks', id], fromJS({ isFetching: false, error: null })).setIn(['entities', 'lectures', `${id}`, 'attributes', 'bookmarked'], false);
+
+export const deleteBookmarkFailure = (state, { id, error }) =>
   state.setIn(['bookmarks', id], fromJS({ isFetching: false, error }));
 
 /* ------------- Hookup Reducers To Types ------------- */
@@ -151,9 +160,9 @@ export default createReducer(initialState, {
   [Types.BOOKMARK_REQUEST]: bookmarkRequest,
   [Types.BOOKMARK_SUCCESS]: bookmarkSuccess,
   [Types.BOOKMARK_FAILURE]: bookmarkFailure,
-  [Types.DELETE_BOOKMARK_REQUEST]: bookmarkRequest,
-  [Types.DELETE_BOOKMARK_SUCCESS]: bookmarkSuccess,
-  [Types.DELETE_BOOKMARK_FAILURE]: bookmarkFailure,
+  [Types.DELETE_BOOKMARK_REQUEST]: deleteBookmarkRequest,
+  [Types.DELETE_BOOKMARK_SUCCESS]: deleteBookmarkSuccess,
+  [Types.DELETE_BOOKMARK_FAILURE]: deleteBookmarkFailure,
   [Types.GET_BOOKMARKED_REQUEST]: bookmarkRequest,
   [Types.GET_BOOKMARKED_SUCCESS]: bookmarkSuccess,
   [Types.GET_BOOKMARKED_FAILURE]: bookmarkFailure,

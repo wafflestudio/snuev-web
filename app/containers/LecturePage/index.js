@@ -127,6 +127,7 @@ export class LecturePage extends React.Component<Props> {
             onPressWhenMarked={this.props.deleteBookmark}
             onPressWhenNotMarked={this.props.bookmark}
             isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
+            error={bookmarks.getIn([lecture.get('id'), 'error'])}
           />
           <LectureInfo>
             <LectureBasicInfo>

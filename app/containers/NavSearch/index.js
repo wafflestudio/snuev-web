@@ -95,10 +95,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  searchCourses: (query: string) => {
-    console.log(query);
-    dispatch(GlobalActions.searchCoursesRequest(query));
-  },
+  searchCourses: (query: string) => dispatch(GlobalActions.searchCoursesRequest(query)),
   searchLectures: (query: string) => dispatch(GlobalActions.searchLecturesRequest(query)),
 });
 

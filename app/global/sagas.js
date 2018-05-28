@@ -1,7 +1,6 @@
 import { take, call, put, takeLatest, select } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
 import { Types, Creators as Actions } from './reducer';
-import { Creators as LectureActions } from '../containers/LecturePage/reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
 import { addQuery } from '../utils/query';
@@ -97,7 +96,6 @@ export function* bookmark(id) {
   try {
     yield request.post(`/v1/lectures/${id}/bookmark`);
     yield put(Actions.bookmarkSuccess(id));
-    yield put(LectureActions.getLectureRequest(id));
   } catch (error) {
     yield put(Actions.bookmarkFailure(id, error.errors));
   }
@@ -114,7 +112,6 @@ export function* deleteBookmark(id) {
   try {
     yield request.delete(`/v1/lectures/${id}/bookmark`);
     yield put(Actions.deleteBookmarkSuccess(id));
-    yield put(LectureActions.getLectureRequest(id));
   } catch (error) {
     yield put(Actions.deleteBookmarkFailure(id, error.errors));
   }
