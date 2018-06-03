@@ -50,7 +50,7 @@ export default class Bookmark extends React.PureComponent<Props, State> {
       return (
         <ClickedButton
           onClick={this.onPress}
-          disable={this.props.isFetching}
+          disabled={this.props.isFetching}
         >
           {messages.bookmark}
         </ClickedButton>
@@ -59,7 +59,7 @@ export default class Bookmark extends React.PureComponent<Props, State> {
     return (
       <UnclickedButton
         onClick={this.onPress}
-        disable={this.props.isFetching}
+        disabled={this.props.isFetching}
       >
         {messages.bookmark}
       </UnclickedButton>

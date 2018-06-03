@@ -75,7 +75,7 @@ export class NavBar extends React.PureComponent<Props> {
                   <FormattedMessage {...messages.navItems.login} />
                 </Link>
               </li>
-          }
+            }
           </NavMenu>
         </NavBarInnerWrapper>
       </NavBarWrapper>
