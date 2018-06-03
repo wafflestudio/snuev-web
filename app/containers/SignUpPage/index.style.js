@@ -130,9 +130,30 @@ export const Input = styled.input`
   &:focus { outline: none; };
 `;
 
+export const UsernameInputContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const ShortInput = Input.extend`
+  width: 200px;
+`;
+
+export const EmailDomainText = styled.p`
+  width: 100px;
+  height: 44px;
+  line-height: 42px;
+  background-color: ${(props) => props.theme.color.white};
+  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
+  margin-top: 20px;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-size: ${(props) => props.theme.fontSize.header3}px;
+  color: ${(props) => props.theme.color.hint};
+`;
+
 export const UsernameInputText = styled.div`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 13px;
+  font-size: 1em;
   color: ${(props) => props.theme.color.hint};
 `;
 

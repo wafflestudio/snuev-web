@@ -21,6 +21,9 @@ import {
   SignUpIcon,
   CreateAccountText,
   Input,
+  ShortInput,
+  EmailDomainText,
+  UsernameInputContainer,
   UsernameInputText,
   DepartmentInput,
   SignUpButton,
@@ -130,12 +133,17 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                   {messages.createAccount}
                 </CreateAccountText>
                 <div>
-                  <Input
-                    type="text"
-                    value={this.state.username}
-                    onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
-                    placeholder={messages.input.usernameHint}
-                  />
+                  <UsernameInputContainer>
+                    <ShortInput
+                      type="text"
+                      value={this.state.username}
+                      onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                      placeholder={messages.input.usernameHint}
+                    />
+                    <EmailDomainText>
+                      @snu.ac.kr
+                    </EmailDomainText>
+                  </UsernameInputContainer>
                   <UsernameInputText>
                     <FormattedHTMLMessage id="usernameInputText" />
                   </UsernameInputText>
