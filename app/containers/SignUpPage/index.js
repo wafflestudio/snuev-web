@@ -10,6 +10,13 @@ import {
   Background,
   InnerContainer,
   ContentContainer,
+  EmailIcon,
+  TitleText,
+  BodyText,
+  EmailContainer,
+  EmailText,
+  ReturnButton,
+  ReturnText,
   SignUpForm,
   SignUpIcon,
   CreateAccountText,
@@ -23,10 +30,13 @@ import {
   BackHintText,
 } from './index.style';
 import DottedLine from '../../components/DottedLine';
+import { makeSelectUser } from '../../global/selectors';
 import { makeSelectPage, makeSelectDepartments } from './selectors';
 
 type Props = {
   departments: any,
+  user: any,
+  router: { push: Function },
   signUp: (State) => void,
   getDepartments: () => void,
 };
@@ -60,6 +70,48 @@ export class SignUpPage extends React.PureComponent<Props, State> {
   }
 
   render() {
+    const { user } = this.props;
+    if (user) {
+      if (user.get('isConfirmed')) {
+        this.props.router.push('/');
+        return (<div />);
+      }
+      return (
+        <IntlProvider messages={messages}>
+          <Background>
+            <Helmet
+              title="SignUpCompletePage"
+              meta={[
+                { name: 'description', content: 'Description of SignUpCompletePage' },
+              ]}
+            />
+            <InnerContainer>
+              <DottedLine />
+              <ContentContainer>
+                <EmailIcon />
+                <TitleText>
+                  <FormattedHTMLMessage id="completeTitle" />
+                </TitleText>
+                <BodyText>
+                  <FormattedHTMLMessage id="completeBody" />
+                </BodyText>
+                <EmailContainer>
+                  <EmailText>
+                    {user.get('email')}
+                  </EmailText>
+                </EmailContainer>
+              </ContentContainer>
+              <DottedLine />
+              <ReturnButton to="/">
+                <ReturnText>
+                  <FormattedHTMLMessage id="completeBack" />
+                </ReturnText>
+              </ReturnButton>
+            </InnerContainer>
+          </Background>
+        </IntlProvider>
+      );
+    }
     return (
       <IntlProvider messages={messages}>
         <Background>
@@ -105,11 +157,11 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                   onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
                 >
                   {!!this.props.departments &&
-                  this.props.departments.map((department: any, id: string) => (
-                    <option value={department.get('id')} key={id}>
-                      {department.get('name')}
-                    </option>
-                  ))
+                    this.props.departments.map((department: any, id: string) => (
+                      <option value={department.get('id')} key={id}>
+                        {department.get('name')}
+                      </option>
+                    ))
                   }
                 </DepartmentInput>
                 <SignUpButton type="submit">
@@ -119,11 +171,9 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                 </SignUpButton>
                 <BackButton to="/sign_in" />
                 <BackText>
-                  {messages.back.text}
-                </BackText>
+                  {messages.back.text}</BackText>
                 <BackHintText>
-                  {messages.back.hint}
-                </BackHintText>
+                  {messages.back.hint}</BackHintText>
               </SignUpForm>
             </ContentContainer>
             <DottedLine />
@@ -136,6 +186,7 @@ export class SignUpPage extends React.PureComponent<Props, State> {
 
 const mapStateToProps = createStructuredSelector({
   page: makeSelectPage(),
+  user: makeSelectUser(),
   departments: makeSelectDepartments(),
 });
 
