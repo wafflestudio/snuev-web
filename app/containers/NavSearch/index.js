@@ -34,6 +34,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     this.state = {
       query: '',
     };
+    (this: any).handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentWillMount() {
@@ -51,7 +52,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     }
   }
 
-  handleSubmit = (event: Event) => {
+  handleSubmit(event: Event) {
     event.preventDefault();
     this.props.searchLectures(this.state.query);
   }
@@ -68,7 +69,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             onFocus: () => searchCourses(this.state.query),
           }}
           wrapperStyle={{ diplay: 'block' }}
-          renderInput={(({ ref, ...props }: {}) => <SearchInput innerRef={ref} {...props} />)}
+          renderInput={(({ ref, ...props }: { ref: any }) => <SearchInput innerRef={ref} {...props} />)} // eslint-disable-line react/no-unused-prop-types
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}
           items={courses}

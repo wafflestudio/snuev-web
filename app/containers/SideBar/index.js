@@ -20,7 +20,7 @@ import Lecture from './Lecture';
 
 type Props = {
   lectures: List<Map<string, any>>,
-  location: {},
+  location: { search: string }, // eslint-disable-line react/no-unused-prop-types
   global: Map<string, any>,
 };
 

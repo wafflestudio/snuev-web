@@ -6,7 +6,7 @@ const makeSelectPage = () => (state) => state.get('signUpPage');
 
 const makeSelectDepartments = () => createSelector(
   makeSelectEntities(),
-  (entities) => denormalize(entities, 'departments', null),
+  (entities) => denormalize(entities, 'departments', 'all'),
 );
 
 export {
