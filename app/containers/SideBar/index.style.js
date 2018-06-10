@@ -4,9 +4,16 @@ export const SideBarWrapper = styled.aside`
   position: fixed;
   width: ${(props) => props.theme.sideBarMaxWidth}px;
   height: calc(100vh - ${(props) => props.theme.navBarHeight}px);
-  padding-top: 30px;
+  padding-top: 20px;
   margin-top: ${(props) => props.theme.navBarHeight}px;
   overflow: auto;
+`;
+
+export const NoResultWrapper = styled.div`
+  border: dashed 0.5px;
+  border-color: ${(props) => props.theme.lightGray};
+  height: calc(100% - 20px);
+  width: 100%;
 `;
 
 export const LectureWrapper = styled.div`

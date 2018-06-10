@@ -2,28 +2,50 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { injectIntl, FormattedHTMLMessage, IntlProvider } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 import {
   Background,
+  InnerContainer,
+  ContentContainer,
+  EmailIcon,
+  TitleText,
+  BodyText,
+  EmailContainer,
+  EmailText,
+  ReturnButton,
+  ReturnText,
   SignUpForm,
-  Logo,
+  SignUpIcon,
   CreateAccountText,
   Input,
+  ShortInput,
+  EmailDomainText,
+  UsernameInputContainer,
   UsernameInputText,
-  DepartmentInput,
   SignUpButton,
   SignUpText,
-  LoginWrapper,
-  LoginText,
-  LoginLink,
+  BackButton,
+  BackText,
+  BackHintText,
 } from './index.style';
+import DepartmentInput from './DepartmentInput';
+import DottedLine from '../../components/DottedLine';
+import { makeSelectUser } from '../../global/selectors';
 import { makeSelectPage, makeSelectDepartments } from './selectors';
+
+type Department = {
+  id: string,
+  name: string,
+};
 
 type Props = {
   departments: any,
-  signUp: (State) => void,
+  user: any,
+  router: { push: Function },
+  signUp: ({ username: string, password: string, nickname: string, department_id: string }) => void,
   getDepartments: () => void,
 };
 
@@ -56,73 +78,120 @@ export class SignUpPage extends React.PureComponent<Props, State> {
   }
 
   render() {
+    const { user } = this.props;
+    if (user) {
+      if (user.get('isConfirmed')) {
+        this.props.router.push('/');
+        return (<div />);
+      }
+      return (
+        <IntlProvider messages={messages}>
+          <Background>
+            <Helmet
+              title="SignUpCompletePage"
+              meta={[
+                { name: 'description', content: 'Description of SignUpCompletePage' },
+              ]}
+            />
+            <InnerContainer>
+              <DottedLine />
+              <ContentContainer>
+                <EmailIcon />
+                <TitleText>
+                  <FormattedHTMLMessage id="completeTitle" />
+                </TitleText>
+                <BodyText>
+                  <FormattedHTMLMessage id="completeBody" />
+                </BodyText>
+                <EmailContainer>
+                  <EmailText>
+                    {user.get('email')}
+                  </EmailText>
+                </EmailContainer>
+              </ContentContainer>
+              <DottedLine />
+              <ReturnButton to="/">
+                <ReturnText>
+                  <FormattedHTMLMessage id="completeBack" />
+                </ReturnText>
+              </ReturnButton>
+            </InnerContainer>
+          </Background>
+        </IntlProvider>
+      );
+    }
     return (
-      <Background>
-        <Helmet
-          title="SignUpPage"
-          meta={[
-            { name: 'description', content: 'Description of SignUpPage' },
-          ]}
-        />
-        <SignUpForm onSubmit={this.handleSignUp}>
-          <Logo />
-          <CreateAccountText>
-            {messages.createAccount}
-          </CreateAccountText>
-          <Input
-            type="text"
-            value={this.state.username}
-            onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
-            placeholder={messages.input.usernameHint}
+      <IntlProvider messages={messages}>
+        <Background>
+          <Helmet
+            title="SignUpPage"
+            meta={[
+              { name: 'description', content: 'Description of SignUpPage' },
+            ]}
           />
-          <UsernameInputText>
-            {messages.usernameInputText}
-          </UsernameInputText>
-          <Input
-            type="password"
-            value={this.state.password}
-            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
-            placeholder={messages.input.passwordHint}
-          />
-          <Input
-            type="text"
-            value={this.state.nickname}
-            onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
-            placeholder={messages.input.nicknameHint}
-          />
-          <DepartmentInput
-            value={this.state.department_id}
-            onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
-          >
-            {!!this.props.departments &&
-              this.props.departments.map((department: any, id: string) => (
-                <option value={department.get('id')} key={id}>
-                  {department.get('name')}
-                </option>
-              ))
-            }
-          </DepartmentInput>
-          <SignUpButton type="submit">
-            <SignUpText>
-              {messages.signup}
-            </SignUpText>
-          </SignUpButton>
-          <LoginWrapper>
-            <LoginText>
-              {messages.login.question}
-            </LoginText>
-            <LoginLink to="sign_in">
-              {messages.login.message}
-            </LoginLink>
-          </LoginWrapper>
-        </SignUpForm>
-      </Background>
+          <InnerContainer>
+            <DottedLine />
+            <ContentContainer>
+              <SignUpForm onSubmit={this.handleSignUp}>
+                <SignUpIcon />
+                <CreateAccountText>
+                  {messages.createAccount}
+                </CreateAccountText>
+                <div>
+                  <UsernameInputContainer>
+                    <ShortInput
+                      type="text"
+                      value={this.state.username}
+                      onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                      placeholder={messages.input.usernameHint}
+                    />
+                    <EmailDomainText>
+                      @snu.ac.kr
+                    </EmailDomainText>
+                  </UsernameInputContainer>
+                  <UsernameInputText>
+                    <FormattedHTMLMessage id="usernameInputText" />
+                  </UsernameInputText>
+                </div>
+                <DepartmentInput // $FlowFixMe
+                  departments={this.props.departments ? this.props.departments.toJS() : []}
+                  onSelectDepartment={(department: Department) => this.setState({ department_id: department.id })}
+                />
+                <Input
+                  type="text"
+                  value={this.state.nickname}
+                  onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
+                  placeholder={messages.input.nicknameHint}
+                />
+                <Input
+                  type="password"
+                  value={this.state.password}
+                  onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
+                  placeholder={messages.input.passwordHint}
+                />
+                <SignUpButton type="submit">
+                  <SignUpText>
+                    {messages.signup}
+                  </SignUpText>
+                </SignUpButton>
+                <BackButton to="/sign_in" />
+                <BackText>
+                  {messages.back.text}</BackText>
+                <BackHintText>
+                  {messages.back.hint}</BackHintText>
+              </SignUpForm>
+            </ContentContainer>
+            <DottedLine />
+          </InnerContainer>
+        </Background>
+      </IntlProvider>
     );
   }
 }
 
 const mapStateToProps = createStructuredSelector({
   page: makeSelectPage(),
+  user: makeSelectUser(),
   departments: makeSelectDepartments(),
 });
 
@@ -131,4 +200,4 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(SignUpPage));

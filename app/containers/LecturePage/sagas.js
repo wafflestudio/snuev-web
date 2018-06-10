@@ -61,7 +61,10 @@ export function* getMyEvaluation(id) {
 }
 
 export function* watchCreateEvaluationRequest() {
-  yield takeLatest(Types.CREATE_EVALUATION_REQUEST, createEvaluation);
+  while (true) {
+    const params = yield take(Types.CREATE_EVALUATION_REQUEST, createEvaluation);
+    yield call(createEvaluation, params);
+  }
 }
 
 export function* createEvaluation({ id, data }) {

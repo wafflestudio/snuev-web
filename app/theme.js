@@ -3,10 +3,13 @@ const theme = {
   navBarHeight: 80,
   sideBarMaxWidth: 300,
   color: {
-    primary: '#2066be',
+    primary: '#4f48c4',
     black: '#4a4a4a',
     white: '#ffffff',
     gray: '#666666',
+    lightGray: '#d8d8d8',
+    grayBackground1: '#f0f1f5',
+    grayBackground2: '#e3e5ee',
     header1: 'rgba(0,0,0,.7)',
     header2: 'rgba(0,0,0,.7)',
     header3: 'rgba(0,0,0,.8)',
@@ -15,6 +18,13 @@ const theme = {
     score1: 'rgba(0,0,0,.8)',
     score2: 'rgba(0,0,0,.8)',
     score3: 'rgba(0,0,0,.8)',
+    hint: 'rgba(0,0,0,.4)',
+    // signup button
+    hover1: '#F1F1FB',
+    focus1: '#D5D3F1',
+    // department input
+    hover3: '#F4F4F6',
+    focus3: '#EDECF9',
   },
   fontSize: {
     headline: '32px',
