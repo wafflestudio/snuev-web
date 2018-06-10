@@ -27,15 +27,13 @@ import {
   LectureInfoText,
   EvaluationsHeader,
   LeaveReviewButton,
-  LeaveReviewText,
+  CreateIcon,
   CloseIcon,
   LectureInfo,
   LectureBasicInfo,
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
-  FlatButton,
-  Buttons,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -83,9 +81,9 @@ export class LecturePage extends React.Component<Props> {
     } = this.props;
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
-        <div>
+        <Background>
           Loading... or error
-        </div>
+        </Background>
       );
     }
     return (
@@ -101,16 +99,6 @@ export class LecturePage extends React.Component<Props> {
         >
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
-          <Buttons>
-            <div>
-              <FlatButton cancel onClick={this.props.closeEvaluationForm}>
-                취소
-              </FlatButton>
-              <FlatButton>
-                {this.props.lecture.get('evaluated') ? '수정' : '완료'}
-              </FlatButton>
-            </div>
-          </Buttons>
         </EvaluationFormModal>
         <LectureWrapper>
           <LectureName>
@@ -150,11 +138,9 @@ export class LecturePage extends React.Component<Props> {
             {messages.evaluation.header}
           </EvaluationsHeader>
           {(user && user.get('isConfirmed')) &&
-            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-              <LeaveReviewText>
-                {messages.leaveReview}
-              </LeaveReviewText>
-            </LeaveReviewButton>
+          <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+            <CreateIcon />
+          </LeaveReviewButton>
           }
         </EvaluationsWrapper>
         <InfiniteScroll

@@ -19,6 +19,12 @@ const theme = {
     score2: 'rgba(0,0,0,.8)',
     score3: 'rgba(0,0,0,.8)',
     hint: 'rgba(0,0,0,.4)',
+    // signup button
+    hover1: '#F1F1FB',
+    focus1: '#D5D3F1',
+    // department input
+    hover3: '#F4F4F6',
+    focus3: '#EDECF9',
   },
   fontSize: {
     headline: '32px',

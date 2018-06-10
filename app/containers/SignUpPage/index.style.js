@@ -6,6 +6,8 @@ import SignUpIconImage from '../../images/img-signup.png';
 import ArrowLeftIconImage from '../../images/ic-arrow-left.png';
 import EmailIconImage from '../../images/img-email.png';
 
+import SearchIconImage from '../../images/ic-search.png';
+
 export const Background = styled.div`
   background-color: ${(props) => props.theme.color.grayBackground1};
   display: flex;
@@ -157,26 +159,6 @@ export const UsernameInputText = styled.div`
   color: ${(props) => props.theme.color.hint};
 `;
 
-export const DepartmentInput = styled.select`
-  width: 300px;
-  height: 44px;
-  background-color: ${(props) => props.theme.color.white};
-  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
-  margin-top: 20px;
-  position: relative;
-  &:focus { outline: none; };
-  &:after {
-    position: absolute;
-    content: "";
-    top: 14px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
-    border-color: #000 transparent transparent transparent;
-  };
-`;
-
 export const SignUpButton = styled.button`
   width: 140px;
   height: 140px;
@@ -190,14 +172,15 @@ export const SignUpButton = styled.button`
   position: absolute;
   left: 590px;
   top: 60%;
-  &:focus { outline: none; };
+  &:hover { background-color: ${(props) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props) => props.theme.color.focus1}; outline: none; };
 `;
 
 export const SignUpText = styled.p`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
   text-align: center;
-  padding-top: 9px;
+  padding-top: 5px;
   color: ${(props) => props.theme.color.primary};
   &:focus { outline: none };
 `;
@@ -212,7 +195,8 @@ const BackButtonStyle = styled(Link)`
   position: absolute;
   left: -25px;
   top: 90px;
-  &:focus { outline: none; };
+  &:hover { background-color: ${(props) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props) => props.theme.color.focus1}; outline: none; };
 `;
 
 export const BackText = styled.p`
@@ -250,3 +234,57 @@ export const BackButton = (props) => (
     <ArrowLeftIconFrame src={ArrowLeftIconImage} />
   </BackButtonStyle>
 );
+
+// Department Input
+
+export const DepartmentInputWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+export const MediumInput = Input.extend`
+  width: 256px;
+`;
+
+export const DepartmentMenu = styled.div`
+  border: solid 1px #ccc;
+  z-index: 10;
+  background-color: ${(props) => props.theme.color.white};
+  position: absolute;
+  width: 300px;
+  height: 180px;
+  overflow-y: auto;
+`;
+
+const SearchIconWrapper = styled.div`
+  width: 44px;
+  height 44px;
+  display: flex;
+  flex-direction: column;
+  background-color: ${(props) => props.theme.color.white};
+  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
+  margin-top: 20px;
+`;
+
+const SearchIconFrame = styled.img`
+  width: 30px;
+  height: 30px;
+`;
+
+export const SearchIcon = (props) =>
+  <SearchIconWrapper>
+    <SearchIconFrame src={SearchIconImage} {...props} />
+  </SearchIconWrapper>;
+
+export const DepartmentItemWrapper = styled.button`
+  width: 100%;
+  line-height: 36px;
+  background-color: ${(props) => props.highlighted ? props.theme.color.focus3 : props.theme.color.white};
+  padding: 0 20px 0;
+  text-align: left;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-size: ${(props) => props.theme.fontSize.body2}px;
+  &:hover {
+    background-color: ${(props) => props.highlighted ? props.theme.color.focus3 : props.theme.color.hover3}
+  };
+`;

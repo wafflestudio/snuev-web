@@ -25,22 +25,27 @@ import {
   EmailDomainText,
   UsernameInputContainer,
   UsernameInputText,
-  DepartmentInput,
   SignUpButton,
   SignUpText,
   BackButton,
   BackText,
   BackHintText,
 } from './index.style';
+import DepartmentInput from './DepartmentInput';
 import DottedLine from '../../components/DottedLine';
 import { makeSelectUser } from '../../global/selectors';
 import { makeSelectPage, makeSelectDepartments } from './selectors';
+
+type Department = {
+  id: string,
+  name: string,
+};
 
 type Props = {
   departments: any,
   user: any,
   router: { push: Function },
-  signUp: (State) => void,
+  signUp: ({ username: string, password: string, nickname: string, department_id: string }) => void,
   getDepartments: () => void,
 };
 
@@ -148,6 +153,10 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                     <FormattedHTMLMessage id="usernameInputText" />
                   </UsernameInputText>
                 </div>
+                <DepartmentInput // $FlowFixMe
+                  departments={this.props.departments ? this.props.departments.toJS() : []}
+                  onSelectDepartment={(department: Department) => this.setState({ department_id: department.id })}
+                />
                 <Input
                   type="text"
                   value={this.state.nickname}
@@ -160,18 +169,6 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                   onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
                   placeholder={messages.input.passwordHint}
                 />
-                <DepartmentInput
-                  value={this.state.department_id}
-                  onChange={({ target }) => this.setState({ department_id: target.value })} // eslint-disable-line
-                >
-                  {!!this.props.departments &&
-                    this.props.departments.map((department: any, id: string) => (
-                      <option value={department.get('id')} key={id}>
-                        {department.get('name')}
-                      </option>
-                    ))
-                  }
-                </DepartmentInput>
                 <SignUpButton type="submit">
                   <SignUpText>
                     {messages.signup}

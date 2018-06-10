@@ -31,7 +31,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('mainPage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('mainPage', sagas.default);
           renderRoute(component);
         });
 
@@ -67,7 +67,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('signUpPage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('signUpPage', sagas.default);
           renderRoute(component);
         });
 
@@ -87,7 +87,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('lecturePage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('lecturePage', sagas.default);
           renderRoute(component);
         });
 
@@ -107,7 +107,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('confirmEmailPage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('confirmEmailPage', sagas.default);
           renderRoute(component);
         });
 
@@ -127,7 +127,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('profilePage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('profilePage', sagas.default);
           renderRoute(component);
         });
 
@@ -147,7 +147,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('resetPasswordPage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('resetPasswordPage', sagas.default);
           renderRoute(component);
         });
 
@@ -167,7 +167,7 @@ export default function createRoutes(store) {
 
         importModules.then(([reducer, sagas, component]) => {
           injectReducer('newPasswordPage', reducer.default);
-          injectSagas(sagas.default);
+          injectSagas('newPasswordPage', sagas.default);
           renderRoute(component);
         });
 
