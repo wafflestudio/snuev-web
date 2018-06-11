@@ -25,6 +25,9 @@ export const { Types, Creators } = createActions({
   updateEvaluationRequest: ['lectureId', 'evaluationId', 'data'],
   updateEvaluationSuccess: null,
   updateEvaluationFailure: ['error'],
+  voteEvaluationRequest: ['lectureId', 'evaluationId', 'direction'],
+  voteEvaluationSuccess: null,
+  voteEvaluationFailure: ['error'],
   openEvaluationForm: null,
   closeEvaluationForm: null,
 });
@@ -53,6 +56,10 @@ export const initialState = fromJS({
     error: null,
   },
   updateEvaluation: {
+    isFetching: false,
+    error: null,
+  },
+  voteEvaluation: {
     isFetching: false,
     error: null,
   },
@@ -133,6 +140,15 @@ export const updateEvaluationSuccess = (state) =>
 export const updateEvaluationFailure = (state, { error }) =>
   state.mergeDeep({ updateEvaluation: { isFetching: false, error } });
 
+export const voteEvaluationRequest = (state) =>
+  state.mergeDeep({ voteEvaluation: { isFetching: true, error: null } });
+
+export const voteEvaluationSuccess = (state, { id }) =>
+  state.mergeDeep({ voteEvaluation: { id, isFetching: false, error: null } });
+
+export const voteEvaluationFailure = (state, { error }) =>
+  state.mergeDeep({ voteEvaluation: { isFetching: false, error } });
+
 export const openEvaluationForm = (state) =>
   state.set('evaluationFormOpen', true);
 
@@ -158,6 +174,9 @@ export default createReducer(initialState, {
   [Types.UPDATE_EVALUATION_REQUEST]: updateEvaluationRequest,
   [Types.UPDATE_EVALUATION_SUCCESS]: updateEvaluationSuccess,
   [Types.UPDATE_EVALUATION_FAILURE]: updateEvaluationFailure,
+  [Types.VOTE_EVALUATION_REQUEST]: voteEvaluationRequest,
+  [Types.VOTE_EVALUATION_SUCCESS]: voteEvaluationSuccess,
+  [Types.VOTE_EVALUATION_FAILURE]: voteEvaluationFailure,
   [Types.OPEN_EVALUATION_FORM]: openEvaluationForm,
   [Types.CLOSE_EVALUATION_FORM]: closeEvaluationForm,
 });

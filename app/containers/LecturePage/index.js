@@ -48,6 +48,7 @@ type Props = {
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
+  voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => void,
 };
 
 export class LecturePage extends React.Component<Props> {
@@ -78,6 +79,7 @@ export class LecturePage extends React.Component<Props> {
       page,
       lecture,
       evaluations,
+      voteEvaluation,
     } = this.props;
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
@@ -155,6 +157,8 @@ export class LecturePage extends React.Component<Props> {
                 <Evaluation
                   key={index}
                   evaluation={evaluation}
+                  lectureId={lecture.get('id')}
+                  voteEvaluation={voteEvaluation}
                 />
               ))}
             </div>
@@ -178,6 +182,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
+  voteEvaluation: (lectureId: number, evaluationId: number, direction: string) => dispatch(Actions.voteEvaluationRequest(lectureId, evaluationId, direction)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
