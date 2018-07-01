@@ -73,6 +73,7 @@ module.exports = (options) => ({
       'process.env': {
         NODE_ENV: JSON.stringify(process.env.NODE_ENV),
         API_HOST: JSON.stringify(process.env.API_HOST),
+        GA_TRACKING_ID: JSON.stringify(process.env.GA_TRACKING_ID),
       },
     }),
     new webpack.NamedModulesPlugin(),
