@@ -1,25 +1,23 @@
 import { createSelector } from 'reselect';
+import { makeSelectEntities } from '../../global/selectors';
+import { denormalize } from '../../utils/denormalize';
 
-/**
- * Direct selector to the mainPage state domain
- */
-const selectMainPageDomain = () => (state) => state.get('mainPage');
+const makeSelectPage = () => (state) => state.get('mainPage');
 
-/**
- * Other specific selectors
- */
-
-
-/**
- * Default selector used by MainPage
- */
-
-const makeSelectMainPage = () => createSelector(
-  selectMainPageDomain(),
-  (substate) => substate.toJS()
+const makeMakeSelect = (key, entityType) => () => createSelector(
+  makeSelectEntities(),
+  makeSelectPage(),
+  (entities, page) => denormalize(entities, entityType, page.getIn([key, 'ids']))
 );
 
-export default makeSelectMainPage;
+const makeSelectLatestEvaluations = makeMakeSelect('latestEvaluations', 'evaluations');
+const makeSelectMostEvaluatedLectures = makeMakeSelect('mostEvaluatedLectures', 'lectures');
+const makeSelectTopRatedLectures = makeMakeSelect('topRatedLectures', 'lectures');
+const makeSelectMostLikedEvaluations = makeMakeSelect('mostLikedEvaluations', 'evaluations');
+
 export {
-  selectMainPageDomain,
+  makeSelectLatestEvaluations,
+  makeSelectMostEvaluatedLectures,
+  makeSelectTopRatedLectures,
+  makeSelectMostLikedEvaluations,
 };

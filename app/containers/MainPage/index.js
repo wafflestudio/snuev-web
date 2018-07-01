@@ -1,17 +1,46 @@
+// @flow
 import React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectMainPage from './selectors';
-import messages from './messages';
+import {
+  makeSelectLatestEvaluations,
+  makeSelectMostEvaluatedLectures,
+  makeSelectTopRatedLectures,
+  makeSelectMostLikedEvaluations,
+} from './selectors';
 import { Creators as Actions } from './reducer';
 import withBars from '../../services/withBars';
+import Evaluation from './Evaluation';
 
-export class MainPage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+type LectureType = {
+
+};
+
+type EvaluationType = {
+
+};
+
+type Props = {
+  latestEvaluations: [EvaluationType],
+  mostEvaluatedLectures: [LectureType],
+  topRatedLectures: [LectureType],
+  mostLikedEvaluations: [EvaluationType],
+  getLatestEvaluations: () => void,
+  getMostEvaluatedLectures: () => void,
+  getTopRatedLectures: () => void,
+  getMostLikedEvaluations: () => void,
+};
+
+export class MainPage extends React.PureComponent<Props> { // eslint-disable-line react/prefer-stateless-function
+  componentDidMount() {
+    this.props.getLatestEvaluations();
+    this.props.getMostEvaluatedLectures();
+    this.props.getTopRatedLectures();
+    this.props.getMostLikedEvaluations();
+  }
+
   render() {
-    const { payload } = this.props.MainPage;
-    const { fetchEvaluation } = this.props;
     return (
       <div>
         <Helmet
@@ -20,13 +49,9 @@ export class MainPage extends React.PureComponent { // eslint-disable-line react
             { name: 'description', content: 'Description of MainPage' },
           ]}
         />
-        <FormattedMessage {...messages.header} />
-        <button onClick={fetchEvaluation}>
-          Fetch posts
-        </button>
-        {!!payload &&
-          payload.map((evaluation, index) => (
-            <text key={index}>{`title: ${evaluation.title} `}</text>
+        {this.props.mostLikedEvaluations &&
+          this.props.mostLikedEvaluations.map((evaluation: EvaluationType) => (
+            <Evaluation key={evaluation.id} evaluation={evaluation} />
           ))
         }
       </div>
@@ -35,11 +60,17 @@ export class MainPage extends React.PureComponent { // eslint-disable-line react
 }
 
 const mapStateToProps = createStructuredSelector({
-  MainPage: makeSelectMainPage(),
+  latestEvaluations: makeSelectLatestEvaluations(),
+  mostEvaluatedLectures: makeSelectMostEvaluatedLectures(),
+  topRatedLectures: makeSelectTopRatedLectures(),
+  mostLikedEvaluations: makeSelectMostLikedEvaluations(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchEvaluation: () => dispatch(Actions.evaluationRequest()),
+const mapDispatchToProps = (dispatch: Function) => ({
+  getLatestEvaluations: () => dispatch(Actions.getLatestEvaluationsRequest()),
+  getMostEvaluatedLectures: () => dispatch(Actions.getMostEvaluatedLecturesRequest()),
+  getTopRatedLectures: () => dispatch(Actions.getTopRatedLecturesRequest()),
+  getMostLikedEvaluations: () => dispatch(Actions.getMostLikedEvaluationsRequest()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(MainPage));
