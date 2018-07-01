@@ -1,13 +1,9 @@
 import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
+import CreateIconImage from '../../images/ic-write-big.png';
 
 Modal.setAppElement('#app');
-
-export const Wrapper = styled.div`
-  width: 100%;
-  padding: 20px;
-`;
 
 export const Background = styled.div`
   display: flex;
@@ -94,6 +90,8 @@ export const LectureSummary = styled.p`
 
 export const EvaluationsWrapper = styled.div`
   padding-top: 45px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const EvaluationsHeader = styled.span`
@@ -104,19 +102,23 @@ export const EvaluationsHeader = styled.span`
 `;
 
 export const LeaveReviewButton = styled.button`
-  width: 109px;
-  height: 36px;
-  border-radius: 3px;
-  background-color: ${(props) => props.theme.color.primary};
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  border: solid 1px rgba(0, 0, 0, 0.4);
+  background-color: ${(props) => props.theme.color.white};
   align-self: center;
+    &:focus {
+    outline: none;
+  }
 `;
 
-export const LeaveReviewText = styled.span`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 15px;
-  text-align: center;
-  color: #ffffff;
+const CreateIconFrame = styled.img`
+  width: 40px;
+  height: 40px;
 `;
+
+export const CreateIcon = (props) => <CreateIconFrame src={CreateIconImage} {...props} />;
 
 export const CloseIcon = styled.span`
   position: absolute;
@@ -144,18 +146,3 @@ export const CloseIcon = styled.span`
   }
 `;
 
-export const FlatButton = styled.button`
-  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
-  margin-left: 30px;
-  cursor: pointer;
-  font-weight: 500;
-  &:focus {
-    outline: 0;
-  }
-`;
-
-export const Buttons = styled.div`
-  display: flex;
-  justify-content: flex-end;
-  width: 100%;
-`;

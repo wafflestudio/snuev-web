@@ -54,3 +54,18 @@ const CreateIconFrame = styled.img`
 
 export const CreateIcon = (props) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
 
+export const FlatButton = styled.button`
+  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
+  margin-left: 30px;
+  cursor: pointer;
+  font-weight: 500;
+  &:focus {
+    outline: 0;
+  }
+`;
+
+export const Buttons = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+`;

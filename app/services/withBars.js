@@ -11,17 +11,32 @@ import SideBar from '../containers/SideBar';
 import {
   makeSelectAppLayout,
 } from '../global/selectors';
+import { media } from '../style-utils';
+
+type Props = {
+  theme: {
+    navBarHeight: number,
+    sideBarMaxWidth: number,
+    appMaxWidth: number,
+  },
+  appLayout: Map<string, any>,
+};
+
+const Wrapper = styled.div`
+  max-width: ${(props: Props) => props.theme.appMaxWidth}px;
+  width: 100%;
+  margin: 0 auto;
+  ${media.desktop`
+    margin: 0 30px;
+  `}
+`;
 
 const MainContent = styled.div`
-  padding-top: ${(props: {}) => props.theme.navBarHeight + 30}px;
-  margin-left: ${(props: {}) =>
+  padding-top: ${(props: Props) => props.theme.navBarHeight + 30}px;
+  margin-left: ${(props: Props) =>
     props.showSideBar ?
       `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
 `;
-
-type Props = {
-  appLayout: Map<string, any>,
-};
 
 const mapStateToProps = createStructuredSelector({
   appLayout: makeSelectAppLayout(),
@@ -29,7 +44,7 @@ const mapStateToProps = createStructuredSelector({
 
 export default (Component: React.Component) => connect(mapStateToProps)(
   (props: Props) => (
-    <div>
+    <Wrapper>
       <NavBar />
       {props.appLayout.get('showSideBar') &&
         <SideBar />
@@ -37,6 +52,6 @@ export default (Component: React.Component) => connect(mapStateToProps)(
       <MainContent showSideBar={props.appLayout.get('showSideBar')}>
         <Component {...props} />
       </MainContent>
-    </div>
+    </Wrapper>
   )
 );

@@ -16,6 +16,8 @@ import {
   SubHeader,
   RatingMargin,
   CreateIcon,
+  Buttons,
+  FlatButton,
 } from './index.style';
 import {
   makeSelectPage,
@@ -30,6 +32,7 @@ type Props = {
   getMyEvaluation: (number) => void,
   createEvaluation: (number, State) => void,
   updateEvaluation: (number, number, State) => void,
+  closeEvaluationForm: () => void,
 };
 
 type State = {
@@ -50,7 +53,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     };
     (this: any).handleSubmit = this.handleSubmit.bind(this);
     (this: any).makeHandleRate = this.makeHandleRate.bind(this);
-    (this: React.PureComponent).makeHandleChange = this.makeHandleChange.bind(this);
+    (this: any).makeHandleChange = this.makeHandleChange.bind(this);
   }
 
   componentDidMount() {
@@ -61,17 +64,19 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
   componentWillReceiveProps(props: Props) {
     const { myEvaluation } = props;
-    this.setState({
-      comment: myEvaluation.get('comment'),
-      score: myEvaluation.get('score'),
-      easiness: myEvaluation.get('easiness'),
-      grading: myEvaluation.get('grading'),
-    });
+    if (myEvaluation) {
+      this.setState({
+        comment: myEvaluation.get('comment'),
+        score: myEvaluation.get('score'),
+        easiness: myEvaluation.get('easiness'),
+        grading: myEvaluation.get('grading'),
+      });
+    }
   }
 
   handleSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    if (this.props.myEvaluation && this.props.myEvaluation.get('id')) {
+    if (this.props.myEvaluation) {
       this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), this.state);
     } else {
       this.props.createEvaluation(this.props.lecture.get('id'), this.state);
@@ -87,7 +92,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
   }
 
   makeHandleChange(key: string) {
-    return (event: SyntheticEvent) => {
+    return (event: { target: { value: number } }) => {
       this.setState({
         [key]: event.target.value,
       });
@@ -140,6 +145,16 @@ class EvaluationForm extends React.PureComponent<Props, State> {
           value={this.state.comment}
           onChange={this.makeHandleChange('comment')}
         />
+        <Buttons>
+          <div>
+            <FlatButton cancel onClick={this.props.closeEvaluationForm}>
+              취소
+            </FlatButton>
+            <FlatButton type="submit">
+              {this.props.lecture.get('evaluated') ? '수정' : '완료'}
+            </FlatButton>
+          </div>
+        </Buttons>
       </Wrapper>
     );
   }
@@ -155,6 +170,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getMyEvaluation: (lectureId: number) => dispatch(Actions.getMyEvaluationRequest(lectureId)),
   createEvaluation: (lectureId: number, data: State) => dispatch(Actions.createEvaluationRequest(lectureId, data)),
   updateEvaluation: (lectureId: number, evaluationId: number, data: State) => dispatch(Actions.updateEvaluationRequest(lectureId, evaluationId, data)),
+  closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(EvaluationForm);
