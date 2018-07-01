@@ -6,17 +6,25 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
-import createReducer from './reducers';
+import { createMiddleware } from 'redux-beacon';
+import GoogleAnalytics from '@redux-beacon/google-analytics';
 
-import globalSagas from 'global/sagas';
+import { eventsMap, setupGA } from './services/gaEvents';
+
+import createReducer from './reducers';
+import globalSagas from './global/sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 
 export default function configureStore(initialState = {}, history) {
+  setupGA();
+  const ga = GoogleAnalytics();
+  const gaMiddleware = createMiddleware(eventsMap, ga);
   // Create the store with two middlewares
   // 1. sagaMiddleware: Makes redux-sagas work
   // 2. routerMiddleware: Syncs the location/URL path to the state
   const middlewares = [
+    gaMiddleware,
     sagaMiddleware,
     routerMiddleware(history),
   ];
