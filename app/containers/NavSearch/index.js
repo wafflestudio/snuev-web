@@ -9,7 +9,7 @@ import qs from 'query-string';
 
 import { Creators as GlobalActions } from '../../global/reducer';
 import {
-  makeSelectCourses,
+  makeSelectCourses, makeSelectGlobal,
 } from '../../global/selectors';
 import {
   SearchInput,
@@ -39,7 +39,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
 
   componentWillMount() {
     const search = qs.parse(this.props.location.search);
-    if (search.q) {
+    if (search.q && !this.props.global.getIn(['lectures', 'performedInitialSearch'])) {
       this.setState({ query: search.q });
       this.props.searchLectures(search.q);
     }
@@ -58,7 +58,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
   }
 
   render() {
-    const { searchCourses } = this.props;
+    const { searchCourses, searchLectures } = this.props;
     const courses = this.props.courses.toJS();
 
     return (
@@ -93,6 +93,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
 
 const mapStateToProps = createStructuredSelector({
   courses: makeSelectCourses(),
+  global: makeSelectGlobal(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
