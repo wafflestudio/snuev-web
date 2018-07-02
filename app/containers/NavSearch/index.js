@@ -79,6 +79,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
           }}
           onSelect={(query: string, course: { name: string }) => {
             this.setState({ query: course.name });
+            searchLectures(course.name);
           }}
           renderItem={(course: { id: string, name: string }, isHighlighted: boolean) => (
             <AutoCompleteItem active={isHighlighted} key={course.id}>
