@@ -39,6 +39,11 @@ const MainContent = styled.div`
   margin-left: ${(props: Props) =>
     props.showSideBar ?
       `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
+  ${media.tablet`
+    margin-left: ${(props: Props) =>
+      props.showSideBar ?
+        `${props.theme.tabletSideBarMaxWidth + 48}px` : '0px'};
+  `}
   ${media.phone`
     padding-top: ${(props: Props) => props.theme.mobileNavBarHeight + 30}px;
     margin-left: 0;

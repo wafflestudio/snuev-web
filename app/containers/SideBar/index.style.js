@@ -8,6 +8,9 @@ export const SideBarWrapper = styled.aside`
   padding-top: 20px;
   margin-top: ${(props) => props.theme.navBarHeight}px;
   overflow: auto;
+  ${media.tablet`
+    width: ${(props) => props.theme.tabletSideBarMaxWidth}px;
+  `}
   ${media.phone`
     width: 100%;
     height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);

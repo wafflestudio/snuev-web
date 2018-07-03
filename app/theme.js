@@ -3,6 +3,7 @@ const theme = {
   navBarHeight: 70,
   mobileNavBarHeight: 120,
   sideBarMaxWidth: 300,
+  tabletSideBarMaxWidth: 200,
   color: {
     primary: '#4f48c4',
     black: '#4a4a4a',
@@ -40,6 +41,16 @@ const theme = {
     score1: 48,
     score2: 34,
     score3: 26,
+    tablet: {
+      header1: 30,
+      header2: 24,
+      header3: 15,
+      body1: 15,
+      body2: 12,
+      score1: 36,
+      score2: 26,
+      score3: 20,
+    },
     mobile: {
       header1: 24,
       header2: 22,
