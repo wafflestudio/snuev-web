@@ -6,6 +6,7 @@ import { Map } from 'immutable';
 import { parseSemesterSeason, parseDate } from '../../utils/parse';
 
 import messages from './messages';
+import { typo } from '../../style-utils';
 
 type Theme = {
   fontFamily: {
@@ -30,9 +31,7 @@ export const EvaluationScoreLabel = styled.div`
 `;
 
 export const EvaluationScoreValue = styled.div`
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
-  font-size: ${(props: { theme: Theme }) => props.theme.fontSize.score2}px;
-  color: ${(props: { theme: Theme }) => props.theme.color.score2};
+  ${typo.score2}
   margin-right: .1em;
 `;
 
@@ -42,16 +41,13 @@ const DateText = styled.div`
 `;
 
 const SemesterText = styled.div`
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
-  font-size: 15px;
+  ${typo.body1}
   text-align: left;
   color: #111111;
 `;
 
 const ReviewText = styled.p`
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props: { theme: Theme }) => props.theme.fontSize.body1}px;
-  color: ${(props: { theme: Theme }) => props.theme.color.body1};
+  ${typo.body1}
   margin: 20px 0;
   padding-left: 20px;
   border-left: 1px solid rgba(0,0,0,.2);

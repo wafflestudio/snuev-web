@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { media } from '../../style-utils';
 import LogoImage from '../../images/img-gnb-logo.png';
+import { media, typo } from '../../style-utils';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search.png';
 import IconBookmark from '../../images/ic-bookmark.png';
@@ -72,8 +72,7 @@ export const NavMenu = styled.ul`
     margin-left: 40px;
 
     button, a, span {
-      font-size: ${(props) => props.theme.fontSize.body2}px;
-      color: ${(props) => props.theme.color.body2};
+      ${typo.body2}
     }
 
     &.bookmarks {

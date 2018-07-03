@@ -39,6 +39,16 @@ const theme = {
     score1: 48,
     score2: 34,
     score3: 26,
+    mobile: {
+      header1: 24,
+      header2: 22,
+      header3: 15,
+      body1: 15,
+      body2: 13,
+      score1: 38,
+      score2: 28,
+      score3: 26,
+    },
   },
   fontFamily: {
     sansSerif: '"Noto Sans KR", "Noto Sans CJK KR", "Apple SD Gothic Neo", "Malgun Gothic", Roboto, Noto, sans-serif',
