@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
+import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
@@ -82,7 +83,7 @@ export class LecturePage extends React.Component<Props> {
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
         <Background>
-          Loading... or error
+          <ClipLoader />
         </Background>
       );
     }
