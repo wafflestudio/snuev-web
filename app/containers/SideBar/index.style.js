@@ -8,6 +8,12 @@ export const SideBarWrapper = styled.aside`
   padding-top: 20px;
   margin-top: ${(props) => props.theme.navBarHeight}px;
   overflow: auto;
+  ${media.phone`
+    width: 100%;
+    height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);
+    margin-top: ${(props) => props.theme.mobileNavBarHeight}px;
+    left: -100%;
+  `}
 `;
 
 export const NoResultWrapper = styled.div`

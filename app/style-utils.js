@@ -1,9 +1,9 @@
 import { css } from 'styled-components';
 
 const sizes = {
-  desktop: 1060,
-  tablet: 768,
-  phone: 376,
+  desktop: 1200,
+  tablet: 1060,
+  phone: 768,
 };
 
 export const media = Object.keys(sizes).reduce((acc, label) => { /* eslint no-param-reassign: ["error", { "props": false }] */

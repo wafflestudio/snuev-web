@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import LogoImage from '../../images/img-gnb-logo.png';
 import { media, typo } from '../../style-utils';
+import LogoImage from '../../images/img-gnb-logo@2x.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
-import IconSearch from '../../images/ic-search.png';
+import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
 
 export const NavBarWrapper = styled.header`
@@ -15,23 +15,40 @@ export const NavBarWrapper = styled.header`
   width: 100%;
   height: ${(props) => props.theme.navBarHeight}px;
   background-color: rgba(255,255,255,.97);
-  border-bottom: solid 1px rgba(0,0,0,.2);
+  border-bottom: solid 1px rgba(0,0,0,0.1);
   z-index: 1;
+  ${media.phone`
+    height: ${(props) => props.theme.mobileNavBarHeight}px;
+
+    .navMenuText {
+      display: none;
+    }
+  `}
 `;
 
 export const NavBarInnerWrapper = styled.div`
   max-width: ${(props) => props.theme.appMaxWidth}px;
   margin: 0 auto;
   height: 100%;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 110px 260px auto;
+  grid-column-gap: 20px;
+  grid-template-areas: "logo search navmenu";
+  justify-content: stretch;
   align-items: center;
   ${media.desktop`
     margin: 0 30px;
   `}
+  ${media.phone`
+    grid-template-columns: 110px auto;
+    grid-template-areas:
+      "logo navmenu"
+      "search search";
+  `}
 `;
 
 const LogoFrame = styled.img`
+  grid-area: logo;
   height: 29px;
 `;
 
@@ -46,12 +63,8 @@ const SnuttLogoFrame = styled.img`
 export const SnuttLogo = (props) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
 
 export const Search = styled.div`
-  flex-basis: 30%;
-  flex-grow: 1;
-  flex-shrink: 0;
+  grid-area: search;
   box-sizing: border-box;
-  max-width: 260px;
-  margin: 0 20px;
   padding-left: 35px;
   line-height: 38px;
   height: 38px;
@@ -61,7 +74,7 @@ export const Search = styled.div`
 `;
 
 export const NavMenu = styled.ul`
-  flex-direction: row;
+  grid-area: navmenu;
   display: flex;
   margin: 0 0 0 auto;
   line-height: 40px;

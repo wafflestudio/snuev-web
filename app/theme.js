@@ -1,6 +1,7 @@
 const theme = {
   appMaxWidth: 1060,
-  navBarHeight: 80,
+  navBarHeight: 70,
+  mobileNavBarHeight: 120,
   sideBarMaxWidth: 300,
   color: {
     primary: '#4f48c4',
