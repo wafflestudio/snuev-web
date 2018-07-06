@@ -15,7 +15,10 @@ export const SideBarWrapper = styled.aside`
     width: 100%;
     height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);
     margin-top: ${(props) => props.theme.mobileNavBarHeight}px;
-    left: -100%;
+    padding: 0 30px;
+    .focusLecture & {
+      display: none;
+    }
   `}
 `;
 

@@ -4,6 +4,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
+import classNames from 'classnames';
 
 import NavBar from '../components/NavBar';
 import SideBar from '../containers/SideBar';
@@ -56,7 +57,7 @@ const mapStateToProps = createStructuredSelector({
 
 export default (Component: React.Component) => connect(mapStateToProps)(
   (props: Props) => (
-    <Wrapper>
+    <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })}>
       <NavBar />
       {props.appLayout.get('showSideBar') &&
         <SideBar />

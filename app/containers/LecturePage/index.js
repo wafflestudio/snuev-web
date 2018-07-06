@@ -8,6 +8,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from './reducer';
+import { Creators as GlobalActions } from '../../global/reducer';
 import messages from './messages';
 
 import EvaluationForm from './EvaluationForm';
@@ -60,11 +61,13 @@ export class LecturePage extends React.Component<Props> {
 
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
+    this.props.focusLecture();
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.params.lectureId !== this.props.params.lectureId) {
       this.props.getLecture(this.props.params.lectureId);
+      this.props.focusLecture();
     }
   }
 
@@ -182,6 +185,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
+  focusLecture: () => dispatch(GlobalActions.focusLecture()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

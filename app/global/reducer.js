@@ -22,6 +22,8 @@ export const { Types, Creators } = createActions({
   searchLecturesFailure: ['error'],
   showSideBar: null,
   hideSideBar: null,
+  focusLecture: null,
+  blurLecture: null,
 });
 
 /* ------------- Initial State ------------- */
@@ -29,6 +31,7 @@ export const { Types, Creators } = createActions({
 export const initialState = fromJS({
   appLayout: {
     showSideBar: false,
+    focusLecture: false,
   },
   entities: null,
   keyword: null,
@@ -109,6 +112,12 @@ export const showSideBar = (state) =>
 export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
+export const focusLecture = (state) =>
+  state.setIn(['appLayout', 'focusLecture'], true);
+
+export const blurLecture = (state) =>
+  state.setIn(['appLayout', 'focusLecture'], false);
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
@@ -129,4 +138,6 @@ export default createReducer(initialState, {
   [Types.SEARCH_LECTURES_FAILURE]: searchLecturesFailure,
   [Types.SHOW_SIDE_BAR]: showSideBar,
   [Types.HIDE_SIDE_BAR]: hideSideBar,
+  [Types.FOCUS_LECTURE]: focusLecture,
+  [Types.BLUR_LECTURE]: blurLecture,
 });
