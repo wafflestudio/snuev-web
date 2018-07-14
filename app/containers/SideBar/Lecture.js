@@ -31,6 +31,7 @@ export default ({ lecture }: Props) => (
         <LectureMetaEntry>{lecture.getIn(['professor', 'name'])} 교수</LectureMetaEntry>
       </LectureMeta>
       <LectureStats>
+        <LectureStatEntry className="viewCount">{lecture.get('viewCount')}</LectureStatEntry>
         <LectureStatEntry className="evaluationsCount">{lecture.get('evaluationsCount')}</LectureStatEntry>
       </LectureStats>
     </LectureDetail>

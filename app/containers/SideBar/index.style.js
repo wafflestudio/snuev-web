@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { media, typo } from '../../style-utils';
+import IconView from '../../images/ic-view@2x.png';
 import IconContent from '../../images/ic-content@2x.png';
 
 export const SideBarWrapper = styled.aside`
@@ -102,11 +103,19 @@ export const LectureMetaEntry = styled.div`
 
 export const LectureStats = styled.div`
   margin-top: 6px;
+  display: flex;
 `;
 
 export const LectureStatEntry = styled.div`
   ${typo.body2}
   color: rgba(0,0,0,0.4);
+  margin-right: 15px;
+
+  &.viewCount {
+    padding-left: 25px;
+    background: url(${IconView}) no-repeat 0% 50%;
+    background-size: 20px 20px;
+  }
 
   &.evaluationsCount {
     padding-left: 25px;

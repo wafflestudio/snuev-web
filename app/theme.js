@@ -67,7 +67,7 @@ const theme = {
     number: '\'Lato\', sans-serif',
   },
   fontWeight: {
-    bold: 'bold',
+    bold: 500,
   },
 };
 

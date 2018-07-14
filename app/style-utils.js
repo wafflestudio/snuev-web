@@ -42,6 +42,7 @@ export const typo = {
   header3: css`
     font-family: ${(props) => props.theme.fontFamily.sansSerif};
     font-size: ${(props) => props.theme.fontSize.header3}px;
+    font-weight: ${(props) => props.theme.fontWeight.bold};
     color: ${(props) => props.theme.color.header3};
     ${media.tablet`
       font-size: ${(props) => props.theme.fontSize.tablet.header3}px;
