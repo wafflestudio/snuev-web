@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
+import { ClipLoader } from 'react-spinners';
 
 import {
   makeSelectLectures,
@@ -28,7 +29,7 @@ const SideBar = ({ lectures, location, global }: Props) => {
   if (global.getIn(['lectures', 'isFetching'])) {
     return (
       <SideBarWrapper>
-        <div>Loading...</div>
+        <ClipLoader />
       </SideBarWrapper>
     );
   } else if (lectures.size === 0) {

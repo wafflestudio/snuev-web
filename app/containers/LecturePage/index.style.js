@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
+import { typo, media } from '../../style-utils';
 import CreateIconImage from '../../images/ic-write-big.png';
 
 Modal.setAppElement('#app');
@@ -42,29 +43,49 @@ export const LectureWrapper = styled.div`
 `;
 
 export const LectureName = styled.div`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header1}px;
-  color: ${(props) => props.theme.color.header1};
+  ${typo.header1}
   font-weight: 500;
   text-align: left;
 `;
 
 export const LectureInfo = styled.div`
   display: flex;
+  flex-direction: row;
   margin-top: 40px;
+  ${media.tablet`
+    margin-top: 10px;
+    flex-direction: column;
+  `}
 `;
 
 export const LectureBasicInfo = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: auto;
+  ${media.tablet`
+    flex-direction: row;
+  `}
 `;
 
 export const LectureInfoText = styled.span`
+  ${typo.body2}
   margin-bottom: 10px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.body2}px;
-  color: ${(props) => props.theme.color.body2};
+  ${media.tablet`
+    margin-right: 8px;
+    flex-direction: row;
+  `}
+`;
+
+export const LectureScores = styled.div`
+  display: flex;
+  flex-direction: row;
+  ${media.tablet`
+    margin-top: 20px;
+    justify-content: flex-end;
+  `}
+  ${media.phone`
+    justify-content: center;
+  `}
 `;
 
 export const LectureScore = styled.span`
@@ -72,18 +93,22 @@ export const LectureScore = styled.span`
   flex-direction: column;
   margin-left: 48px;
   text-align: center;
+  ${media.tablet`
+    margin-left: 0;
+    flex-basis: 80px;
+  `}
 `;
 
 export const LectureScoreLabel = styled.span`
+  ${typo.body1}
 `;
 
 export const LectureScoreValue = styled.span`
-  font-family: ${(props) => props.theme.fontFamily.number};
-  font-size: ${(props) => props.theme.fontSize.score1}px;
-  color: ${(props) => props.theme.color.score1};
+  ${typo.score1}
 `;
 
 export const LectureSummary = styled.p`
+  ${typo.body2}
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   margin: 30px 0 0 0;
 `;
@@ -95,9 +120,7 @@ export const EvaluationsWrapper = styled.div`
 `;
 
 export const EvaluationsHeader = styled.span`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header2}px;
-  color: ${(props) => props.theme.color.header2};
+  ${typo.header2}
   font-weight: 500;
 `;
 

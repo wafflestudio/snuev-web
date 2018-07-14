@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import qs from 'query-string';
 import { Map } from 'immutable';
+import { ClipLoader } from 'react-spinners';
 import { Creators as Actions } from './reducer';
 import { makeSelectPage } from './selectors';
 import { getAuthToken } from '../../services/localStorage';
@@ -24,7 +25,7 @@ export class ConfirmEmailPage extends React.PureComponent<Props> {
     if (this.props.page.getIn(['confirmEmail', 'isFetching'])) {
       return (
         <div>
-          로딩중입니다.
+          <ClipLoader />
         </div>
       );
     }

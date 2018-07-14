@@ -60,6 +60,7 @@ export const initialState = fromJS({
     ids: [],
     isFetching: false,
     error: null,
+    performedInitialSearch: false,
   },
   bookmarks: {},
   bookmarkedLectures: null,
@@ -105,7 +106,7 @@ export const searchCoursesFailure = (state, { error }) =>
   state.setIn(['courses', 'ids'], []).mergeDeep({ courses: { isFetching: false, error } });
 
 export const searchLecturesRequest = (state) =>
-  state.setIn(['lectures', 'ids'], []).mergeDeep({ lectures: { isFetching: true, error: null } });
+  state.setIn(['lectures', 'performedInitialSearch'], true).mergeDeep({ lectures: { isFetching: true, error: null } });
 
 export const searchLecturesSuccess = (state, { ids }) =>
   state.setIn(['lectures', 'ids'], ids).mergeDeep({ lectures: { isFetching: false, error: null } });

@@ -18,6 +18,7 @@ import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
+import { ClipLoader } from 'react-spinners';
 
 import { Creators as GlobalActions } from '../../global/reducer';
 import { getAuthToken } from '../../services/localStorage';
@@ -53,7 +54,7 @@ class App extends React.PureComponent<Props> {
     if ((getAuthToken() && !user) || global.getIn(['user', 'isFetching'])) {
       return (
         <div>
-          Loading Screen
+          <ClipLoader />
         </div>
       );
     }
