@@ -53,6 +53,7 @@ export const typo = {
   score1: css`
     font-family: ${(props) => props.theme.fontFamily.number};
     font-size: ${(props) => props.theme.fontSize.score1}px;
+    font-weight: 300;
     color: ${(props) => props.theme.color.score1};
     ${media.tablet`
       font-size: ${(props) => props.theme.fontSize.tablet.score1}px;
@@ -64,6 +65,7 @@ export const typo = {
   score2: css`
     font-family: ${(props) => props.theme.fontFamily.number};
     font-size: ${(props) => props.theme.fontSize.score2}px;
+    font-weight: 300;
     color: ${(props) => props.theme.color.score2};
     ${media.tablet`
       font-size: ${(props) => props.theme.fontSize.tablet.score2}px;
@@ -75,6 +77,7 @@ export const typo = {
   score3: css`
     font-family: ${(props) => props.theme.fontFamily.number};
     font-size: ${(props) => props.theme.fontSize.score3}px;
+    font-weight: 300;
     color: ${(props) => props.theme.color.score3};
     ${media.tablet`
       font-size: ${(props) => props.theme.fontSize.tablet.score3}px;

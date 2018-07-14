@@ -10,6 +10,8 @@ import {
   LectureName,
   LectureMeta,
   LectureMetaEntry,
+  LectureStats,
+  LectureStatEntry,
 } from './index.style';
 
 type Props = {
@@ -28,6 +30,9 @@ export default ({ lecture }: Props) => (
         </LectureMetaEntry>
         <LectureMetaEntry>{lecture.getIn(['professor', 'name'])} 교수</LectureMetaEntry>
       </LectureMeta>
+      <LectureStats>
+        <LectureStatEntry className="evaluationsCount">{lecture.get('evaluationsCount')}</LectureStatEntry>
+      </LectureStats>
     </LectureDetail>
   </LectureWrapper>
 );

@@ -14,7 +14,7 @@ const theme = {
     grayBackground2: '#e3e5ee',
     header1: 'rgba(0,0,0,.7)',
     header2: 'rgba(0,0,0,.7)',
-    header3: 'rgba(0,0,0,.8)',
+    header3: 'rgba(0,0,0,.6)',
     body1: 'rgba(0,0,0,.8)',
     body2: 'rgba(0,0,0,.6)',
     score1: 'rgba(0,0,0,.8)',
@@ -54,7 +54,7 @@ const theme = {
     mobile: {
       header1: 24,
       header2: 22,
-      header3: 15,
+      header3: 14,
       body1: 15,
       body2: 13,
       score1: 38,

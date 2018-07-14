@@ -47,7 +47,13 @@ const MainContent = styled.div`
   `}
   ${media.phone`
     padding-top: ${(props: Props) => props.theme.mobileNavBarHeight + 30}px;
+    padding-left: 30px;
+    padding-right: 30px;
     margin-left: 0;
+
+    .focusLecture & {
+      padding-top: 60px;
+    }
   `}
 `;
 

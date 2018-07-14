@@ -99,7 +99,7 @@ export const LectureScore = styled.span`
 `;
 
 export const LectureScoreLabel = styled.span`
-  ${typo.body1}
+  ${typo.header3}
 `;
 
 export const LectureScoreValue = styled.span`
@@ -116,6 +116,9 @@ export const EvaluationsWrapper = styled.div`
   padding-top: 45px;
   display: flex;
   justify-content: space-between;
+  ${media.phone`
+    padding-top: 20px;
+  `}
 `;
 
 export const EvaluationsHeader = styled.span`
