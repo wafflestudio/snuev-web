@@ -42,7 +42,7 @@ export class NavBar extends React.PureComponent<Props> {
           <NavMenu>
             <li>
               <a href="https://snutt.kr">
-                <SnuttLogo alt="SNUTT" /><FormattedMessage {...messages.navItems.snutt} />
+                <SnuttLogo alt="SNUTT" /><span className="navMenuText"><FormattedMessage {...messages.navItems.snutt} /></span>
               </a>
             </li>
             {user &&

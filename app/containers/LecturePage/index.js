@@ -5,6 +5,7 @@ import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 import InfiniteScroll from 'react-infinite-scroller';
+import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from './reducer';
 import messages from './messages';
@@ -22,6 +23,7 @@ import {
   Background,
   EvaluationFormModal,
   LectureName,
+  LectureScores,
   LectureScore,
   LectureSummary,
   LectureInfoText,
@@ -82,7 +84,7 @@ export class LecturePage extends React.Component<Props> {
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
         <Background>
-          Loading... or error
+          <ClipLoader />
         </Background>
       );
     }
@@ -116,18 +118,20 @@ export class LecturePage extends React.Component<Props> {
                 {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
               </LectureInfoText>
             </LectureBasicInfo>
-            <LectureScore>
-              <LectureScoreLabel>{messages.score}</LectureScoreLabel>
-              <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
-            </LectureScore>
-            <LectureScore>
-              <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
-              <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
-            </LectureScore>
-            <LectureScore>
-              <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
-              <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
-            </LectureScore>
+            <LectureScores>
+              <LectureScore>
+                <LectureScoreLabel>{messages.score}</LectureScoreLabel>
+                <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
+              </LectureScore>
+              <LectureScore>
+                <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
+                <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
+              </LectureScore>
+              <LectureScore>
+                <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
+                <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
+              </LectureScore>
+            </LectureScores>
           </LectureInfo>
           <LectureSummary>
             영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가 다루어질 수 있다.

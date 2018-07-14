@@ -7,6 +7,7 @@ import ArrowLeftIconImage from '../../images/ic-arrow-left.png';
 import EmailIconImage from '../../images/img-email.png';
 
 import SearchIconImage from '../../images/ic-search.png';
+import { typo } from '../../style-utils';
 
 export const Background = styled.div`
   background-color: ${(props) => props.theme.color.grayBackground1};
@@ -49,18 +50,16 @@ const EmailIconFrame = styled.img`
 export const EmailIcon = (props) => <EmailIconFrame src={EmailIconImage} {...props} />;
 
 export const TitleText = styled.p`
+  ${typo.header1}
   width: 386px;
   height: 54px;
   opacity: 0.9;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header1}px;
   text-align: center;
 `;
 
 export const BodyText = styled.p`
+  ${typo.header3}
   width: 660px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header3}px;
   text-align: center;
 `;
 
@@ -75,8 +74,7 @@ export const EmailContainer = styled.div`
 `;
 
 export const EmailText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header3}px;
+  ${typo.header3}
   text-align: center;
 `;
 
@@ -118,8 +116,7 @@ const SignUpIconFrame = styled.img`
 export const SignUpIcon = (props) => <SignUpIconFrame src={SignUpIconImage} {...props} />;
 
 export const CreateAccountText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header1}px;
+  ${typo.header1}
   text-align: center;
 `;
 
@@ -142,14 +139,13 @@ export const ShortInput = Input.extend`
 `;
 
 export const EmailDomainText = styled.p`
+  ${typo.header3}
   width: 100px;
   height: 44px;
   line-height: 42px;
   background-color: ${(props) => props.theme.color.white};
   border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
   margin-top: 20px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.header3}px;
   color: ${(props) => props.theme.color.hint};
 `;
 

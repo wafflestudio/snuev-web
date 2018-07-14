@@ -26,6 +26,12 @@ const Wrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
   margin: 0 auto;
+  ${media.desktop`
+    margin: 0 30px;
+  `}
+  ${media.phone`
+    margin: 0;
+  `}
 `;
 
 const MainContent = styled.div`
@@ -33,6 +39,15 @@ const MainContent = styled.div`
   margin-left: ${(props: Props) =>
     props.showSideBar ?
       `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
+  ${media.tablet`
+    margin-left: ${(props: Props) =>
+      props.showSideBar ?
+        `${props.theme.tabletSideBarMaxWidth + 48}px` : '0px'};
+  `}
+  ${media.phone`
+    padding-top: ${(props: Props) => props.theme.mobileNavBarHeight + 30}px;
+    margin-left: 0;
+  `}
 `;
 
 const mapStateToProps = createStructuredSelector({
