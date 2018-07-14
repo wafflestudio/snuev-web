@@ -26,9 +26,6 @@ const Wrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
   margin: 0 auto;
-  ${media.desktop`
-    margin: 0 30px;
-  `}
 `;
 
 const MainContent = styled.div`

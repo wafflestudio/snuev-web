@@ -12,6 +12,18 @@ import {
 import { Creators as Actions } from './reducer';
 import withBars from '../../services/withBars';
 import Evaluation from './Evaluation';
+import {
+  MainSearchBg,
+  MainSearchBgAbsoluteWrapper,
+  MainSearchBgRelativeWrapper,
+  MainPageContent,
+  SearchInput,
+  RecentEvaluations,
+  RecentEvaluationsTitle,
+  RecentEvaluationsContent,
+  EvaluationCard,
+  EvaluationCardTitles,
+} from './index.style';
 
 type LectureType = {
 
@@ -49,11 +61,43 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
             { name: 'description', content: 'Description of MainPage' },
           ]}
         />
-        {this.props.mostLikedEvaluations &&
+        <MainSearchBgAbsoluteWrapper>
+          <MainSearchBgRelativeWrapper>
+            <MainSearchBg />
+            <SearchInput placeholder="강의명, 교수명, 학과명으로 검색해보세요" />
+          </MainSearchBgRelativeWrapper>
+        </MainSearchBgAbsoluteWrapper>
+        <MainPageContent>
+          <RecentEvaluations>
+            <RecentEvaluationsTitle>최근 강의평</RecentEvaluationsTitle>
+            <RecentEvaluationsContent>
+              <div className="row">
+                <div className="one-third column">
+                  <EvaluationCard>
+                    <EvaluationCardTitles>
+                      영어 대중소설 읽기<div>2017 봄 학기</div>
+                    </EvaluationCardTitles>
+                  </EvaluationCard>
+                </div>
+                <div className="one-third column">
+                  <EvaluationCard>
+                    asdf
+                  </EvaluationCard>
+                </div>
+                <div className="one-third column">
+                  <EvaluationCard>
+                    asdf
+                  </EvaluationCard>
+                </div>
+              </div>
+            </RecentEvaluationsContent>
+          </RecentEvaluations>
+          {this.props.mostLikedEvaluations &&
           this.props.mostLikedEvaluations.map((evaluation: EvaluationType) => (
             <Evaluation key={evaluation.id} evaluation={evaluation} />
           ))
         }
+        </MainPageContent>
       </div>
     );
   }

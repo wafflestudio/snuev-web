@@ -1,9 +1,11 @@
 import { injectGlobal } from 'styled-components';
+import Skeleton from './skeleton.css';
 
 /* eslint no-unused-expressions: 0 */
 injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Lato:300');
   @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
+  @import url('${Skeleton}');
 
   html,
   body {
