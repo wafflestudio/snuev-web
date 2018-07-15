@@ -76,7 +76,6 @@ export function* watchSearchLecturesRequest() {
 export function* searchLectures({ query }) {
   yield addQuery({ q: query });
   yield put(Actions.showSideBar());
-  yield put(Actions.blurLecture());
   try {
     const response = yield request.get(`/v1/lectures/search?q=${query}`);
     yield put(Actions.normalizeData(response.data));

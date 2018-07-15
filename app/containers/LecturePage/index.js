@@ -37,6 +37,7 @@ import {
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
+  BackToList,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -106,6 +107,7 @@ export class LecturePage extends React.Component<Props> {
           <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
         <LectureWrapper>
+          <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
           <LectureName>
             {lecture.get('course').get('name')}
           </LectureName>
@@ -186,6 +188,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
   focusLecture: () => dispatch(GlobalActions.focusLecture()),
+  blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

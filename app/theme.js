@@ -56,7 +56,7 @@ const theme = {
       header2: 22,
       header3: 14,
       body1: 15,
-      body2: 13,
+      body2: 14,
       score1: 38,
       score2: 28,
       score3: 26,
