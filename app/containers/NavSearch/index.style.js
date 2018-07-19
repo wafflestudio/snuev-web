@@ -14,9 +14,9 @@ export const SearchInput = styled.input`
 export const AutoCompleteMenu = styled.div`
   background-color: white;
   border: solid 1px #ccc;
-  z-index: 10;
   position: relative;
   margin-left: -35px;
+  margin-right: -45px;
   max-height: 300px;
   overflow-y: auto;
 `;

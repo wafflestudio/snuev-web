@@ -19,6 +19,7 @@ import {
   makeSelectPage,
   makeSelectLecture,
   makeSelectEvaluations,
+  makeSelectVotes,
 } from './selectors';
 import {
   EvaluationsWrapper,
@@ -41,7 +42,6 @@ import {
 } from './index.style';
 import withBars from '../../services/withBars';
 
-
 type Props = {
   user: Map<string, any>,
   page: Map<string, any>,
@@ -49,12 +49,15 @@ type Props = {
   evaluations: List<Map<string, any>>,
   params: { lectureId: string },
   bookmarks: Map<string, any>,
+  votes: Map<string, any>,
   getLecture: (id: string) => void,
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
   bookmark: (id: string) => void,
   deleteBookmark: (id: string) => void,
+  vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
 
 export class LecturePage extends React.Component<Props> {
@@ -86,6 +89,7 @@ export class LecturePage extends React.Component<Props> {
       lecture,
       evaluations,
       bookmarks,
+      votes,
     } = this.props;
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
@@ -167,14 +171,17 @@ export class LecturePage extends React.Component<Props> {
         >
           <div>
             {this.props.evaluations &&
-            <div>
-              {evaluations.map((evaluation: Object, index: number) => (
-                <Evaluation
-                  key={index}
-                  evaluation={evaluation}
-                />
-              ))}
-            </div>
+              evaluations.map((evaluation: Object, index: number) => (
+                <div key={index}>
+                  <Evaluation
+                    lecture={lecture}
+                    evaluation={evaluation}
+                    votes={votes}
+                    vote={this.props.vote}
+                    deleteVote={this.props.deleteVote}
+                  />
+                </div>
+              ))
             }
           </div>
         </InfiniteScroll>
@@ -189,6 +196,7 @@ const mapStateToProps = createStructuredSelector({
   lecture: makeSelectLecture(),
   evaluations: makeSelectEvaluations(),
   bookmarks: makeSelectBookmarks(),
+  votes: makeSelectVotes(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -198,6 +206,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
   bookmark: (id: number) => dispatch(GlobalActions.bookmarkRequest(id)),
   deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
+  vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.voteRequest(lectureId, evaluationId, isUpvote)),
+  deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

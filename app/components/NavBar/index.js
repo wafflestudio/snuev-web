@@ -5,27 +5,47 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import { browserHistory, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
+import { Map } from 'immutable';
 import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
-import { makeSelectUser } from '../../global/selectors';
-import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper } from './index.style';
+import { makeSelectUser, makeSelectDepartments, makeSelectAppLayout } from '../../global/selectors';
+import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper, SearchFilterIcon, LogoutButton } from './index.style';
 
 type Props = {
   user: any,
+  departments: Map<string, any>,
+  appLayout: Map<string, any>,
   signOut: () => void,
+  getDepartments: () => void,
+  showSearchFilter: () => void,
+  hideSearchFilter: () => void,
 };
 
 export class NavBar extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
     (this: any).handleLogOut = this.handleLogOut.bind(this);
+    (this: any).handleSearchFilter = this.handleSearchFilter.bind(this);
   }
 
-  handleLogOut(event: SyntheticEvent<HTMLButtonElement>) {
+  componentDidMount() {
+    this.props.getDepartments();
+  }
+
+  handleLogOut(event: Event) {
     event.preventDefault();
     this.props.signOut();
     browserHistory.push('/');
+  }
+
+  handleSearchFilter(event: Event) {
+    event.preventDefault();
+    if (this.props.appLayout.get('showSearchFilter')) {
+      this.props.hideSearchFilter();
+    } else {
+      this.props.showSearchFilter();
+    }
   }
 
   render() {
@@ -38,6 +58,7 @@ export class NavBar extends React.PureComponent<Props> {
           </Link>
           <Search>
             <NavSearch />
+            <SearchFilterIcon onClick={this.handleSearchFilter} />
           </Search>
           <NavMenu>
             <li>
@@ -64,9 +85,9 @@ export class NavBar extends React.PureComponent<Props> {
                   </Link>
                 </li>
                 <li>
-                  <button onClick={this.handleLogOut}>
+                  <LogoutButton onClick={this.handleLogOut}>
                     <FormattedMessage {...messages.navItems.logout} />
-                  </button>
+                  </LogoutButton>
                 </li>
               </React.Fragment>
             }
@@ -86,10 +107,15 @@ export class NavBar extends React.PureComponent<Props> {
 
 const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
+  departments: makeSelectDepartments(),
+  appLayout: makeSelectAppLayout(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
   signOut: () => dispatch(Actions.signOut()),
+  getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
+  showSearchFilter: () => dispatch(Actions.showSearchFilter()),
+  hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

@@ -22,6 +22,8 @@ export const { Types, Creators } = createActions({
   searchLecturesFailure: ['error'],
   showSideBar: null,
   hideSideBar: null,
+  showSearchFilter: null,
+  hideSearchFilter: null,
   bookmarkRequest: ['id'],
   bookmarkSuccess: ['id'],
   bookmarkFailure: ['id', 'error'],
@@ -31,6 +33,14 @@ export const { Types, Creators } = createActions({
   getBookmarkedRequest: null,
   getBookmarkedSuccess: null,
   getBookmarkedFailure: ['error'],
+  setDepartmentFilter: ['department'],
+  removeDepartmentFilter: ['department'],
+  setSearchFilter: ['division', 'selection'],
+  removeSearchFilter: ['division', 'selection'],
+  resetSearchFilter: null,
+  getDepartmentsRequest: null,
+  getDepartmentsSuccess: null,
+  getDepartmentsFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -38,6 +48,7 @@ export const { Types, Creators } = createActions({
 export const initialState = fromJS({
   appLayout: {
     showSideBar: false,
+    showSearchFilter: false,
   },
   entities: null,
   keyword: null,
@@ -64,6 +75,61 @@ export const initialState = fromJS({
   },
   bookmarks: {},
   bookmarkedLectures: null,
+  searchFilter: {
+    departments: {},
+    academicYear: {
+      first: false,
+      second: false,
+      third: false,
+      fourth: false,
+      masters: false,
+      doctorate: false,
+      combinedMastersAndDoctorate: false,
+    },
+    credit: {
+      one: false,
+      two: false,
+      three: false,
+      four: false,
+    },
+    courseClassification: {
+      subjectForLiberalEducation: false,
+      equisiteSubjectForMajor: false,
+      electiveSubjectForMajor: false,
+      electiveGeneralSubject: false,
+      subjectForTeachingCertification: false,
+      readingAndResearch: false,
+      graduateCourses: false,
+      undergraduateCourses: false,
+    },
+    academicFoundations: {
+      criticalThinkingAndWriting: false,
+      foreignLanguages: false,
+      mathematicalSciences: false,
+      naturalSciences: false,
+      computerAndInforationScience: false,
+    },
+    worldsOfKnowledge: {
+      languageAndLiterature: false,
+      cultureAndArt: false,
+      historyAndPhilosophy: false,
+      politicsAndEconomy: false,
+      humansAndSociety: false,
+      natureAndTechnology: false,
+      lifeAndEnvironment: false,
+    },
+    generalEducationElectives: {
+      physicalEducation: false,
+      artPractice: false,
+      collegeLifeAndLeadership: false,
+      creativityAndConvergence: false,
+      koreaInTheWorld: false,
+    },
+  },
+  departments: {
+    isFetching: false,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
@@ -120,6 +186,12 @@ export const showSideBar = (state) =>
 export const hideSideBar = (state) =>
   state.setIn(['appLayout', 'showSideBar'], false);
 
+export const showSearchFilter = (state) =>
+  state.setIn(['appLayout', 'showSearchFilter'], true);
+
+export const hideSearchFilter = (state) =>
+  state.setIn(['appLayout', 'showSearchFilter'], false);
+
 export const bookmarkRequest = (state, { id }) =>
   state.setIn(['bookmarks', id], fromJS({ isFetching: true }));
 
@@ -137,6 +209,30 @@ export const deleteBookmarkSuccess = (state, { id }) =>
 
 export const deleteBookmarkFailure = (state, { id, error }) =>
   state.setIn(['bookmarks', id], fromJS({ isFetching: false, error }));
+
+export const setDepartmentFilter = (state, { department }) =>
+  state.setIn(['searchFilter', 'departments', department.get('id')], department.get('name'));
+
+export const removeDepartmentFilter = (state, { department }) =>
+  state.deleteIn(['searchFilter', 'departments', department.get('id')]);
+
+export const setSearchFilter = (state, { division, selection }) =>
+  state.setIn(['searchFilter', division, selection], true);
+
+export const removeSearchFilter = (state, { division, selection }) =>
+  state.setIn(['searchFilter', division, selection], false);
+
+export const resetSearchFilter = (state) =>
+  state.set('searchFilter', initialState.get('searchFilter'));
+
+export const getDepartmentsRequest = (state) =>
+  state.mergeDeep({ departments: { isFetching: true, error: null } });
+
+export const getDepartmentsSuccess = (state) =>
+  state.mergeDeep({ departments: { isFetching: false, error: null } });
+
+export const getDepartmentsFailure = (state, { error }) =>
+  state.mergeDeep({ departments: { isFetching: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -158,6 +254,8 @@ export default createReducer(initialState, {
   [Types.SEARCH_LECTURES_FAILURE]: searchLecturesFailure,
   [Types.SHOW_SIDE_BAR]: showSideBar,
   [Types.HIDE_SIDE_BAR]: hideSideBar,
+  [Types.SHOW_SEARCH_FILTER]: showSearchFilter,
+  [Types.HIDE_SEARCH_FILTER]: hideSearchFilter,
   [Types.BOOKMARK_REQUEST]: bookmarkRequest,
   [Types.BOOKMARK_SUCCESS]: bookmarkSuccess,
   [Types.BOOKMARK_FAILURE]: bookmarkFailure,
@@ -167,4 +265,12 @@ export default createReducer(initialState, {
   [Types.GET_BOOKMARKED_REQUEST]: bookmarkRequest,
   [Types.GET_BOOKMARKED_SUCCESS]: bookmarkSuccess,
   [Types.GET_BOOKMARKED_FAILURE]: bookmarkFailure,
+  [Types.SET_DEPARTMENT_FILTER]: setDepartmentFilter,
+  [Types.REMOVE_DEPARTMENT_FILTER]: removeDepartmentFilter,
+  [Types.SET_SEARCH_FILTER]: setSearchFilter,
+  [Types.REMOVE_SEARCH_FILTER]: removeSearchFilter,
+  [Types.RESET_SEARCH_FILTER]: resetSearchFilter,
+  [Types.GET_DEPARTMENTS_REQUEST]: getDepartmentsRequest,
+  [Types.GET_DEPARTMENTS_SUCCESS]: getDepartmentsSuccess,
+  [Types.GET_DEPARTMENTS_FAILURE]: getDepartmentsFailure,
 });

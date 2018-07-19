@@ -6,6 +6,7 @@ import LogoImage from '../../images/img-gnb-logo@2x.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
+import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
 
 export const NavBarWrapper = styled.header`
   top: 0;
@@ -68,9 +69,23 @@ export const Search = styled.div`
   padding-left: 35px;
   line-height: 38px;
   height: 38px;
-  border-bottom: solid 1px rgba(0,0,0,.6);
+  border-bottom: solid 1px rgba(0, 0, 0, .6);
   background: url(${IconSearch}) no-repeat 0% 50%;
   background-size: 30px 30px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const SearchFilterIcon = styled.button`
+  width: 35px;
+  height: 100%;
+  background: url(${DetailSearchImage}) no-repeat 100% 50%;
+  margin-left: 5px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const NavMenu = styled.ul`

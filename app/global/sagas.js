@@ -133,6 +133,23 @@ export function* getBookmarked() {
   }
 }
 
+export function* watchGetDepartmentsRequest() {
+  while (true) {
+    yield take(Types.GET_DEPARTMENTS_REQUEST);
+    yield call(getDepartments);
+  }
+}
+
+export function* getDepartments() {
+  try {
+    const response = yield request.get('/v1/departments');
+    yield put(Actions.getDepartmentsSuccess());
+    yield put(Actions.normalizeData(response.data));
+  } catch (error) {
+    yield put(Actions.getDepartmentsFailure(error.errors));
+  }
+}
+
 export default [
   watchSignInRequest,
   watchSignOut,
@@ -142,4 +159,5 @@ export default [
   watchBookmarkRequest,
   watchDeleteBookmarkRequest,
   watchGetBookmarkedRequest,
+  watchGetDepartmentsRequest,
 ];

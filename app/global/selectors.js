@@ -44,6 +44,16 @@ const makeSelectBookmarks = () => createSelector(
   (global) => global.get('bookmarks'),
 );
 
+const makeSelectSearchFilter = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('searchFilter'),
+);
+
+const makeSelectDepartments = () => createSelector(
+  makeSelectEntities(),
+  (entities) => denormalize(entities, 'departments', 'all'),
+);
+
 export {
   makeSelectGlobal,
   makeSelectAppLayout,
@@ -53,4 +63,6 @@ export {
   makeSelectLectures,
   makeSelectPrev,
   makeSelectBookmarks,
+  makeSelectSearchFilter,
+  makeSelectDepartments,
 };
