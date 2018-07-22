@@ -18,6 +18,7 @@ const messages = {
     header: '강의평',
   },
   leaveReview: '강의평 남기기',
+  backToList: '리스트로 돌아가기',
 };
 
 export default messages;

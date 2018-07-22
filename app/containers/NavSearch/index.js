@@ -55,10 +55,11 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
   handleSubmit(event: Event) {
     event.preventDefault();
     this.props.searchLectures(this.state.query);
+    this.props.blurLecture();
   }
 
   render() {
-    const { searchCourses, searchLectures } = this.props;
+    const { searchCourses, searchLectures, blurLecture } = this.props;
     const courses = this.props.courses.toJS();
 
     return (
@@ -68,6 +69,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             id: 'search-query',
             onFocus: () => searchCourses(this.state.query),
           }}
+          autoHighlight={false}
           wrapperStyle={{ diplay: 'block' }}
           renderInput={(({ ref, ...props }: { ref: any }) => <SearchInput innerRef={ref} {...props} />)} // eslint-disable-line react/no-unused-prop-types
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
@@ -80,6 +82,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
           onSelect={(query: string, course: { name: string }) => {
             this.setState({ query: course.name });
             searchLectures(course.name);
+            blurLecture();
           }}
           renderItem={(course: { id: string, name: string }, isHighlighted: boolean) => (
             <AutoCompleteItem active={isHighlighted} key={course.id}>
@@ -100,6 +103,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Function) => ({
   searchCourses: (query: string) => dispatch(GlobalActions.searchCoursesRequest(query)),
   searchLectures: (query: string) => dispatch(GlobalActions.searchLecturesRequest(query)),
+  blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavSearch));
