@@ -38,6 +38,7 @@ import {
   LectureScoreValue,
   LectureWrapper,
   BackToList,
+  PageWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -95,84 +96,86 @@ export class LecturePage extends React.Component<Props> {
       );
     }
     return (
-      <Background>
-        <Helmet
-          title="LecturePage"
-          meta={[
+      <PageWrapper>
+        <Background>
+          <Helmet
+            title="LecturePage"
+            meta={[
             { name: 'description', content: 'Description of Lecture Page' },
-          ]}
-        />
-        <EvaluationFormModal
-          isOpen={this.props.page.get('evaluationFormOpen')}
-        >
-          <EvaluationForm />
-          <CloseIcon onClick={this.props.closeEvaluationForm} />
-        </EvaluationFormModal>
-        <LectureWrapper>
-          <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
-          <LectureName>
-            {lecture.get('course').get('name')}
-          </LectureName>
-          <LectureInfo>
-            <LectureBasicInfo>
-              <LectureInfoText>
-                {messages.professor(lecture.get('professor').get('name'))}
-              </LectureInfoText>
-              <LectureInfoText>
-                {lecture.getIn(['course', 'department', 'name'])}
-              </LectureInfoText>
-              <LectureInfoText>
-                {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
-              </LectureInfoText>
-            </LectureBasicInfo>
-            <LectureScores>
-              <LectureScore>
-                <LectureScoreLabel>{messages.score}</LectureScoreLabel>
-                <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
-              </LectureScore>
-              <LectureScore>
-                <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
-                <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
-              </LectureScore>
-              <LectureScore>
-                <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
-                <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
-              </LectureScore>
-            </LectureScores>
-          </LectureInfo>
-          <LectureSummary>
+            ]}
+          />
+          <EvaluationFormModal
+            isOpen={this.props.page.get('evaluationFormOpen')}
+          >
+            <EvaluationForm />
+            <CloseIcon onClick={this.props.closeEvaluationForm} />
+          </EvaluationFormModal>
+          <LectureWrapper>
+            <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
+            <LectureName>
+              {lecture.get('course').get('name')}
+            </LectureName>
+            <LectureInfo>
+              <LectureBasicInfo>
+                <LectureInfoText>
+                  {messages.professor(lecture.get('professor').get('name'))}
+                </LectureInfoText>
+                <LectureInfoText>
+                  {lecture.getIn(['course', 'department', 'name'])}
+                </LectureInfoText>
+                <LectureInfoText>
+                  {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
+                </LectureInfoText>
+              </LectureBasicInfo>
+              <LectureScores>
+                <LectureScore>
+                  <LectureScoreLabel>{messages.score}</LectureScoreLabel>
+                  <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
+                </LectureScore>
+                <LectureScore>
+                  <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
+                  <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
+                </LectureScore>
+                <LectureScore>
+                  <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
+                  <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
+                </LectureScore>
+              </LectureScores>
+            </LectureInfo>
+            <LectureSummary>
             영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가 다루어질 수 있다.
           </LectureSummary>
-        </LectureWrapper>
-        <EvaluationsWrapper>
-          <EvaluationsHeader>
-            {messages.evaluation.header}
-          </EvaluationsHeader>
-          {(user && user.get('isConfirmed')) &&
-          <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-            <CreateIcon />
-          </LeaveReviewButton>
+          </LectureWrapper>
+          <EvaluationsWrapper>
+            <EvaluationsHeader>
+              {messages.evaluation.header}
+            </EvaluationsHeader>
+            {(user && user.get('isConfirmed')) &&
+            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+              <CreateIcon />
+            </LeaveReviewButton>
           }
-        </EvaluationsWrapper>
-        <InfiniteScroll
-          pageStart={0}
-          hasMore={page.getIn(['evaluations', 'hasMore'])}
-          loadMore={this.loadEvaluations}
-        >
-          <div>
-            {this.props.evaluations &&
+          </EvaluationsWrapper>
+          <InfiniteScroll
+            pageStart={0}
+            hasMore={page.getIn(['evaluations', 'hasMore'])}
+            loadMore={this.loadEvaluations}
+          >
             <div>
-              {evaluations.map((evaluation: Object, index: number) => (
-                <Evaluation
-                  key={index}
-                  evaluation={evaluation}
-                />
+              {this.props.evaluations &&
+              <div>
+                {evaluations.map((evaluation: Object, index: number) => (
+                  <Evaluation
+                    key={index}
+                    evaluation={evaluation}
+                  />
               ))}
-            </div>
+              </div>
             }
-          </div>
-        </InfiniteScroll>
-      </Background>
+            </div>
+          </InfiniteScroll>
+        </Background>
+      </PageWrapper>
     );
   }
 }

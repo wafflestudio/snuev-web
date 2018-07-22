@@ -17,10 +17,8 @@ type NoThemeProps = {
 
 export const Background = styled.div`
   display: flex;
-  padding-top: 30px;
   flex-direction: column;
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
-  margin: 0 auto;
 `;
 
 export const EvaluationFormModal = (props: NoThemeProps) => (
@@ -205,3 +203,9 @@ export const CloseIcon = styled.span`
   }
 `;
 
+export const PageWrapper = styled.div`
+  margin: 0 30px;
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+`;
