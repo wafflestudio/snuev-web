@@ -10,7 +10,7 @@ import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectUser, makeSelectDepartments, makeSelectAppLayout } from '../../global/selectors';
-import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper, SearchFilterIcon, LogoutButton } from './index.style';
+import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper, SearchFilterIcon } from './index.style';
 
 type Props = {
   user: any,
@@ -70,7 +70,9 @@ export class NavBar extends React.PureComponent<Props> {
               <React.Fragment>
                 <li className="bookmarks">
                   <button>
-                    <FormattedMessage {...messages.navItems.bookmarks} />
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.bookmarks} />
+                    </span>
                   </button>
                 </li>
                 <li>
@@ -85,9 +87,11 @@ export class NavBar extends React.PureComponent<Props> {
                   </Link>
                 </li>
                 <li>
-                  <LogoutButton onClick={this.handleLogOut}>
-                    <FormattedMessage {...messages.navItems.logout} />
-                  </LogoutButton>
+                  <button onClick={this.handleLogOut}>
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.logout} />
+                    </span>
+                  </button>
                 </li>
               </React.Fragment>
             }

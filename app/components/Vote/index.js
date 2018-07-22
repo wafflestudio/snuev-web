@@ -2,14 +2,10 @@
 import * as React from 'react';
 import { Map } from 'immutable';
 import {
-  UpvoteNormalButton,
-  UpvoteSelectedButton,
-  DownvoteNormalButton,
-  DownvoteSelectedButton,
-  UpvoteCountNormal,
-  UpvoteCountSelected,
-  DownvoteCountNormal,
-  DownvoteCountSelected,
+  UpvoteButton,
+  DownvoteButton,
+  UpvoteCount,
+  DownvoteCount,
   ButtonCountWrapper,
   VoteWrapper,
 } from './index.style';
@@ -124,72 +120,27 @@ export default class Vote extends React.PureComponent<Props, State> {
       votes,
     } = this.props;
 
-    if (this.state.votedState === votedState.up) {
-      return (
-        <VoteWrapper>
-          <ButtonCountWrapper>
-            <UpvoteSelectedButton
-              onClick={this.onPressUpvote}
-              disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
-            />
-            <UpvoteCountSelected>
-              {this.state.upvotesCount}
-            </UpvoteCountSelected>
-          </ButtonCountWrapper>
-          <ButtonCountWrapper>
-            <DownvoteNormalButton
-              onClick={this.onPressDownvote}
-              disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
-            />
-            <DownvoteCountNormal>
-              {this.state.downvotesCount}
-            </DownvoteCountNormal>
-          </ButtonCountWrapper>
-        </VoteWrapper>
-      );
-    } else if (this.state.votedState === votedState.down) {
-      return (
-        <VoteWrapper>
-          <ButtonCountWrapper>
-            <UpvoteNormalButton
-              onClick={this.onPressUpvote}
-              disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
-            />
-            <UpvoteCountNormal>
-              {this.state.upvotesCount}
-            </UpvoteCountNormal>
-          </ButtonCountWrapper>
-          <ButtonCountWrapper>
-            <DownvoteSelectedButton
-              onClick={this.onPressDownvote}
-              disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
-            />
-            <DownvoteCountSelected>
-              {this.state.downvotesCount}
-            </DownvoteCountSelected>
-          </ButtonCountWrapper>
-        </VoteWrapper>
-      );
-    }
     return (
       <VoteWrapper>
         <ButtonCountWrapper>
-          <UpvoteNormalButton
+          <UpvoteButton
+            votedState={this.state.votedState}
             onClick={this.onPressUpvote}
             disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
           />
-          <UpvoteCountNormal>
+          <UpvoteCount votedState={this.state.votedState}>
             {this.state.upvotesCount}
-          </UpvoteCountNormal>
+          </UpvoteCount>
         </ButtonCountWrapper>
         <ButtonCountWrapper>
-          <DownvoteNormalButton
+          <DownvoteButton
+            votedState={this.state.votedState}
             onClick={this.onPressDownvote}
             disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
           />
-          <DownvoteCountNormal>
+          <DownvoteCount votedState={this.state.votedState}>
             {this.state.downvotesCount}
-          </DownvoteCountNormal>
+          </DownvoteCount>
         </ButtonCountWrapper>
       </VoteWrapper>
     );

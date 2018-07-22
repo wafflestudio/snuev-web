@@ -41,6 +41,8 @@ export const { Types, Creators } = createActions({
   getDepartmentsRequest: null,
   getDepartmentsSuccess: null,
   getDepartmentsFailure: ['error'],
+  focusLecture: null,
+  blurLecture: null,
 });
 
 /* ------------- Initial State ------------- */
@@ -49,6 +51,7 @@ export const initialState = fromJS({
   appLayout: {
     showSideBar: false,
     showSearchFilter: false,
+    focusLecture: false,
   },
   entities: null,
   keyword: null,
@@ -233,6 +236,11 @@ export const getDepartmentsSuccess = (state) =>
 
 export const getDepartmentsFailure = (state, { error }) =>
   state.mergeDeep({ departments: { isFetching: false, error } });
+export const focusLecture = (state) =>
+  state.setIn(['appLayout', 'focusLecture'], true);
+
+export const blurLecture = (state) =>
+  state.setIn(['appLayout', 'focusLecture'], false);
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -273,4 +281,6 @@ export default createReducer(initialState, {
   [Types.GET_DEPARTMENTS_REQUEST]: getDepartmentsRequest,
   [Types.GET_DEPARTMENTS_SUCCESS]: getDepartmentsSuccess,
   [Types.GET_DEPARTMENTS_FAILURE]: getDepartmentsFailure,
+  [Types.FOCUS_LECTURE]: focusLecture,
+  [Types.BLUR_LECTURE]: blurLecture,
 });

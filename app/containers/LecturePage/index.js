@@ -39,6 +39,8 @@ import {
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
+  BackToList,
+  LectureNameBookmarkWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -58,6 +60,8 @@ type Props = {
   deleteBookmark: (id: string) => void,
   vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
   deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  focusLecture: () => void,
+  blurLecture: () => void,
 };
 
 export class LecturePage extends React.Component<Props> {
@@ -68,11 +72,13 @@ export class LecturePage extends React.Component<Props> {
 
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
+    this.props.focusLecture();
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.params.lectureId !== this.props.params.lectureId) {
       this.props.getLecture(this.props.params.lectureId);
+      this.props.focusLecture();
     }
   }
 
@@ -113,16 +119,19 @@ export class LecturePage extends React.Component<Props> {
           <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
         <LectureWrapper>
-          <LectureName>
-            {lecture.get('course').get('name')}
-          </LectureName>
-          <Bookmark
-            lecture={lecture}
-            onPressWhenMarked={this.props.deleteBookmark}
-            onPressWhenNotMarked={this.props.bookmark}
-            isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
-            error={bookmarks.getIn([lecture.get('id'), 'error'])}
-          />
+          <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
+          <LectureNameBookmarkWrapper>
+            <LectureName>
+              {lecture.get('course').get('name')}
+            </LectureName>
+            <Bookmark
+              lecture={lecture}
+              onPressWhenMarked={this.props.deleteBookmark}
+              onPressWhenNotMarked={this.props.bookmark}
+              isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
+              error={bookmarks.getIn([lecture.get('id'), 'error'])}
+            />
+          </LectureNameBookmarkWrapper>
           <LectureInfo>
             <LectureBasicInfo>
               <LectureInfoText>
@@ -208,6 +217,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
   vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.voteRequest(lectureId, evaluationId, isUpvote)),
   deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
+  focusLecture: () => dispatch(GlobalActions.focusLecture()),
+  blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

@@ -3,6 +3,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import { typo, media } from '../../style-utils';
 import CreateIconImage from '../../images/ic-write-big.png';
+import IconBack from '../../images/ic-arrow-left@2x.png';
 
 Modal.setAppElement('#app');
 
@@ -42,10 +43,39 @@ export const LectureWrapper = styled.div`
   border-bottom: 1px dashed rgba(0,0,0,.4);
 `;
 
+export const BackToList = styled.div`
+  ${typo.header3}
+  display: none;
+
+  ${media.phone`
+    display: block;
+    position: fixed;
+    top: 0px;
+    left: 30px;
+    right: 30px;
+    padding-left: 30px;
+    padding-top: 20px;
+    height: 70px;
+    line-height: 30px;
+    background: url(${IconBack}), linear-gradient(rgba(255,255,255) 70%, rgba(255,255,255,0));
+    background-repeat: no-repeat;
+    background-size: 20px 20px, cover;
+    background-position-y: 25px, 0;
+    color: ${(props) => props.theme.color.primary};
+  `}
+`;
+
+export const LectureNameBookmarkWrapper = styled.div`
+  height: 30px;
+  display: flex;
+  align-items: center;
+`;
+
 export const LectureName = styled.div`
   ${typo.header1}
   font-weight: 500;
   text-align: left;
+  margin-right: 14px;
 `;
 
 export const LectureInfo = styled.div`
@@ -100,7 +130,7 @@ export const LectureScore = styled.span`
 `;
 
 export const LectureScoreLabel = styled.span`
-  ${typo.body1}
+  ${typo.header3}
 `;
 
 export const LectureScoreValue = styled.span`
@@ -117,6 +147,9 @@ export const EvaluationsWrapper = styled.div`
   padding-top: 45px;
   display: flex;
   justify-content: space-between;
+  ${media.phone`
+    padding-top: 20px;
+  `}
 `;
 
 export const EvaluationsHeader = styled.span`
@@ -131,7 +164,7 @@ export const LeaveReviewButton = styled.button`
   border: solid 1px rgba(0, 0, 0, 0.4);
   background-color: ${(props) => props.theme.color.white};
   align-self: center;
-    &:focus {
+  &:focus {
     outline: none;
   }
 `;

@@ -24,6 +24,10 @@ export const NavBarWrapper = styled.header`
     .navMenuText {
       display: none;
     }
+
+    .focusLecture & {
+      display: none;
+    }
   `}
 `;
 
@@ -45,6 +49,7 @@ export const NavBarInnerWrapper = styled.div`
     grid-template-areas:
       "logo navmenu"
       "search search";
+    margin: 0 20px;
   `}
 `;
 
@@ -117,12 +122,4 @@ export const NavMenu = styled.ul`
       margin-left: 20px;
     `}
   }
-`;
-
-export const UserButton = styled.button`
-  cursor: pointer;
-`;
-
-export const LogoutButton = styled.button`
-  cursor: pointer;
 `;

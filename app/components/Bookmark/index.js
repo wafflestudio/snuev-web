@@ -1,11 +1,7 @@
 // @flow
 import * as React from 'react';
 import { Map } from 'immutable';
-import messages from './messages';
-import {
-  UnclickedButton,
-  ClickedButton,
-} from './index.style';
+import { AddBookmarkButton } from './index.style';
 
 type Props = {
   lecture: Map<string, any>,
@@ -45,24 +41,12 @@ export default class Bookmark extends React.PureComponent<Props, State> {
   }
 
   render() {
-    const marked = this.state.marked;
-    if (marked) {
-      return (
-        <ClickedButton
-          onClick={this.onPress}
-          disabled={this.props.isFetching}
-        >
-          {messages.bookmark}
-        </ClickedButton>
-      );
-    }
     return (
-      <UnclickedButton
+      <AddBookmarkButton
+        marked={this.state.marked}
         onClick={this.onPress}
         disabled={this.props.isFetching}
-      >
-        {messages.bookmark}
-      </UnclickedButton>
+      />
     );
   }
 }
