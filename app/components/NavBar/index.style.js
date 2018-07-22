@@ -33,10 +33,13 @@ export const NavBarWrapper = styled.header`
       display: none;
     }
   `}
+  display: flex;
+  justify-content: center;
 `;
 
 export const NavBarInnerWrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
+  width: 100%;
   margin: 0 30px;
   height: 100%;
   display: grid;
@@ -62,7 +65,11 @@ const LogoFrame = styled.img`
   height: 29px;
 `;
 
-export const Logo = (props: Props) => <LogoFrame src={LogoImage} {...props} />;
+type FrameProps = {
+
+};
+
+export const Logo = (props: FrameProps) => <LogoFrame src={LogoImage} {...props} />;
 
 const SnuttLogoFrame = styled.img`
   width: 20px;
@@ -70,7 +77,7 @@ const SnuttLogoFrame = styled.img`
   margin-right: .5em;
 `;
 
-export const SnuttLogo = (props: Props) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
+export const SnuttLogo = (props: FrameProps) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
 
 export const Search = styled.div`
   grid-area: search;

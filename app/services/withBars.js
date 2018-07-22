@@ -37,7 +37,7 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.div`
-  padding-top: ${(props: Props) => props.theme.navBarHeight + 30}px;
+  padding-top: ${(props: Props) => props.theme.navBarHeight}px;
   margin-left: ${(props: Props) =>
     props.showSideBar ?
       `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
@@ -64,7 +64,7 @@ const mapStateToProps = createStructuredSelector({
 
 export default (Component: React.ComponentType<Props>) => connect(mapStateToProps)(
   (props: Props) => (
-    <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })} id="wrapper">
+    <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })}>
       <NavBar />
       {props.appLayout.get('showSideBar') &&
         <SideBar />

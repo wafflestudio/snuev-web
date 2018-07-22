@@ -52,6 +52,8 @@ type Props = {
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
+  focusLecture: () => void,
+  blurLecture: () => void,
 };
 
 export class LecturePage extends React.Component<Props> {
