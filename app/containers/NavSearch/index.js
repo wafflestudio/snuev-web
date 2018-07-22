@@ -22,6 +22,7 @@ type Props = {
   searchCourses: (string) => void,
   searchLectures: (string) => void,
   location: { search: string },
+  blurLecture: () => void,
 };
 
 type State = {
