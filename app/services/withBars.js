@@ -21,14 +21,15 @@ type Props = {
     appMaxWidth: number,
   },
   appLayout: Map<string, any>,
+  showSideBar: boolean,
+  theme: any,
 };
 
 const Wrapper = styled.div`
-  max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
-  margin: 0 auto;
-  ${media.desktop`
-    margin: 0 30px;
+  margin: 0 30px;
+  ${media.tablet`
+    margin: 0 auto;
   `}
   ${media.phone`
     margin: 0;
@@ -61,9 +62,9 @@ const mapStateToProps = createStructuredSelector({
   appLayout: makeSelectAppLayout(),
 });
 
-export default (Component: React.Component) => connect(mapStateToProps)(
+export default (Component: React.ComponentType<Props>) => connect(mapStateToProps)(
   (props: Props) => (
-    <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })}>
+    <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })} id="wrapper">
       <NavBar />
       {props.appLayout.get('showSideBar') &&
         <SideBar />

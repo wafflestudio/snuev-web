@@ -25,8 +25,6 @@ import {
   RecentEvaluationsContent,
   FlexContainer,
   FlexItem,
-  SecondBackground,
-  RelativeSecondBackgroundWrapper,
 } from './index.style';
 
 
