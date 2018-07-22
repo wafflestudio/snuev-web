@@ -5,11 +5,11 @@ import MainSearchBgSrc from '../../images/mainsearchbg.png';
 import MainSearchBg2xSrc from '../../images/mainsearchbg@2x.png';
 import MainSearchBg3xSrc from '../../images/mainsearchbg@3x.png';
 
+
 const MainSearchBgFrame = styled.img`
    position: absolute;
    left: 50%;
-   top: 50%;
-   -webkit-transform: translateY(-50%) translateX(-50%);
+   -webkit-transform: translateX(-50%);
 `;
 
 export const MainSearchBg = (props: {}) => <MainSearchBgFrame {...props} src={MainSearchBgSrc} srcSet={`${MainSearchBg2xSrc} 2x, ${MainSearchBg3xSrc} 3x`} />;
@@ -23,15 +23,16 @@ export const MainSearchBgRelativeWrapper = styled.div`
 export const MainSearchBgAbsoluteWrapper = styled.div`
   position: absolute;
   overflow: hidden;
-  top: 80px;
+  top: 69px;
   left: 0;
   right: 0;
 `;
 
 export const MainPageContent = styled.div`
-  padding-top: 470px;
+  margin-top: 470px;
   width: 100%;
   position: relative;
+  background-color: #e3e5ee;
 `;
 
 export const SearchInput = styled.input`
@@ -52,7 +53,7 @@ export const SearchInput = styled.input`
 `;
 
 export const RecentEvaluations = styled.div`
-  margin-top: -159px;
+  margin-top: -189px;
   width: 100%;
 `;
 
@@ -65,27 +66,29 @@ export const RecentEvaluationsTitle = styled.div`
 
 export const RecentEvaluationsContent = styled.div`
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
-  padding: 35px 35px 45px 35px;
+  padding: 35px 20px 45px;
   background-color: #ffffff;
 `;
 
-export const EvaluationCard = styled.div`
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
-`;
 
-export const EvaluationCardTitles = styled.div`
-  margin-top: 10px;
+export const FlexContainer = styled.div`
   display: flex;
-  align-items: center;
-  font-size: 22px;
-  font-weight: 500;
-  color: rgba(0, 0, 0, 0.8);
-  div {
-    margin-left: 10px;
-    display: block;
-    font-family: ${(props: any) => props.theme.fontFamily.number};
-    font-size: ${(props: any) => props.theme.fontSize.label};
-    color: ${(props: any) => props.theme.color.primary};
-  }
 `;
 
+export const FlexItem = styled.div`
+  flex: 1;
+  margin: 0 15px;
+`;
+
+export const SecondBackground = styled.div`
+  background-color: #e3e5ee;
+  width: 1920px;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+`;
+
+export const RelativeSecondBackgroundWrapper = styled.div`
+  position: relative;
+  height: 100%;
+  overflow: visible;
+`;

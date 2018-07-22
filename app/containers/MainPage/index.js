@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import { connect } from 'react-redux';
+import { Map } from 'immutable';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import {
@@ -8,6 +9,7 @@ import {
   makeSelectMostEvaluatedLectures,
   makeSelectTopRatedLectures,
   makeSelectMostLikedEvaluations,
+  makeSelectLatestEvaluationsIsFetching,
 } from './selectors';
 import { Creators as Actions } from './reducer';
 import withBars from '../../services/withBars';
@@ -21,23 +23,19 @@ import {
   RecentEvaluations,
   RecentEvaluationsTitle,
   RecentEvaluationsContent,
-  EvaluationCard,
-  EvaluationCardTitles,
+  FlexContainer,
+  FlexItem,
+  SecondBackground,
+  RelativeSecondBackgroundWrapper,
 } from './index.style';
 
-type LectureType = {
-
-};
-
-type EvaluationType = {
-
-};
 
 type Props = {
-  latestEvaluations: [EvaluationType],
-  mostEvaluatedLectures: [LectureType],
-  topRatedLectures: [LectureType],
-  mostLikedEvaluations: [EvaluationType],
+  latestEvaluations: [Map<string, any>],
+  mostEvaluatedLectures: [Map<string, any>],
+  topRatedLectures: [Map<string, any>],
+  mostLikedEvaluations: [Map<string, any>],
+  latestEvaluationsIsFetching: boolean,
   getLatestEvaluations: () => void,
   getMostEvaluatedLectures: () => void,
   getTopRatedLectures: () => void,
@@ -71,32 +69,15 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
           <RecentEvaluations>
             <RecentEvaluationsTitle>최근 강의평</RecentEvaluationsTitle>
             <RecentEvaluationsContent>
-              <div className="row">
-                <div className="one-third column">
-                  <EvaluationCard>
-                    <EvaluationCardTitles>
-                      영어 대중소설 읽기<div>2017 봄 학기</div>
-                    </EvaluationCardTitles>
-                  </EvaluationCard>
-                </div>
-                <div className="one-third column">
-                  <EvaluationCard>
-                    asdf
-                  </EvaluationCard>
-                </div>
-                <div className="one-third column">
-                  <EvaluationCard>
-                    asdf
-                  </EvaluationCard>
-                </div>
-              </div>
+              <FlexContainer>
+                {
+                  this.props.latestEvaluationsIsFetching || !this.props.latestEvaluations ? null : this.props.latestEvaluations.slice(0, 3).map((evaluation: Map<string, any>) => <FlexItem>
+                    <Evaluation evaluation={evaluation} />
+                  </FlexItem>)
+                }
+              </FlexContainer>
             </RecentEvaluationsContent>
           </RecentEvaluations>
-          {this.props.mostLikedEvaluations &&
-          this.props.mostLikedEvaluations.map((evaluation: EvaluationType) => (
-            <Evaluation key={evaluation.id} evaluation={evaluation} />
-          ))
-        }
         </MainPageContent>
       </div>
     );
@@ -108,6 +89,7 @@ const mapStateToProps = createStructuredSelector({
   mostEvaluatedLectures: makeSelectMostEvaluatedLectures(),
   topRatedLectures: makeSelectTopRatedLectures(),
   mostLikedEvaluations: makeSelectMostLikedEvaluations(),
+  latestEvaluationsIsFetching: makeSelectLatestEvaluationsIsFetching(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
