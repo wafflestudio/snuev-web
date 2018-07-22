@@ -23,6 +23,10 @@ export const NavBarWrapper = styled.header`
     .navMenuText {
       display: none;
     }
+
+    .focusLecture & {
+      display: none;
+    }
   `}
 `;
 
@@ -44,6 +48,7 @@ export const NavBarInnerWrapper = styled.div`
     grid-template-areas:
       "logo navmenu"
       "search search";
+    margin: 0 20px;
   `}
 `;
 

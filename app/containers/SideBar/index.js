@@ -43,7 +43,7 @@ const SideBar = ({ lectures, location, global }: Props) => {
     <SideBarWrapper>
       {
         lectures.map((lecture: Map<string, any>) => (
-          <Link key={lecture.get('id')} to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }}>
+          <Link key={lecture.get('id')} to={{ pathname: `/lectures/${lecture.get('id')}`, search: location.search }} activeClassName="active">
             <Lecture lecture={lecture} />
           </Link>
         ))

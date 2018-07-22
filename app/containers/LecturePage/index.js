@@ -8,6 +8,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from './reducer';
+import { Creators as GlobalActions } from '../../global/reducer';
 import messages from './messages';
 
 import EvaluationForm from './EvaluationForm';
@@ -36,6 +37,7 @@ import {
   LectureScoreLabel,
   LectureScoreValue,
   LectureWrapper,
+  BackToList,
 } from './index.style';
 import withBars from '../../services/withBars';
 
@@ -60,11 +62,13 @@ export class LecturePage extends React.Component<Props> {
 
   componentDidMount() {
     this.props.getLecture(this.props.params.lectureId);
+    this.props.focusLecture();
   }
 
   componentDidUpdate(prevProps: Props) {
     if (prevProps.params.lectureId !== this.props.params.lectureId) {
       this.props.getLecture(this.props.params.lectureId);
+      this.props.focusLecture();
     }
   }
 
@@ -103,6 +107,7 @@ export class LecturePage extends React.Component<Props> {
           <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
         <LectureWrapper>
+          <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
           <LectureName>
             {lecture.get('course').get('name')}
           </LectureName>
@@ -182,6 +187,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
+  focusLecture: () => dispatch(GlobalActions.focusLecture()),
+  blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));

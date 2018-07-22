@@ -49,7 +49,9 @@ export class NavBar extends React.PureComponent<Props> {
               <React.Fragment>
                 <li className="bookmarks">
                   <button>
-                    <FormattedMessage {...messages.navItems.bookmarks} />
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.bookmarks} />
+                    </span>
                   </button>
                 </li>
                 <li>
@@ -65,7 +67,9 @@ export class NavBar extends React.PureComponent<Props> {
                 </li>
                 <li>
                   <button onClick={this.handleLogOut}>
-                    <FormattedMessage {...messages.navItems.logout} />
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.logout} />
+                    </span>
                   </button>
                 </li>
               </React.Fragment>
