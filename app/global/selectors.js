@@ -6,7 +6,7 @@ const makeSelectGlobal = () => (state) => state.get('global');
 
 const makeSelectEntities = () => createSelector(
   makeSelectGlobal(),
-  (global) => global.get('entities')
+  (global) => global.get('entities'),
 );
 
 const makeSelectAppLayout = () => createSelector(
@@ -39,6 +39,21 @@ const makeSelectPrev = () => createSelector(
   (route) => route.get('locationBeforeTransitions'),
 );
 
+const makeSelectBookmarks = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('bookmarks'),
+);
+
+const makeSelectSearchFilter = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('searchFilter'),
+);
+
+const makeSelectDepartments = () => createSelector(
+  makeSelectEntities(),
+  (entities) => denormalize(entities, 'departments', 'all'),
+);
+
 export {
   makeSelectGlobal,
   makeSelectAppLayout,
@@ -47,4 +62,7 @@ export {
   makeSelectCourses,
   makeSelectLectures,
   makeSelectPrev,
+  makeSelectBookmarks,
+  makeSelectSearchFilter,
+  makeSelectDepartments,
 };

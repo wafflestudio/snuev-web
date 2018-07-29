@@ -22,6 +22,7 @@ type Props = {
   searchCourses: (string) => void,
   searchLectures: (string) => void,
   location: { search: string },
+  blurLecture: () => void,
 };
 
 type State = {
@@ -69,8 +70,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             id: 'search-query',
             onFocus: () => searchCourses(this.state.query),
           }}
-          autoHighlight={false}
-          wrapperStyle={{ diplay: 'block' }}
+          wrapperStyle={{ display: 'block' }}
           renderInput={(({ ref, ...props }: { ref: any }) => <SearchInput innerRef={ref} {...props} />)} // eslint-disable-line react/no-unused-prop-types
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}

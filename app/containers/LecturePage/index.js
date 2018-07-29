@@ -8,16 +8,18 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from './reducer';
-import { Creators as GlobalActions } from '../../global/reducer';
 import messages from './messages';
 
+import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
-import { makeSelectUser } from '../../global/selectors';
+import { makeSelectUser, makeSelectBookmarks } from '../../global/selectors';
+import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectPage,
   makeSelectLecture,
   makeSelectEvaluations,
+  makeSelectVotes,
 } from './selectors';
 import {
   EvaluationsWrapper,
@@ -38,9 +40,9 @@ import {
   LectureScoreValue,
   LectureWrapper,
   BackToList,
+  LectureNameBookmarkWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
-
 
 type Props = {
   user: Map<string, any>,
@@ -48,10 +50,18 @@ type Props = {
   lecture: Map<string, any>,
   evaluations: List<Map<string, any>>,
   params: { lectureId: string },
+  bookmarks: Map<string, any>,
+  votes: Map<string, any>,
   getLecture: (id: string) => void,
   getEvaluations: (lectureId: string, page: number) => void,
   openEvaluationForm: () => void,
   closeEvaluationForm: () => void,
+  bookmark: (id: string) => void,
+  deleteBookmark: (id: string) => void,
+  vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  focusLecture: () => void,
+  blurLecture: () => void,
 };
 
 export class LecturePage extends React.Component<Props> {
@@ -84,6 +94,8 @@ export class LecturePage extends React.Component<Props> {
       page,
       lecture,
       evaluations,
+      bookmarks,
+      votes,
     } = this.props;
     if (page.getIn(['lecture', 'isFetching']) || page.getIn(['lecture', 'error']) || !lecture) {
       return (
@@ -101,16 +113,25 @@ export class LecturePage extends React.Component<Props> {
           ]}
         />
         <EvaluationFormModal
-          isOpen={this.props.page.get('evaluationFormOpen')}
+          isOpen={page.get('evaluationFormOpen')}
         >
           <EvaluationForm />
           <CloseIcon onClick={this.props.closeEvaluationForm} />
         </EvaluationFormModal>
         <LectureWrapper>
           <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
-          <LectureName>
-            {lecture.get('course').get('name')}
-          </LectureName>
+          <LectureNameBookmarkWrapper>
+            <LectureName>
+              {lecture.get('course').get('name')}
+            </LectureName>
+            <Bookmark
+              lecture={lecture}
+              onPressWhenMarked={this.props.deleteBookmark}
+              onPressWhenNotMarked={this.props.bookmark}
+              isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
+              error={bookmarks.getIn([lecture.get('id'), 'error'])}
+            />
+          </LectureNameBookmarkWrapper>
           <LectureInfo>
             <LectureBasicInfo>
               <LectureInfoText>
@@ -159,14 +180,17 @@ export class LecturePage extends React.Component<Props> {
         >
           <div>
             {this.props.evaluations &&
-            <div>
-              {evaluations.map((evaluation: Object, index: number) => (
-                <Evaluation
-                  key={index}
-                  evaluation={evaluation}
-                />
-              ))}
-            </div>
+              evaluations.map((evaluation: Object, index: number) => (
+                <div key={index}>
+                  <Evaluation
+                    lecture={lecture}
+                    evaluation={evaluation}
+                    votes={votes}
+                    vote={this.props.vote}
+                    deleteVote={this.props.deleteVote}
+                  />
+                </div>
+              ))
             }
           </div>
         </InfiniteScroll>
@@ -180,6 +204,8 @@ const mapStateToProps = createStructuredSelector({
   page: makeSelectPage(),
   lecture: makeSelectLecture(),
   evaluations: makeSelectEvaluations(),
+  bookmarks: makeSelectBookmarks(),
+  votes: makeSelectVotes(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -187,6 +213,10 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getEvaluations: (id: string, page: number) => dispatch(Actions.getEvaluationsRequest(id, page)),
   openEvaluationForm: () => dispatch(Actions.openEvaluationForm()),
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
+  bookmark: (id: number) => dispatch(GlobalActions.bookmarkRequest(id)),
+  deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
+  vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.voteRequest(lectureId, evaluationId, isUpvote)),
+  deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
   focusLecture: () => dispatch(GlobalActions.focusLecture()),
   blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });

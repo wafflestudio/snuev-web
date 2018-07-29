@@ -27,6 +27,14 @@ export const { Types, Creators } = createActions({
   updateEvaluationFailure: ['error'],
   openEvaluationForm: null,
   closeEvaluationForm: null,
+  voteRequest: ['lectureId', 'evaluationId', 'isUpvote'],
+  upvoteSuccess: ['id'],
+  downvoteSuccess: ['id'],
+  voteFailure: ['id', 'error'],
+  deleteVoteRequest: ['lectureId', 'evaluationId', 'isUpvote'],
+  deleteUpvoteSuccess: ['id'],
+  deleteDownvoteSuccess: ['id'],
+  deleteVoteFailure: ['id', 'error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -57,6 +65,7 @@ export const initialState = fromJS({
     error: null,
   },
   evaluationFormOpen: false,
+  votes: {},
 });
 
 /* ------------- Reducers ------------- */
@@ -139,6 +148,30 @@ export const openEvaluationForm = (state) =>
 export const closeEvaluationForm = (state) =>
   state.set('evaluationFormOpen', false);
 
+export const voteRequest = (state, { evaluationId }) =>
+  state.setIn(['votes', evaluationId], fromJS({ isFetching: true }));
+
+export const upvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const downvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const voteFailure = (state, { id, error }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error }));
+
+export const deleteVoteRequest = (state, { evaluationId }) =>
+  state.setIn(['votes', evaluationId], fromJS({ isFetching: true }));
+
+export const deleteUpvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const deleteDownvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const deleteVoteFailure = (state, { id, error }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error }));
+
 /* ------------- Hookup Reducers To Types ------------- */
 
 // should convert uppercase to screaming snake_case
@@ -160,4 +193,12 @@ export default createReducer(initialState, {
   [Types.UPDATE_EVALUATION_FAILURE]: updateEvaluationFailure,
   [Types.OPEN_EVALUATION_FORM]: openEvaluationForm,
   [Types.CLOSE_EVALUATION_FORM]: closeEvaluationForm,
+  [Types.VOTE_REQUEST]: voteRequest,
+  [Types.UPVOTE_SUCCESS]: upvoteSuccess,
+  [Types.DOWNVOTE_SUCCESS]: downvoteSuccess,
+  [Types.VOTE_FAILURE]: voteFailure,
+  [Types.DELETE_VOTE_REQUEST]: deleteVoteRequest,
+  [Types.DELETE_UPVOTE_SUCCESS]: deleteUpvoteSuccess,
+  [Types.DELETE_DOWNVOTE_SUCCESS]: deleteDownvoteSuccess,
+  [Types.DELETE_VOTE_FAILURE]: deleteVoteFailure,
 });

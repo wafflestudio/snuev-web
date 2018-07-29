@@ -4,10 +4,11 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
+import { Creators as GlobalActions } from '../../global/reducer';
 // import messages from './messages';
 import withBars from '../../services/withBars';
-import { makeSelectPage, makeSelectDepartments } from './selectors';
-import { makeSelectUser } from '../../global/selectors';
+import { makeSelectPage } from './selectors';
+import { makeSelectUser, makeSelectDepartments } from '../../global/selectors';
 
 type Props = {
   departments: any,
@@ -114,7 +115,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   updateProfile: (credentials: { password: string, password_confirmation: string, nickname: string, department_id: string }) => dispatch(Actions.updateProfileRequest(credentials)),
-  getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
+  getDepartments: () => dispatch(GlobalActions.getDepartmentsRequest()),
 });
 
 export default withBars(connect(mapStateToProps, mapDispatchToProps)(ProfilePage));

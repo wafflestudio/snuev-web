@@ -25,7 +25,6 @@ import {
   makeSelectMyEvaluation,
 } from '../selectors';
 
-
 type Props = {
   lecture: Map<string, any>,
   myEvaluation: Map<string, any>,

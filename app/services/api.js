@@ -39,12 +39,14 @@ const createAPI = (customURL, headers, checkPermission) => {
       const authToken = getAuthToken();
       if (authToken) {
         headers.Authorization = authToken;
+      } else {
+        delete (headers.Authorization);
       }
       try {
         const response = yield fetch(url, { method, body: method === 'GET' ? null : JSON.stringify(body), headers, ...options });
         return response;
       } catch (error) {
-        if (error.response.status === 401 && authToken) {
+        if (error.response && error.response.status === 401 && authToken) {
           yield put(AuthActions.signOut());
         }
         throw error;

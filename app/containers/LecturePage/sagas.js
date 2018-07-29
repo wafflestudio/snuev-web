@@ -95,11 +95,46 @@ export function* updateEvaluation({ lectureId, evaluationId, data }) {
   }
 }
 
-// All sagas to be loaded
+export function* watchVoteRequest() {
+  yield takeLatest(Types.VOTE_REQUEST, vote);
+}
+
+export function* vote({ lectureId, evaluationId, isUpvote }) {
+  try {
+    yield authRequest.post(`/v1/lectures/${lectureId}/evaluations/${evaluationId}/vote?vote[direction]=${isUpvote}`);
+    if (isUpvote) {
+      yield put(Actions.upvoteSuccess(evaluationId));
+    } else {
+      yield put(Actions.downvoteSuccess(evaluationId));
+    }
+  } catch (error) {
+    yield put(Actions.voteFailure(error.errors));
+  }
+}
+
+export function* watchDeleteVoteRequest() {
+  yield takeLatest(Types.DELETE_VOTE_REQUEST, deleteVote);
+}
+
+export function* deleteVote({ lectureId, evaluationId, isUpvote }) {
+  try {
+    yield authRequest.delete(`/v1/lectures/${lectureId}/evaluations/${evaluationId}/vote?vote[direction]=${isUpvote}`);
+    if (isUpvote) {
+      yield put(Actions.deleteUpvoteSuccess(evaluationId));
+    } else {
+      yield put(Actions.deleteDownvoteSuccess(evaluationId));
+    }
+  } catch (error) {
+    yield put(Actions.deleteVoteFailure(error.errors));
+  }
+}
+
 export default [
   watchGetLectureRequest,
   watchGetEvaluationsRequest,
   watchGetMyEvaluationRequest,
   watchCreateEvaluationRequest,
   watchUpdateEvaluationRequest,
+  watchVoteRequest,
+  watchDeleteVoteRequest,
 ];
