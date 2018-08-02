@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
+import { media } from '../../style-utils';
 import LogoImage from '../../images/img-logo-220-px.png';
 
 export const Background = styled.div`
@@ -12,6 +13,10 @@ export const Background = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  ${media.phone`
+    min-height: 500px;
+  `}
 `;
 
 export const LoginForm = styled.form`
@@ -33,6 +38,11 @@ export const InnerContainer = styled.div`
   position: relative;
   padding: 20px;
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
+
+  ${media.phone`
+    width: 100%;
+    height: 100%;
+  `}
 `;
 
 export const ContentContainer = styled.div`
@@ -65,6 +75,13 @@ export const WelcomeText = styled.div`
   text-align: center;
   color: var(--black-two);
   margin-top: 46px;
+
+  ${media.phone`
+    width: 249px;
+    height: 36px;
+    font-size: 11px;
+    margin-top: 11px;
+  `}
 `;
 
 export const PermissionText = styled.div`
@@ -82,6 +99,14 @@ export const PermissionText = styled.div`
   color: var(--black-two);
   margin-top: 16px;
   margin-bottom: 60px;
+
+  ${media.phone`
+    width: 213px;
+    height: 18px;
+    font-size: 11px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  `}
 `;
 
 export const Input = styled.input`
@@ -98,6 +123,13 @@ export const Input = styled.input`
   margin-top: 11px;
   margin-bottom: 18px;
   color: var(--black-two);
+
+  ${media.phone`
+    width: 259px;
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  `}
 `;
 
 export const LoginButton = styled.button`
@@ -114,6 +146,16 @@ export const LoginButton = styled.button`
   top: 60%;
   &:hover { background-color: #3e37b0; };
   &:focus { background-color: #2b2592; outline: none; };
+
+  ${media.phone`
+    width: 259px;
+    height: 52px;
+    border-radius: 2px;
+    left: 0;
+    position: relative;
+    box-shadow: none;
+    margin-top: 30px;
+  `}
 `;
 
 export const LoginText = styled.div`
@@ -128,13 +170,50 @@ export const LoginText = styled.div`
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
+
+  ${media.phone`
+    width: 45px;
+    height: 24px;
+    font-size: 15px;
+  `}
 `;
 
-export const CircleTextWrapper = styled.div`
+export const ComponentsWrapper = styled.div`
+  width: 259px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  ${media.phone`
+    flex-direction: row;
+    justify-content: center;
+  `}
+`;
+
+export const SignUpWrapper = styled.div`
   width: 300px;
   display: flex;
   align-items: center;
   margin-top: 12px;
+
+  ${media.phone`
+    width: 65px;
+    margin-top: 30px;
+    margin-right: 20px;
+    margin-left: 20px;
+  `}
+`;
+
+export const RecoverPasswordWrapper = styled.div`
+  width: 300px;
+  display: flex;
+  align-items: center;
+  margin-top: 12px;
+
+  ${media.phone`
+    width: 94px;
+    margin-top: 30px;
+  `}
 `;
 
 export const MiniCircle = styled.div`
@@ -158,6 +237,12 @@ export const SignUpLink = styled(Link)`
   letter-spacing: normal;
   text-align: center;
   color: var(--black-two);
+
+  ${media.phone`
+    width: 45px;
+    height: 18px;
+    font-size: 11px;
+  `}
 `;
 
 export const RecoverPasswordLink = styled(Link)`
@@ -173,6 +258,12 @@ export const RecoverPasswordLink = styled(Link)`
   letter-spacing: normal;
   text-align: center;
   color: var(--black-two);
+
+  ${media.phone`
+    width: 69px;
+    height: 18px;
+    font-size: 11px;
+  `}
 `;
 
 export const Footer = styled.div`
@@ -182,6 +273,10 @@ export const Footer = styled.div`
   justify-content: center;
   align-items: center;
   margin-bottom: 10px;
+
+  ${media.phone`
+    height: 18px;
+  `}
 `;
 
 export const SnuevTeamWrapper = styled.div`
@@ -198,6 +293,13 @@ export const SnuevTeamWrapper = styled.div`
   text-align: center;
   color: var(--black-two);
   margin-right: 30px;
+
+  ${media.phone`
+    width: 122px;
+    height: 18px;
+    font-size: 11px;
+    margin-right: 20px;
+  `}
 `;
 
 export const SnuevGithubWrapper = styled.div`
@@ -214,6 +316,13 @@ export const SnuevGithubWrapper = styled.div`
   text-align: center;
   color: var(--black-two);
   margin-right: 30px;
+
+  ${media.phone`
+    width: 80px;
+    height: 18px;
+    font-size: 11px;
+    margin-right: 20.5px;
+  `}
 `;
 
 export const DeveloperWrapper = styled.div`
@@ -229,4 +338,10 @@ export const DeveloperWrapper = styled.div`
   letter-spacing: normal;
   text-align: center;
   color: var(--black-two);
+
+  ${media.phone`
+    width: 80px;
+    height: 18px;
+    font-size: 11px;
+  `}
 `;

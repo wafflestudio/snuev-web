@@ -20,7 +20,9 @@ import {
   Input,
   LoginButton,
   LoginText,
-  CircleTextWrapper,
+  ComponentsWrapper,
+  SignUpWrapper,
+  RecoverPasswordWrapper,
   MiniCircle,
   SignUpLink,
   RecoverPasswordLink,
@@ -87,23 +89,25 @@ export class LoginPage extends React.PureComponent<Props, State> {
                   onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
                   placeholder={messages.input.passwordHint}
                 />
-                <CircleTextWrapper>
-                  <MiniCircle />
-                  <SignUpLink to="sign_up">
-                    {messages.signup}
-                  </SignUpLink>
-                </CircleTextWrapper>
-                <CircleTextWrapper>
-                  <MiniCircle />
-                  <RecoverPasswordLink to="reset_password">
-                    {messages.recoverPassword}
-                  </RecoverPasswordLink>
-                </CircleTextWrapper>
                 <LoginButton type="submit">
                   <LoginText>
                     {messages.login}
                   </LoginText>
                 </LoginButton>
+                <ComponentsWrapper>
+                  <SignUpWrapper>
+                    <MiniCircle />
+                    <SignUpLink to="sign_up">
+                      {messages.signup}
+                    </SignUpLink>
+                  </SignUpWrapper>
+                  <RecoverPasswordWrapper>
+                    <MiniCircle />
+                    <RecoverPasswordLink to="reset_password">
+                      {messages.recoverPassword}
+                    </RecoverPasswordLink>
+                  </RecoverPasswordWrapper>
+                </ComponentsWrapper>
               </LoginForm>
             </ContentContainer>
             <Footer>
