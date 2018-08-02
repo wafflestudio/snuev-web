@@ -2,23 +2,33 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { IntlProvider, FormattedHTMLMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import DottedLine from '../../components/DottedLine';
 import { Creators as Actions } from '../../global/reducer';
+import { makeSelectGlobal } from '../../global/selectors';
+
 import messages from './messages';
 import {
   Background,
   LoginForm,
+  InnerContainer,
+  ContentContainer,
   Logo,
   WelcomeText,
+  PermissionText,
   Input,
-  RecoverPasswordLink,
   LoginButton,
   LoginText,
-  SignUpWrapper,
-  SignUpText,
+  CircleTextWrapper,
+  MiniCircle,
   SignUpLink,
+  RecoverPasswordLink,
+  Footer,
+  SnuevTeamWrapper,
+  SnuevGithubWrapper,
+  DeveloperWrapper,
 } from './index.style';
-import { makeSelectGlobal } from '../../global/selectors';
 
 type Props = {
   signIn: (State) => void,
@@ -46,48 +56,71 @@ export class LoginPage extends React.PureComponent<Props, State> {
 
   render() {
     return (
-      <Background>
-        <Helmet
-          title="LoginPage"
-          meta={[
-            { name: 'description', content: 'Description of LoginPage' },
-          ]}
-        />
-        <LoginForm onSubmit={this.handleSignIn}>
-          <Logo />
-          <WelcomeText>
-            {messages.welcome}
-          </WelcomeText>
-          <Input
-            type="text"
-            value={this.state.username}
-            onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
-            placeholder={messages.input.usernameHint}
+      <IntlProvider messages={messages}>
+        <Background>
+          <Helmet
+            title="LoginPage"
+            meta={[
+              { name: 'description', content: 'Description of LoginPage' },
+            ]}
           />
-          <Input
-            type="password"
-            value={this.state.password}
-            onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
-            placeholder={messages.input.passwordHint}
-          />
-          <RecoverPasswordLink>
-            {messages.recoverPassword}
-          </RecoverPasswordLink>
-          <LoginButton type="submit">
-            <LoginText>
-              {messages.login}
-            </LoginText>
-          </LoginButton>
-          <SignUpWrapper>
-            <SignUpText>
-              {messages.signup.question}
-            </SignUpText>
-            <SignUpLink to="sign_up">
-              {messages.signup.message}
-            </SignUpLink>
-          </SignUpWrapper>
-        </LoginForm>
-      </Background>
+          <InnerContainer>
+            <DottedLine />
+            <ContentContainer>
+              <LoginForm onSubmit={this.handleSignIn}>
+                <Logo />
+                <WelcomeText>
+                  <FormattedHTMLMessage id="welcome" />
+                </WelcomeText>
+                <PermissionText>
+                  <FormattedHTMLMessage id="permission" />
+                </PermissionText>
+                <Input
+                  type="text"
+                  value={this.state.username}
+                  onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                  placeholder={messages.input.usernameHint}
+                />
+                <Input
+                  type="password"
+                  value={this.state.password}
+                  onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
+                  placeholder={messages.input.passwordHint}
+                />
+                <CircleTextWrapper>
+                  <MiniCircle />
+                  <SignUpLink to="sign_up">
+                    {messages.signup}
+                  </SignUpLink>
+                </CircleTextWrapper>
+                <CircleTextWrapper>
+                  <MiniCircle />
+                  <RecoverPasswordLink to="reset_password">
+                    {messages.recoverPassword}
+                  </RecoverPasswordLink>
+                </CircleTextWrapper>
+                <LoginButton type="submit">
+                  <LoginText>
+                    {messages.login}
+                  </LoginText>
+                </LoginButton>
+              </LoginForm>
+            </ContentContainer>
+            <Footer>
+              <SnuevTeamWrapper>
+                {messages.snuevTeam}
+              </SnuevTeamWrapper>
+              <SnuevGithubWrapper>
+                {messages.snuevGithub}
+              </SnuevGithubWrapper>
+              <DeveloperWrapper>
+                {messages.developer}
+              </DeveloperWrapper>
+            </Footer>
+            <DottedLine />
+          </InnerContainer>
+        </Background>
+      </IntlProvider>
     );
   }
 }
