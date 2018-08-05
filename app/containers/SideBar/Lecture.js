@@ -26,7 +26,7 @@ export default ({ lecture }: Props) => (
       <LectureMeta>
         <LectureMetaEntry>{lecture.getIn(['course', 'department', 'name'])}</LectureMetaEntry>
         <LectureMetaEntry>
-          {((grade: ?number) => grade ? `${grade}학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
+          {lecture.getIn(['course', 'targetGrade'])}
         </LectureMetaEntry>
         <LectureMetaEntry>{lecture.getIn(['professor', 'name'])} 교수</LectureMetaEntry>
       </LectureMeta>

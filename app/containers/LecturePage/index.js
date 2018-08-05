@@ -141,7 +141,7 @@ export class LecturePage extends React.Component<Props> {
                 {lecture.getIn(['course', 'department', 'name'])}
               </LectureInfoText>
               <LectureInfoText>
-                {((grade: ?number) => grade ? `${grade} 학년` : '전체')(lecture.getIn(['course', 'targetGrade']))}
+                {lecture.getIn(['course', 'targetGrade'])}
               </LectureInfoText>
             </LectureBasicInfo>
             <LectureScores>
