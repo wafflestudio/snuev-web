@@ -4,7 +4,12 @@ import React from 'react';
 import MainSearchBgSrc from '../../images/mainsearchbg.png';
 import MainSearchBg2xSrc from '../../images/mainsearchbg@2x.png';
 import MainSearchBg3xSrc from '../../images/mainsearchbg@3x.png';
+import { media, typo } from '../../style-utils';
 
+
+type Props = {
+  theme: any,
+};
 
 const MainSearchBgFrame = styled.img`
    position: absolute;
@@ -20,20 +25,11 @@ export const MainSearchBgRelativeWrapper = styled.div`
   overflow: visible;
 `;
 
-export const MainSearchBgAbsoluteWrapper = styled.div`
-  position: absolute;
+export const MainSearchBgWrapper = styled.div`
   overflow: hidden;
-  top: 69px;
-  left: 0;
-  right: 0;
-`;
-
-export const MainPageContent = styled.div`
-  margin-top: 470px;
-  width: 100%;
-  position: relative;
   background-color: #e3e5ee;
 `;
+
 
 export const SearchInput = styled.input`
   position: absolute;
@@ -44,7 +40,6 @@ export const SearchInput = styled.input`
   right: 0;
   margin: auto;
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
-  z-index: 1;
   font-size: 18px;
   font-weight: 500;
   &:focus {
@@ -52,19 +47,22 @@ export const SearchInput = styled.input`
   }
 `;
 
-export const RecentEvaluations = styled.div`
-  margin-top: -189px;
+export const Evaluations = styled.div`
+  position: relative;
+  margin: -159px auto 0px;
   width: 100%;
+  max-width: 1060px;
+  padding-bottom: 30px;
 `;
 
-export const RecentEvaluationsTitle = styled.div`
+export const EvaluationsTitle = styled.div`
   height: 59px;
   font-size: 40px;
   font-weight: 500;
   color: ${(props: any) => props.theme.color.primary};
 `;
 
-export const RecentEvaluationsContent = styled.div`
+export const EvaluationsContent = styled.div`
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
   padding: 35px 20px 45px;
   background-color: #ffffff;
@@ -91,4 +89,111 @@ export const RelativeSecondBackgroundWrapper = styled.div`
   position: relative;
   height: 100%;
   overflow: visible;
+`;
+
+export const MainPage2ndBox = styled.div`
+  width: 100%;
+  position: relative;
+  padding-bottom: 10px;
+  background-color: #e3e5ee;
+  padding-bottom: 169px;
+`;
+
+export const MarginContainer = styled.div`
+  max-width: 1060px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+export const LecturesBoxContainer = styled.div`
+  margin: 0 auto;
+  display: flex;
+`;
+
+export const LecturesBox = styled.div`
+  margin: 30px 20px;
+  width: 400px;
+`;
+
+export const LecturesHeader = styled.div`
+  height: 80px;
+  display: flex;
+  align-items: center;
+  position: relative;
+`;
+
+export const LecturesTitle = styled.div`
+  margin: 25px 0px 0px 50px;
+  ${typo.header2}
+  color: ${(props: Props) => props.theme.color.primary};
+`;
+
+export const LecturesHeaderCircle = styled.div`
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  opacity: 0.1;
+  background-color: ${(props: Props) => props.theme.color.primary};
+  box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.08);
+  position: absolute;
+  top: 0;
+  left: 0;
+`;
+
+export const LecturesContent = styled.div`
+  border-left: 1px solid rgba(0, 0, 0, .4);
+  margin: 20px 0px 0px 30px;
+`;
+
+export const Lecture = styled.div`
+  margin: 15px 0px 15px 30px;
+  display: flex;
+  align-items: flex-start;
+`;
+
+export const LectureNumber = styled.div`
+  ${typo.score2}
+  line-height: ${(props: Props) => props.theme.fontSize.score2}px;
+  ${media.tablet`
+    line-height: ${(props: Props) => props.theme.fontSize.tablet.score2}px;
+  `}
+  ${media.phone`
+    line-height: ${(props: Props) => props.theme.fontSize.mobile.score2}px;
+  `}
+  margin-right: 10px;
+`;
+
+export const LectureName = styled.div`
+  font-size: 22px;
+  ${media.tablet`
+    font-size: 16px;
+  `}
+  ${media.phone`
+    font-size: 18px;
+  `}
+`;
+export const LectureDescription = styled.div`
+  ${typo.body2}
+`;
+
+export const MainPage3rdBox = styled.div`
+  position: relative;
+  background-color: ${(props: Props) => props.theme.color.grayBackground1};
+  height: 500px;
+`;
+
+export const BackgroundsContainer = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+`;
+
+export const GrayBackground = styled.div`
+  width: 100%;
+  height: 264px;
+  background-color: ${(props: Props) => props.theme.color.grayBackground2};
 `;

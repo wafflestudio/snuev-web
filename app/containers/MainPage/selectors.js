@@ -14,9 +14,12 @@ const makeSelectLatestEvaluations = makeMakeSelect('latestEvaluations', 'evaluat
 const makeSelectMostEvaluatedLectures = makeMakeSelect('mostEvaluatedLectures', 'lectures');
 const makeSelectTopRatedLectures = makeMakeSelect('topRatedLectures', 'lectures');
 const makeSelectMostLikedEvaluations = makeMakeSelect('mostLikedEvaluations', 'evaluations');
-const makeSelectLatestEvaluationsIsFetching = () => createSelector(
+const makeSelectIsFetching = () => createSelector(
   makeSelectPage(),
-  (state) => state.getIn(['latestEvaluations', 'isFetching']),
+  (state) => state.getIn(['latestEvaluations', 'isFetching'])
+    || state.getIn(['mostEvaluatedLectures', 'isFetching'])
+    || state.getIn(['topRatedLectures', 'isFetching'])
+    || state.getIn(['mostLikedEvaluations', 'isFetching'])
 );
 
 export {
@@ -24,5 +27,5 @@ export {
   makeSelectMostEvaluatedLectures,
   makeSelectTopRatedLectures,
   makeSelectMostLikedEvaluations,
-  makeSelectLatestEvaluationsIsFetching,
+  makeSelectIsFetching,
 };
