@@ -21,7 +21,7 @@ export default defineMessages({
     },
     profile: {
       id: 'app.components.NavBar.navItems.profile',
-      defaultMessage: '내 정보',
+      defaultMessage: '{nickname} 님',
     },
     logout: {
       id: 'app.components.NavBar.navItems.logout',

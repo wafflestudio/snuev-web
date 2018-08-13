@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const SearchForm = styled.form`
+  width: 100%;
+`;
+
 export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
