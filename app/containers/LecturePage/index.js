@@ -122,7 +122,7 @@ export class LecturePage extends React.Component<Props> {
           <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
           <LectureNameBookmarkWrapper>
             <LectureName>
-              {lecture.get('course').get('name')}
+              {lecture.getIn(['course', 'name'])}
             </LectureName>
             <Bookmark
               lecture={lecture}
