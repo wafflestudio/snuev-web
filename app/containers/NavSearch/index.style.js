@@ -20,7 +20,7 @@ export const AutoCompleteMenu = styled.div`
   border: solid 1px #ccc;
   position: relative;
   margin-left: -35px;
-  margin-right: -45px;
+  margin-right: -37.5px;
   max-height: 300px;
   overflow-y: auto;
 `;
