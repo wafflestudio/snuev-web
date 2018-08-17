@@ -12,6 +12,7 @@ import {
   makeSelectCourses, makeSelectGlobal,
 } from '../../global/selectors';
 import {
+  SearchForm,
   SearchInput,
   AutoCompleteMenu,
   AutoCompleteItem,
@@ -64,13 +65,13 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     const courses = this.props.courses.toJS();
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <SearchForm onSubmit={this.handleSubmit}>
         <Autocomplete
           inputProps={{
             id: 'search-query',
             onFocus: () => searchCourses(this.state.query),
           }}
-          wrapperStyle={{ display: 'block' }}
+          wrapperStyle={{ display: 'block', width: '100%' }}
           renderInput={(({ ref, ...props }: { ref: any }) => <SearchInput innerRef={ref} {...props} />)} // eslint-disable-line react/no-unused-prop-types
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}
@@ -90,7 +91,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             </AutoCompleteItem>
           )}
         />
-      </form>
+      </SearchForm>
     );
   }
 }

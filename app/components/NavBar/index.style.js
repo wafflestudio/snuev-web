@@ -6,6 +6,8 @@ import LogoImage from '../../images/img-gnb-logo@2x.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
+import IconProfile from '../../images/ic-profile-normal.png';
+import IconLogout from '../../images/ic-logout-normal.png';
 import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
 
 export const NavBarWrapper = styled.header`
@@ -18,6 +20,11 @@ export const NavBarWrapper = styled.header`
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,0.1);
   z-index: 1;
+  ${media.tablet`
+    .navMenuText {
+      display: none;
+    }
+  `}
   ${media.phone`
     height: ${(props) => props.theme.mobileNavBarHeight}px;
 
@@ -39,16 +46,19 @@ export const NavBarInnerWrapper = styled.div`
   grid-template-columns: 110px 260px auto;
   grid-column-gap: 20px;
   grid-template-areas: "logo search navmenu";
-  justify-content: stretch;
   align-items: center;
   ${media.desktop`
     margin: 0 30px;
   `}
+  ${media.tablet`
+    grid-template-areas: "logo search . navmenu";
+    grid-template-columns: 110px 260px auto 220px;
+  `}
   ${media.phone`
-    grid-template-columns: 110px auto;
+    grid-template-columns: 110px auto 210px;
     grid-template-areas:
-      "logo navmenu"
-      "search search";
+      "logo . navmenu"
+      "search search search";
     margin: 0 20px;
   `}
 `;
@@ -99,7 +109,6 @@ export const NavMenu = styled.ul`
   margin: 0 0 0 auto;
   line-height: 40px;
   list-style: none;
-  padding-left: 0;
 
   li {
     margin-left: 40px;
@@ -112,6 +121,21 @@ export const NavMenu = styled.ul`
       padding-left: 20px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
+    }
+
+    &.profile {
+      padding-left: 30px;
+      background: url(${IconProfile}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+    }
+
+    &.logout {
+      padding-left: 20px;
+      background: url(${IconLogout}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+      ${media.phone`
+        padding-left: 7px;
+      `}
     }
 
     &:first-child {
