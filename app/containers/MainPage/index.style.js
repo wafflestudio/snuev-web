@@ -56,16 +56,27 @@ export const Evaluations = styled.div`
 `;
 
 export const EvaluationsTitle = styled.div`
-  height: 59px;
-  font-size: 40px;
+  ${typo.header1}
   font-weight: 500;
   color: ${(props: any) => props.theme.color.primary};
+  ${media.tablet`
+    margin: 0 16px;
+  `}
+  ${media.phone`
+    margin: 0 16px;
+  `}
 `;
 
 export const EvaluationsContent = styled.div`
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
   padding: 35px 20px 45px;
   background-color: #ffffff;
+  ${media.tablet`
+    margin: 0 16px;
+  `}
+  ${media.phone`
+    margin: 0 16px;
+  `}
 `;
 
 

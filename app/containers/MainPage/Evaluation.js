@@ -9,30 +9,44 @@ import UpvoteIcon3xSrc from '../../images/ic-upvote-normal@3x.png';
 import DownvoteIconSrc from '../../images/ic-downvote-normal.png';
 import DownvoteIcon2xSrc from '../../images/ic-downvote-normal@2x.png';
 import DownvoteIcon3xSrc from '../../images/ic-downvote-normal@3x.png';
+import { typo, media } from '../../style-utils';
 
 export const EvaluationCard = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.4);
 `;
 
-export const EvaluationCardTitles = styled.div`
+export const EvaluationCardTitlesWrapper = styled.div`
   margin-top: 10px;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
+`;
+
+export const EvaluationCardTitles = styled.div`
   font-size: 22px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.8);
-  div {
-    margin-left: 10px;
-    display: block;
-    font-family: ${(props: any) => props.theme.fontFamily.number};
-    font-size: ${(props: any) => props.theme.fontSize.label};
-    color: ${(props: any) => props.theme.color.primary};
-  }
+  margin-right: 10px;
+  /* TODO: Ellipsis for multiline **/
+  ${media.tablet`
+    font-size: 18px;
+  `}
+  ${media.phone`
+    font-size: 18px;
+  `}
+`;
+
+export const EvaluationCardSemester = styled.div`
+  display: block;
+  margin-top: 5px;
+  font-family: ${(props: any) => props.theme.fontFamily.number};
+  font-size: ${(props: any) => props.theme.fontSize.label};
+  color: ${(props: any) => props.theme.color.primary};
 `;
 
 export const EvaluationMeta = styled.div`
   margin-top: 10px;
-  font-size: 14px;
+  ${typo.body2}
   color: rgba(0, 0, 0, 0.6);
 `;
 
@@ -109,9 +123,12 @@ type Props = {
 
 export default ({ evaluation }: Props) => (
   <EvaluationCard>
-    <EvaluationCardTitles>
-      {evaluation.getIn(['lecture', 'name'])}<div>학기 데이터{/* TODO: change it to semester data*/}</div>
-    </EvaluationCardTitles>
+    <EvaluationCardTitlesWrapper>
+      <EvaluationCardTitles>
+        {evaluation.getIn(['lecture', 'name'])}
+      </EvaluationCardTitles>
+      <EvaluationCardSemester>학기 데이터{/* TODO: change it to semester data*/}</EvaluationCardSemester>
+    </EvaluationCardTitlesWrapper>
     <EvaluationMeta>
       {evaluation.getIn(['lecture', 'course', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}학년&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
                       </EvaluationMeta>

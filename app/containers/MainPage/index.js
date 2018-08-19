@@ -143,8 +143,8 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                       </LecturesHeader>
                       <LecturesContent>
                         {
-                    this.renderTopRatedLectures()
-                  }
+                          this.renderTopRatedLectures()
+                        }
                       </LecturesContent>
                     </LecturesBox>
                   </MarginContainer>
