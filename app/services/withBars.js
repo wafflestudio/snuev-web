@@ -15,6 +15,7 @@ import {
   makeSelectAppLayout,
 } from '../global/selectors';
 import { media } from '../style-utils';
+import modalWrapper from './modalWrapper';
 
 Modal.setAppElement('#app');
 
@@ -27,27 +28,34 @@ type Props = {
   appLayout: Map<string, any>,
 };
 
-const SearchFilterModal = (props: Props) => (
-  <Modal
-    {...props}
-    style={{
-      overlay: {
-        backgroundColor: 'rgba(0, 0, 0, .10)',
-      },
-      content: {
-        border: 'none',
-        top: '70px',
-        right: 'auto',
-        bottom: 'auto',
-        left: '0',
-        width: '100%',
-        marginRight: '-50%',
-        position: 'fixed',
-      },
-    }}
-    appElement={document.getElementById('app')}
-  />
-);
+const SearchFilterModal = styled(modalWrapper)`
+  &__overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, .10);
+  }
+
+  &__content {
+    border: none;
+    top: ${(props: Props) => props.theme.navBarHeight}px;
+    right: auto;
+    bottom: auto;
+    left: 0;
+    width: 100%;
+    margin-right: -50%;
+    position: relative;
+    ${media.phone`
+      top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
+    `}
+
+    &:focus {
+      outline: none;
+    }
+  }
+`;
 
 const Wrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;

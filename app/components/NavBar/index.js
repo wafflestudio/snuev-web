@@ -78,7 +78,8 @@ export class NavBar extends React.PureComponent<Props> {
                 <li className="profile">
                   <Link to="/profile">
                     <span className="navMenuText">
-                      <FormattedMessage {...messages.navItems.profile}
+                      <FormattedMessage
+                        {...messages.navItems.profile}
                         values={{ nickname: this.props.user.get('nickname') }}
                       />
                     </span>
