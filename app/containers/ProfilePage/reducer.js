@@ -7,9 +7,6 @@ export const { Types, Creators } = createActions({
   updateProfileRequest: ['data'],
   updateProfileSuccess: null,
   updateProfileFailure: ['error'],
-  getDepartmentsRequest: null,
-  getDepartmentsSuccess: null,
-  getDepartmentsFailure: ['error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -36,7 +33,4 @@ export default createReducer(initialState, {
   [Types.UPDATE_PROFILE_REQUEST]: request,
   [Types.UPDATE_PROFILE_SUCCESS]: success,
   [Types.UPDATE_PROFILE_FAILURE]: failure,
-  [Types.GET_DEPARTMENTS_REQUEST]: request,
-  [Types.GET_DEPARTMENTS_SUCCESS]: success,
-  [Types.GET_DEPARTMENTS_FAILURE]: failure,
 });

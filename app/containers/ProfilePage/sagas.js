@@ -1,6 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import { request, authRequest } from 'services/api';
-import { Creators as GlobalActions } from 'global/reducer';
+import { authRequest } from 'services/api';
 import { Types, Creators as Actions } from './reducer';
 
 export function* watchUpdateProfileRequest() {
@@ -19,24 +18,6 @@ export function* updateProfile({ password, password_confirmation, nickname, depa
   }
 }
 
-export function* watchGetDepartmentsRequest() {
-  while (true) {
-    const { data } = yield take(Types.GET_DEPARTMENTS_REQUEST);
-    yield call(getDepartments, data);
-  }
-}
-
-export function* getDepartments() {
-  try {
-    const response = yield request.get('/v1/departments');
-    yield put(Actions.getDepartmentsSuccess());
-    yield put(GlobalActions.normalizeData(response.data));
-  } catch (error) {
-    yield put(Actions.getDepartmentsFailure(error.errors));
-  }
-}
-
 export default [
   watchUpdateProfileRequest,
-  watchGetDepartmentsRequest,
 ];

@@ -1,8 +1,9 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import styled from 'styled-components';
 import { Map } from 'immutable';
 
+import Vote from '../../components/Vote';
 import { parseSemesterSeason, parseDate } from '../../utils/parse';
 
 import messages from './messages';
@@ -53,11 +54,20 @@ const ReviewText = styled.p`
   border-left: 1px solid rgba(0,0,0,.2);
 `;
 
+const DateVoteWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 type Props = {
+  lecture: Map<string, any>,
   evaluation: Map<string, any>,
+  votes: Map<string, any>,
+  vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
 
-export default ({ evaluation }: Props) => (
+export default ({ lecture, evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationWrapper>
     <EvaluationHeader>
       <EvaluationScore>
@@ -82,10 +92,19 @@ export default ({ evaluation }: Props) => (
     <ReviewText>
       {evaluation.get('comment')}
     </ReviewText>
-    <DateText>
-      {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
-        `${parseDate(evaluation.get('createdAt'))}` :
-        `${parseDate(evaluation.get('updatedAt'))}`}
-    </DateText>
+    <DateVoteWrapper>
+      <DateText>
+        {evaluation.get('createdAt') === evaluation.get('updatedAt') ?
+          `${parseDate(evaluation.get('createdAt'))}` :
+          `${parseDate(evaluation.get('updatedAt'))}`}
+      </DateText>
+      <Vote
+        lecture={lecture}
+        evaluation={evaluation}
+        votes={votes}
+        vote={vote}
+        deleteVote={deleteVote}
+      />
+    </DateVoteWrapper>
   </EvaluationWrapper>
 );

@@ -43,6 +43,7 @@ export const EvaluationFormModal = (props: NoThemeProps) => (
         padding: '60px 60px 40px 60px',
       },
     }}
+    appElement={document.getElementById('app')}
   />
 );
 
@@ -73,10 +74,17 @@ export const BackToList = styled.div`
   `}
 `;
 
+export const LectureNameBookmarkWrapper = styled.div`
+  height: 30px;
+  display: flex;
+  align-items: center;
+`;
+
 export const LectureName = styled.div`
   ${typo.header1}
   font-weight: 500;
   text-align: left;
+  margin-right: 14px;
 `;
 
 export const LectureInfo = styled.div`
@@ -165,7 +173,7 @@ export const LeaveReviewButton = styled.button`
   border: solid 1px rgba(0, 0, 0, 0.4);
   background-color: ${(props: Props) => props.theme.color.white};
   align-self: center;
-    &:focus {
+  &:focus {
     outline: none;
   }
 `;

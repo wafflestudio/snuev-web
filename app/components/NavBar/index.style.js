@@ -7,6 +7,9 @@ import LogoImage from '../../images/img-gnb-logo@2x.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
+import IconProfile from '../../images/ic-profile-normal.png';
+import IconLogout from '../../images/ic-logout-normal.png';
+import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
 
 type Props = {
   theme: any,
@@ -22,6 +25,11 @@ export const NavBarWrapper = styled.header`
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,0.1);
   z-index: 1;
+  ${media.tablet`
+    .navMenuText {
+      display: none;
+    }
+  `}
   ${media.phone`
     height: ${(props: Props) => props.theme.mobileNavBarHeight}px;
 
@@ -46,16 +54,19 @@ export const NavBarInnerWrapper = styled.div`
   grid-template-columns: 110px 260px auto;
   grid-column-gap: 20px;
   grid-template-areas: "logo search navmenu";
-  justify-content: stretch;
   align-items: center;
   ${media.tablet`
     margin: 0 auto;
   `}
+  ${media.tablet`
+    grid-template-areas: "logo search . navmenu";
+    grid-template-columns: 110px 260px auto 220px;
+  `}
   ${media.phone`
-    grid-template-columns: 110px auto;
+    grid-template-columns: 110px auto 210px;
     grid-template-areas:
-      "logo navmenu"
-      "search search";
+      "logo . navmenu"
+      "search search search";
     margin: 0 20px;
   `}
 `;
@@ -85,9 +96,23 @@ export const Search = styled.div`
   padding-left: 35px;
   line-height: 38px;
   height: 38px;
-  border-bottom: solid 1px rgba(0,0,0,.6);
+  border-bottom: solid 1px rgba(0, 0, 0, .6);
   background: url(${IconSearch}) no-repeat 0% 50%;
   background-size: 30px 30px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const SearchFilterIcon = styled.button`
+  width: 35px;
+  height: 100%;
+  background: url(${DetailSearchImage}) no-repeat 100% 50%;
+  margin-left: 5px;
+  cursor: pointer;
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 export const NavMenu = styled.ul`
@@ -96,7 +121,6 @@ export const NavMenu = styled.ul`
   margin: 0 0 0 auto;
   line-height: 40px;
   list-style: none;
-  padding-left: 0;
 
   li {
     margin-left: 20px;
@@ -115,6 +139,21 @@ export const NavMenu = styled.ul`
       padding-left: 20px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
+    }
+
+    &.profile {
+      padding-left: 30px;
+      background: url(${IconProfile}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+    }
+
+    &.logout {
+      padding-left: 20px;
+      background: url(${IconLogout}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+      ${media.phone`
+        padding-left: 7px;
+      `}
     }
 
     &:first-child {

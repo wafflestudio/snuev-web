@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+export const SearchForm = styled.form`
+  width: 100%;
+`;
+
 export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
@@ -14,9 +18,9 @@ export const SearchInput = styled.input`
 export const AutoCompleteMenu = styled.div`
   background-color: white;
   border: solid 1px #ccc;
-  z-index: 10;
   position: relative;
   margin-left: -35px;
+  margin-right: -37.5px;
   max-height: 300px;
   overflow-y: auto;
 `;

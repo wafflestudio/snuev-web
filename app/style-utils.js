@@ -7,7 +7,7 @@ const sizes = {
 
 export const media = Object.keys(sizes).reduce((acc, label) => { /* eslint no-param-reassign: ["error", { "props": false }] */
   acc[label] = (...args) => css`
-    @media (max-width: ${sizes[label]}px) {
+    @media (max-width: ${sizes[label] - 1}px) {
       ${css(...args)}
     }
   `;

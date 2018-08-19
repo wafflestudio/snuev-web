@@ -4,15 +4,19 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { createStructuredSelector } from 'reselect';
+import Modal from 'react-modal';
 import classNames from 'classnames';
 
 import NavBar from '../components/NavBar';
+import SearchFilter from '../components/SearchFilter';
 import SideBar from '../containers/SideBar';
 
 import {
   makeSelectAppLayout,
 } from '../global/selectors';
 import { media } from '../style-utils';
+
+Modal.setAppElement('#app');
 
 type Props = {
   theme: {
@@ -24,6 +28,28 @@ type Props = {
   showSideBar: boolean,
   theme: any,
 };
+
+const SearchFilterModal = (props: Props) => (
+  <Modal
+    {...props}
+    style={{
+      overlay: {
+        backgroundColor: 'rgba(0, 0, 0, .10)',
+      },
+      content: {
+        border: 'none',
+        top: '70px',
+        right: 'auto',
+        bottom: 'auto',
+        left: '0',
+        width: '100%',
+        marginRight: '-50%',
+        position: 'fixed',
+      },
+    }}
+    appElement={document.getElementById('app')}
+  />
+);
 
 const Wrapper = styled.div`
   width: 100%;
@@ -68,6 +94,11 @@ export default (Component: React.ComponentType<Props>) => connect(mapStateToProp
       {props.appLayout.get('showSideBar') &&
         <SideBar />
       }
+      <SearchFilterModal
+        isOpen={props.appLayout.get('showSearchFilter')}
+      >
+        <SearchFilter />
+      </SearchFilterModal>
       <MainContent showSideBar={props.appLayout.get('showSideBar')}>
         <Component {...props} />
       </MainContent>

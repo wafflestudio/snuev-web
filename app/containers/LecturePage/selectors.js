@@ -19,7 +19,12 @@ const makeSelectEvaluations = () => createSelector(
 const makeSelectMyEvaluation = () => createSelector(
   makeSelectEntities(),
   makeSelectPage(),
-  (entities, page) => denormalize(entities, 'evaluations', page.getIn(['myEvaluation', 'id']))
+  (entities, page) => denormalize(entities, 'evaluations', page.getIn(['myEvaluation', 'id'])),
+);
+
+const makeSelectVotes = () => createSelector(
+  makeSelectPage(),
+  (page) => page.get('votes'),
 );
 
 export {
@@ -27,4 +32,5 @@ export {
   makeSelectLecture,
   makeSelectEvaluations,
   makeSelectMyEvaluation,
+  makeSelectVotes,
 };
