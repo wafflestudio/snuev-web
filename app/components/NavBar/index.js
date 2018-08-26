@@ -68,40 +68,49 @@ export class NavBar extends React.PureComponent<Props> {
             </li>
             {user &&
               <React.Fragment>
-                <li className="bookmarks">
-                  <button>
+                <button>
+                  <li className="bookmarks">
                     <span className="navMenuText">
                       <FormattedMessage {...messages.navItems.bookmarks} />
                     </span>
-                  </button>
-                </li>
-                <li className="profile">
-                  <Link to="/profile">
+                  </li>
+                </button>
+                <Link to="/profile">
+                  <li className="profile">
                     <span className="navMenuText">
                       <FormattedMessage
                         {...messages.navItems.profile}
                         values={{ nickname: this.props.user.get('nickname') }}
                       />
                     </span>
-                  </Link>
-                </li>
-                <li className="logout">
-                  <button onClick={this.handleLogOut}>
+                  </li>
+                </Link>
+                <button onClick={this.handleLogOut}>
+                  <li className="logout">
                     <span className="navMenuText">
                       <FormattedMessage {...messages.navItems.logout} />
                     </span>
-                  </button>
-                </li>
+                  </li>
+                </button>
               </React.Fragment>
             }
             {!user &&
-              <li>
-                <Link to="/sign_in">
-                  <span className="navMenuText">
-                    <FormattedMessage {...messages.navItems.login} />
-                  </span>
+              <React.Fragment>
+                <Link to="/sign_up">
+                  <li className="signUp">
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.signUp} />
+                    </span>
+                  </li>
                 </Link>
-              </li>
+                <Link to="/sign_in">
+                  <li className="login">
+                    <span className="navMenuText">
+                      <FormattedMessage {...messages.navItems.login} />
+                    </span>
+                  </li>
+                </Link>
+              </React.Fragment>
             }
           </NavMenu>
         </NavBarInnerWrapper>

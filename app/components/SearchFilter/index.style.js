@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { media } from '../../style-utils';
+import { typo, media } from '../../style-utils';
 import SearchButtonImage from '../../images/ic-search-small-normal.png';
 import DeleteButtonImage from '../../images/btn-delete-normal.png';
 import ResetButtonImage from '../../images/ic-reset-disabled.png';
@@ -23,7 +23,7 @@ export const Wrapper = styled.div`
 
   ${media.phone`
     min-width: 400px;
-    height: 1500px;
+    height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);
   `}
 `;
 
@@ -48,14 +48,8 @@ export const Header = styled.div`
 `;
 
 export const HeaderText = styled.div`
-  font-family: NotoSansCJKkr;
-  font-size: 24px;
-  width: 138px;
+  ${typo.header2}
   height: 100%;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
   margin-right: 10px;
 
   ${media.phone`
@@ -143,31 +137,17 @@ export const FilterWrapper = styled.div`
 `;
 
 export const FilterHeader = styled.div`
+  ${typo.body1}
   width: 100%;
   height: 40px;
-  font-family: NotoSansCJKkr;
-  font-size: 14px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0px;
-  color: var(--black-two);
   border-bottom: solid 1px #d5dbe0;
   margin-bottom: 10px;
 `;
 
 export const FilterElement = styled.button`
+  ${typo.body2}
   width: 100%;
   height: 32px;
-  font-family: NotoSansCJKkr;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: noraml;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0px;
-  color: #222222;
   text-align: left;
   padding-left: 12px;
   cursor: pointer;
@@ -194,16 +174,9 @@ export const FilterElement = styled.button`
 `;
 
 export const FilterElementSelected = styled.button`
+  ${typo.body2}
   width: 100%;
   height: 32px;
-  font-family: NotoSansCJKkr;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: noraml;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0px;
-  color: #4f48c4;
   text-align: left;
   padding-left: 12px;
   cursor: pointer;
@@ -266,6 +239,17 @@ export const AutoCompleteStyle = {
   opacity: '0.7',
   color: '#000000',
 };
+
+export const AutoCompleteMenu = styled.div`
+  background-color: white;
+  border: solid 1px #ccc;
+  position: relative;
+  z-index: 100;
+  margin-left: -1px;
+  margin-right: -29px;
+  max-height: 200px;
+  overflow-y: auto;
+`;
 
 export const AutoCompleteItem = styled.div`
   width: 125px;

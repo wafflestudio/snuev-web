@@ -28,6 +28,7 @@ import {
   SearchInput,
   NondepartmentsWrapper,
   AutoCompleteItem,
+  AutoCompleteMenu,
 } from './index.style';
 import messages from './messages';
 
@@ -113,6 +114,7 @@ class SearchFilter extends React.PureComponent<Props, State> {
                     {item.name}
                   </AutoCompleteItem>
                 }
+                renderMenu={((items: Array<Object>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
                 value={this.state.query}
                 onChange={(event: Event) => this.setState({ query: event.target.value })}
                 onSelect={(value: string) => this.setState({ query: value })}
