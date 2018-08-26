@@ -153,7 +153,7 @@ export const NavMenu = styled.ul`
     }
 
     &.bookmarks {
-      padding-left: 20px;
+      padding-left: 30px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
       cursor: pointer;
@@ -193,7 +193,7 @@ export const NavMenu = styled.ul`
     }
 
     &.logout {
-      padding-left: 20px;
+      padding-left: 30px;
       background: url(${IconLogout}) no-repeat 0% 50%;
       background-size: 20px 20px;
       cursor: pointer;
