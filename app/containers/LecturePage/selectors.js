@@ -7,13 +7,13 @@ const makeSelectPage = () => (state) => state.get('lecturePage');
 const makeSelectLecture = () => createSelector(
   makeSelectEntities(),
   makeSelectPage(),
-  (entities, page) => denormalize(entities, 'lectures', page.getIn(['lecture', 'id'])),
+  (entities, page) => denormalize(entities, 'lectures', page.getIn(['lecture', 'id']))
 );
 
 const makeSelectEvaluations = () => createSelector(
   makeSelectEntities(),
   makeSelectPage(),
-  (entities, page) => denormalize(entities, 'evaluations', page.getIn(['evaluations', 'ids'])),
+  (entities, page) => denormalize(entities, 'evaluations', page.getIn(['evaluations', 'ids']))
 );
 
 const makeSelectMyEvaluation = () => createSelector(
