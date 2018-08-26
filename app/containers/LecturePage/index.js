@@ -40,6 +40,7 @@ import {
   LectureScoreValue,
   LectureWrapper,
   BackToList,
+  PageWrapper,
   LectureNameBookmarkWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
@@ -105,10 +106,11 @@ export class LecturePage extends React.Component<Props> {
       );
     }
     return (
-      <Background>
-        <Helmet
-          title="LecturePage"
-          meta={[
+      <PageWrapper>
+        <Background>
+          <Helmet
+            title="LecturePage"
+            meta={[
             { name: 'description', content: 'Description of Lecture Page' },
           ]}
         />
@@ -162,15 +164,15 @@ export class LecturePage extends React.Component<Props> {
           <LectureSummary>
             영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가 다루어질 수 있다.
           </LectureSummary>
-        </LectureWrapper>
-        <EvaluationsWrapper>
-          <EvaluationsHeader>
-            {messages.evaluation.header}
-          </EvaluationsHeader>
-          {(user && user.get('isConfirmed')) &&
-          <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-            <CreateIcon />
-          </LeaveReviewButton>
+          </LectureWrapper>
+          <EvaluationsWrapper>
+            <EvaluationsHeader>
+              {messages.evaluation.header}
+            </EvaluationsHeader>
+            {(user && user.get('isConfirmed')) &&
+            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+              <CreateIcon />
+            </LeaveReviewButton>
           }
         </EvaluationsWrapper>
         <InfiniteScroll
@@ -192,9 +194,10 @@ export class LecturePage extends React.Component<Props> {
                 </div>
               ))
             }
-          </div>
-        </InfiniteScroll>
-      </Background>
+            </div>
+          </InfiniteScroll>
+        </Background>
+      </PageWrapper>
     );
   }
 }

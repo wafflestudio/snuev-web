@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 
@@ -10,13 +11,17 @@ import IconProfile from '../../images/ic-profile-normal.png';
 import IconLogout from '../../images/ic-logout-normal.png';
 import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
 
+type Props = {
+  theme: any,
+};
+
 export const NavBarWrapper = styled.header`
   top: 0;
   left: 0;
   right: 0;
   position: fixed;
   width: 100%;
-  height: ${(props) => props.theme.navBarHeight}px;
+  height: ${(props: Props) => props.theme.navBarHeight}px;
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,0.1);
   z-index: 1;
@@ -26,7 +31,7 @@ export const NavBarWrapper = styled.header`
     }
   `}
   ${media.phone`
-    height: ${(props) => props.theme.mobileNavBarHeight}px;
+    height: ${(props: Props) => props.theme.mobileNavBarHeight}px;
 
     .navMenuText {
       display: none;
@@ -36,19 +41,22 @@ export const NavBarWrapper = styled.header`
       display: none;
     }
   `}
+  display: flex;
+  justify-content: center;
 `;
 
 export const NavBarInnerWrapper = styled.div`
-  max-width: ${(props) => props.theme.appMaxWidth}px;
-  margin: 0 auto;
+  max-width: ${(props: Props) => props.theme.appMaxWidth}px;
+  width: 100%;
+  margin: 0 30px;
   height: 100%;
   display: grid;
   grid-template-columns: 110px 260px auto;
   grid-column-gap: 20px;
   grid-template-areas: "logo search navmenu";
   align-items: center;
-  ${media.desktop`
-    margin: 0 30px;
+  ${media.tablet`
+    margin: 0 auto;
   `}
   ${media.tablet`
     grid-template-areas: "logo search . navmenu";
@@ -68,7 +76,11 @@ const LogoFrame = styled.img`
   height: 29px;
 `;
 
-export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
+type FrameProps = {
+
+};
+
+export const Logo = (props: FrameProps) => <LogoFrame src={LogoImage} {...props} />;
 
 const SnuttLogoFrame = styled.img`
   width: 20px;
@@ -76,7 +88,7 @@ const SnuttLogoFrame = styled.img`
   margin-right: .5em;
 `;
 
-export const SnuttLogo = (props) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
+export const SnuttLogo = (props: FrameProps) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
 
 export const Search = styled.div`
   grid-area: search;
@@ -111,7 +123,13 @@ export const NavMenu = styled.ul`
   list-style: none;
 
   li {
-    margin-left: 40px;
+    margin-left: 20px;
+    ${media.tablet`
+      margin-left: 40px;
+    `}
+    ${media.phone`
+      margin-left: 40px;
+    `}
 
     button, a, span {
       ${typo.body2}
@@ -142,8 +160,5 @@ export const NavMenu = styled.ul`
       margin-left: 0;
     }
 
-    ${media.desktop`
-      margin-left: 20px;
-    `}
   }
 `;

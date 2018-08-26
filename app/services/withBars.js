@@ -25,6 +25,8 @@ type Props = {
     appMaxWidth: number,
   },
   appLayout: Map<string, any>,
+  showSideBar: boolean,
+  theme: any,
 };
 
 const SearchFilterModal = (props: Props) => (
@@ -50,11 +52,9 @@ const SearchFilterModal = (props: Props) => (
 );
 
 const Wrapper = styled.div`
-  max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
-  margin: 0 auto;
-  ${media.desktop`
-    margin: 0 30px;
+  ${media.tablet`
+    margin: 0 auto;
   `}
   ${media.phone`
     margin: 0;
@@ -62,7 +62,7 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.div`
-  padding-top: ${(props: Props) => props.theme.navBarHeight + 30}px;
+  padding-top: ${(props: Props) => props.theme.navBarHeight}px;
   margin-left: ${(props: Props) =>
     props.showSideBar ?
       `${props.theme.sideBarMaxWidth + 60}px` : '0px'};
@@ -87,7 +87,7 @@ const mapStateToProps = createStructuredSelector({
   appLayout: makeSelectAppLayout(),
 });
 
-export default (Component: React.Component) => connect(mapStateToProps)(
+export default (Component: React.ComponentType<Props>) => connect(mapStateToProps)(
   (props: Props) => (
     <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })}>
       <NavBar />
