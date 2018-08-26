@@ -75,10 +75,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
       </div>
     </Lecture>;
     if (this.props.topRatedLectures) {
-      if (this.props.topRatedLectures.length > 3) {
-        return this.props.topRatedLectures.slice(0, 3).map(renderTopRatedLecture);
-      }
-      return this.props.topRatedLectures.map(renderTopRatedLecture);
+      return this.props.topRatedLectures.slice(0, 3).map(renderTopRatedLecture);
     }
     return null;
   }
@@ -130,7 +127,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                         <LectureNumber>{lecture.get('evaluationsCount')}</LectureNumber>
                         <div>
                           <LectureName>{lecture.get('name')}</LectureName>
-                          <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}학년&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
+                          <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
                         </div>
                       </Lecture>)) : null
                   }
