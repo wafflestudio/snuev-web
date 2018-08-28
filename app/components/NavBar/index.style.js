@@ -53,7 +53,7 @@ export const NavBarWrapper = styled.header`
 export const NavBarInnerWrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
-  margin: 0 30px;
+  margin: 0 20px;
   height: 100%;
   display: grid;
   grid-template-columns: 110px 260px auto;
@@ -62,13 +62,11 @@ export const NavBarInnerWrapper = styled.div`
   align-items: center;
   ${media.tablet`
     margin: 0 auto;
-  `}
-  ${media.tablet`
     grid-template-areas: "logo search . navmenu";
-    grid-template-columns: 110px 260px auto 260px;
+    grid-template-columns: 130px 260px auto 260px;
   `}
   ${media.phone`
-    grid-template-columns: 110px auto 200px;
+    grid-template-columns: 110px auto 230px;
     grid-template-areas:
       "logo . navmenu"
       "search search search";
@@ -79,6 +77,14 @@ export const NavBarInnerWrapper = styled.div`
 const LogoFrame = styled.img`
   grid-area: logo;
   height: 29px;
+
+  ${media.tablet`
+    margin-left: 20px;
+  `}
+
+  ${media.phone`
+    margin-left: 0;
+  `}
 `;
 
 type FrameProps = {
@@ -127,15 +133,15 @@ export const NavMenu = styled.ul`
   line-height: 40px;
   list-style: none;
 
+  ${media.tablet`
+    padding-left: 0;
+  `}
+
   button, a {
     margin-left: 40px;
 
     ${media.tablet`
       margin-left: 30px;
-    `}
-
-    ${media.phone`
-      margin-left: 10px;
     `}
   }
 
@@ -144,16 +150,13 @@ export const NavMenu = styled.ul`
     ${media.tablet`
       margin-left: 40px;
     `}
-    ${media.phone`
-      margin-left: 40px;
-    `}
 
     button, a, span {
       ${typo.body2}
     }
 
     &.bookmarks {
-      padding-left: 30px;
+      padding-left: 20px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
       cursor: pointer;
@@ -162,11 +165,6 @@ export const NavMenu = styled.ul`
       }
 
       ${media.tablet`
-        margin-top: 3px;
-        padding-top: 30px;
-      `}
-
-      ${media.phone`
         margin-top: 3px;
         padding-top: 30px;
       `}
@@ -185,11 +183,6 @@ export const NavMenu = styled.ul`
         margin-top: 6px;
         padding-top: 30px;
       `}
-
-      ${media.phone`
-        margin-top: 6px;
-        padding-top: 30px;
-      `}
     }
 
     &.logout {
@@ -202,11 +195,6 @@ export const NavMenu = styled.ul`
       }
 
       ${media.tablet`
-        margin-top: 3px;
-        padding-top: 30px;
-      `}
-
-      ${media.phone`
         margin-top: 3px;
         padding-top: 30px;
       `}
@@ -227,9 +215,7 @@ export const NavMenu = styled.ul`
       `}
 
       ${media.phone`
-        margin-top: 6px;
         padding-left: 20px;
-        padding-top: 30px;
       `}
     }
 
@@ -246,16 +232,10 @@ export const NavMenu = styled.ul`
         margin-top: 6px;
         padding-top: 30px;
       `}
-
-      ${media.phone`
-        margin-top: 6px;
-        padding-top: 30px;
-      `}
     }
 
     &:first-child {
       margin-left: 0;
     }
-
   }
 `;
