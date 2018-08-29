@@ -132,16 +132,17 @@ export const NavMenu = styled.ul`
   margin: 0 0 0 auto;
   line-height: 40px;
   list-style: none;
-
-  ${media.tablet`
-    padding-left: 0;
-  `}
+  padding-left: 0;
 
   button, a {
     margin-left: 40px;
 
     ${media.tablet`
       margin-left: 30px;
+    `}
+
+    ${media.phone`
+      margin-left: 27px;
     `}
   }
 
@@ -156,7 +157,7 @@ export const NavMenu = styled.ul`
     }
 
     &.bookmarks {
-      padding-left: 20px;
+      padding-left: 30px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
       cursor: pointer;
