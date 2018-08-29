@@ -6,20 +6,12 @@ script:
 notifications:
   email:
     on_failure: change
+before_deploy:
+  - pip install --user awscli
 deploy:
-  provider: s3
-  access_key_id:
-    secure: pFon4kyaiRV7Tn2ZUnYo5cIeNf73gBTkEzTJq9kbVGkRUnuGF0URbvJoCZDCgazkK1mz6kxGG9yHHTKLFARkHlbSKSDbouN4CbBwCdsTzSyvUOA0WL3HJGB2VzpWeT6Kj5FhFoom+ul793XBhJmPfy1/3sDu5Jp6O//UMYe2ht6HpGwj0QbjLDPaTLLTcFIW2i9x7JzRY0QVmR1KIWRdImWOQw87+erw3YKR0oECsYWdljRLetAkCFoPaFJ/ekbK+Qmbzpu9Cisd3AlYSgc9puvV4zLZGKi10m+pueN9O4QTihmw8bvgrOJk8U3+5T6LhvZbsdaYwbTb9ge1BXDITgrplLHcIKybcKpT0a0O14vFG0sGohtN1fQleivSwUCG0l8Is9iaqYpiSWOJ5tg9Y9Z4OYaVnQCNQRRxIYW32fauBoZZrHhZZSfbk9nnoiMKxNT2nv9sLA/MDcC3pg6u0lWv/KVXndw9AOT1Fy/r7qHYhpYCD9Og+bHAo3vJoeUS/f1RmmuPSWHsX/DXEuJtsxt0y6nUrFvZxVEDMrn1anVRPSmNzLbW2UbJPXkGDUtTgeP4QrvEhAIGdmqjuiNtBO82/nkvCoChNM10+MIKCaFufrQAU1GwR9qle/KZVSQj80NB/wDn+97yn0Udee8YeFPhGlOxkxKM1MsSyTj4Z6k=
-  secret_access_key:
-    secure: fLDcsyyLJz5Arijh3tKyODlBbAvo+c4hmTb6CQS8mluYNEhs4u6MjU5bQtXphdFiF5EmHlQNtnE08uurIGr1iBRqOTKpENdW/ngsXCrg9gz2E089GeONu0+9ejDggHOPOaU7kmchL0IGAHcwmTUESSJGp+eBH7Y/58MnIthjjaPEtjcXjHc98KXfX8BV4CVwtCbakX/V0usQq5qXhrGtUlKF3HuOvcMcMID2p/Or9cECDwu+XKVaHUXXTwdezqauD5F59lnNXmFpFo9LB55ovjAc9XzkxRtKABn7GV6dZzZBIq9zvH83poyU/R444pX99nZd3NJIsyxx1+/qex5izS+4MGuAwgmmNiC7uIE5f3mZ4+vJWX7ruX2yZvPOGu2a8iThQ72GdypZbPV8WerT7j0wHR+K716zcEIQZWYVyrdNoDbQzDkGg7uyi7AFfPnswOYGl9/+edfISeqtLhtiOY06smFgMEIAwPmUnQG4akZPOP/sgxmXX6MrPSdw8V3G6bUX4wLkqgKt+MsoExmSSCK2L9r0fbOmWiENAnr4wGIodS3SEo9EmnvUAuoSgXAgqs0xt641nweYTInKrRl51+iVbYj05PQIN4WdOx6rR2JPSq5ciAKLcY6tCileR7YbMXmiLQnIgt19MYKp2aH3rwhURS+kGsbfzdz30l2jQHE=
-  bucket: snuev.kr
+  provider: script
+  script: bash ./s3_sync.sh snuev.kr
   skip_cleanup: true
-  acl: public_read
-  region: ap-northeast-2
-  local_dir: build
-  detect_encoding: true
-  on:
-    branch: master
 cache:
   yarn: true
   directories:
