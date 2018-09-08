@@ -172,16 +172,18 @@ export class LecturePage extends React.Component<Props> {
               다루어질 수 있다.
             </LectureSummary>
           </LectureWrapper>
-          <EvaluationsWrapper>
-            <EvaluationsHeader>
-              {messages.evaluation.header}
-            </EvaluationsHeader>
-            {(user && user.get('isConfirmed')) &&
-            <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-              {messages.writeReview}
-            </LeaveReviewButton>
-            }
-          </EvaluationsWrapper>
+          <div>
+            <EvaluationsWrapper>
+              <EvaluationsHeader>
+                {messages.evaluation.header}
+              </EvaluationsHeader>
+              {(user && user.get('isConfirmed')) &&
+              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+                {messages.writeReview}
+              </LeaveReviewButton>
+              }
+            </EvaluationsWrapper>
+          </div>
           {!(this.props.evaluations && this.props.evaluations.size > 0) &&
           <NoEvaluationWrapper hasUser={this.props.user}>
             <EmptyLectureWrapper>

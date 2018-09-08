@@ -209,19 +209,29 @@ export const PageWrapper = styled.div`
 `;
 
 export const NoEvaluationWrapper = styled.div`
+  min-height: 300px;
   height: 100%;
   justify-content: center;
   align-items: center;
   display: flex;
   margin-top: 45px;
   margin-bottom: 80px;
+  padding: 20px;
   background-color: ${(props: { hasUser: boolean, theme: Theme }) => props.hasUser ? props.theme.color.white : props.theme.color.secondary};
+  ${media.phone`
+    margin-top: 30px;
+    margin-bottom: 30px;
+  `}
 `;
 
 const EmptyLectureFrame = styled.img`
   width: 216px;
   height: 216px;
   object-fit: contain;
+  ${media.phone`
+    width: 108px;
+    height: 108px;
+  `}
 `;
 
 export const EmptyLectureIcon = (props: {}) => <EmptyLectureFrame src={EmptyLectureImage} {...props} />;
@@ -236,6 +246,7 @@ export const EmptyLectureWrapper = styled.div`
 export const EmptyLectureText = styled.p`
   ${typo.body2}
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  text-align: center;
 `;
 
 export const EmptyLectureToLoginWrapper = styled(Link)`
