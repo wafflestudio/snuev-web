@@ -17,7 +17,6 @@ import {
   Logo,
   WelcomeText,
   PermissionText,
-  Input,
   LoginButton,
   LoginText,
   ComponentsWrapper,
@@ -31,14 +30,17 @@ import {
   SnuevGithubWrapper,
   DeveloperWrapper,
 } from './index.style';
+import Input from './Input';
 
 type Props = {
-  signIn: (State) => void,
+  signIn: ({ username: string, password: string }) => void,
 };
 
 type State = {
   username: string,
   password: string,
+  usernameError: string,
+  passwordError: string,
 };
 
 export class LoginPage extends React.PureComponent<Props, State> {
@@ -47,13 +49,32 @@ export class LoginPage extends React.PureComponent<Props, State> {
     this.state = {
       username: '',
       password: '',
+      usernameError: '',
+      passwordError: '',
     };
     (this: any).handleSignIn = this.handleSignIn.bind(this);
   }
 
+  componentDidUpdate(prevProps: Props) {
+    const signInErrorPrev = prevProps.global.getIn(['signIn', 'error']);
+    const signInError = this.props.global.getIn(['signIn', 'error']);
+    if (signInErrorPrev !== signInError && signInError) {
+      this.setState({ passwordError: messages.error.credentials });
+    }
+  }
+
   handleSignIn(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    this.props.signIn(this.state);
+    const { username, password } = this.state;
+    if (!username) {
+      this.setState({ usernameError: messages.error.usernameBlank });
+    }
+    if (!password) {
+      this.setState({ passwordError: messages.error.passwordBlank });
+    }
+    if (username && password) {
+      this.props.signIn({ username: username.replace('@snu.ac.kr', ''), password });
+    }
   }
 
   render() {
@@ -80,14 +101,22 @@ export class LoginPage extends React.PureComponent<Props, State> {
                 <Input
                   type="text"
                   value={this.state.username}
-                  onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ // eslint-disable-line
+                    username: target.value,
+                    usernameError: '',
+                  })}
                   placeholder={messages.input.usernameHint}
+                  error={this.state.usernameError}
                 />
                 <Input
                   type="password"
                   value={this.state.password}
-                  onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ // eslint-disable-line
+                    password: target.value,
+                    passwordError: '',
+                  })}
                   placeholder={messages.input.passwordHint}
+                  error={this.state.passwordError}
                 />
                 <LoginButton type="submit">
                   <LoginText>
