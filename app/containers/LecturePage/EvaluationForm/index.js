@@ -16,7 +16,9 @@ import {
   SubHeader,
   RatingMargin,
   CreateIcon,
-  Buttons,
+  BottomComponentWrapper,
+  BottomWrapper,
+  Hint,
   FlatButton,
 } from './index.style';
 import {
@@ -25,12 +27,19 @@ import {
   makeSelectMyEvaluation,
 } from '../selectors';
 
+type Evaluation = {
+  comment: string,
+  score: number,
+  easiness: number,
+  grading: number,
+};
+
 type Props = {
   lecture: Map<string, any>,
   myEvaluation: Map<string, any>,
   getMyEvaluation: (number) => void,
-  createEvaluation: (number, State) => void,
-  updateEvaluation: (number, number, State) => void,
+  createEvaluation: (number, Evaluation) => void,
+  updateEvaluation: (number, number, Evaluation) => void,
   closeEvaluationForm: () => void,
 };
 
@@ -39,6 +48,7 @@ type State = {
   score: number,
   easiness: number,
   grading: number,
+  lengthError: boolean,
 };
 
 class EvaluationForm extends React.PureComponent<Props, State> {
@@ -49,6 +59,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
       score: 5,
       easiness: 5,
       grading: 5,
+      lengthError: false,
     };
     (this: any).handleSubmit = this.handleSubmit.bind(this);
     (this: any).makeHandleRate = this.makeHandleRate.bind(this);
@@ -75,10 +86,16 @@ class EvaluationForm extends React.PureComponent<Props, State> {
 
   handleSubmit(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    if (this.props.myEvaluation) {
-      this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), this.state);
+    const { lengthError: _, ...evaluation } = this.state; /* eslint no-unused-vars: 0 */
+    if (evaluation.comment.length < 10) {
+      this.setState({ lengthError: true });
     } else {
-      this.props.createEvaluation(this.props.lecture.get('id'), this.state);
+      this.setState({ lengthError: false });
+      if (this.props.myEvaluation) {
+        this.props.updateEvaluation(this.props.lecture.get('id'), this.props.myEvaluation.get('id'), evaluation);
+      } else {
+        this.props.createEvaluation(this.props.lecture.get('id'), evaluation);
+      }
     }
   }
 
@@ -94,6 +111,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
     return (event: { target: { value: number } }) => {
       this.setState({
         [key]: event.target.value,
+        lengthError: false,
       });
     };
   }
@@ -144,16 +162,21 @@ class EvaluationForm extends React.PureComponent<Props, State> {
           value={this.state.comment}
           onChange={this.makeHandleChange('comment')}
         />
-        <Buttons>
-          <div>
+        <BottomWrapper>
+          <BottomComponentWrapper>
+            <Hint error={this.state.lengthError}>
+              강의평을 최소 10자 이상 적어주세요
+            </Hint>
+          </BottomComponentWrapper>
+          <BottomComponentWrapper>
             <FlatButton cancel onClick={this.props.closeEvaluationForm}>
               취소
             </FlatButton>
             <FlatButton type="submit">
-              {this.props.lecture.get('evaluated') ? '수정' : '완료'}
+              {this.props.lecture.get('evaluated') ? '수정' : '등록'}
             </FlatButton>
-          </div>
-        </Buttons>
+          </BottomComponentWrapper>
+        </BottomWrapper>
       </Wrapper>
     );
   }
