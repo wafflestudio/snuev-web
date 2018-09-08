@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { IntlProvider, FormattedHTMLMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import { Map } from 'immutable';
 import DottedLine from '../../components/DottedLine';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectGlobal } from '../../global/selectors';
@@ -31,9 +32,11 @@ import {
   DeveloperWrapper,
 } from './index.style';
 import Input from './Input';
+import EmailInput from './EmailInput';
 
 type Props = {
   signIn: ({ username: string, password: string }) => void,
+  global: Map<string, any>,
 };
 
 type State = {
@@ -98,7 +101,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
                 <PermissionText>
                   <FormattedHTMLMessage id="permission" />
                 </PermissionText>
-                <Input
+                <EmailInput
                   type="text"
                   value={this.state.username}
                   onChange={({ target }) => this.setState({ // eslint-disable-line

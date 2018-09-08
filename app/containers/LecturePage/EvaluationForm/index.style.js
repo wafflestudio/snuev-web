@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import CreateIconSrc from '../../../images/ic-write-small.png';
 import CreateIcon2XSrc from '../../../images/ic-write-small@2x.png';
 import CreateIcon3XSrc from '../../../images/ic-write-small@3x.png';
-import { Theme } from '../../../theme';
+import type { Theme } from '../../../theme';
 
 export const Wrapper = styled.form`
   background-color: #ffffff;

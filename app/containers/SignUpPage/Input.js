@@ -5,22 +5,16 @@ import { media } from '../../style-utils';
 import type { Theme } from '../../theme';
 
 const Wrapper = styled.div`
-  height: 100px;
+  margin-top: 30px;
+  height: 73px;
 `;
 
 const Input = styled.input`
   width: 300px;
   height: 44px;
-  opacity: 0.7;
-  font-size: 17px;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
-  border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray};
+  border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray}; 
   &:focus { outline: none; };
-  margin-top: 11px;
-  color: var(--black-two);
 
   ${media.phone`
     width: 259px;
@@ -47,9 +41,9 @@ export default (props: Props) => {
     <Wrapper>
       <Input {...inputProps} />
       {error &&
-        <ErrorMessage>
-          {error}
-        </ErrorMessage>
+      <ErrorMessage>
+        {error}
+      </ErrorMessage>
       }
     </Wrapper>
   );

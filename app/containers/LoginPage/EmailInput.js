@@ -1,7 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
-import { media } from '../../style-utils';
+import { media, typo } from '../../style-utils';
 import type { Theme } from '../../theme';
 
 const Wrapper = styled.div`
@@ -9,7 +9,7 @@ const Wrapper = styled.div`
 `;
 
 const Input = styled.input`
-  width: 300px;
+  width: 200px;
   height: 44px;
   opacity: 0.7;
   font-size: 17px;
@@ -30,6 +30,23 @@ const Input = styled.input`
   `}
 `;
 
+export const UsernameInputContainer = styled.div`
+  display: flex;
+  height: 55px;
+  flex-direction: row;
+`;
+
+export const EmailDomainText = styled.p`
+  ${typo.header3}
+  width: 100px;
+  height: 44px;
+  line-height: 42px;
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray};
+  margin-top: 11px;
+  color: ${(props: { theme: Theme }) => props.theme.color.hint};
+`;
+
 const ErrorMessage = styled.p`
   height: 16px;
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
@@ -45,11 +62,16 @@ export default (props: Props) => {
   const { error, ...inputProps } = props;
   return (
     <Wrapper>
-      <Input {...inputProps} />
+      <UsernameInputContainer>
+        <Input {...inputProps} />
+        <EmailDomainText>
+          @snu.ac.kr
+        </EmailDomainText>
+      </UsernameInputContainer>
       {error &&
-        <ErrorMessage>
-          {error}
-        </ErrorMessage>
+      <ErrorMessage>
+        {error}
+      </ErrorMessage>
       }
     </Wrapper>
   );
