@@ -9,42 +9,47 @@ import { parseSemesterSeason, parseDate } from '../../utils/parse';
 import messages from './messages';
 import { typo } from '../../style-utils';
 
-type Theme = {
-  fontFamily: {
-    sansSerif: string,
-  },
-};
-
 const EvaluationWrapper = styled.div`
-  margin-top: 30px;
+  margin-bottom: 30px;
 `;
 
 const EvaluationHeader = styled.div`
+  height: 40px;
   display: flex;
+  align-items: flex-end;
 `;
 
 export const EvaluationScore = styled.div`
   margin-right: 14px;
+  display: flex;
+  align-items: flex-end;
+  margin-right: 16px;
 `;
 
 export const EvaluationScoreLabel = styled.div`
+  ${typo.body1}
   opacity: .6;
 `;
 
 export const EvaluationScoreValue = styled.div`
   ${typo.score2}
-  margin-right: .1em;
+  height: 40px;
+  opacity: 0.8;
+  color: #000000;
+  margin-right: 4px;
 `;
 
 const DateText = styled.div`
-  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.number};
+  ${typo.body1}
+  opacity: 0.4;
   text-align: left;
 `;
 
 const SemesterText = styled.div`
   ${typo.body1}
   text-align: left;
-  color: #111111;
+  color: #4f48c4;
+  margin-left: 14px;
 `;
 
 const ReviewText = styled.p`
@@ -52,6 +57,7 @@ const ReviewText = styled.p`
   margin: 20px 0;
   padding-left: 20px;
   border-left: 1px solid rgba(0,0,0,.2);
+  margin-bottom: 14px;
 `;
 
 const DateVoteWrapper = styled.div`

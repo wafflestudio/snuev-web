@@ -31,5 +31,9 @@ export default defineMessages({
       id: 'app.components.NavBar.navItems.login',
       defaultMessage: '로그인',
     },
+    signUp: {
+      id: 'app.components.NavBar.navItems.signUp',
+      defaultMessage: '회원가입',
+    },
   },
 });

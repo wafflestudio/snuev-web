@@ -18,14 +18,17 @@ import {
   FilterHeader,
   FilterElement,
   FilterElementSelected,
+  DepartmentWrapper,
   DepartmentSearchWrapper,
   DepartmentSearchIcon,
   SelectedDepartmentWrapper,
   SelectedDepartmentText,
   DeleteButton,
   AutoCompleteStyle,
-  AutoCompleteItemStyle,
   SearchInput,
+  NondepartmentsWrapper,
+  AutoCompleteItem,
+  AutoCompleteMenu,
 } from './index.style';
 import messages from './messages';
 
@@ -94,11 +97,11 @@ class SearchFilter extends React.PureComponent<Props, State> {
     return (
       <Wrapper>
         <Header>
-          <HeaderText>상세정보 검색</HeaderText>
+          <HeaderText>상세조건 설정</HeaderText>
           <ResetButton onClick={this.handleResetFiltering} />
         </Header>
         <FiltersWrapper>
-          <FilterWrapper>
+          <DepartmentWrapper>
             <FilterHeader>학과명</FilterHeader>
             <DepartmentSearchWrapper onSubmit={this.handleFilterDepartment}>
               <ReactAutoComplete
@@ -107,13 +110,11 @@ class SearchFilter extends React.PureComponent<Props, State> {
                 shouldItemRender={(item: Object, value: string) => item.name.indexOf(value) > -1}
                 getItemValue={(item: Object) => item.name}
                 renderItem={(item: Object, highlighted: boolean) =>
-                  <div
-                    key={item.id}
-                    style={AutoCompleteItemStyle(highlighted)}
-                  >
+                  <AutoCompleteItem key={item.id} highlighted={highlighted}>
                     {item.name}
-                  </div>
+                  </AutoCompleteItem>
                 }
+                renderMenu={((items: Array<Object>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
                 value={this.state.query}
                 onChange={(event: Event) => this.setState({ query: event.target.value })}
                 onSelect={(value: string) => this.setState({ query: value })}
@@ -121,6 +122,7 @@ class SearchFilter extends React.PureComponent<Props, State> {
                   placeholder: '학과명 검색',
                   style: AutoCompleteStyle,
                 }}
+                wrapperStyle={{ display: 'block', width: '100%' }}
               />
               <DepartmentSearchIcon onClick={this.handleFilterDepartment} />
             </DepartmentSearchWrapper>
@@ -134,127 +136,129 @@ class SearchFilter extends React.PureComponent<Props, State> {
                 </SelectedDepartmentWrapper>
               ))
             }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>학년</FilterHeader>
-            {!!academicYear &&
-              Object.keys(academicYear).map((key: string, index: number) => (
-                academicYear[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('academicYear', key)}
-                  >
-                    {messages.academicYear[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('academicYear', key)}
-                  >
-                    {messages.academicYear[key]}
-                  </FilterElement>
+          </DepartmentWrapper>
+          <NondepartmentsWrapper>
+            <FilterWrapper>
+              <FilterHeader>학년</FilterHeader>
+              {!!academicYear &&
+                Object.keys(academicYear).map((key: string, index: number) => (
+                  academicYear[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('academicYear', key)}
+                    >
+                      {messages.academicYear[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('academicYear', key)}
+                    >
+                      {messages.academicYear[key]}
+                    </FilterElement>
+                  ))
+              }
+            </FilterWrapper>
+            <FilterWrapper>
+              <FilterHeader>학점</FilterHeader>
+              {!!credit &&
+                Object.keys(credit).map((key: string, index: number) => (
+                  credit[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('credit', key)}
+                    >
+                      {messages.credit[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('credit', key)}
+                    >
+                      {messages.credit[key]}
+                    </FilterElement>
                 ))
-            }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>학점</FilterHeader>
-            {!!credit &&
-              Object.keys(credit).map((key: string, index: number) => (
-                credit[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('credit', key)}
-                  >
-                    {messages.credit[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('credit', key)}
-                  >
-                    {messages.credit[key]}
-                  </FilterElement>
-              ))
-            }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>구분</FilterHeader>
-            {!!courseClassification &&
-              Object.keys(courseClassification).map((key: string, index: number) => (
-                courseClassification[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('courseClassification', key)}
-                  >
-                    {messages.courseClassification[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('courseClassification', key)}
-                  >
-                    {messages.courseClassification[key]}
-                  </FilterElement>
-              ))
-            }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>학문의 기초</FilterHeader>
-            {!!academicFoundations &&
-              Object.keys(academicFoundations).map((key: string, index: number) => (
-                academicFoundations[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('academicFoundations', key)}
-                  >
-                    {messages.academicFoundations[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('academicFoundations', key)}
-                  >
-                    {messages.academicFoundations[key]}
-                  </FilterElement>
-              ))
-            }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>학문의 세계</FilterHeader>
-            {!!worldsOfKnowledge &&
-              Object.keys(worldsOfKnowledge).map((key: string, index: number) => (
-                worldsOfKnowledge[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('worldsOfKnowledge', key)}
-                  >
-                    {messages.worldsOfKnowledge[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('worldsOfKnowledge', key)}
-                  >
-                    {messages.worldsOfKnowledge[key]}
-                  </FilterElement>
-              ))
-            }
-          </FilterWrapper>
-          <FilterWrapper>
-            <FilterHeader>선택교양</FilterHeader>
-            {!!generalEducationElectives &&
-              Object.keys(generalEducationElectives).map((key: string, index: number) => (
-                generalEducationElectives[key] ?
-                  <FilterElementSelected
-                    key={index}
-                    onClick={() => removeSearchFilter('generalEducationElectives', key)}
-                  >
-                    {messages.generalEducationElectives[key]}
-                  </FilterElementSelected> :
-                  <FilterElement
-                    key={index}
-                    onClick={() => setSearchFilter('generalEducationElectives', key)}
-                  >
-                    {messages.generalEducationElectives[key]}
-                  </FilterElement>
-              ))
-            }
-          </FilterWrapper>
+              }
+            </FilterWrapper>
+            <FilterWrapper>
+              <FilterHeader>구분</FilterHeader>
+              {!!courseClassification &&
+                Object.keys(courseClassification).map((key: string, index: number) => (
+                  courseClassification[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('courseClassification', key)}
+                    >
+                      {messages.courseClassification[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('courseClassification', key)}
+                    >
+                      {messages.courseClassification[key]}
+                    </FilterElement>
+                ))
+              }
+            </FilterWrapper>
+            <FilterWrapper>
+              <FilterHeader>학문의 기초</FilterHeader>
+              {!!academicFoundations &&
+                Object.keys(academicFoundations).map((key: string, index: number) => (
+                  academicFoundations[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('academicFoundations', key)}
+                    >
+                      {messages.academicFoundations[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('academicFoundations', key)}
+                    >
+                      {messages.academicFoundations[key]}
+                    </FilterElement>
+                ))
+              }
+            </FilterWrapper>
+            <FilterWrapper>
+              <FilterHeader>학문의 세계</FilterHeader>
+              {!!worldsOfKnowledge &&
+                Object.keys(worldsOfKnowledge).map((key: string, index: number) => (
+                  worldsOfKnowledge[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('worldsOfKnowledge', key)}
+                    >
+                      {messages.worldsOfKnowledge[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('worldsOfKnowledge', key)}
+                    >
+                      {messages.worldsOfKnowledge[key]}
+                    </FilterElement>
+                ))
+              }
+            </FilterWrapper>
+            <FilterWrapper>
+              <FilterHeader>선택교양</FilterHeader>
+              {!!generalEducationElectives &&
+                Object.keys(generalEducationElectives).map((key: string, index: number) => (
+                  generalEducationElectives[key] ?
+                    <FilterElementSelected
+                      key={index}
+                      onClick={() => removeSearchFilter('generalEducationElectives', key)}
+                    >
+                      {messages.generalEducationElectives[key]}
+                    </FilterElementSelected> :
+                    <FilterElement
+                      key={index}
+                      onClick={() => setSearchFilter('generalEducationElectives', key)}
+                    >
+                      {messages.generalEducationElectives[key]}
+                    </FilterElement>
+                ))
+              }
+            </FilterWrapper>
+          </NondepartmentsWrapper>
         </FiltersWrapper>
       </Wrapper>
     );
