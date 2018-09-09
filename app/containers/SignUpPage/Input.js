@@ -7,6 +7,9 @@ import type { Theme } from '../../theme';
 const Wrapper = styled.div`
   margin-top: 30px;
   height: 73px;
+  ${media.phone`
+    margin-top: 0px;
+  `}
 `;
 
 const Input = styled.input`

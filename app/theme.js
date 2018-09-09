@@ -25,10 +25,10 @@ export type Theme = {
     score3: string,
     hint: string,
     error: string,
-    // signup button
     hover1: string,
     focus1: string,
-    // department input
+    hover2: string,
+    focus2: string,
     hover3: string,
     focus3: string,
   },
@@ -103,6 +103,9 @@ const theme = {
     // signup button
     hover1: '#F1F1FB',
     focus1: '#D5D3F1',
+    // login button
+    hover2: '#3e37b0',
+    focus2: '#2b2592',
     // department input
     hover3: '#F4F4F6',
     focus3: '#EDECF9',

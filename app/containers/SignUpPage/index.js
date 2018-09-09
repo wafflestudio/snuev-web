@@ -27,6 +27,7 @@ import {
   SignUpText,
   TitleText,
 } from './index.style';
+import Footer from '../../components/Footer';
 import Input from './Input';
 import DepartmentInput from './DepartmentInput';
 import EmailInput from './EmailInput';
@@ -190,27 +191,39 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                   <EmailInput
                     type="text"
                     value={this.state.username}
-                    onChange={({ target }) => this.setState({ username: target.value, usernameError: '' })} // eslint-disable-line
+                    onChange={({ target }) => this.setState({ // eslint-disable-line
+                      username: target.value,
+                      usernameError: '',
+                    })}
                     placeholder={messages.input.usernameHint}
                     error={this.state.usernameError}
                   />
                 </div>
-                <DepartmentInput // $FlowFixMe
+                <DepartmentInput
                   departments={this.props.departments ? this.props.departments.toJS() : []}
-                  onSelectDepartment={(department: Department) => this.setState({ department_id: department.id, departmentError: '' })}
+                  onSelectDepartment={(department: Department) => this.setState({
+                    department_id: department.id,
+                    departmentError: '',
+                  })}
                   error={this.state.departmentError}
                 />
                 <Input
                   type="text"
                   value={this.state.nickname}
-                  onChange={({ target }) => this.setState({ nickname: target.value, nicknameError: '' })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ // eslint-disable-line
+                    nickname: target.value,
+                    nicknameError: '',
+                  })}
                   placeholder={messages.input.nicknameHint}
                   error={this.state.nicknameError}
                 />
                 <Input
                   type="password"
                   value={this.state.password}
-                  onChange={({ target }) => this.setState({ password: target.value, passwordError: '' })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ // eslint-disable-line
+                    password: target.value,
+                    passwordError: '',
+                  })}
                   placeholder={messages.input.passwordHint}
                   error={this.state.passwordError}
                 />
@@ -221,11 +234,14 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                 </SignUpButton>
                 <BackButton to="/sign_in" />
                 <BackText>
-                  {messages.back.text}</BackText>
+                  {messages.back.text}
+                </BackText>
                 <BackHintText>
-                  {messages.back.hint}</BackHintText>
+                  {messages.back.hint}
+                </BackHintText>
               </SignUpForm>
             </ContentContainer>
+            <Footer />
             <DottedLine />
           </InnerContainer>
         </Background>

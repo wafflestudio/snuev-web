@@ -26,6 +26,9 @@ type State = {
 
 const Wrapper = styled.div`
   margin-top: 30px;
+  ${media.phone`
+    margin-top: 0px;
+  `}
 `;
 
 const DepartmentInputWrapper = styled.div`
@@ -64,7 +67,7 @@ const Input = styled.input`
   margin-top: 20px;
   &:focus { outline: none; };
   ${media.phone`
-    width: 259px;
+    width: 215px;
     font-size: 13px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -79,6 +82,9 @@ const SearchIconWrapper = styled.div`
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray};
   margin-top: 20px;
+  ${media.phone`
+    margin-top: 10px;
+  `}
 `;
 
 const SearchIconFrame = styled.img`

@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import Slider from 'rc-slider';
+import { sizes } from '../../style-utils';
 import './slider.css';
 
 import {
@@ -28,7 +29,7 @@ type State = {
 
 class CustomSlider extends React.Component<Props, State> { // eslint-disable-line react/prefer-stateless-function
   static defaultProps ={
-    width: '150px',
+    width: window.innerWidth < sizes.phone ? '280px' : '150px',
   };
 
   constructor(props: Props) {

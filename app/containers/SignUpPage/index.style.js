@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
@@ -6,20 +7,26 @@ import SignUpIconImage from '../../images/img-signup.png';
 import ArrowLeftIconImage from '../../images/ic-arrow-left.png';
 import EmailIconImage from '../../images/img-email.png';
 
-import { typo } from '../../style-utils';
+import { media, typo } from '../../style-utils';
+import type { Theme } from '../../theme';
 
 export const Background = styled.div`
-  background-color: ${(props) => props.theme.color.grayBackground1};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.grayBackground1};
   display: flex;
   min-height: 700px;
+  height: 100%;
   flex: 1;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  
+  ${media.phone`
+    min-height: 750px;
+  `}
 `;
 
 export const InnerContainer = styled.div`
-  background-color: ${(props) => props.theme.color.white};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   width: 660px;
   max-height: 100%;
   display: flex;
@@ -30,6 +37,11 @@ export const InnerContainer = styled.div`
   position: relative;
   padding: 20px;
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
+  
+  ${media.phone`
+    width: 100%;
+    height: 100%;
+  `}
 `;
 
 export const ContentContainer = styled.div`
@@ -46,7 +58,7 @@ const EmailIconFrame = styled.img`
   object-fit: contain;
 `;
 
-export const EmailIcon = (props) => <EmailIconFrame src={EmailIconImage} {...props} />;
+export const EmailIcon = (props: {}) => <EmailIconFrame src={EmailIconImage} {...props} />;
 
 export const TitleText = styled.p`
   ${typo.header1}
@@ -85,18 +97,24 @@ export const ReturnButton = styled(Link)`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.color.white};
-  border: solid 1px ${(props) => props.theme.color.primary};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
   position: absolute;
   left: 590px;
   top: 60%;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 export const ReturnText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
-  color: ${(props) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
   text-align: center;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 export const SignUpForm = styled.form`
@@ -112,17 +130,11 @@ const SignUpIconFrame = styled.img`
   object-fit: contain;
 `;
 
-export const SignUpIcon = (props) => <SignUpIconFrame src={SignUpIconImage} {...props} />;
+export const SignUpIcon = (props: {}) => <SignUpIconFrame src={SignUpIconImage} {...props} />;
 
-export const CreateAccountText = styled.p`
+export const CreateAccountText = styled.div`
   ${typo.header1}
   text-align: center;
-`;
-
-export const UsernameInputText = styled.div`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 1em;
-  color: ${(props) => props.theme.color.hint};
 `;
 
 export const SignUpButton = styled.button`
@@ -133,22 +145,42 @@ export const SignUpButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${(props) => props.theme.color.white};
-  border: solid 1px ${(props) => props.theme.color.primary};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
   position: absolute;
   left: 590px;
   top: 60%;
-  &:hover { background-color: ${(props) => props.theme.color.hover1}; };
-  &:focus { background-color: ${(props) => props.theme.color.focus1}; outline: none; };
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
+  
+  ${media.phone`
+    width: 259px;
+    height: 52px;
+    border-radius: 2px;
+    left: 0;
+    position: relative;
+    box-shadow: none;
+    margin-top: 30px;
+    background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
+    &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover2}; };
+    &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus2}; outline: none; };
+  `}
 `;
 
 export const SignUpText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
   text-align: center;
   padding-top: 5px;
-  color: ${(props) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
   &:focus { outline: none };
+  ${media.phone`
+    width: 45px;
+    height: 24px;
+    font-size: 15px;
+    padding-top: 0px;
+    color: ${(props: { theme: Theme }) => props.theme.color.white};
+  `}
 `;
 
 const BackButtonStyle = styled(Link)`
@@ -156,31 +188,40 @@ const BackButtonStyle = styled(Link)`
   height: 50px;
   box-shadow: 0 5px 10px 5px rgba(0, 0, 0, 0.08);
   border-radius: 25px;
-  background-color: ${(props) => props.theme.color.white};
-  border: solid 1px ${(props) => props.theme.color.primary};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
   position: absolute;
   left: -25px;
   top: 90px;
-  &:hover { background-color: ${(props) => props.theme.color.hover1}; };
-  &:focus { background-color: ${(props) => props.theme.color.focus1}; outline: none; };
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 export const BackText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.body1}px;
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  font-size: ${(props: { theme: Theme }) => props.theme.fontSize.body1}px;
   opacity: 0.8;
   position: absolute;
   left: 35px;
   top: 90px;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 export const BackHintText = styled.p`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   opacity: 0.4;
   position: absolute;
   left: 35px;
   top: 60px;
+  ${media.phone`
+    display: none;
+  `}
 `;
 
 const ArrowLeftIconFrame = styled.img`
@@ -193,9 +234,12 @@ const ArrowLeftIconFrame = styled.img`
   top: 50%;
   left: 50%;
   transform: translateX(-50%) translateY(-50%);
+  ${media.phone`
+    display: none;
+  `}
 `;
 
-export const BackButton = (props) => (
+export const BackButton = (props: {}) => (
   <BackButtonStyle {...props}>
     <ArrowLeftIconFrame src={ArrowLeftIconImage} />
   </BackButtonStyle>

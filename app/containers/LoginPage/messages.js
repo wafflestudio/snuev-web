@@ -19,9 +19,6 @@ export default defineMessages({
     passwordHint: '비밀번호',
   },
   signup: '가입하기',
-  snuevTeam: '와플스튜디오 SNUEV 팀',
-  snuevGithub: 'SNUEV Github',
-  developer: '개발자 괴롭히기',
   error: {
     usernameBlank: '마이스누 계정을 입력해주세요',
     passwordBlank: '비밀번호를 입력해주세요',

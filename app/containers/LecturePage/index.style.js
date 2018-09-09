@@ -4,7 +4,7 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router';
 import type { Theme } from '../../theme';
-import { typo, media } from '../../style-utils';
+import { typo, media, sizes } from '../../style-utils';
 import EmptyLectureImage from '../../images/img-emptylecture@3x.png';
 import IconBack from '../../images/ic-arrow-left@2x.png';
 import IconRight from '../../images/ic-arrow-right@2x.png';
@@ -35,8 +35,10 @@ export const EvaluationFormModal = (props: {}) => (
         bottom: 'auto',
         marginRight: '-50%',
         transform: 'translate(-50%, -50%)',
-        marginTop: '10px',
-        padding: '60px 60px 40px 60px',
+        marginTop: window.innerWidth < sizes.phone ? '0px' : '10px',
+        padding: window.innerWidth < sizes.phone ? '60px 40px 60px 40px' : '60px 60px 40px 60px',
+        height: window.innerWidth < sizes.phone ? '100%' : null,
+        width: window.innerWidth < sizes.phone ? '100%' : null,
       },
     }}
     appElement={document.getElementById('app')}

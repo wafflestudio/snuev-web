@@ -7,7 +7,7 @@ import Vote from '../../components/Vote';
 import { parseSemesterSeason, parseDate } from '../../utils/parse';
 
 import messages from './messages';
-import { typo } from '../../style-utils';
+import { typo, media } from '../../style-utils';
 
 const EvaluationWrapper = styled.div`
   margin-bottom: 30px;
@@ -24,19 +24,30 @@ export const EvaluationScore = styled.div`
   display: flex;
   align-items: flex-end;
   margin-right: 16px;
+  ${media.phone`
+    margin-right: 0px;
+  `}
 `;
 
 export const EvaluationScoreLabel = styled.div`
   ${typo.body1}
   opacity: .6;
+  ${media.phone`
+    font-size: 10px;
+    margin-bottom: 4px;
+    width: ${(props: { width: string }) => props.width};
+  `}
 `;
 
 export const EvaluationScoreValue = styled.div`
   ${typo.score2}
-  height: 40px;
   opacity: 0.8;
   color: #000000;
   margin-right: 4px;
+  ${media.phone`
+    font-size: 18px;
+    margin-right: 0px;
+  `}
 `;
 
 const DateText = styled.div`
@@ -50,6 +61,11 @@ const SemesterText = styled.div`
   text-align: left;
   color: #4f48c4;
   margin-left: 14px;
+  ${media.phone`
+    font-size: 10px;
+    margin-left: 0px;
+    margin-bottom: 4px;
+  `}
 `;
 
 const ReviewText = styled.p`
@@ -78,15 +94,15 @@ export default ({ lecture, evaluation, votes, vote, deleteVote }: Props) => (
     <EvaluationHeader>
       <EvaluationScore>
         <EvaluationScoreValue>{evaluation.get('score')}</EvaluationScoreValue>
-        <EvaluationScoreLabel>/{messages.score}</EvaluationScoreLabel>
+        <EvaluationScoreLabel width="30px">/{messages.score}</EvaluationScoreLabel>
       </EvaluationScore>
       <EvaluationScore>
         <EvaluationScoreValue>{evaluation.get('easiness')}</EvaluationScoreValue>
-        <EvaluationScoreLabel>/{messages.easiness}</EvaluationScoreLabel>
+        <EvaluationScoreLabel width="60px">/{messages.easiness}</EvaluationScoreLabel>
       </EvaluationScore>
       <EvaluationScore>
         <EvaluationScoreValue>{evaluation.get('grading')}</EvaluationScoreValue>
-        <EvaluationScoreLabel>/{messages.grading}</EvaluationScoreLabel>
+        <EvaluationScoreLabel width="60px">/{messages.grading}</EvaluationScoreLabel>
       </EvaluationScore>
       <SemesterText>
         {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?

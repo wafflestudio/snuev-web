@@ -20,6 +20,7 @@ import {
 
 type Props = {
   courses: Map<string, any>,
+  global: Map<string, any>,
   searchCourses: (string) => void,
   searchLectures: (string) => void,
   location: { search: string },
