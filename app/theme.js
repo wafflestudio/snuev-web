@@ -1,3 +1,80 @@
+// @flow
+
+export type Theme = {
+  appMaxWidth: number,
+  navBarHeight: number,
+  mobileNavBarHeight: number,
+  sideBarMaxWidth: number,
+  tabletSideBarMaxWidth: number,
+  color: {
+    primary: string,
+    secondary: string,
+    black: string,
+    white: string,
+    gray: string,
+    lightGray: string,
+    grayBackground1: string,
+    grayBackground2: string,
+    header1: string,
+    header2: string,
+    header3: string,
+    body1: string,
+    body2: string,
+    score1: string,
+    score2: string,
+    score3: string,
+    hint: string,
+    error: string,
+    // signup button
+    hover1: string,
+    focus1: string,
+    // department input
+    hover3: string,
+    focus3: string,
+  },
+  fontSize: {
+    headline: string,
+    title: string,
+    body: string,
+    label: string,
+    header1: number,
+    header2: number,
+    header3: number,
+    body1: number,
+    body2: number,
+    score1: number,
+    score2: number,
+    score3: number,
+    tablet: {
+      header1: number,
+      header2: number,
+      header3: number,
+      body1: number,
+      body2: number,
+      score1: number,
+      score2: number,
+      score3: number,
+    },
+    mobile: {
+      header1: number,
+      header2: number,
+      header3: number,
+      body1: number,
+      body2: number,
+      score1: number,
+      score2: number,
+      score3: number,
+    },
+  },
+  fontFamily: {
+    sansSerif: string,
+    number: string,
+  },
+  fontWeight: {
+    bold: number,
+  },
+};
+
 const theme = {
   appMaxWidth: 1060,
   navBarHeight: 70,
@@ -6,6 +83,7 @@ const theme = {
   tabletSideBarMaxWidth: 200,
   color: {
     primary: '#4f48c4',
+    secondary: '#f5f6fa',
     black: '#4a4a4a',
     white: '#ffffff',
     gray: '#666666',
@@ -21,6 +99,7 @@ const theme = {
     score2: 'rgba(0,0,0,.8)',
     score3: 'rgba(0,0,0,.8)',
     hint: 'rgba(0,0,0,.4)',
+    error: '#e54459',
     // signup button
     hover1: '#F1F1FB',
     focus1: '#D5D3F1',

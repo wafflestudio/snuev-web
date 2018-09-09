@@ -70,6 +70,7 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.div`
+  height: 100%;
   padding-top: ${(props: Props) => props.theme.navBarHeight}px;
   margin-left: ${(props: Props) =>
     props.showSideBar ?

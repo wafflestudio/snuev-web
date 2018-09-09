@@ -48,7 +48,9 @@ export const Header = styled.div`
 `;
 
 export const HeaderText = styled.div`
-  ${typo.header2}
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-size: 14px;
+  width: 81px;
   height: 100%;
   margin-right: 10px;
 
@@ -287,7 +289,7 @@ export const SelectedDepartmentWrapper = styled.div`
 export const SelectedDepartmentText = styled.div`
   max-width: 130px;
   height: 100%;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
