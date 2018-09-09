@@ -17,6 +17,7 @@ const messages = {
   evaluation: {
     header: '강의평',
   },
+  writeReview: '강의평 쓰기',
   leaveReview: '강의평 남기기',
   backToList: '리스트로 돌아가기',
 };

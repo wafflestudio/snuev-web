@@ -23,7 +23,7 @@ const Input = styled.input`
   color: var(--black-two);
 
   ${media.phone`
-    width: 259px;
+    width: 159px;
     font-size: 13px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -41,10 +41,15 @@ export const EmailDomainText = styled.p`
   width: 100px;
   height: 44px;
   line-height: 42px;
+  opacity: 0.7;
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray};
   margin-top: 11px;
   color: ${(props: { theme: Theme }) => props.theme.color.hint};
+
+  ${media.phone`
+    margin-top: 10px;
+  `}
 `;
 
 const ErrorMessage = styled.p`

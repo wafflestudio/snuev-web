@@ -8,6 +8,7 @@ export type Theme = {
   tabletSideBarMaxWidth: number,
   color: {
     primary: string,
+    secondary: string,
     black: string,
     white: string,
     gray: string,
@@ -82,6 +83,7 @@ const theme = {
   tabletSideBarMaxWidth: 200,
   color: {
     primary: '#4f48c4',
+    secondary: '#f5f6fa',
     black: '#4a4a4a',
     white: '#ffffff',
     gray: '#666666',

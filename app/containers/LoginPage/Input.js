@@ -25,7 +25,7 @@ const Input = styled.input`
   ${media.phone`
     width: 259px;
     font-size: 13px;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 0px;
   `}
 `;

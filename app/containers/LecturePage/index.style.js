@@ -2,10 +2,12 @@
 import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
+import { Link } from 'react-router';
 import type { Theme } from '../../theme';
 import { typo, media } from '../../style-utils';
-import CreateIconImage from '../../images/ic-write-big.png';
+import EmptyLectureImage from '../../images/img-emptylecture@3x.png';
 import IconBack from '../../images/ic-arrow-left@2x.png';
+import IconRight from '../../images/ic-arrow-right@2x.png';
 
 Modal.setAppElement('#app');
 
@@ -161,23 +163,16 @@ export const EvaluationsHeader = styled.span`
 `;
 
 export const LeaveReviewButton = styled.button`
-  width: 80px;
-  height: 80px;
-  border-radius: 40px;
-  border: solid 1px rgba(0, 0, 0, 0.4);
+  width: 120px;
+  height: 40px;
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   align-self: center;
   &:focus {
     outline: none;
   }
 `;
-
-const CreateIconFrame = styled.img`
-  width: 40px;
-  height: 40px;
-`;
-
-export const CreateIcon = (props: {}) => <CreateIconFrame src={CreateIconImage} {...props} />;
 
 export const CloseIcon = styled.span`
   position: absolute;
@@ -206,8 +201,69 @@ export const CloseIcon = styled.span`
 `;
 
 export const PageWrapper = styled.div`
+  height: 100%;
   margin: 0 30px;
   padding-top: 30px;
   display: flex;
   justify-content: center;
 `;
+
+export const NoEvaluationWrapper = styled.div`
+  min-height: 300px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  margin-top: 45px;
+  margin-bottom: 80px;
+  padding: 20px;
+  background-color: ${(props: { hasUser: boolean, theme: Theme }) => props.hasUser ? props.theme.color.white : props.theme.color.secondary};
+  ${media.phone`
+    margin-top: 30px;
+    margin-bottom: 30px;
+  `}
+`;
+
+const EmptyLectureFrame = styled.img`
+  width: 216px;
+  height: 216px;
+  object-fit: contain;
+  ${media.phone`
+    width: 108px;
+    height: 108px;
+  `}
+`;
+
+export const EmptyLectureIcon = (props: {}) => <EmptyLectureFrame src={EmptyLectureImage} {...props} />;
+
+export const EmptyLectureWrapper = styled.div`
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const EmptyLectureText = styled.p`
+  ${typo.body2}
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  text-align: center;
+`;
+
+export const EmptyLectureToLoginWrapper = styled(Link)`
+  display: flex;
+  align-items: center;
+`;
+
+export const EmptyLectureToLoginText = styled.p`
+  font-size: ${(props: { theme: Theme }) => `${props.theme.fontSize.header3} px`};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
+`;
+
+const IconRightFrame = styled.img`
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+`;
+
+export const IconRightImage = (props: {}) => <IconRightFrame src={IconRight} {...props} />;
