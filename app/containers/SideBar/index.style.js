@@ -8,6 +8,7 @@ export const SideBarWrapper = styled.aside`
   width: ${(props) => props.theme.sideBarMaxWidth}px;
   height: calc(100vh - ${(props) => props.theme.navBarHeight}px);
   padding-top: 20px;
+  padding-left: 20px;
   margin-top: ${(props) => props.theme.navBarHeight}px;
   overflow: auto;
   background-color: white;

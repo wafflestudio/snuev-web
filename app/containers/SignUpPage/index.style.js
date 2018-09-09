@@ -6,7 +6,6 @@ import SignUpIconImage from '../../images/img-signup.png';
 import ArrowLeftIconImage from '../../images/ic-arrow-left.png';
 import EmailIconImage from '../../images/img-email.png';
 
-import SearchIconImage from '../../images/ic-search.png';
 import { typo } from '../../style-utils';
 
 export const Background = styled.div`
@@ -120,35 +119,6 @@ export const CreateAccountText = styled.p`
   text-align: center;
 `;
 
-export const Input = styled.input`
-  width: 300px;
-  height: 44px;
-  background-color: ${(props) => props.theme.color.white};
-  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
-  margin-top: 20px;
-  &:focus { outline: none; };
-`;
-
-export const UsernameInputContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const ShortInput = Input.extend`
-  width: 200px;
-`;
-
-export const EmailDomainText = styled.p`
-  ${typo.header3}
-  width: 100px;
-  height: 44px;
-  line-height: 42px;
-  background-color: ${(props) => props.theme.color.white};
-  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
-  margin-top: 20px;
-  color: ${(props) => props.theme.color.hint};
-`;
-
 export const UsernameInputText = styled.div`
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 1em;
@@ -230,57 +200,3 @@ export const BackButton = (props) => (
     <ArrowLeftIconFrame src={ArrowLeftIconImage} />
   </BackButtonStyle>
 );
-
-// Department Input
-
-export const DepartmentInputWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-export const MediumInput = Input.extend`
-  width: 256px;
-`;
-
-export const DepartmentMenu = styled.div`
-  border: solid 1px #ccc;
-  z-index: 10;
-  background-color: ${(props) => props.theme.color.white};
-  position: absolute;
-  width: 300px;
-  height: 180px;
-  overflow-y: auto;
-`;
-
-const SearchIconWrapper = styled.div`
-  width: 44px;
-  height 44px;
-  display: flex;
-  flex-direction: column;
-  background-color: ${(props) => props.theme.color.white};
-  border-bottom: solid 1px ${(props) => props.theme.color.lightGray};
-  margin-top: 20px;
-`;
-
-const SearchIconFrame = styled.img`
-  width: 30px;
-  height: 30px;
-`;
-
-export const SearchIcon = (props) =>
-  <SearchIconWrapper>
-    <SearchIconFrame src={SearchIconImage} {...props} />
-  </SearchIconWrapper>;
-
-export const DepartmentItemWrapper = styled.button`
-  width: 100%;
-  line-height: 36px;
-  background-color: ${(props) => props.highlighted ? props.theme.color.focus3 : props.theme.color.white};
-  padding: 0 20px 0;
-  text-align: left;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: ${(props) => props.theme.fontSize.body2}px;
-  &:hover {
-    background-color: ${(props) => props.highlighted ? props.theme.color.focus3 : props.theme.color.hover3}
-  };
-`;

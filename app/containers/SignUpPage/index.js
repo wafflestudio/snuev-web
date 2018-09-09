@@ -2,50 +2,56 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
-import { injectIntl, FormattedHTMLMessage, IntlProvider } from 'react-intl';
+import { FormattedHTMLMessage, injectIntl, IntlProvider } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
+import { Map } from 'immutable';
 import { Creators as Actions } from './reducer';
 import messages from './messages';
 import {
+  BackButton,
   Background,
-  InnerContainer,
-  ContentContainer,
-  EmailIcon,
-  TitleText,
+  BackHintText,
+  BackText,
   BodyText,
+  ContentContainer,
+  CreateAccountText,
   EmailContainer,
+  EmailIcon,
   EmailText,
+  InnerContainer,
   ReturnButton,
   ReturnText,
+  SignUpButton,
   SignUpForm,
   SignUpIcon,
-  CreateAccountText,
-  Input,
-  ShortInput,
-  EmailDomainText,
-  UsernameInputContainer,
-  UsernameInputText,
-  SignUpButton,
   SignUpText,
-  BackButton,
-  BackText,
-  BackHintText,
+  TitleText,
 } from './index.style';
+import Input from './Input';
 import DepartmentInput from './DepartmentInput';
+import EmailInput from './EmailInput';
 import DottedLine from '../../components/DottedLine';
 import { makeSelectUser } from '../../global/selectors';
-import { makeSelectPage, makeSelectDepartments } from './selectors';
+import { makeSelectDepartments, makeSelectPage } from './selectors';
 
 type Department = {
   id: string,
   name: string,
 };
 
+type SignUp = {
+  username: string,
+  password: string,
+  nickname: string,
+  department_id: string,
+};
+
 type Props = {
+  page: Map<string, any>,
   departments: any,
   user: any,
   router: { push: Function },
-  signUp: ({ username: string, password: string, nickname: string, department_id: string }) => void,
+  signUp: (SignUp) => void,
   getDepartments: () => void,
 };
 
@@ -54,6 +60,10 @@ type State = {
   password: string,
   nickname: string,
   department_id: string,
+  usernameError: string,
+  passwordError: string,
+  nicknameError: string,
+  departmentError: string,
 };
 
 export class SignUpPage extends React.PureComponent<Props, State> {
@@ -64,6 +74,10 @@ export class SignUpPage extends React.PureComponent<Props, State> {
       password: '',
       nickname: '',
       department_id: '',
+      usernameError: '',
+      passwordError: '',
+      nicknameError: '',
+      departmentError: '',
     };
     (this: any).handleSignUp = this.handleSignUp.bind(this);
   }
@@ -72,9 +86,44 @@ export class SignUpPage extends React.PureComponent<Props, State> {
     this.props.getDepartments();
   }
 
+  componentDidUpdate(prevProps: Props) {
+    const signUpErrorPrev = prevProps.page.get('error');
+    const signUpError = this.props.page.get('error');
+    if (signUpErrorPrev !== signUpError && signUpError) {
+      signUpError.forEach((error: Map<string, any>) => {
+        if (error.get('title') === 'User already exists') {
+          this.setState({ usernameError: messages.error.usernameExists });
+        }
+      });
+    }
+  }
+
   handleSignUp(event: SyntheticEvent<HTMLButtonElement>) {
     event.preventDefault();
-    this.props.signUp(this.state);
+    let isValid = true;
+    if (!this.state.username) {
+      this.setState({ usernameError: messages.error.usernameBlank });
+      isValid = false;
+    }
+    if (this.state.password.length < 8) {
+      this.setState({ passwordError: messages.error.passwordValid });
+      isValid = false;
+    }
+    if (!this.state.password) {
+      this.setState({ passwordError: messages.error.passwordBlank });
+      isValid = false;
+    }
+    if (!this.state.nickname) {
+      this.setState({ nicknameError: messages.error.nicknameBlank });
+      isValid = false;
+    }
+    if (!this.state.department_id) {
+      this.setState({ departmentError: messages.error.departmentBlank });
+      isValid = false;
+    }
+    if (isValid) {
+      this.props.signUp(this.state);
+    }
   }
 
   render() {
@@ -138,36 +187,32 @@ export class SignUpPage extends React.PureComponent<Props, State> {
                   {messages.createAccount}
                 </CreateAccountText>
                 <div>
-                  <UsernameInputContainer>
-                    <ShortInput
-                      type="text"
-                      value={this.state.username}
-                      onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
-                      placeholder={messages.input.usernameHint}
-                    />
-                    <EmailDomainText>
-                      @snu.ac.kr
-                    </EmailDomainText>
-                  </UsernameInputContainer>
-                  <UsernameInputText>
-                    <FormattedHTMLMessage id="usernameInputText" />
-                  </UsernameInputText>
+                  <EmailInput
+                    type="text"
+                    value={this.state.username}
+                    onChange={({ target }) => this.setState({ username: target.value, usernameError: '' })} // eslint-disable-line
+                    placeholder={messages.input.usernameHint}
+                    error={this.state.usernameError}
+                  />
                 </div>
                 <DepartmentInput // $FlowFixMe
                   departments={this.props.departments ? this.props.departments.toJS() : []}
-                  onSelectDepartment={(department: Department) => this.setState({ department_id: department.id })}
+                  onSelectDepartment={(department: Department) => this.setState({ department_id: department.id, departmentError: '' })}
+                  error={this.state.departmentError}
                 />
                 <Input
                   type="text"
                   value={this.state.nickname}
-                  onChange={({ target }) => this.setState({ nickname: target.value })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ nickname: target.value, nicknameError: '' })} // eslint-disable-line
                   placeholder={messages.input.nicknameHint}
+                  error={this.state.nicknameError}
                 />
                 <Input
                   type="password"
                   value={this.state.password}
-                  onChange={({ target }) => this.setState({ password: target.value })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ password: target.value, passwordError: '' })} // eslint-disable-line
                   placeholder={messages.input.passwordHint}
+                  error={this.state.passwordError}
                 />
                 <SignUpButton type="submit">
                   <SignUpText>

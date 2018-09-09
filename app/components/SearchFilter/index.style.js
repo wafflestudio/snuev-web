@@ -22,7 +22,7 @@ export const Header = styled.div`
 `;
 
 export const HeaderText = styled.div`
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   width: 81px;
   height: 100%;
@@ -58,7 +58,7 @@ export const FilterWrapper = styled.div`
 export const FilterHeader = styled.div`
   width: 100%;
   height: 40px;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 14px;
   font-weight: normal;
   font-style: normal;
@@ -73,7 +73,7 @@ export const FilterHeader = styled.div`
 export const FilterElement = styled.button`
   width: 100%;
   height: 32px;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: normal;
   font-style: noraml;
@@ -97,7 +97,7 @@ export const FilterElement = styled.button`
 export const FilterElementSelected = styled.button`
   width: 100%;
   height: 32px;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: normal;
   font-style: noraml;
@@ -177,7 +177,7 @@ export const SelectedDepartmentWrapper = styled.div`
 export const SelectedDepartmentText = styled.div`
   max-width: 130px;
   height: 100%;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;

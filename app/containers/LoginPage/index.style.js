@@ -65,7 +65,7 @@ export const WelcomeText = styled.div`
   width: 331px;
   height: 48px;
   opacity: 0.8;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   font-weight: 500;
   font-style: normal;
@@ -88,7 +88,7 @@ export const PermissionText = styled.div`
   width: 230px;
   height: 19px;
   opacity: 0.5;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -106,29 +106,6 @@ export const PermissionText = styled.div`
     font-size: 11px;
     margin-top: 10px;
     margin-bottom: 20px;
-  `}
-`;
-
-export const Input = styled.input`
-  width: 300px;
-  height: 44px;
-  opacity: 0.7;
-  font-size: 17px;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  background-color: ${(props) => props.theme.color.white};
-  border-bottom: solid 1px #959aac;
-  &:focus { outline: none; };
-  margin-top: 11px;
-  margin-bottom: 18px;
-  color: var(--black-two);
-
-  ${media.phone`
-    width: 259px;
-    font-size: 13px;
-    margin-top: 10px;
-    margin-bottom: 0px;
   `}
 `;
 
@@ -161,7 +138,7 @@ export const LoginButton = styled.button`
 export const LoginText = styled.div`
   width: 56px;
   height: 29px;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
   font-weight: 300;
   font-style: normal;
@@ -228,7 +205,7 @@ export const SignUpLink = styled(Link)`
   width: 52px;
   height: 20px;
   opacity: 0.8;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: 300;
   font-style: normal;
@@ -249,7 +226,7 @@ export const RecoverPasswordLink = styled(Link)`
   width: 81px;
   height: 20px;
   opacity: 0.8;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: 300;
   font-style: normal;
@@ -283,7 +260,7 @@ export const SnuevTeamWrapper = styled.div`
   width: 132px;
   height: 19px;
   opacity: 0.4;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -306,7 +283,7 @@ export const SnuevGithubWrapper = styled.div`
   width: 86px;
   height: 19px;
   opacity: 0.4;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -329,7 +306,7 @@ export const DeveloperWrapper = styled.div`
   width: 87px;
   height: 19px;
   opacity: 0.4;
-  font-family: NotoSansCJKkr;
+  font-family: ${(props) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;

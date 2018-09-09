@@ -1,8 +1,10 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import CreateIconSrc from '../../../images/ic-write-small.png';
 import CreateIcon2XSrc from '../../../images/ic-write-small@2x.png';
 import CreateIcon3XSrc from '../../../images/ic-write-small@3x.png';
+import type { Theme } from '../../../theme';
 
 export const Wrapper = styled.form`
   background-color: #ffffff;
@@ -52,10 +54,15 @@ export const CommentInput = styled.textarea`
 const CreateIconFrame = styled.img`
 `;
 
-export const CreateIcon = (props) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
+export const CreateIcon = (props: {}) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
+
+export const Hint = styled.p`
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  color: ${(props: { error: boolean, theme: Theme }) => props.error ? props.theme.color.error : 'initial'};
+`;
 
 export const FlatButton = styled.button`
-  color: ${(props) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
+  color: ${(props: { cancel: boolean }) => props.cancel ? 'rgba(0,0,0,.4)' : 'initial'};
   margin-left: 30px;
   cursor: pointer;
   font-weight: 500;
@@ -64,8 +71,12 @@ export const FlatButton = styled.button`
   }
 `;
 
-export const Buttons = styled.div`
+export const BottomComponentWrapper = styled.div`
   display: flex;
-  justify-content: flex-end;
+`;
+
+export const BottomWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
   width: 100%;
 `;

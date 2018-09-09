@@ -2,26 +2,20 @@
 import styled from 'styled-components';
 import React from 'react';
 import Modal from 'react-modal';
+import type { Theme } from '../../theme';
 import { typo, media } from '../../style-utils';
 import CreateIconImage from '../../images/ic-write-big.png';
 import IconBack from '../../images/ic-arrow-left@2x.png';
 
 Modal.setAppElement('#app');
 
-type Props = {
-  theme: any,
-};
-type NoThemeProps = {
-
-};
-
 export const Background = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: ${(props: Props) => props.theme.appMaxWidth}px;
+  max-width: ${(props: { theme: Theme }) => props.theme.appMaxWidth}px;
 `;
 
-export const EvaluationFormModal = (props: NoThemeProps) => (
+export const EvaluationFormModal = (props: {}) => (
   <Modal
     {...props}
     style={{
@@ -70,7 +64,7 @@ export const BackToList = styled.div`
     background-repeat: no-repeat;
     background-size: 20px 20px, cover;
     background-position-y: 25px, 0;
-    color: ${(props: Props) => props.theme.color.primary};
+    color: ${(props: { theme: Theme }) => props.theme.color.primary};
   `}
 `;
 
@@ -148,7 +142,7 @@ export const LectureScoreValue = styled.span`
 
 export const LectureSummary = styled.p`
   ${typo.body2}
-  font-family: ${(props: Props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   margin: 30px 0 0 0;
 `;
 
@@ -171,7 +165,7 @@ export const LeaveReviewButton = styled.button`
   height: 80px;
   border-radius: 40px;
   border: solid 1px rgba(0, 0, 0, 0.4);
-  background-color: ${(props: Props) => props.theme.color.white};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   align-self: center;
   &:focus {
     outline: none;
@@ -183,7 +177,7 @@ const CreateIconFrame = styled.img`
   height: 40px;
 `;
 
-export const CreateIcon = (props: NoThemeProps) => <CreateIconFrame src={CreateIconImage} {...props} />;
+export const CreateIcon = (props: {}) => <CreateIconFrame src={CreateIconImage} {...props} />;
 
 export const CloseIcon = styled.span`
   position: absolute;
