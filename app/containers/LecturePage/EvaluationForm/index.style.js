@@ -5,12 +5,17 @@ import CreateIconSrc from '../../../images/ic-write-small.png';
 import CreateIcon2XSrc from '../../../images/ic-write-small@2x.png';
 import CreateIcon3XSrc from '../../../images/ic-write-small@3x.png';
 import type { Theme } from '../../../theme';
+import { media } from '../../../style-utils';
 
 export const Wrapper = styled.form`
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${media.phone`
+    height: 100%;
+    width: 100%;
+  `}
 `;
 
 export const Header = styled.div`
@@ -31,6 +36,9 @@ export const RatingWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin: 20px -40px 30px;
+  ${media.phone`
+    flex-direction: column;
+  `}
 `;
 
 export const RatingMargin = styled.div`
@@ -56,9 +64,12 @@ const CreateIconFrame = styled.img`
 
 export const CreateIcon = (props: {}) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
 
-export const Hint = styled.p`
+export const Hint = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   color: ${(props: { error: boolean, theme: Theme }) => props.error ? props.theme.color.error : 'initial'};
+  ${media.phone`
+    padding-right: 30px;
+  `}
 `;
 
 export const FlatButton = styled.button`
@@ -69,6 +80,10 @@ export const FlatButton = styled.button`
   &:focus {
     outline: 0;
   }
+  ${media.phone`
+    width: 50px;
+    margin-left: 0px;
+  `}
 `;
 
 export const BottomComponentWrapper = styled.div`
