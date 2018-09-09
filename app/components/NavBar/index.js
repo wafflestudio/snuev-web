@@ -20,6 +20,7 @@ type Props = {
   getDepartments: () => void,
   showSearchFilter: () => void,
   hideSearchFilter: () => void,
+  hideSideBar: () => void,
 };
 
 export class NavBar extends React.PureComponent<Props> {
@@ -27,6 +28,7 @@ export class NavBar extends React.PureComponent<Props> {
     super(props);
     (this: any).handleLogOut = this.handleLogOut.bind(this);
     (this: any).handleSearchFilter = this.handleSearchFilter.bind(this);
+    (this: any).handleOnClickProfile = this.handleOnClickProfile.bind(this);
   }
 
   componentDidMount() {
@@ -46,6 +48,12 @@ export class NavBar extends React.PureComponent<Props> {
     } else {
       this.props.showSearchFilter();
     }
+  }
+
+  handleOnClickProfile(event: Event) {
+    event.preventDefault();
+    this.props.hideSideBar();
+    browserHistory.push('/profile');
   }
 
   render() {
@@ -75,7 +83,7 @@ export class NavBar extends React.PureComponent<Props> {
                     </span>
                   </li>
                 </button>
-                <Link to="/profile">
+                <button onClick={this.handleOnClickProfile}>
                   <li className="profile">
                     <span className="navMenuText">
                       <FormattedMessage
@@ -84,7 +92,7 @@ export class NavBar extends React.PureComponent<Props> {
                       />
                     </span>
                   </li>
-                </Link>
+                </button>
                 <button onClick={this.handleLogOut}>
                   <li className="logout">
                     <span className="navMenuText">
@@ -130,6 +138,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
   showSearchFilter: () => dispatch(Actions.showSearchFilter()),
   hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
+  hideSideBar: () => dispatch(Actions.hideSideBar()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

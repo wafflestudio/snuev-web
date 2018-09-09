@@ -13,13 +13,12 @@ import messages from './messages';
 import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
-import { makeSelectUser, makeSelectBookmarks } from '../../global/selectors';
+import { makeSelectUser, makeSelectBookmarks, makeSelectVotes } from '../../global/selectors';
 import { Creators as GlobalActions } from '../../global/reducer';
 import {
   makeSelectPage,
   makeSelectLecture,
   makeSelectEvaluations,
-  makeSelectVotes,
 } from './selectors';
 import {
   EvaluationsWrapper,
@@ -111,9 +110,9 @@ export class LecturePage extends React.Component<Props> {
           <Helmet
             title="LecturePage"
             meta={[
-            { name: 'description', content: 'Description of Lecture Page' },
-          ]}
-        />
+              { name: 'description', content: 'Description of Lecture Page' },
+            ]}
+          />
         <EvaluationFormModal
           isOpen={page.get('evaluationFormOpen')}
         >
@@ -181,7 +180,7 @@ export class LecturePage extends React.Component<Props> {
           loadMore={this.loadEvaluations}
         >
           <div>
-            {this.props.evaluations &&
+            {evaluations &&
               evaluations.map((evaluation: Object, index: number) => (
                 <div key={index}>
                   <Evaluation
@@ -218,8 +217,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   closeEvaluationForm: () => dispatch(Actions.closeEvaluationForm()),
   bookmark: (id: number) => dispatch(GlobalActions.bookmarkRequest(id)),
   deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
-  vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.voteRequest(lectureId, evaluationId, isUpvote)),
-  deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(Actions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
+  vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.voteRequest(lectureId, evaluationId, isUpvote)),
+  deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
   focusLecture: () => dispatch(GlobalActions.focusLecture()),
   blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });

@@ -119,17 +119,20 @@ export function* deleteBookmark(id) {
 
 export function* watchGetBookmarkedRequest() {
   while (true) {
-    yield take(Types.GET_BOOKMARKED_REQUEST);
-    yield call(getBookmarked);
+    yield take(Types.BOOKMARKED_LECTURES_REQUEST);
+    yield call(getBookmarkedLectures);
   }
 }
 
-export function* getBookmarked() {
+export function* getBookmarkedLectures() {
   try {
-    yield request.get('/v1/lectures/bookmarked');
-    yield put(Actions.getBookmarkedSuccess());
+    const response = yield authRequest.get('/v1/lectures/bookmarked');
+    if (response) {
+      yield put(Actions.normalizeData(response.data));
+      yield put(Actions.bookmarkedLecturesSuccess(response.data.data.map((lectures) => lectures.id)));
+    }
   } catch (error) {
-    yield put(Actions.getBookmarkedFailure(error.errors));
+    yield put(Actions.bookmarkedLecturesFailure(error.errors));
   }
 }
 
@@ -150,6 +153,40 @@ export function* getDepartments() {
   }
 }
 
+export function* watchVoteRequest() {
+  yield takeLatest(Types.VOTE_REQUEST, vote);
+}
+
+export function* vote({ lectureId, evaluationId, isUpvote }) {
+  try {
+    yield authRequest.post(`/v1/lectures/${lectureId}/evaluations/${evaluationId}/vote?vote[direction]=${isUpvote}`);
+    if (isUpvote) {
+      yield put(Actions.upvoteSuccess(evaluationId));
+    } else {
+      yield put(Actions.downvoteSuccess(evaluationId));
+    }
+  } catch (error) {
+    yield put(Actions.voteFailure(error.errors));
+  }
+}
+
+export function* watchDeleteVoteRequest() {
+  yield takeLatest(Types.DELETE_VOTE_REQUEST, deleteVote);
+}
+
+export function* deleteVote({ lectureId, evaluationId, isUpvote }) {
+  try {
+    yield authRequest.delete(`/v1/lectures/${lectureId}/evaluations/${evaluationId}/vote?vote[direction]=${isUpvote}`);
+    if (isUpvote) {
+      yield put(Actions.deleteUpvoteSuccess(evaluationId));
+    } else {
+      yield put(Actions.deleteDownvoteSuccess(evaluationId));
+    }
+  } catch (error) {
+    yield put(Actions.deleteVoteFailure(error.errors));
+  }
+}
+
 export default [
   watchSignInRequest,
   watchSignOut,
@@ -160,4 +197,6 @@ export default [
   watchDeleteBookmarkRequest,
   watchGetBookmarkedRequest,
   watchGetDepartmentsRequest,
+  watchVoteRequest,
+  watchDeleteVoteRequest,
 ];

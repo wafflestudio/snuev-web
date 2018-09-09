@@ -136,6 +136,9 @@ export const NavMenu = styled.ul`
 
   button, a {
     margin-left: 40px;
+    &:focus {
+      outline: none;
+    }
 
     ${media.tablet`
       margin-left: 30px;
@@ -181,7 +184,6 @@ export const NavMenu = styled.ul`
       }
 
       ${media.tablet`
-        margin-top: 6px;
         padding-top: 30px;
       `}
     }
