@@ -7,8 +7,13 @@ import LogoImage from '../../images/img-gnb-logo@2x.png';
 import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
+import IconBookmarkHover from '../../images/ic-bookmark-hover.png';
 import IconProfile from '../../images/ic-profile-normal.png';
+import IconProfileHover from '../../images/ic-profile-hover.png';
+import IconLogin from '../../images/ic-login-normal.png';
+import IconLoginHover from '../../images/ic-login-hover.png';
 import IconLogout from '../../images/ic-logout-normal.png';
+import IconLogoutHover from '../../images/ic-logout-hover.png';
 import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
 
 type Props = {
@@ -48,7 +53,7 @@ export const NavBarWrapper = styled.header`
 export const NavBarInnerWrapper = styled.div`
   max-width: ${(props: Props) => props.theme.appMaxWidth}px;
   width: 100%;
-  margin: 0 30px;
+  margin: 0 20px;
   height: 100%;
   display: grid;
   grid-template-columns: 110px 260px auto;
@@ -57,13 +62,11 @@ export const NavBarInnerWrapper = styled.div`
   align-items: center;
   ${media.tablet`
     margin: 0 auto;
-  `}
-  ${media.tablet`
     grid-template-areas: "logo search . navmenu";
-    grid-template-columns: 110px 260px auto 220px;
+    grid-template-columns: 130px 260px auto 260px;
   `}
   ${media.phone`
-    grid-template-columns: 110px auto 210px;
+    grid-template-columns: 110px auto 230px;
     grid-template-areas:
       "logo . navmenu"
       "search search search";
@@ -74,6 +77,14 @@ export const NavBarInnerWrapper = styled.div`
 const LogoFrame = styled.img`
   grid-area: logo;
   height: 29px;
+
+  ${media.tablet`
+    margin-left: 20px;
+  `}
+
+  ${media.phone`
+    margin-left: 0;
+  `}
 `;
 
 type FrameProps = {
@@ -121,13 +132,26 @@ export const NavMenu = styled.ul`
   margin: 0 0 0 auto;
   line-height: 40px;
   list-style: none;
+  padding-left: 0;
+
+  button, a {
+    margin-left: 40px;
+    &:focus {
+      outline: none;
+    }
+
+    ${media.tablet`
+      margin-left: 30px;
+    `}
+
+    ${media.phone`
+      margin-left: 27px;
+    `}
+  }
 
   li {
     margin-left: 20px;
     ${media.tablet`
-      margin-left: 40px;
-    `}
-    ${media.phone`
       margin-left: 40px;
     `}
 
@@ -136,29 +160,85 @@ export const NavMenu = styled.ul`
     }
 
     &.bookmarks {
-      padding-left: 20px;
+      padding-left: 30px;
       background: url(${IconBookmark}) no-repeat 0% 50%;
       background-size: 20px 20px;
+      cursor: pointer;
+      &:hover {
+        background: url(${IconBookmarkHover}) no-repeat 0% 50%;
+      }
+
+      ${media.tablet`
+        margin-top: 3px;
+        padding-top: 30px;
+      `}
     }
 
     &.profile {
       padding-left: 30px;
       background: url(${IconProfile}) no-repeat 0% 50%;
       background-size: 20px 20px;
+      cursor: pointer;
+      &:hover {
+        background: url(${IconProfileHover}) no-repeat 0% 50%;
+      }
+
+      ${media.tablet`
+        padding-top: 30px;
+      `}
     }
 
     &.logout {
-      padding-left: 20px;
+      padding-left: 30px;
       background: url(${IconLogout}) no-repeat 0% 50%;
       background-size: 20px 20px;
+      cursor: pointer;
+      &:hover {
+        background: url(${IconLogoutHover}) no-repeat 0% 50%;
+      }
+
+      ${media.tablet`
+        margin-top: 3px;
+        padding-top: 30px;
+      `}
+    }
+
+    &.login {
+      padding-left: 30px;
+      background: url(${IconLogin}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+      cursor: pointer;
+      &:hover {
+        background: url(${IconLoginHover}) no-repeat 0% 50%;
+      }
+
+      ${media.tablet`
+        margin-top: 6px;
+        padding-top: 30px;
+      `}
+
       ${media.phone`
-        padding-left: 7px;
+        padding-left: 20px;
+      `}
+    }
+
+    &.signUp {
+      padding-left: 30px;
+      background: url(${IconProfile}) no-repeat 0% 50%;
+      background-size: 20px 20px;
+      cursor: pointer;
+      &:hover {
+        background: url(${IconProfileHover}) no-repeat 0% 50%;
+      }
+
+      ${media.tablet`
+        margin-top: 6px;
+        padding-top: 30px;
       `}
     }
 
     &:first-child {
       margin-left: 0;
     }
-
   }
 `;

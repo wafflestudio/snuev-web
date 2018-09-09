@@ -54,6 +54,22 @@ const makeSelectDepartments = () => createSelector(
   (entities) => denormalize(entities, 'departments', 'all'),
 );
 
+const makeSelectVotes = () => createSelector(
+  makeSelectGlobal(),
+  (global) => global.get('votes'),
+);
+
+const makeSelectEveryLecture = () => createSelector(
+  makeSelectEntities(),
+  (entities) => denormalize(entities, 'lectures', 'all'),
+);
+
+const makeSelectBookmarkedLectures = () => createSelector(
+  makeSelectEntities(),
+  makeSelectGlobal(),
+  (entities, global) => denormalize(entities, 'lectures', global.getIn(['bookmarkedLectures', 'ids'])) || List(),
+);
+
 export {
   makeSelectGlobal,
   makeSelectAppLayout,
@@ -65,4 +81,7 @@ export {
   makeSelectBookmarks,
   makeSelectSearchFilter,
   makeSelectDepartments,
+  makeSelectVotes,
+  makeSelectEveryLecture,
+  makeSelectBookmarkedLectures,
 };

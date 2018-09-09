@@ -30,9 +30,9 @@ export const { Types, Creators } = createActions({
   deleteBookmarkRequest: ['id'],
   deleteBookmarkSuccess: ['id'],
   deleteBookmarkFailure: ['id', 'error'],
-  getBookmarkedRequest: null,
-  getBookmarkedSuccess: null,
-  getBookmarkedFailure: ['error'],
+  bookmarkedLecturesRequest: null,
+  bookmarkedLecturesSuccess: ['ids'],
+  bookmarkedLecturesFailure: ['error'],
   setDepartmentFilter: ['department'],
   removeDepartmentFilter: ['department'],
   setSearchFilter: ['division', 'selection'],
@@ -43,6 +43,14 @@ export const { Types, Creators } = createActions({
   getDepartmentsFailure: ['error'],
   focusLecture: null,
   blurLecture: null,
+  voteRequest: ['lectureId', 'evaluationId', 'isUpvote'],
+  upvoteSuccess: ['id'],
+  downvoteSuccess: ['id'],
+  voteFailure: ['id', 'error'],
+  deleteVoteRequest: ['lectureId', 'evaluationId', 'isUpvote'],
+  deleteUpvoteSuccess: ['id'],
+  deleteDownvoteSuccess: ['id'],
+  deleteVoteFailure: ['id', 'error'],
 });
 
 /* ------------- Initial State ------------- */
@@ -77,7 +85,11 @@ export const initialState = fromJS({
     performedInitialSearch: false,
   },
   bookmarks: {},
-  bookmarkedLectures: null,
+  bookmarkedLectures: {
+    ids: [],
+    isFetching: false,
+    error: null,
+  },
   searchFilter: {
     departments: {},
     academicYear: {
@@ -133,6 +145,7 @@ export const initialState = fromJS({
     isFetching: false,
     error: null,
   },
+  votes: {},
 });
 
 /* ------------- Reducers ------------- */
@@ -213,6 +226,27 @@ export const deleteBookmarkSuccess = (state, { id }) =>
 export const deleteBookmarkFailure = (state, { id, error }) =>
   state.setIn(['bookmarks', id], fromJS({ isFetching: false, error }));
 
+export const bookmarkedLecturesRequest = (state) =>
+  state.mergeDeep({ bookmarkedLectures: { isFetching: true, error: null } });
+
+export const bookmarkedLecturesSuccess = (state, { ids }) => ids.length ?
+  state.mergeDeep({
+    bookmarkedLectures: {
+      ids: state.getIn(['bookmarkedLectures', 'ids']).concat(ids).toSet().toList(),
+      isFetching: false,
+      error: null,
+    },
+  }) :
+  state.mergeDeep({
+    bookmarkedLectures: {
+      isFetching: false,
+      error: null,
+    },
+  });
+
+export const bookmarkedLecturesFailure = (state, { error }) =>
+  state.mergeDeep({ bookmarkedLectures: { isFetching: false, error } });
+
 export const setDepartmentFilter = (state, { department }) =>
   state.setIn(['searchFilter', 'departments', department.get('id')], department.get('name'));
 
@@ -236,11 +270,36 @@ export const getDepartmentsSuccess = (state) =>
 
 export const getDepartmentsFailure = (state, { error }) =>
   state.mergeDeep({ departments: { isFetching: false, error } });
+
 export const focusLecture = (state) =>
   state.setIn(['appLayout', 'focusLecture'], true);
 
 export const blurLecture = (state) =>
   state.setIn(['appLayout', 'focusLecture'], false);
+
+export const voteRequest = (state, { evaluationId }) =>
+  state.setIn(['votes', evaluationId], fromJS({ isFetching: true }));
+
+export const upvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const downvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const voteFailure = (state, { id, error }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error }));
+
+export const deleteVoteRequest = (state, { evaluationId }) =>
+  state.setIn(['votes', evaluationId], fromJS({ isFetching: true }));
+
+export const deleteUpvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const deleteDownvoteSuccess = (state, { id }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error: null }));
+
+export const deleteVoteFailure = (state, { id, error }) =>
+  state.setIn(['votes', id], fromJS({ isFetching: false, error }));
 
 /* ------------- Hookup Reducers To Types ------------- */
 
@@ -270,9 +329,9 @@ export default createReducer(initialState, {
   [Types.DELETE_BOOKMARK_REQUEST]: deleteBookmarkRequest,
   [Types.DELETE_BOOKMARK_SUCCESS]: deleteBookmarkSuccess,
   [Types.DELETE_BOOKMARK_FAILURE]: deleteBookmarkFailure,
-  [Types.GET_BOOKMARKED_REQUEST]: bookmarkRequest,
-  [Types.GET_BOOKMARKED_SUCCESS]: bookmarkSuccess,
-  [Types.GET_BOOKMARKED_FAILURE]: bookmarkFailure,
+  [Types.BOOKMARKED_LECTURES_REQUEST]: bookmarkedLecturesRequest,
+  [Types.BOOKMARKED_LECTURES_SUCCESS]: bookmarkedLecturesSuccess,
+  [Types.BOOKMARKED_LECTURES_FAILURE]: bookmarkedLecturesFailure,
   [Types.SET_DEPARTMENT_FILTER]: setDepartmentFilter,
   [Types.REMOVE_DEPARTMENT_FILTER]: removeDepartmentFilter,
   [Types.SET_SEARCH_FILTER]: setSearchFilter,
@@ -283,4 +342,12 @@ export default createReducer(initialState, {
   [Types.GET_DEPARTMENTS_FAILURE]: getDepartmentsFailure,
   [Types.FOCUS_LECTURE]: focusLecture,
   [Types.BLUR_LECTURE]: blurLecture,
+  [Types.VOTE_REQUEST]: voteRequest,
+  [Types.UPVOTE_SUCCESS]: upvoteSuccess,
+  [Types.DOWNVOTE_SUCCESS]: downvoteSuccess,
+  [Types.VOTE_FAILURE]: voteFailure,
+  [Types.DELETE_VOTE_REQUEST]: deleteVoteRequest,
+  [Types.DELETE_UPVOTE_SUCCESS]: deleteUpvoteSuccess,
+  [Types.DELETE_DOWNVOTE_SUCCESS]: deleteDownvoteSuccess,
+  [Types.DELETE_VOTE_FAILURE]: deleteVoteFailure,
 });

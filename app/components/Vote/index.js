@@ -119,7 +119,6 @@ export default class Vote extends React.PureComponent<Props, State> {
       evaluation,
       votes,
     } = this.props;
-
     return (
       <VoteWrapper>
         <ButtonCountWrapper>
