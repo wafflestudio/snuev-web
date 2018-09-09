@@ -7,6 +7,9 @@ import type { Theme } from '../../theme';
 
 const Wrapper = styled.div`
   margin-top: 20px;
+  ${media.phone`
+    margin-top: 0px;
+  `}
 `;
 
 const Input = styled.input`
@@ -18,7 +21,7 @@ const Input = styled.input`
   &:focus { outline: none; };
 
   ${media.phone`
-    width: 259px;
+    width: 159px;
     font-size: 13px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -39,6 +42,11 @@ export const EmailDomainText = styled.p`
   border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.lightGray};
   margin-top: 20px;
   color: ${(props: { theme: Theme }) => props.theme.color.hint};
+  ${media.phone`
+    font-size: 13px;
+    margin-top: 10px;
+    margin-bottom: 0px;
+  `}
 `;
 
 const ErrorMessage = styled.p`

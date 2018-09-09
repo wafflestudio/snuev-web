@@ -1,13 +1,15 @@
+// @flow
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
 import { media } from '../../style-utils';
+import type { Theme } from '../../theme';
 import LogoImage from '../../images/img-logo-220-px.png';
 
 export const Background = styled.div`
   min-height: 700px;
-  background-color: ${(props) => props.theme.color.grayBackground1};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.grayBackground1};
   display: flex;
   flex: 1;
   justify-content: center;
@@ -20,14 +22,14 @@ export const Background = styled.div`
 `;
 
 export const LoginForm = styled.form`
-  background-color: ${(props) => props.theme.color.white};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
 
 export const InnerContainer = styled.div`
-  background-color: ${(props) => props.theme.color.white};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   width: 660px;
   max-height: 100%;
   display: flex;
@@ -59,13 +61,13 @@ const LogoFrame = styled.img`
   object-fit: contain;
 `;
 
-export const Logo = (props) => <LogoFrame src={LogoImage} {...props} />;
+export const Logo = (props: {}) => <LogoFrame src={LogoImage} {...props} />;
 
 export const WelcomeText = styled.div`
   width: 331px;
   height: 48px;
   opacity: 0.8;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 15px;
   font-weight: 500;
   font-style: normal;
@@ -88,7 +90,7 @@ export const PermissionText = styled.div`
   width: 230px;
   height: 19px;
   opacity: 0.5;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 12px;
   font-weight: normal;
   font-style: normal;
@@ -117,12 +119,12 @@ export const LoginButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #4f48c4;
+  background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
   position: absolute;
   left: 590px;
   top: 60%;
-  &:hover { background-color: #3e37b0; };
-  &:focus { background-color: #2b2592; outline: none; };
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
 
   ${media.phone`
     width: 259px;
@@ -138,7 +140,7 @@ export const LoginButton = styled.button`
 export const LoginText = styled.div`
   width: 56px;
   height: 29px;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 20px;
   font-weight: 300;
   font-style: normal;
@@ -205,7 +207,7 @@ export const SignUpLink = styled(Link)`
   width: 52px;
   height: 20px;
   opacity: 0.8;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: 300;
   font-style: normal;
@@ -226,7 +228,7 @@ export const RecoverPasswordLink = styled(Link)`
   width: 81px;
   height: 20px;
   opacity: 0.8;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   font-weight: 300;
   font-style: normal;
@@ -238,86 +240,6 @@ export const RecoverPasswordLink = styled(Link)`
 
   ${media.phone`
     width: 69px;
-    height: 18px;
-    font-size: 11px;
-  `}
-`;
-
-export const Footer = styled.div`
-  width: 100%;
-  height: 19px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 10px;
-
-  ${media.phone`
-    height: 18px;
-  `}
-`;
-
-export const SnuevTeamWrapper = styled.div`
-  width: 132px;
-  height: 19px;
-  opacity: 0.4;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: var(--black-two);
-  margin-right: 30px;
-
-  ${media.phone`
-    width: 122px;
-    height: 18px;
-    font-size: 11px;
-    margin-right: 20px;
-  `}
-`;
-
-export const SnuevGithubWrapper = styled.div`
-  width: 86px;
-  height: 19px;
-  opacity: 0.4;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: var(--black-two);
-  margin-right: 30px;
-
-  ${media.phone`
-    width: 80px;
-    height: 18px;
-    font-size: 11px;
-    margin-right: 20.5px;
-  `}
-`;
-
-export const DeveloperWrapper = styled.div`
-  width: 87px;
-  height: 19px;
-  opacity: 0.4;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
-  color: var(--black-two);
-
-  ${media.phone`
-    width: 80px;
     height: 18px;
     font-size: 11px;
   `}

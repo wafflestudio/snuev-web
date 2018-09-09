@@ -26,11 +26,8 @@ import {
   MiniCircle,
   SignUpLink,
   RecoverPasswordLink,
-  Footer,
-  SnuevTeamWrapper,
-  SnuevGithubWrapper,
-  DeveloperWrapper,
 } from './index.style';
+import Footer from '../../components/Footer';
 import Input from './Input';
 import EmailInput from './EmailInput';
 
@@ -142,17 +139,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
                 </ComponentsWrapper>
               </LoginForm>
             </ContentContainer>
-            <Footer>
-              <SnuevTeamWrapper>
-                {messages.snuevTeam}
-              </SnuevTeamWrapper>
-              <SnuevGithubWrapper>
-                {messages.snuevGithub}
-              </SnuevGithubWrapper>
-              <DeveloperWrapper>
-                {messages.developer}
-              </DeveloperWrapper>
-            </Footer>
+            <Footer />
             <DottedLine />
           </InnerContainer>
         </Background>
