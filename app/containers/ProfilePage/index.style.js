@@ -18,6 +18,11 @@ export const NicknameWrapper = styled.div`
   margin-top: 42px;
   opacity: 0.7;
   color: #000000;
+
+  ${media.phone`
+    width: 360px;
+    margin-top: 20px;
+  `}
 `;
 
 export const PageTabBar = styled.div`
@@ -28,6 +33,10 @@ export const PageTabBar = styled.div`
   opacity: 0.9;
   background-color: #f0f1f5;
   justify-content: center;
+
+  ${media.tablet`
+    height: 50px;
+  `}
 `;
 
 export const PageTabInnerWrapper = styled.div`
@@ -35,12 +44,17 @@ export const PageTabInnerWrapper = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+
+  ${media.phone`
+    width: 360px;
+  `}
 `;
 
 export const PageTab = styled.button`
   ${typo.header3}
   height: 27px;
-  color: #4f48c4;
+  color: ${(props) => props.currentPage ? '#4f48c4' : '#000000'};
+  opacity: ${(props) => props.currentPage ? '1' : '0.6'};
   margin-right: 50px;
   cursor: pointer;
   padding: 0;
@@ -48,9 +62,21 @@ export const PageTab = styled.button`
   &:focus {
     outline: none;
   }
+
+  ${media.phone`
+    margin-right: 16px;
+  `}
 `;
 
 export const InnerWrapper = styled.div`
   width: 640px;
   min-height: 400px;
+
+  ${media.tablet`
+    width: 460px;
+  `}
+
+  ${media.phone`
+    width: 360px;
+  `}
 `;

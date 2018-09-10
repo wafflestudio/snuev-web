@@ -32,6 +32,14 @@ export const TitleWrapper = styled.div`
   opacity: 0.9;
   margin-right: 50px;
   line-height: 44px;
+
+  ${media.tablet`
+    margin-right: 20px;
+  `}
+
+  ${media.phone`
+    margin-right: 10px;
+  `}
 `;
 
 export const Input = styled.input`
@@ -47,7 +55,11 @@ export const Input = styled.input`
 
   &:focus {
     outline: none;
-  } 
+  }
+
+  ${media.phone`
+    width: 220px;
+  `}
 `;
 
 export const ConfirmButtonWrapper = styled.div`
@@ -56,10 +68,18 @@ export const ConfirmButtonWrapper = styled.div`
   margin-top: 20px;
   display: flex;
   flex-direction: row-reverse;
+
+  ${media.tablet`
+    width: 440px;
+  `}
+
+  ${media.phone`
+    width: 350px;
+  `}
 `;
 
 export const ConfirmButton = styled.button`
-  ${typo.body2}
+  ${typo.body1}
   width: 86px;
   height: 40px;
   border-radius: 1px;
