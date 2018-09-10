@@ -110,10 +110,26 @@ export class ProfilePage extends React.PureComponent<Props, State> {
         </NicknameWrapper>
         <PageTabBar>
           <PageTabInnerWrapper>
-            <PageTab onClick={this.handleOnClickMyInfoTab}>내 정보</PageTab>
-            <PageTab onClick={this.handleOnClickMyEvaluationTab}>내가 쓴 강의평 목록</PageTab>
-            <PageTab onClick={this.handleOnClickMyBookmarkTab}>관심 강의</PageTab>
-            <PageTab onClick={this.handleOnClickEditPasswordTab}>비밀번호 변경</PageTab>
+            <PageTab
+              currentPage={this.state.pageState === pageState.myInfo}
+              onClick={this.handleOnClickMyInfoTab}
+            >
+              내 정보</PageTab>
+            <PageTab
+              currentPage={this.state.pageState === pageState.myEvaluation}
+              onClick={this.handleOnClickMyEvaluationTab}
+            >
+              내가 쓴 강의평 목록</PageTab>
+            <PageTab
+              currentPage={this.state.pageState === pageState.myBookmark}
+              onClick={this.handleOnClickMyBookmarkTab}
+            >
+              관심 강의</PageTab>
+            <PageTab
+              currentPage={this.state.pageState === pageState.editPassword}
+              onClick={this.handleOnClickEditPasswordTab}
+            >
+              비밀번호 변경</PageTab>
           </PageTabInnerWrapper>
         </PageTabBar>
         <InnerWrapper>

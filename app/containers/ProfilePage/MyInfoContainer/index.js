@@ -14,6 +14,7 @@ import {
   AutoCompleteMenu,
   AutoCompleteItem,
   SearchInput,
+  EmailAndResendEmailWrapper,
 } from './index.style';
 
 type Props = {
@@ -43,10 +44,12 @@ export class MyInfoContainer extends React.PureComponent<Props, State> {
       <Background>
         <AttributeWrapper>
           <TitleWrapper>이메일</TitleWrapper>
-          <EmailWrapper>{this.props.user.get('email')}</EmailWrapper>
-          <ResendEmailButton onClick={this.props.resendConfirmationEmail}>
-            인증 메일 재전송
-          </ResendEmailButton>
+          <EmailAndResendEmailWrapper>
+            <EmailWrapper>{this.props.user.get('email')}</EmailWrapper>
+            <ResendEmailButton onClick={this.props.resendConfirmationEmail}>
+              인증 메일 재전송
+            </ResendEmailButton>
+          </EmailAndResendEmailWrapper>
         </AttributeWrapper>
         <AttributeWrapper>
           <TitleWrapper>별명</TitleWrapper>

@@ -9,6 +9,10 @@ export const Background = styled.div`
   display: flex;
   flex-direction: column;
   padding-top: 50px;
+
+  ${media.phone`
+    padding-top: 20px;
+  `}
 `;
 
 
@@ -27,6 +31,24 @@ export const TitleWrapper = styled.div`
   opacity: 0.8;
   margin-right: 55px;
   line-height: 44px;
+
+  ${media.tablet`
+    width: 50px;
+    margin-right: 10px;
+  `}
+`;
+
+export const EmailAndResendEmailWrapper = styled.div`
+  width: 400px;
+  display: flex;
+  align-items: center;
+
+  ${media.phone`
+    flex-direction: column;
+    align-items: flex-start;
+    width: 300px;
+    margin-top: 20px;
+  `}
 `;
 
 export const EmailWrapper = styled.div`
@@ -36,6 +58,15 @@ export const EmailWrapper = styled.div`
   opacity: 0.9;
   line-height: 44px;
   padding-left: 20px;
+
+  ${media.tablet`
+    opacity: 0.9;
+    font-size: 16px;
+  `}
+
+  ${media.phone`
+    width: 264px;
+  `}
 `;
 
 export const NicknameWrapper = styled.input`
@@ -54,6 +85,15 @@ export const NicknameWrapper = styled.input`
   &:focus {
     outline: none;
   }
+
+  ${media.tablet`
+    opacity: 0.9;
+    font-size: 16px;
+  `}
+
+  ${media.phone`
+    width: 264px;
+  `}
 `;
 
 export const DepartmentWrapper = styled.form`
@@ -69,6 +109,11 @@ export const ResendEmailButton = styled.button`
   color: #4f48c4;
   border-bottom: solid 1px #4f48c4;
   cursor: pointer;
+  padding: 0;
+
+  ${media.phone`
+    margin-left: 20px;
+  `}
 `;
 
 export const AutoCompleteMenu = styled.div`
@@ -78,13 +123,26 @@ export const AutoCompleteMenu = styled.div`
   z-index: 100;
   max-height: 200px;
   overflow: auto;
+
+  ${media.phone`
+    width: 264px;
+  `}
 `;
 
 export const AutoCompleteItem = styled.div`
   ${typo.body2}
-  width: 300px;
+  width: 298px;
   padding: 5px 0 5px 12px;
   background-color: ${(props) => props.highlighted ? '#eee' : '#ffffff'};
+
+  ${media.tablet`
+    opacity: 0.9;
+    font-size: 16px;
+  `}
+
+  ${media.phone`
+    width: 262px;
+  `}
 `;
 
 export const SearchInput = styled.input`
@@ -92,6 +150,8 @@ export const SearchInput = styled.input`
   width: 100%;
   height: 100%;
   padding-left: 20px;
+  padding-right: 44px;
+  border-radius: 4px;
 
   &:focus {
     outline: none;
@@ -101,4 +161,13 @@ export const SearchInput = styled.input`
   &:hover {
     background: rgb(240, 241, 245) url(${SearchIcon}) no-repeat 95% 50%;
   }
+
+  ${media.tablet`
+    opacity: 0.9;
+    font-size: 16px;
+  `}
+
+  ${media.phone`
+    width: 264px;
+  `}
 `;

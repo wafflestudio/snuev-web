@@ -17,7 +17,11 @@ export const Wrapper = styled.div`
 `;
 
 export const BookmarkWrapper = styled.div`
-  margin-top: 15px;
+  margin-top: 12px;
+
+  ${media.tablet`
+    margin-top: 8px;
+  `}
 `;
 
 export const LectureWrapper = styled.div`
@@ -74,7 +78,11 @@ export const Score = styled.div`
 `;
 
 export const ScoreLabel = styled.div`
-  ${typo.body1}
+  ${typo.body2}
   opacity: 0.6;
   margin-right: 16px;
+
+  ${media.phone`
+    margin-right: 10px;
+  `}
 `;
