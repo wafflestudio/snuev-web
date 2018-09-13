@@ -3,14 +3,29 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import { browserHistory, Link } from 'react-router';
+import { browserHistory } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
 import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectUser, makeSelectDepartments, makeSelectAppLayout } from '../../global/selectors';
-import { NavBarWrapper, Logo, SnuttLogo, Search, NavMenu, NavBarInnerWrapper, SearchFilterIcon } from './index.style';
+import {
+  NavBarWrapper,
+  Logo,
+  SnuttLogo,
+  Search,
+  NavMenu,
+  NavBarInnerWrapper,
+  SearchFilterIcon,
+  SnuttButton,
+  BookmarkButton,
+  ProfileButton,
+  LogoutButton,
+  LoginButton,
+  SignUpButton,
+  LogoButton,
+} from './index.style';
 
 type Props = {
   user: any,
@@ -26,6 +41,7 @@ type Props = {
 export class NavBar extends React.PureComponent<Props> {
   constructor(props: Props) {
     super(props);
+    (this: any).handleOnClickLogo = this.handleOnClickLogo.bind(this);
     (this: any).handleLogOut = this.handleLogOut.bind(this);
     (this: any).handleSearchFilter = this.handleSearchFilter.bind(this);
     (this: any).handleOnClickProfile = this.handleOnClickProfile.bind(this);
@@ -33,6 +49,12 @@ export class NavBar extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.props.getDepartments();
+  }
+
+  handleOnClickLogo(event: Event) {
+    event.preventDefault();
+    this.props.hideSideBar();
+    browserHistory.push('/');
   }
 
   handleLogOut(event: Event) {
@@ -61,63 +83,51 @@ export class NavBar extends React.PureComponent<Props> {
     return (
       <NavBarWrapper>
         <NavBarInnerWrapper>
-          <Link to="/">
+          <LogoButton onClick={this.handleOnClickLogo}>
             <Logo />
-          </Link>
+          </LogoButton>
           <Search>
             <NavSearch />
             <SearchFilterIcon onClick={this.handleSearchFilter} />
           </Search>
           <NavMenu>
-            <li>
-              <a href="https://snutt.kr">
-                <SnuttLogo alt="SNUTT" /><span className="navMenuText"><FormattedMessage {...messages.navItems.snutt} /></span>
-              </a>
-            </li>
+            <SnuttButton href="https://snutt.kr">
+              <SnuttLogo alt="SNUTT" /><span className="navMenuText"><FormattedMessage {...messages.navItems.snutt} /></span>
+            </SnuttButton>
             {user &&
               <React.Fragment>
-                <button>
-                  <li className="bookmarks">
-                    <span className="navMenuText">
-                      <FormattedMessage {...messages.navItems.bookmarks} />
-                    </span>
-                  </li>
-                </button>
-                <button onClick={this.handleOnClickProfile}>
-                  <li className="profile">
-                    <span className="navMenuText">
-                      <FormattedMessage
-                        {...messages.navItems.profile}
-                        values={{ nickname: this.props.user.get('nickname') }}
-                      />
-                    </span>
-                  </li>
-                </button>
-                <button onClick={this.handleLogOut}>
-                  <li className="logout">
-                    <span className="navMenuText">
-                      <FormattedMessage {...messages.navItems.logout} />
-                    </span>
-                  </li>
-                </button>
+                <BookmarkButton>
+                  <span className="navMenuText">
+                    <FormattedMessage {...messages.navItems.bookmarks} />
+                  </span>
+                </BookmarkButton>
+                <ProfileButton onClick={this.handleOnClickProfile}>
+                  <span className="navMenuText">
+                    <FormattedMessage
+                      {...messages.navItems.profile}
+                      values={{ nickname: this.props.user.get('nickname') }}
+                    />
+                  </span>
+                </ProfileButton>
+                <LogoutButton onClick={this.handleLogOut}>
+                  <span className="navMenuText">
+                    <FormattedMessage {...messages.navItems.logout} />
+                  </span>
+                </LogoutButton>
               </React.Fragment>
             }
             {!user &&
               <React.Fragment>
-                <Link to="/sign_up">
-                  <li className="signUp">
-                    <span className="navMenuText">
-                      <FormattedMessage {...messages.navItems.signUp} />
-                    </span>
-                  </li>
-                </Link>
-                <Link to="/sign_in">
-                  <li className="login">
-                    <span className="navMenuText">
-                      <FormattedMessage {...messages.navItems.login} />
-                    </span>
-                  </li>
-                </Link>
+                <SignUpButton to="/sign_up">
+                  <span className="navMenuText">
+                    <FormattedMessage {...messages.navItems.signUp} />
+                  </span>
+                </SignUpButton>
+                <LoginButton to="/sign_in">
+                  <span className="navMenuText">
+                    <FormattedMessage {...messages.navItems.login} />
+                  </span>
+                </LoginButton>
               </React.Fragment>
             }
           </NavMenu>

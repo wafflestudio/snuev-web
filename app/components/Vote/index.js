@@ -125,7 +125,7 @@ export default class Vote extends React.PureComponent<Props, State> {
           <UpvoteButton
             votedState={this.state.votedState}
             onClick={this.onPressUpvote}
-            disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
+            disabled={votes ? votes.getIn([evaluation.get('id'), 'isFetching']) : true}
           />
           <UpvoteCount votedState={this.state.votedState}>
             {this.state.upvotesCount}
@@ -135,7 +135,7 @@ export default class Vote extends React.PureComponent<Props, State> {
           <DownvoteButton
             votedState={this.state.votedState}
             onClick={this.onPressDownvote}
-            disabled={votes.getIn([evaluation.get('id'), 'isFetching'])}
+            disabled={votes ? votes.getIn([evaluation.get('id'), 'isFetching']) : true}
           />
           <DownvoteCount votedState={this.state.votedState}>
             {this.state.downvotesCount}

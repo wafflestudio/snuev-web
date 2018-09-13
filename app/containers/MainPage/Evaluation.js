@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Map } from 'immutable';
-import { parseDate } from '../../utils/parse';
+import { parseDate, parseSemesterSeason } from '../../utils/parse';
 import UpvoteIconSrc from '../../images/ic-upvote-normal.png';
 import UpvoteIcon2xSrc from '../../images/ic-upvote-normal@2x.png';
 import UpvoteIcon3xSrc from '../../images/ic-upvote-normal@3x.png';
@@ -10,6 +10,7 @@ import DownvoteIconSrc from '../../images/ic-downvote-normal.png';
 import DownvoteIcon2xSrc from '../../images/ic-downvote-normal@2x.png';
 import DownvoteIcon3xSrc from '../../images/ic-downvote-normal@3x.png';
 import { typo, media } from '../../style-utils';
+import Vote from '../../components/Vote';
 
 export const EvaluationCard = styled.div`
   border-top: 1px solid rgba(0, 0, 0, 0.4);
@@ -54,6 +55,10 @@ export const EvaluationGrades = styled.div`
   margin-top: 15px;
   display: flex;
   align-items: center;
+
+  ${media.phone`
+    margin-top: 5px;
+  `}
 `;
 
 export const EvaluationDescription = styled.div`
@@ -62,6 +67,11 @@ export const EvaluationDescription = styled.div`
   font-family: ${(props: any) => props.theme.fontFamily.sansSerif};
   margin-right: 16px;
   margin-top: 4px;
+  opacity: 0.8;
+
+  ${media.tablet`
+    font-size: 11px;
+  `}
 `;
 
 export const EvaluationGrade = styled.div`
@@ -76,6 +86,14 @@ export const EvaluationContent = styled.div`
   margin-top: 14px;
   font-size: 16px;
   color: rgba(0, 0, 0, 0.8);
+
+  ${media.tablet`
+    font-size: 13px;
+  `}
+
+  ${media.phone`
+    margin-top: 5px;
+  `}
 `;
 
 export const EvaluationActions = styled.div`
@@ -85,6 +103,10 @@ export const EvaluationActions = styled.div`
   font-size: 15px;
   align-items: center;
   justify-content: space-between;
+
+  ${media.phone`
+    margin-top: 10px;
+  `}
 `;
 
 export const EvaluationDateWriter = styled.div`
@@ -119,19 +141,27 @@ export const NoStyleButton = styled.button`
 
 type Props = {
   evaluation: Map<string, any>,
+  votes: Map<string, any>,
+  vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
 
-export default ({ evaluation }: Props) => (
+export default ({ evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationCard>
     <EvaluationCardTitlesWrapper>
       <EvaluationCardTitles>
         {evaluation.getIn(['lecture', 'name'])}
       </EvaluationCardTitles>
-      <EvaluationCardSemester>학기 데이터{/* TODO: change it to semester data*/}</EvaluationCardSemester>
+      <EvaluationCardSemester>
+        {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?
+        `${evaluation.getIn(['semester', 'year'])} ${parseSemesterSeason(evaluation.getIn(['semester', 'season']))}` :
+        ''
+        }
+      </EvaluationCardSemester>
     </EvaluationCardTitlesWrapper>
     <EvaluationMeta>
-      {evaluation.getIn(['lecture', 'course', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}학년&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
-                      </EvaluationMeta>
+      {evaluation.getIn(['lecture', 'course', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
+    </EvaluationMeta>
     <EvaluationGrades>
       <EvaluationGrade>{evaluation.get('score')}</EvaluationGrade><EvaluationDescription> /총점</EvaluationDescription>
       <EvaluationGrade>{evaluation.get('grading')}</EvaluationGrade><EvaluationDescription> /쉬움</EvaluationDescription>
@@ -145,22 +175,7 @@ export default ({ evaluation }: Props) => (
         {parseDate(evaluation.get('updatedAt'))}
       </EvaluationDateWriter>
       <EvaluationLikesHates>
-        <EvaluationVotes>
-          <NoStyleButton>
-            <UpvoteIcon />
-          </NoStyleButton>
-          <span>
-            {evaluation.get('upvotesCount')}
-          </span>
-        </EvaluationVotes>
-        <EvaluationVotes>
-          <NoStyleButton>
-            <DownvoteIcon />
-          </NoStyleButton>
-          <span>
-            {evaluation.get('downvotesCount')}
-          </span>
-        </EvaluationVotes>
+        <Vote lecture={evaluation} evaluation={evaluation} votes={votes} vote={vote} deleteVote={deleteVote} />
       </EvaluationLikesHates>
     </EvaluationActions>
   </EvaluationCard>

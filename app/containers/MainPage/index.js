@@ -13,7 +13,9 @@ import {
   makeSelectMostLikedEvaluations,
   makeSelectIsFetching,
 } from './selectors';
+import { makeSelectVotes } from '../../global/selectors';
 import { Creators as Actions } from './reducer';
+import { Creators as GlobalActions } from '../../global/reducer';
 import withBars from '../../services/withBars';
 import Evaluation from './Evaluation';
 import {
@@ -56,6 +58,9 @@ type Props = {
   getTopRatedLectures: () => void,
   getMostLikedEvaluations: () => void,
   intl: any,
+  votes: Map<string, any>,
+  vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
+  deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
 
 export class MainPage extends React.PureComponent<Props> { // eslint-disable-line react/prefer-stateless-function
@@ -71,7 +76,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
       <LectureNumber>{lecture.get('score')}</LectureNumber>
       <div>
         <LectureName>{lecture.get('name')}</LectureName>
-        <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}학년&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
+        <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
       </div>
     </Lecture>;
     if (this.props.topRatedLectures) {
@@ -104,7 +109,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                       {
                   this.props.latestEvaluations ? this.props.latestEvaluations.slice(0, 3).map((evaluation: Map<string, any>) =>
                     <FlexItem key={evaluation.get('id')}>
-                      <Evaluation evaluation={evaluation} />
+                      <Evaluation evaluation={evaluation} votes={this.props.votes} vote={this.props.vote} deleteVote={this.props.deleteVote} />
                     </FlexItem>
                   ) : null
                 }
@@ -179,6 +184,7 @@ const mapStateToProps = createStructuredSelector({
   topRatedLectures: makeSelectTopRatedLectures(),
   mostLikedEvaluations: makeSelectMostLikedEvaluations(),
   isFetching: makeSelectIsFetching(),
+  votes: makeSelectVotes(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
@@ -186,6 +192,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getMostEvaluatedLectures: () => dispatch(Actions.getMostEvaluatedLecturesRequest()),
   getTopRatedLectures: () => dispatch(Actions.getTopRatedLecturesRequest()),
   getMostLikedEvaluations: () => dispatch(Actions.getMostLikedEvaluationsRequest()),
+  vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.voteRequest(lectureId, evaluationId, isUpvote)),
+  deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
 });
 
 export default compose(

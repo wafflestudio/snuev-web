@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 import { media, typo } from '../../style-utils';
 import LogoImage from '../../images/img-gnb-logo@2x.png';
@@ -37,11 +38,6 @@ export const NavBarWrapper = styled.header`
   `}
   ${media.phone`
     height: ${(props: Props) => props.theme.mobileNavBarHeight}px;
-
-    .navMenuText {
-      display: none;
-    }
-
     .focusLecture & {
       display: none;
     }
@@ -63,15 +59,22 @@ export const NavBarInnerWrapper = styled.div`
   ${media.tablet`
     margin: 0 auto;
     grid-template-areas: "logo search . navmenu";
-    grid-template-columns: 130px 260px auto 260px;
+    grid-template-columns: 130px 260px auto auto;
   `}
   ${media.phone`
-    grid-template-columns: 110px auto 230px;
+    grid-template-columns: 110px auto auto;
     grid-template-areas:
       "logo . navmenu"
       "search search search";
     margin: 0 20px;
   `}
+`;
+
+export const LogoButton = styled.button`
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const LogoFrame = styled.img`
@@ -97,6 +100,10 @@ const SnuttLogoFrame = styled.img`
   width: 20px;
   height: 20px;
   margin-right: .5em;
+
+  ${media.tablet`
+    margin-right: 0;
+  `}
 `;
 
 export const SnuttLogo = (props: FrameProps) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
@@ -126,119 +133,153 @@ export const SearchFilterIcon = styled.button`
   }
 `;
 
-export const NavMenu = styled.ul`
+export const NavMenu = styled.div`
   grid-area: navmenu;
   display: flex;
   margin: 0 0 0 auto;
   line-height: 40px;
-  list-style: none;
   padding-left: 0;
 
-  button, a {
-    margin-left: 40px;
-    &:focus {
-      outline: none;
-    }
+  ${media.tablet`
+    margin-right: 40px;
+  `}
 
-    ${media.tablet`
-      margin-left: 30px;
-    `}
+  ${media.phone`
+    margin-right: 0;
+  `}
+`;
 
-    ${media.phone`
-      margin-left: 27px;
-    `}
+export const SnuttButton = styled.a`
+  ${typo.body2}
+  &:hover {
+    color: #4f48c4;
+  }
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const BookmarkButton = styled.button`
+  ${typo.body2}
+  background: url(${IconBookmark}) no-repeat 0% 50%;
+  background-size: 20px 20px;
+  cursor: pointer;
+  margin-left: 40px;
+  padding-left: 28px;
+  &:hover {
+    background: url(${IconBookmarkHover}) no-repeat 0% 50%;
+    color: #4f48c4;
+  }
+  &:focus {
+    outline: none;
   }
 
-  li {
-    margin-left: 20px;
-    ${media.tablet`
-      margin-left: 40px;
-    `}
+  ${media.tablet`
+    padding-left: 20px;
+    padding-right: 0px;
+  `}
 
-    button, a, span {
-      ${typo.body2}
-    }
+  ${media.phone`
+    margin-left: 30px;
+  `}
+`;
 
-    &.bookmarks {
-      padding-left: 30px;
-      background: url(${IconBookmark}) no-repeat 0% 50%;
-      background-size: 20px 20px;
-      cursor: pointer;
-      &:hover {
-        background: url(${IconBookmarkHover}) no-repeat 0% 50%;
-      }
-
-      ${media.tablet`
-        margin-top: 3px;
-        padding-top: 30px;
-      `}
-    }
-
-    &.profile {
-      padding-left: 30px;
-      background: url(${IconProfile}) no-repeat 0% 50%;
-      background-size: 20px 20px;
-      cursor: pointer;
-      &:hover {
-        background: url(${IconProfileHover}) no-repeat 0% 50%;
-      }
-
-      ${media.tablet`
-        padding-top: 30px;
-      `}
-    }
-
-    &.logout {
-      padding-left: 30px;
-      background: url(${IconLogout}) no-repeat 0% 50%;
-      background-size: 20px 20px;
-      cursor: pointer;
-      &:hover {
-        background: url(${IconLogoutHover}) no-repeat 0% 50%;
-      }
-
-      ${media.tablet`
-        margin-top: 3px;
-        padding-top: 30px;
-      `}
-    }
-
-    &.login {
-      padding-left: 30px;
-      background: url(${IconLogin}) no-repeat 0% 50%;
-      background-size: 20px 20px;
-      cursor: pointer;
-      &:hover {
-        background: url(${IconLoginHover}) no-repeat 0% 50%;
-      }
-
-      ${media.tablet`
-        margin-top: 6px;
-        padding-top: 30px;
-      `}
-
-      ${media.phone`
-        padding-left: 20px;
-      `}
-    }
-
-    &.signUp {
-      padding-left: 30px;
-      background: url(${IconProfile}) no-repeat 0% 50%;
-      background-size: 20px 20px;
-      cursor: pointer;
-      &:hover {
-        background: url(${IconProfileHover}) no-repeat 0% 50%;
-      }
-
-      ${media.tablet`
-        margin-top: 6px;
-        padding-top: 30px;
-      `}
-    }
-
-    &:first-child {
-      margin-left: 0;
-    }
+export const ProfileButton = styled.button`
+  ${typo.body2}
+  background: url(${IconProfile}) no-repeat 0% 50%;
+  background-size: 20px 20px;
+  cursor: pointer;
+  margin-left: 40px;
+  padding-left: 28px;
+  &:hover {
+    background: url(${IconProfileHover}) no-repeat 0% 50%;
+    color: #4f48c4;
   }
+  &:focus {
+    outline: none;
+  }
+
+  ${media.tablet`
+    padding-left: 20px;
+    padding-right: 0px;
+  `}
+
+  ${media.phone`
+    margin-left: 30px;
+  `}
+`;
+
+export const LogoutButton = styled.button`
+  ${typo.body2}
+  background: url(${IconLogout}) no-repeat 0% 50%;
+  background-size: 20px 20px;
+  cursor: pointer;
+  margin-left: 40px;
+  padding-left: 28px;
+  &:hover {
+    background: url(${IconLogoutHover}) no-repeat 0% 50%;
+    color: #4f48c4;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  ${media.tablet`
+    padding-left: 20px;
+    padding-right: 0px;
+  `}
+
+  ${media.phone`
+    margin-left: 30px;
+  `}
+`;
+
+export const LoginButton = styled(Link)`
+  ${typo.body2}
+  background: url(${IconLogin}) no-repeat 0% 50%;
+  background-size: 20px 20px;
+  cursor: pointer;
+  margin-left: 40px;
+  padding-left: 28px;
+  &:hover {
+    background: url(${IconLoginHover}) no-repeat 0% 50%;
+    color: #4f48c4;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  ${media.tablet`
+    padding-left: 20px;
+    padding-right: 0px;
+  `}
+
+  ${media.phone`
+    margin-left: 30px;
+  `}
+`;
+
+export const SignUpButton = styled(Link)`
+  ${typo.body2}
+  background: url(${IconProfile}) no-repeat 0% 50%;
+  background-size: 20px 20px;
+  cursor: pointer;
+  margin-left: 40px;
+  padding-left: 28px;
+  &:hover {
+    background: url(${IconProfileHover}) no-repeat 0% 50%;
+    color: #4f48c4;
+  }
+  &:focus {
+    outline: none;
+  }
+
+  ${media.tablet`
+    padding-left: 20px;
+    padding-right: 0px;
+  `}
+
+  ${media.phone`
+    margin-left: 30px;
+  `}
 `;

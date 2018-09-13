@@ -1,23 +1,34 @@
 // @flow
 import styled from 'styled-components';
-import React from 'react';
-import MainSearchBgSrc from '../../images/mainsearchbg.png';
-import MainSearchBg2xSrc from '../../images/mainsearchbg@2x.png';
-import MainSearchBg3xSrc from '../../images/mainsearchbg@3x.png';
 import { media, typo } from '../../style-utils';
+import MainSearchBgSrc from '../../images/mainsearchbg.png';
+import MainSearchBgTablet from '../../images/img-main-tablet-768-1199-px.png';
+import MainSearchBgPhone from '../../images/img-main-mobile-320-767-px.png';
+import SearchIcon from '../../images/ic-search@2x.png';
 
 
 type Props = {
   theme: any,
 };
 
-const MainSearchBgFrame = styled.img`
-   position: absolute;
-   left: 50%;
-   -webkit-transform: translateX(-50%);
-`;
+export const MainSearchBg = styled.div`
+  width: 1920px;
+  height: 500px;
+  position: absolute;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+  background-image: url(${MainSearchBgSrc});
 
-export const MainSearchBg = (props: {}) => <MainSearchBgFrame {...props} src={MainSearchBgSrc} srcSet={`${MainSearchBg2xSrc} 2x, ${MainSearchBg3xSrc} 3x`} />;
+  ${media.tablet`
+    width: 1199px;
+    background: url(${MainSearchBgTablet}) no-repeat 50% 50%;
+  `}
+
+  ${media.phone`
+    width: 767px;
+    background: url(${MainSearchBgPhone}) no-repeat 50% 50%;
+  `}
+`;
 
 export const MainSearchBgRelativeWrapper = styled.div`
   position: relative;
@@ -30,11 +41,10 @@ export const MainSearchBgWrapper = styled.div`
   background-color: #e3e5ee;
 `;
 
-
 export const SearchInput = styled.input`
   position: absolute;
   width: 480px;
-  padding: 17px 0px 16px;
+  padding: 17px 55px 16px 0px;
   top: 214px;
   left: 0;
   right: 0;
@@ -42,9 +52,16 @@ export const SearchInput = styled.input`
   border-bottom: 1px solid rgba(0, 0, 0, 0.6);
   font-size: 18px;
   font-weight: 500;
+  background: url(${SearchIcon}) no-repeat 99% 50%;
+  background-size: 48px 48px;
   &:focus {
     outline: none;
   }
+
+  ${media.phone`
+    width: 310px;
+    font-size: 14px;
+  `}
 `;
 
 export const Evaluations = styled.div`
@@ -63,7 +80,7 @@ export const EvaluationsTitle = styled.div`
     margin: 0 16px;
   `}
   ${media.phone`
-    margin: 0 16px;
+    margin: 0 28px;
   `}
 `;
 
@@ -73,20 +90,34 @@ export const EvaluationsContent = styled.div`
   background-color: #ffffff;
   ${media.tablet`
     margin: 0 16px;
+    padding: 20px 8px 30px;
   `}
   ${media.phone`
-    margin: 0 16px;
+    margin: 0 28px;
+    padding: 24px 20px 4px;
   `}
 `;
 
 
 export const FlexContainer = styled.div`
   display: flex;
+
+  ${media.phone`
+    flex-direction: column;
+  `}
 `;
 
 export const FlexItem = styled.div`
   flex: 1;
   margin: 0 15px;
+
+  ${media.tablet`
+    margin: 0 10px;
+  `}
+
+  ${media.phone`
+    margin-bottom: 20px;
+  `}
 `;
 
 export const SecondBackground = styled.div`
@@ -127,6 +158,16 @@ export const LecturesBoxContainer = styled.div`
 export const LecturesBox = styled.div`
   margin: 30px 20px;
   width: 400px;
+
+  ${media.tablet`
+    margin: 10px 25px;
+    width: 300px;
+  `}
+
+  ${media.phone`
+    margin: 10px 28px;
+    width: 100%;
+  `}
 `;
 
 export const LecturesHeader = styled.div`
@@ -134,12 +175,28 @@ export const LecturesHeader = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+
+  ${media.tablet`
+    height: 60px;
+  `}
+
+  ${media.phone`
+    height: 80px;
+  `}
 `;
 
 export const LecturesTitle = styled.div`
   margin: 25px 0px 0px 50px;
   ${typo.header2}
   color: ${(props: Props) => props.theme.color.primary};
+
+  ${media.tablet`
+    margin: 5px 0px 0px 30px;
+  `}
+
+  ${media.phone`
+    margin: 25px 0px 0px 30px;
+  `}
 `;
 
 export const LecturesHeaderCircle = styled.div`
@@ -152,6 +209,18 @@ export const LecturesHeaderCircle = styled.div`
   position: absolute;
   top: 0;
   left: 0;
+
+  ${media.tablet`
+    width: 60px;
+    height: 60px;
+    border-radius: 30px;
+  `}
+
+  ${media.phone`
+    width: 80px;
+    height: 80px;
+    border-radius: 40px;
+  `}
 `;
 
 export const LecturesContent = styled.div`
@@ -163,6 +232,10 @@ export const Lecture = styled.div`
   margin: 15px 0px 15px 30px;
   display: flex;
   align-items: flex-start;
+
+  ${media.phone`
+    margin: 15px 0px 15px 10px;
+  `}
 `;
 
 export const LectureNumber = styled.div`
@@ -173,6 +246,7 @@ export const LectureNumber = styled.div`
   `}
   ${media.phone`
     line-height: ${(props: Props) => props.theme.fontSize.mobile.score2}px;
+    font-size: 20px;
   `}
   margin-right: 10px;
 `;

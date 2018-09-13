@@ -61,7 +61,7 @@ export class MyBookmarkContainer extends React.PureComponent<Props> {
                   <Dot />
                   <LectureBasicInfo>{lecture.getIn(['course', 'targetGrade'])}</LectureBasicInfo>
                   <Dot />
-                  <LectureBasicInfo>{lecture.getIn(['professor', 'name'])}</LectureBasicInfo>
+                  <LectureBasicInfo>{lecture.getIn(['professor', 'name'])} 교수</LectureBasicInfo>
                 </LectureBasicInfoWrapper>
                 <ScoreWrapper>
                   <Score>{lecture.get('score')}</Score>

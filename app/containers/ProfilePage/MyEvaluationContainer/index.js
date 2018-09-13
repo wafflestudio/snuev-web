@@ -40,7 +40,7 @@ export class MyEvaluationContainer extends React.PureComponent<Props> {
                 <Dot />
                 <LectureBasicInfo>{evaluation.getIn(['lecture', 'course', 'targetGrade'])}</LectureBasicInfo>
                 <Dot />
-                <LectureBasicInfo>{evaluation.getIn(['lecture', 'professor', 'name'])}</LectureBasicInfo>
+                <LectureBasicInfo>{evaluation.getIn(['lecture', 'professor', 'name'])} 교수</LectureBasicInfo>
               </LectureBasicInfoWrapper>
               <Evaluation
                 lecture={lectures}

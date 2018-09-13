@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { typo, media } from '../../style-utils';
 
 import UpvoteNormal from '../../images/ic-upvote-normal.png';
 import UpvoteNormalHover from '../../images/ic-upvote-hover.png';
@@ -13,16 +14,21 @@ import votedState from './votedState';
 export const UpvoteButton = styled.div`
   width: 21px;
   height: 21px;
-  background: url(${(props) => props.votedState === votedState.up ? UpvoteSelected : UpvoteNormal}) no-repeat 50% 50%;
+  background-image: url(${(props) => props.votedState === votedState.up ? UpvoteSelected : UpvoteNormal});
   cursor: pointer;
+  margin-right: 6px;
 
   &:hover {
-    background: url(${(props) => props.votedState === votedState.up ? UpvoteSelectedHover : UpvoteNormalHover}) no-repeat 50% 50%;
+    background-image: url(${(props) => props.votedState === votedState.up ? UpvoteSelectedHover : UpvoteNormalHover});
   }
 
   &:focus {
     outline: none;
   }
+
+  ${media.tablet`
+    background-size: 18px 18px;
+  `}
 `;
 
 export const DownvoteButton = styled.div`
@@ -30,6 +36,7 @@ export const DownvoteButton = styled.div`
   height: 21px;
   background: url(${(props) => props.votedState === votedState.down ? DownvoteSelected : DownvoteNormal}) no-repeat 50% 50%;
   cursor: pointer;
+  margin-right: 6px;
 
   &:hover {
     background: url(${(props) => props.votedState === votedState.down ? DownvoteSelectedHover : DownvoteNormalHover}) no-repeat 50% 50%;
@@ -38,46 +45,50 @@ export const DownvoteButton = styled.div`
   &:focus {
     outline: none;
   }
+
+  ${media.tablet`
+    background-size: 18px 18px;
+  `}
 `;
 
 export const UpvoteCount = styled.div`
-  width: 18px;
+  ${typo.body2}
   height: 21px;
   opacity: 0.4;
-  font-family: Lato;
-  font-size: 15px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: ${(props) => props.votedState === votedState.up ? '#4f48c4' : 'var(--black-two)'};
+  margin-right: 16px;
+
+  ${media.tablet`
+    height: 18px;
+    margin-right: 10px;
+  `}
 `;
 
 export const DownvoteCount = styled.div`
-  width: 18px;
+  ${typo.body2}
   height: 21px;
   opacity: 0.4;
-  font-family: Lato;
-  font-size: 15px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: normal;
   color: ${(props) => props.votedState === votedState.down ? '#e54459' : 'var(--black-two)'};
+
+  ${media.tablet`
+    height: 18px;
+  `}
 `;
 
 export const ButtonCountWrapper = styled.div`
-  width: 48px;
   height: 21px;
   display: flex;
-  justify-content: space-between;
+
+  ${media.tablet`
+    height: 18px;
+  `}
 `;
 
 export const VoteWrapper = styled.div`
-  width: 108px;
   height: 21px;
   display: flex;
-  justify-content: space-between;
+
+  ${media.tablet`
+    height: 18px;
+  `}
 `;
