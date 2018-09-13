@@ -16,14 +16,14 @@ const EvaluationWrapper = styled.div`
 const EvaluationHeader = styled.div`
   height: 40px;
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 export const EvaluationScore = styled.div`
   margin-right: 14px;
   display: flex;
-  align-items: flex-end;
   margin-right: 16px;
+  align-items: center;
   ${media.phone`
     margin-right: 0px;
   `}
@@ -32,10 +32,14 @@ export const EvaluationScore = styled.div`
 export const EvaluationScoreLabel = styled.div`
   ${typo.body1}
   opacity: .6;
+  margin-top: 10px;
+  ${media.tablet`
+    margin-top: 3px;
+  `}
   ${media.phone`
-    font-size: 10px;
-    margin-bottom: 4px;
-    width: ${(props: { width: string }) => props.width};
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 12px;
   `}
 `;
 
@@ -45,8 +49,7 @@ export const EvaluationScoreValue = styled.div`
   color: #000000;
   margin-right: 4px;
   ${media.phone`
-    font-size: 18px;
-    margin-right: 0px;
+    margin-right: 2px;
   `}
 `;
 
@@ -60,11 +63,15 @@ const SemesterText = styled.div`
   ${typo.body1}
   text-align: left;
   color: #4f48c4;
-  margin-left: 14px;
+  margin-left: 24px;
+  margin-top: 10px;
+  ${media.tablet`
+    margin-top: 3px;
+  `}
   ${media.phone`
-    font-size: 10px;
-    margin-left: 0px;
-    margin-bottom: 4px;
+    margin-top: 10px;
+    margin-left: 0;
+    font-size: 12px;
   `}
 `;
 

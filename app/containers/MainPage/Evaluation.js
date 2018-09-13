@@ -3,12 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Map } from 'immutable';
 import { parseDate, parseSemesterSeason } from '../../utils/parse';
-import UpvoteIconSrc from '../../images/ic-upvote-normal.png';
-import UpvoteIcon2xSrc from '../../images/ic-upvote-normal@2x.png';
-import UpvoteIcon3xSrc from '../../images/ic-upvote-normal@3x.png';
-import DownvoteIconSrc from '../../images/ic-downvote-normal.png';
-import DownvoteIcon2xSrc from '../../images/ic-downvote-normal@2x.png';
-import DownvoteIcon3xSrc from '../../images/ic-downvote-normal@3x.png';
 import { typo, media } from '../../style-utils';
 import Vote from '../../components/Vote';
 
@@ -114,29 +108,6 @@ export const EvaluationDateWriter = styled.div`
 
 export const EvaluationLikesHates = styled.div`
   display: flex;
-`;
-
-const IconFrame = styled.img`
-  margin-right: 6px;
-`;
-
-export const UpvoteIcon = (props: {}) => <IconFrame {...props} src={UpvoteIconSrc} srcSet={`${UpvoteIcon2xSrc} 2x, ${UpvoteIcon3xSrc} 3x`} />;
-
-export const DownvoteIcon = (props: {}) => <IconFrame {...props} src={DownvoteIconSrc} srcSet={`${DownvoteIcon2xSrc} 2x, ${DownvoteIcon3xSrc} 3x`} />;
-
-export const EvaluationVotes = styled.div`
-  margin-left: 16px;
-  span {
-    font-family: ${(props: any) => props.theme.fontFamily.number};
-  }
-`;
-
-export const NoStyleButton = styled.button`
-  padding: 0;
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  }
 `;
 
 type Props = {

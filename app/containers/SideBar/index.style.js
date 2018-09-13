@@ -23,6 +23,7 @@ export const SideBarWrapper = styled.aside`
     .focusLecture & {
       display: none;
     }
+    z-index: 100;
   `}
 `;
 
