@@ -82,9 +82,9 @@ export class LoginPage extends React.PureComponent<Props, State> {
       <IntlProvider messages={messages}>
         <Background>
           <Helmet
-            title="LoginPage"
+            title="SNUEV - 로그인"
             meta={[
-              { name: 'description', content: 'Description of LoginPage' },
+              { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 로그인 페이지입니다.' },
             ]}
           />
           <InnerContainer>
