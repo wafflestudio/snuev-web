@@ -137,12 +137,12 @@ export class SignUpPage extends React.PureComponent<Props, State> {
       return (
         <IntlProvider messages={messages}>
           <Background>
-            <Helmet
-              title="SignUpCompletePage"
-              meta={[
-                { name: 'description', content: 'Description of SignUpCompletePage' },
-              ]}
-            />
+          <Helmet
+            title="SNUEV - 회원가입"
+            meta={[
+              { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 회원가입 페이지입니다.' },
+            ]}
+          />
             <InnerContainer>
               <DottedLine />
               <ContentContainer>

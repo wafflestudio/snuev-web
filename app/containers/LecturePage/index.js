@@ -110,13 +110,14 @@ export class LecturePage extends React.Component<Props> {
         </Background>
       );
     }
+
     return (
       <PageWrapper>
         <Background>
           <Helmet
-            title="LecturePage"
+            title={`${String(lecture.getIn(['course', 'name']))} - SNUEV`}
             meta={[
-              { name: 'description', content: 'Description of Lecture Page' },
+              { name: 'description', content: `${String(lecture.getIn(['course', 'name']))}에 대한 강의평가 페이지입니다.` },
             ]}
           />
           <EvaluationFormModal
@@ -177,30 +178,30 @@ export class LecturePage extends React.Component<Props> {
                 {messages.evaluation.header}
               </EvaluationsHeader>
               {(user && user.get('isConfirmed')) &&
-              <LeaveReviewButton onClick={this.props.openEvaluationForm}>
-                {messages.writeReview}
-              </LeaveReviewButton>
+                <LeaveReviewButton onClick={this.props.openEvaluationForm}>
+                  {messages.writeReview}
+                </LeaveReviewButton>
               }
             </EvaluationsWrapper>
           </div>
           {!(this.props.evaluations && this.props.evaluations.size > 0) &&
-          <NoEvaluationWrapper hasUser={this.props.user}>
-            <EmptyLectureWrapper>
-              <EmptyLectureIcon />
-              <EmptyLectureText>
-                강의평이 아직 없습니다.
-                첫 강의평을 작성해보세요!
+            <NoEvaluationWrapper hasUser={this.props.user}>
+              <EmptyLectureWrapper>
+                <EmptyLectureIcon />
+                <EmptyLectureText>
+                  강의평이 아직 없습니다.
+                  첫 강의평을 작성해보세요!
               </EmptyLectureText>
-              {!this.props.user &&
-              <EmptyLectureToLoginWrapper to="/sign_in">
-                <EmptyLectureToLoginText>
-                  로그인하기
+                {!this.props.user &&
+                  <EmptyLectureToLoginWrapper to="/sign_in">
+                    <EmptyLectureToLoginText>
+                      로그인하기
                 </EmptyLectureToLoginText>
-                <IconRightImage />
-              </EmptyLectureToLoginWrapper>
-              }
-            </EmptyLectureWrapper>
-          </NoEvaluationWrapper>
+                    <IconRightImage />
+                  </EmptyLectureToLoginWrapper>
+                }
+              </EmptyLectureWrapper>
+            </NoEvaluationWrapper>
           }
           <InfiniteScroll
             pageStart={0}
@@ -209,17 +210,17 @@ export class LecturePage extends React.Component<Props> {
           >
             <div>
               {evaluations &&
-              evaluations.map((evaluation: Object, index: number) => (
-                <div key={index}>
-                  <Evaluation
-                    lecture={lecture}
-                    evaluation={evaluation}
-                    votes={votes}
-                    vote={this.props.vote}
-                    deleteVote={this.props.deleteVote}
-                  />
-                </div>
-              ))
+                evaluations.map((evaluation: Object, index: number) => (
+                  <div key={index}>
+                    <Evaluation
+                      lecture={lecture}
+                      evaluation={evaluation}
+                      votes={votes}
+                      vote={this.props.vote}
+                      deleteVote={this.props.deleteVote}
+                    />
+                  </div>
+                ))
               }
             </div>
           </InfiniteScroll>
