@@ -34,9 +34,9 @@ export class newPasswordPage extends React.PureComponent<Props, State> {
     return (
       <div>
         <Helmet
-          title="NewPasswordPage"
+          title="SNUEV - 새 비밀번호 설정"
           meta={[
-            { name: 'description', content: 'Description of NewPasswordPage' },
+            { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV의 새 비밀번호 설정 페이지입니다.' },
           ]}
         />
         <form onSubmit={this.handleNewPassword}>

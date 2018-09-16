@@ -100,9 +100,9 @@ export class ProfilePage extends React.PureComponent<Props, State> {
     return (
       <Background>
         <Helmet
-          title="ProfilePage"
+          title={`${this.props.user.get('nickname')} - SNUEV`}
           meta={[
-            { name: 'description', content: 'Description of ProfilePage' },
+            { name: 'description', content: `${this.props.user.get('nickname')}의 프로필 페이지입니다.` },
           ]}
         />
         <NicknameWrapper>

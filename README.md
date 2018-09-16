@@ -14,7 +14,7 @@ Make '.env' file in the root folder.
 
 > .env
 ```
-API_HOST=http://snuev-backend.herokuapp.com
+API_HOST=https://api.snuev.kr
 ```
 
 ### Running locally
