@@ -1,6 +1,12 @@
+// @flow
+
 import styled from 'styled-components';
 
 import { typo, media } from '../../../style-utils';
+
+type Props = {
+  theme: any,
+};
 
 export const Background = styled.form`
   width: 100%;
@@ -49,7 +55,7 @@ export const Input = styled.input`
   opacity: 0.9;
   border-radius: 2px;
   line-height: 44px;
-  background-color: #f0f1f5;
+  background-color: ${(props: Props) => props.theme.color.grayBackground1};
   padding-left: 20px;
   padding-right: 20px;
 
@@ -83,22 +89,17 @@ export const ConfirmButton = styled.button`
   width: 86px;
   height: 40px;
   border-radius: 1px;
-  background-color: #ffffff;
-  border: solid 1px #4f48c4;
-  color: #4f48c4;
+  background-color: ${(props: Props) => props.theme.color.white};
+  border: solid 1px ${(props: Props) => props.theme.color.primary};
+  color: ${(props: Props) => props.theme.color.primary};
 `;
 
 export const ErrorMessage = styled.div`
+  ${typo.body2}
   height: 20px;
   margin-left: 170px;
-  font-family: NotoSansCJKkr;
-  font-size: 13px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
   line-height: 1.54;
-  letter-spacing: normal;
-  color: #e54459;
+  color: ${(props: Props) => props.theme.color.error};
   margin-bottom: 10px;
-  visibility: ${(props) => props.error ? 'visible' : 'hidden'};
+  visibility: ${(props: Props) => props.error ? 'visible' : 'hidden'};
 `;

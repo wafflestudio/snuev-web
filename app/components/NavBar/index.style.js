@@ -2,6 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
+import Map from 'immutable';
 
 import { media, typo } from '../../style-utils';
 import LogoImage from '../../images/img-gnb-logo@2x.png';
@@ -16,9 +17,15 @@ import IconLoginHover from '../../images/ic-login-hover.png';
 import IconLogout from '../../images/ic-logout-normal.png';
 import IconLogoutHover from '../../images/ic-logout-hover.png';
 import DetailSearchImage from '../../images/ic-detailsearch-normal.png';
+import DetailSearchHoverImage from '../../images/ic-detailsearch-hover.png';
+import DetailSearchSelectedImage from '../../images/ic-detailsearch-focus.png';
+import DetailSearchOnImage from '../../images/ic-detailsearch-on-normal.png';
+import DetailSearchOnHoverImage from '../../images/ic-detailsearch-on-hover.png';
+import DetailSearchOnSelectedImage from '../../images/ic-detailsearch-on-focus.png';
 
 type Props = {
-  theme: any,
+  theme: Map<string, any>,
+  open: boolean,
 };
 
 export const NavBarWrapper = styled.header`
@@ -30,7 +37,7 @@ export const NavBarWrapper = styled.header`
   height: ${(props: Props) => props.theme.navBarHeight}px;
   background-color: rgba(255,255,255,.97);
   border-bottom: solid 1px rgba(0,0,0,0.1);
-  z-index: 1;
+  z-index: ${(props: Props) => props.theme.zIndex.navBar};
   ${media.tablet`
     .navMenuText {
       display: none;
@@ -90,11 +97,7 @@ const LogoFrame = styled.img`
   `}
 `;
 
-type FrameProps = {
-
-};
-
-export const Logo = (props: FrameProps) => <LogoFrame src={LogoImage} {...props} />;
+export const Logo = (props: Props) => <LogoFrame src={LogoImage} {...props} />;
 
 const SnuttLogoFrame = styled.img`
   width: 20px;
@@ -106,7 +109,7 @@ const SnuttLogoFrame = styled.img`
   `}
 `;
 
-export const SnuttLogo = (props: FrameProps) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
+export const SnuttLogo = (props: Props) => <SnuttLogoFrame src={SnuttLogoImage} {...props} />;
 
 export const Search = styled.div`
   grid-area: search;
@@ -124,10 +127,26 @@ export const Search = styled.div`
 export const SearchFilterIcon = styled.button`
   width: 35px;
   height: 100%;
-  background: url(${DetailSearchImage}) no-repeat 100% 50%;
+  background: ${(props: Props) => props.open ? `url(${DetailSearchSelectedImage}) no-repeat 100% 50%` : `url(${DetailSearchImage}) no-repeat 100% 50%`};
   margin-left: 5px;
   cursor: pointer;
+  &:hover {
+    background: ${(props: Props) => props.open ? `url(${DetailSearchSelectedImage}) no-repeat 100% 50%` : `url(${DetailSearchHoverImage}) no-repeat 100% 50%`};
+  }
+  &:focus {
+    outline: none;
+  }
+`;
 
+export const SearchFilterOnIcon = styled.button`
+  width: 35px;
+  height: 100%;
+  background: ${(props: Props) => props.open ? `url(${DetailSearchOnSelectedImage}) no-repeat 100% 50%` : `url(${DetailSearchOnImage}) no-repeat 100% 50%`};
+  margin-left: 5px;
+  cursor: pointer;
+  &:hover {
+    background: ${(props: Props) => props.open ? `url(${DetailSearchOnSelectedImage}) no-repeat 100% 50%` : `url(${DetailSearchOnHoverImage}) no-repeat 100% 50%`};
+  }
   &:focus {
     outline: none;
   }
@@ -152,7 +171,7 @@ export const NavMenu = styled.div`
 export const SnuttButton = styled.a`
   ${typo.body2}
   &:hover {
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;
@@ -168,7 +187,7 @@ export const BookmarkButton = styled.button`
   padding-left: 28px;
   &:hover {
     background: url(${IconBookmarkHover}) no-repeat 0% 50%;
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;
@@ -193,7 +212,7 @@ export const ProfileButton = styled.button`
   padding-left: 28px;
   &:hover {
     background: url(${IconProfileHover}) no-repeat 0% 50%;
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;
@@ -218,7 +237,7 @@ export const LogoutButton = styled.button`
   padding-left: 28px;
   &:hover {
     background: url(${IconLogoutHover}) no-repeat 0% 50%;
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;
@@ -243,7 +262,7 @@ export const LoginButton = styled(Link)`
   padding-left: 28px;
   &:hover {
     background: url(${IconLoginHover}) no-repeat 0% 50%;
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;
@@ -268,7 +287,7 @@ export const SignUpButton = styled(Link)`
   padding-left: 28px;
   &:hover {
     background: url(${IconProfileHover}) no-repeat 0% 50%;
-    color: #4f48c4;
+    color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {
     outline: none;

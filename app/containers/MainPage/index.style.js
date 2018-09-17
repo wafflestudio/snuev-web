@@ -1,11 +1,11 @@
 // @flow
 import styled from 'styled-components';
+import { Link } from 'react-router';
 import { media, typo } from '../../style-utils';
 import MainSearchBgSrc from '../../images/mainsearchbg.png';
 import MainSearchBgTablet from '../../images/img-main-tablet-768-1199-px.png';
 import MainSearchBgPhone from '../../images/img-main-mobile-320-767-px.png';
 import SearchIcon from '../../images/ic-search@2x.png';
-
 
 type Props = {
   theme: any,
@@ -38,7 +38,7 @@ export const MainSearchBgRelativeWrapper = styled.div`
 
 export const MainSearchBgWrapper = styled.div`
   overflow: hidden;
-  background-color: #e3e5ee;
+  background-color: ${(props: Props) => props.theme.color.grayBackground2};
 `;
 
 export const SearchInput = styled.input`
@@ -87,7 +87,7 @@ export const EvaluationsTitle = styled.div`
 export const EvaluationsContent = styled.div`
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
   padding: 35px 20px 45px;
-  background-color: #ffffff;
+  background-color: ${(props: Props) => props.theme.color.white};
   ${media.tablet`
     margin: 0 16px;
     padding: 20px 8px 30px;
@@ -120,24 +120,11 @@ export const FlexItem = styled.div`
   `}
 `;
 
-export const SecondBackground = styled.div`
-  background-color: #e3e5ee;
-  width: 1920px;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-`;
-
-export const RelativeSecondBackgroundWrapper = styled.div`
-  position: relative;
-  height: 100%;
-  overflow: visible;
-`;
-
 export const MainPage2ndBox = styled.div`
   width: 100%;
   position: relative;
   padding-bottom: 10px;
-  background-color: #e3e5ee;
+  background-color: ${(props: Props) => props.theme.color.grayBackground2};
   padding-bottom: 169px;
 `;
 
@@ -251,8 +238,10 @@ export const LectureNumber = styled.div`
   margin-right: 10px;
 `;
 
-export const LectureName = styled.div`
+export const LectureName = styled(Link)`
   font-size: 22px;
+  cursor: pointer;
+  color: ${(props: Props) => props.theme.color.black};
   ${media.tablet`
     font-size: 16px;
   `}
@@ -260,6 +249,7 @@ export const LectureName = styled.div`
     font-size: 18px;
   `}
 `;
+
 export const LectureDescription = styled.div`
   ${typo.body2}
 `;

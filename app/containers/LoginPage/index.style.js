@@ -75,7 +75,7 @@ export const WelcomeText = styled.div`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black-two);
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
   margin-top: 46px;
 
   ${media.phone`
@@ -98,7 +98,7 @@ export const PermissionText = styled.div`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black-two);
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
   margin-top: 16px;
   margin-bottom: 60px;
 
@@ -148,7 +148,7 @@ export const LoginText = styled.div`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: #ffffff;
+  color: ${(props: { theme: Theme }) => props.theme.color.white};
 
   ${media.phone`
     width: 45px;
@@ -198,7 +198,7 @@ export const RecoverPasswordWrapper = styled.div`
 export const MiniCircle = styled.div`
   width: 10px;
   height: 10px;
-  background-color: #4f48c4;
+  background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
   border-radius: 5px;
   margin-right: 6px;
 `;
@@ -215,7 +215,7 @@ export const SignUpLink = styled(Link)`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black-two);
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
 
   ${media.phone`
     width: 45px;
@@ -236,7 +236,7 @@ export const RecoverPasswordLink = styled(Link)`
   line-height: normal;
   letter-spacing: normal;
   text-align: center;
-  color: var(--black-two);
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
 
   ${media.phone`
     width: 69px;

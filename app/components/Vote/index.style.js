@@ -1,4 +1,7 @@
+// @flow
+
 import styled from 'styled-components';
+import Map from 'immutable';
 import { typo, media } from '../../style-utils';
 
 import UpvoteNormal from '../../images/ic-upvote-normal.png';
@@ -11,15 +14,20 @@ import DownvoteSelected from '../../images/ic-downvote-selected-normal.png';
 import DownvoteSelectedHover from '../../images/ic-downvote-selected-hover.png';
 import votedState from './votedState';
 
+type Props = {
+  theme: Map<string, any>,
+  votedState: votedState,
+};
+
 export const UpvoteButton = styled.div`
   width: 21px;
   height: 21px;
-  background-image: url(${(props) => props.votedState === votedState.up ? UpvoteSelected : UpvoteNormal});
+  background-image: url(${(props: Props) => props.votedState === votedState.up ? UpvoteSelected : UpvoteNormal});
   cursor: pointer;
   margin-right: 6px;
 
   &:hover {
-    background-image: url(${(props) => props.votedState === votedState.up ? UpvoteSelectedHover : UpvoteNormalHover});
+    background-image: url(${(props: Props) => props.votedState === votedState.up ? UpvoteSelectedHover : UpvoteNormalHover});
   }
 
   &:focus {
@@ -34,12 +42,12 @@ export const UpvoteButton = styled.div`
 export const DownvoteButton = styled.div`
   width: 21px;
   height: 21px;
-  background: url(${(props) => props.votedState === votedState.down ? DownvoteSelected : DownvoteNormal}) no-repeat 50% 50%;
+  background: url(${(props: Props) => props.votedState === votedState.down ? DownvoteSelected : DownvoteNormal}) no-repeat 50% 50%;
   cursor: pointer;
   margin-right: 6px;
 
   &:hover {
-    background: url(${(props) => props.votedState === votedState.down ? DownvoteSelectedHover : DownvoteNormalHover}) no-repeat 50% 50%;
+    background: url(${(props: Props) => props.votedState === votedState.down ? DownvoteSelectedHover : DownvoteNormalHover}) no-repeat 50% 50%;
   }
 
   &:focus {
@@ -55,7 +63,7 @@ export const UpvoteCount = styled.div`
   ${typo.body2}
   height: 21px;
   opacity: 0.4;
-  color: ${(props) => props.votedState === votedState.up ? '#4f48c4' : 'var(--black-two)'};
+  color: ${(props: Props) => props.votedState === votedState.up ? props.theme.color.primary : props.theme.color.black};
   margin-right: 16px;
 
   ${media.tablet`
@@ -68,7 +76,7 @@ export const DownvoteCount = styled.div`
   ${typo.body2}
   height: 21px;
   opacity: 0.4;
-  color: ${(props) => props.votedState === votedState.down ? '#e54459' : 'var(--black-two)'};
+  color: ${(props: Props) => props.votedState === votedState.down ? props.theme.color.error : props.theme.color.black};
 
   ${media.tablet`
     height: 18px;

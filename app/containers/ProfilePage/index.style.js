@@ -1,11 +1,19 @@
+// @flow
+
 import styled from 'styled-components';
+import Map from 'immutable';
 import { typo, media } from '../../style-utils';
+
+type Props = {
+  theme: Map<string, any>,
+  currentPage: boolean,
+};
 
 export const Background = styled.div`
   width: 100%;
   left: 0;
   min-height: 700px;
-  background-color: #ffffff;
+  background-color: ${(props: Props) => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +25,7 @@ export const NicknameWrapper = styled.div`
   height: 56px;
   margin-top: 42px;
   opacity: 0.7;
-  color: #000000;
+  color: ${(props: Props) => props.theme.color.black};
 
   ${media.phone`
     width: 360px;
@@ -31,7 +39,7 @@ export const PageTabBar = styled.div`
   display: flex;
   margin-top: 22px;
   opacity: 0.9;
-  background-color: #f0f1f5;
+  background-color: ${(props: Props) => props.theme.color.grayBackground1};
   justify-content: center;
 
   ${media.tablet`
@@ -53,8 +61,8 @@ export const PageTabInnerWrapper = styled.div`
 export const PageTab = styled.button`
   ${typo.header3}
   height: 27px;
-  color: ${(props) => props.currentPage ? '#4f48c4' : '#000000'};
-  opacity: ${(props) => props.currentPage ? '1' : '0.6'};
+  color: ${(props: Props) => props.currentPage ? props.theme.color.primary : props.theme.color.black};
+  opacity: ${(props: Props) => props.currentPage ? '1' : '0.6'};
   margin-right: 50px;
   cursor: pointer;
   padding: 0;

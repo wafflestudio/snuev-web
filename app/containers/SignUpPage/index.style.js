@@ -118,7 +118,7 @@ export const ReturnText = styled.p`
 `;
 
 export const SignUpForm = styled.form`
-  background-color: #ffffff;
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;

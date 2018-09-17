@@ -1,6 +1,7 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 import { Map } from 'immutable';
 import { parseDate, parseSemesterSeason } from '../../utils/parse';
 import { typo, media } from '../../style-utils';
@@ -17,11 +18,12 @@ export const EvaluationCardTitlesWrapper = styled.div`
   align-items: center;
 `;
 
-export const EvaluationCardTitles = styled.div`
+export const EvaluationCardTitles = styled(Link)`
   font-size: 22px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.8);
   margin-right: 10px;
+  cursor: pointer;
   /* TODO: Ellipsis for multiline **/
   ${media.tablet`
     font-size: 18px;
@@ -42,7 +44,6 @@ export const EvaluationCardSemester = styled.div`
 export const EvaluationMeta = styled.div`
   margin-top: 10px;
   ${typo.body2}
-  color: rgba(0, 0, 0, 0.6);
 `;
 
 export const EvaluationGrades = styled.div`
@@ -56,9 +57,8 @@ export const EvaluationGrades = styled.div`
 `;
 
 export const EvaluationDescription = styled.div`
-  color: rgba(0, 0, 0, 0.6);
+  ${typo.body2}
   font-size: 14px;
-  font-family: ${(props: any) => props.theme.fontFamily.sansSerif};
   margin-right: 16px;
   margin-top: 4px;
   opacity: 0.8;
@@ -120,7 +120,7 @@ type Props = {
 export default ({ evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationCard>
     <EvaluationCardTitlesWrapper>
-      <EvaluationCardTitles>
+      <EvaluationCardTitles to={`/lectures/${evaluation.getIn(['lecture', 'id'])}`}>
         {evaluation.getIn(['lecture', 'name'])}
       </EvaluationCardTitles>
       <EvaluationCardSemester>

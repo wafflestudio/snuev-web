@@ -8,7 +8,7 @@ import type { Theme } from '../../../theme';
 import { media } from '../../../style-utils';
 
 export const Wrapper = styled.form`
-  background-color: #ffffff;
+  background-color: ${(props: Props) => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -62,7 +62,7 @@ export const CommentInput = styled.textarea`
 const CreateIconFrame = styled.img`
 `;
 
-export const CreateIcon = (props: {}) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
+export const CreateIcon = (props: Props) => <CreateIconFrame src={CreateIconSrc} srcSet={`${CreateIcon2XSrc} 2x, ${CreateIcon3XSrc} 3x`} {...props} />;
 
 export const Hint = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};

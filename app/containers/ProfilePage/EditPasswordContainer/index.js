@@ -14,12 +14,12 @@ import {
 } from './index.style';
 
 type Props = {
-  editPassword: (password: string) => void,
+  editPassword: ({ current_password: string, password: string }) => void,
 };
 
 type State = {
-  currentPassword: string,
-  newPassword: string,
+  current_password: string,
+  password: string,
   confirmationPassword: string,
   passwordCountError: boolean,
   passwordConfirmError: boolean,
@@ -29,8 +29,8 @@ export class EditPasswordContainer extends React.PureComponent<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      currentPassword: '',
-      newPassword: '',
+      current_password: '',
+      password: '',
       confirmationPassword: '',
       passwordCountError: false,
       passwordConfirmError: false,
@@ -42,25 +42,25 @@ export class EditPasswordContainer extends React.PureComponent<Props, State> {
 
   handleEditPassword(event: Event) {
     event.preventDefault();
-    if (this.state.newPassword.length < 8) {
+    if (this.state.password.length < 8) {
       this.setState({ passwordCountError: true });
     } else {
       this.setState({ passwordCountError: false });
     }
-    if (this.state.newPassword !== this.state.confirmationPassword) {
+    if (this.state.password !== this.state.confirmationPassword) {
       this.setState({ passwordConfirmError: true });
     } else {
       this.setState({ passwordConfirmError: false });
     }
     if (!this.state.passwordCountError && !this.state.passwordConfirmError) {
-      this.props.editPassword(this.state.newPassword);
+      this.props.editPassword(this.state);
     }
   }
 
   handleOnChangeNewPassword(event: Event) {
     event.preventDefault();
     this.setState({
-      newPassword: event.target.value,
+      password: event.target.value,
       passwordCountError: false,
     });
   }
@@ -82,8 +82,8 @@ export class EditPasswordContainer extends React.PureComponent<Props, State> {
           </TitleWrapper>
           <Input
             type="password"
-            value={this.state.currentPassword}
-            onChange={({ target }) => this.setState({ currentPassword: target.value })} // eslint-disable-line
+            value={this.state.current_password}
+            onChange={({ target }) => this.setState({ current_password: target.value })} // eslint-disable-line
           />
         </CurrentPasswordWrapper>
         <NewPasswordWrapper>
@@ -92,7 +92,7 @@ export class EditPasswordContainer extends React.PureComponent<Props, State> {
           </TitleWrapper>
           <Input
             type="password"
-            value={this.state.newPassword}
+            value={this.state.password}
             onChange={this.handleOnChangeNewPassword}
           />
         </NewPasswordWrapper>

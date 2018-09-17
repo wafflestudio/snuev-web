@@ -25,6 +25,7 @@ type Props = {
   searchLectures: (string) => void,
   location: { search: string },
   blurLecture: () => void,
+  hideSearchFilter: () => void,
 };
 
 type State = {
@@ -59,10 +60,11 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
     event.preventDefault();
     this.props.searchLectures(this.state.query);
     this.props.blurLecture();
+    this.props.hideSearchFilter();
   }
 
   render() {
-    const { searchCourses, searchLectures, blurLecture } = this.props;
+    const { searchCourses, searchLectures, blurLecture, hideSearchFilter } = this.props;
     const courses = this.props.courses.toJS();
 
     return (
@@ -85,6 +87,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
             this.setState({ query: course.name });
             searchLectures(course.name);
             blurLecture();
+            hideSearchFilter();
           }}
           renderItem={(course: { id: string, name: string }, isHighlighted: boolean) => (
             <AutoCompleteItem active={isHighlighted} key={course.id}>
@@ -106,6 +109,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   searchCourses: (query: string) => dispatch(GlobalActions.searchCoursesRequest(query)),
   searchLectures: (query: string) => dispatch(GlobalActions.searchLecturesRequest(query)),
   blurLecture: () => dispatch(GlobalActions.blurLecture()),
+  hideSearchFilter: () => dispatch(GlobalActions.hideSearchFilter()),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(NavSearch));

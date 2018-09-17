@@ -2,6 +2,7 @@ import { take, call, put } from 'redux-saga/effects';
 import { authRequest } from 'services/api';
 import { Types, Creators as Actions } from './reducer';
 import { Creators as GlobalActions } from '../../global/reducer';
+import { userInformation } from '../../global/sagas';
 
 export function* watchUpdateProfileRequest() {
   while (true) {
@@ -10,10 +11,11 @@ export function* watchUpdateProfileRequest() {
   }
 }
 
-export function* updateProfile({ password, password_confirmation, nickname, department_id }) {
+export function* updateProfile({ nickname, department_id }) {
   try {
-    const response = yield authRequest.put('/v1/user', { password, password_confirmation, nickname, department_id });
-    yield put(Actions.updateProfileSuccess(response.data));
+    yield authRequest.put('/v1/user', { nickname, department_id });
+    yield put(Actions.updateProfileSuccess());
+    yield call(userInformation);
   } catch (error) {
     yield put(Actions.updateProfileFailure(error.errors));
   }
@@ -42,9 +44,9 @@ export function* watchEditPasswordRequest() {
   }
 }
 
-export function* editPassword(password) {
+export function* editPassword({ current_password, password }) {
   try {
-    yield authRequest.put('/v1/user', { password });
+    yield authRequest.put('/v1/user', { current_password, password });
     yield put(Actions.editPasswordSuccess());
   } catch (error) {
     yield put(Actions.editPasswordFailure(error.errors));

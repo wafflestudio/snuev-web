@@ -53,7 +53,7 @@ export class MyBookmarkContainer extends React.PureComponent<Props> {
                 />
               </BookmarkWrapper>
               <LectureWrapper>
-                <LectureTitle>
+                <LectureTitle to={`/lectures/${lecture.get('id')}`}>
                   {lecture.get('name')}
                 </LectureTitle>
                 <LectureBasicInfoWrapper>

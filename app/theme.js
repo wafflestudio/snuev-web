@@ -73,6 +73,12 @@ export type Theme = {
   fontWeight: {
     bold: number,
   },
+  zIndex: {
+    sideBar: number,
+    searchFilter: number,
+    navBar: number,
+    modal: number,
+  },
 };
 
 const theme = {
@@ -150,6 +156,12 @@ const theme = {
   },
   fontWeight: {
     bold: 500,
+  },
+  zIndex: {
+    sideBar: 100,
+    searchFilter: 200,
+    navBar: 300,
+    modal: 1000,
   },
 };
 

@@ -46,7 +46,7 @@ export const EvaluationScoreLabel = styled.div`
 export const EvaluationScoreValue = styled.div`
   ${typo.score2}
   opacity: 0.8;
-  color: #000000;
+  color: ${(props: Props) => props.theme.color.black};
   margin-right: 4px;
   ${media.phone`
     margin-right: 2px;
@@ -62,7 +62,7 @@ const DateText = styled.div`
 const SemesterText = styled.div`
   ${typo.body1}
   text-align: left;
-  color: #4f48c4;
+  color: ${(props: Props) => props.theme.color.primary};
   margin-left: 24px;
   margin-top: 10px;
   ${media.tablet`

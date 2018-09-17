@@ -1,6 +1,13 @@
+// @flow
+
 import styled from 'styled-components';
+import { Link } from 'react-router';
 
 import { typo, media } from '../../../style-utils';
+
+type Props = {
+  theme: any,
+};
 
 export const Background = styled.div`
   width: 100%;
@@ -31,12 +38,13 @@ export const LectureWrapper = styled.div`
   margin-left: 12px;
 `;
 
-export const LectureTitle = styled.div`
+export const LectureTitle = styled(Link)`
   ${typo.header2}
   width: 100%;
   opacity: 0.8;
-  color: #000000;
+  color: ${(props: Props) => props.theme.color.black};
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 export const LectureBasicInfoWrapper = styled.div`
@@ -50,14 +58,14 @@ export const LectureBasicInfoWrapper = styled.div`
 export const LectureBasicInfo = styled.div`
   ${typo.body2}
   opacity: 0.6;
-  color: #000000;
+  color: ${(props: Props) => props.theme.color.black};
 `;
 
 export const Dot = styled.div`
   width: 2px;
   height: 2px;
   opacity: 0.5;
-  background-color: #000000;
+  background-color: ${(props: Props) => props.theme.color.black};
   margin-left: 5px;
   margin-right: 5px;
 `;
@@ -73,7 +81,7 @@ export const Score = styled.div`
   ${typo.score2}
   height: 40px;
   opacity: 0.9;
-  color: #000000;
+  color: ${(props: Props) => props.theme.color.black};
   margin-right: 4px;
 `;
 
