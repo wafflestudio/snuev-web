@@ -59,6 +59,7 @@ const LogoFrame = styled.img`
   width: 220px;
   height: 60px;
   object-fit: contain;
+  cursor: pointer;
 `;
 
 export const Logo = (props: {}) => <LogoFrame src={LogoImage} {...props} />;

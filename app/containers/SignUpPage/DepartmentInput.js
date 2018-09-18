@@ -18,6 +18,7 @@ type Props = {
   selectedDepartment: ?Department,
   onSelectDepartment: (Department) => void,
   error: string,
+  highlighted: boolean,
 };
 
 type State = {
@@ -92,7 +93,7 @@ const SearchIconFrame = styled.img`
   height: 30px;
 `;
 
-export const SearchIcon = (props: Props) =>
+export const SearchIcon = (props: {}) =>
   <SearchIconWrapper>
     <SearchIconFrame src={SearchIconImage} {...props} />
   </SearchIconWrapper>;

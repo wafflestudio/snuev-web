@@ -12,25 +12,28 @@ export const { Types, Creators } = createActions({
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  isFetching: false,
-  error: null,
+  newPassword: {
+    isFetching: false,
+    success: false,
+    error: null,
+  },
 });
 
 /* ------------- Reducers ------------- */
 
-export const request = (state) =>
-  state.merge({ isFetching: true, error: null });
+export const newPasswordRequest = (state) =>
+  state.mergeDeep({ newPassword: { isFetching: true, error: null } });
 
-export const success = (state) =>
-  state.merge({ isFetching: false, error: null });
+export const newPasswordSuccess = (state) =>
+  state.mergeDeep({ newPassword: { isFetching: false, success: true, error: null } });
 
-export const failure = (state, { error }) =>
-  state.merge({ isFetching: false, error });
+export const newPasswordFailure = (state, { error }) =>
+  state.mergeDeep({ newPassword: { isFetching: false, success: false, error } });
 
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.NEW_PASSWORD_REQUEST]: request,
-  [Types.NEW_PASSWORD_SUCCESS]: success,
-  [Types.NEW_PASSWORD_FAILURE]: failure,
+  [Types.NEW_PASSWORD_REQUEST]: newPasswordRequest,
+  [Types.NEW_PASSWORD_SUCCESS]: newPasswordSuccess,
+  [Types.NEW_PASSWORD_FAILURE]: newPasswordFailure,
 });
