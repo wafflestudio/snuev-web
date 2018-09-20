@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { IntlProvider } from 'react-intl';
 import { ClipLoader } from 'react-spinners';
+import qs from 'query-string';
 import { createStructuredSelector } from 'reselect';
 import DottedLine from '../../components/DottedLine';
 import Footer from '../../components/Footer';
@@ -25,11 +26,13 @@ import {
   BodyText,
   LoginButton,
   ArrowRightIcon,
+  LoginText,
+  GoToText,
 } from './index.style';
 
 type Props = {
   page: Map<string, any>,
-  params: Object,
+  location: any,
   newPassword: ({ reset_token: string, password: string }) => void,
 };
 
@@ -70,7 +73,7 @@ export class newPasswordPage extends React.PureComponent<Props, State> {
       isValid = true;
     }
     if (isValid) {
-      this.props.newPassword({ reset_token: this.props.params.reset_token, password: this.state.password });
+      this.props.newPassword({ reset_token: qs.parse(this.props.location.search).reset_token, password: this.state.password });
     }
   }
 
@@ -104,9 +107,12 @@ export class newPasswordPage extends React.PureComponent<Props, State> {
                   {messages.safelyChanged}
                 </BodyText>
                 <LoginButton to="/sign_in">
-                  <ButtonText>
+                  <LoginText>
                     {messages.login}
-                  </ButtonText>
+                  </LoginText>
+                  <GoToText>
+                    {messages.goTo}
+                  </GoToText>
                   <ArrowRightIcon />
                 </LoginButton>
               </ContentContainer>

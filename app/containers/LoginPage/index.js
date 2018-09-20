@@ -8,7 +8,7 @@ import { Map } from 'immutable';
 import { browserHistory } from 'react-router';
 import DottedLine from '../../components/DottedLine';
 import { Creators as Actions } from '../../global/reducer';
-import { makeSelectGlobal } from '../../global/selectors';
+import { makeSelectGlobal, makeSelectUser } from '../../global/selectors';
 
 import messages from './messages';
 import {
@@ -36,6 +36,7 @@ type Props = {
   signIn: ({ username: string, password: string }) => void,
   global: Map<string, any>,
   hideSearchFilter: () => void,
+  user: Map<string, any>,
 };
 
 type State = {
@@ -87,6 +88,9 @@ export class LoginPage extends React.PureComponent<Props, State> {
   }
 
   render() {
+    if (this.props.user) {
+      browserHistory.push('/');
+    }
     return (
       <IntlProvider messages={messages}>
         <Background>
@@ -159,6 +163,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
 
 const mapStateToProps = createStructuredSelector({
   global: makeSelectGlobal(),
+  user: makeSelectUser(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

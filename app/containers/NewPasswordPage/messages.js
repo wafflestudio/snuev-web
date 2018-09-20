@@ -14,4 +14,5 @@ export default defineMessages({
   newPasswordCompleted: '비밀번호 변경 완료!',
   safelyChanged: '비밀번호가 안전하게 변경되었습니다.',
   login: '로그인',
+  goTo: '하러가기',
 });

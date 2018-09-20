@@ -21,7 +21,7 @@ const Input = styled.input`
   &:focus { outline: none; };
 
   ${media.phone`
-    width: 159px;
+    width: 190px;
     font-size: 13px;
     margin-top: 10px;
     margin-bottom: 0px;
@@ -35,7 +35,6 @@ export const UsernameInputContainer = styled.div`
 
 export const EmailDomainText = styled.p`
   ${typo.header3}
-  width: 100px;
   height: 44px;
   line-height: 42px;
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
@@ -60,6 +59,10 @@ export const UsernameInputText = styled.div`
   font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
   font-size: 13px;
   color: ${(props: { theme: Theme }) => props.theme.color.hint};
+
+  ${media.phone`
+    margin-top: 10px;
+  `}
 `;
 
 type Props = {

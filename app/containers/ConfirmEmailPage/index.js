@@ -19,9 +19,7 @@ type Props = {
 
 export class ConfirmEmailPage extends React.PureComponent<Props> {
   componentDidMount() {
-    this.props.confirmEmail(
-      qs.parse(this.props.location.search).confirmation_token
-    );
+    this.props.confirmEmail(qs.parse(this.props.location.search).confirmation_token);
   }
 
   render() {

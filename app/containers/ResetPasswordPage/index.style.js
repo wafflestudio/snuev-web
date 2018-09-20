@@ -53,6 +53,7 @@ export const ContentContainer = styled.div`
   flex: 1;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 `;
 
 const BackButtonStyle = styled(Link)`
@@ -121,6 +122,7 @@ export const ConfirmationButton = styled.button`
     background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
     &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover2}; };
     &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus2}; outline: none; };
+    margin-top: 60px;
   `}
 `;
 
@@ -144,11 +146,14 @@ const ResetPasswordIconFrame = styled.img`
   min-width: 108px;
   min-height: 108px;
   object-fit: contain;
-  margin-top: 160px;
 `;
 
 export const ResetPasswordIcon = (props: {}) => <ResetPasswordIconFrame src={ResetPasswordImage} {...props} />;
 
 export const ResetPasswordText = styled.div`
   ${typo.header2}
+
+  ${media.phone`
+    margin-bottom: 30px;
+  `}
 `;

@@ -1,7 +1,8 @@
 // @flow
 import * as React from 'react';
-import { connect } from 'react-redux';
+import { connect, browserHistory } from 'react-redux';
 import Helmet from 'react-helmet';
+import Map from 'immutable';
 import { IntlProvider, injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Creators as Actions } from './reducer';
@@ -21,9 +22,11 @@ import {
   ResetPasswordIcon,
   ResetPasswordText,
 } from './index.style';
+import { makeSelectUser } from '../../global/selectors';
 
 type Props = {
   resetPassword: (State) => void,
+  user: Map<string, any>,
 };
 
 type State = {
@@ -45,6 +48,9 @@ export class ResetPasswordPage extends React.PureComponent<Props, State> {
   }
 
   render() {
+    if (this.props.user) {
+      browserHistory.push('/');
+    }
     return (
       <IntlProvider messages={messages}>
         <Background>
@@ -65,7 +71,7 @@ export class ResetPasswordPage extends React.PureComponent<Props, State> {
                 <EmailInput
                   type="text"
                   value={this.state.username}
-                onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
+                  onChange={({ target }) => this.setState({ username: target.value })} // eslint-disable-line
                   placeholder={messages.input.usernameHint}
                 />
                 <ConfirmationButton type="submit">
@@ -87,6 +93,7 @@ export class ResetPasswordPage extends React.PureComponent<Props, State> {
 
 const mapStateToProps = createStructuredSelector({
   page: makeSelectPage(),
+  user: makeSelectUser(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

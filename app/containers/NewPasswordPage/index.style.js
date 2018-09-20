@@ -54,6 +54,7 @@ export const ContentContainer = styled.div`
   display: flex;
   flex: 1;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 
@@ -118,7 +119,7 @@ export const ChangeButton = styled.button`
     left: 0;
     position: relative;
     box-shadow: none;
-    margin-top: 30px;
+    margin-top: 60px;
     background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
     &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover2}; };
     &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus2}; outline: none; };
@@ -144,13 +145,16 @@ const ResetPasswordIconFrame = styled.img`
   min-width: 108px;
   min-height: 108px;
   object-fit: contain;
-  margin-top: 160px;
 `;
 
 export const ResetPasswordIcon = (props: {}) => <ResetPasswordIconFrame src={ResetPasswordImage} {...props} />;
 
 export const NewPasswordText = styled.div`
   ${typo.header2}
+
+  ${media.phone`
+    margin-bottom: 30px;
+  `}
 `;
 
 export const ResetPasswordCompletedIcon = (props: {}) => <ResetPasswordIconFrame src={ResetPasswordCompletedImage} {...props} />;
@@ -160,7 +164,6 @@ export const BodyText = styled.p`
   text-align: center;
   opacity: 0.9;
   color: ${(props: { theme: Theme }) => props.theme.color.black};
-  margin-top: 50px;
 `;
 
 export const LoginButton = styled(Link)`
@@ -180,16 +183,50 @@ export const LoginButton = styled(Link)`
   &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
 
   ${media.phone`
-    width: 259px;
-    height: 52px;
+    width: fit-content;
+    height: fit-content;
     border-radius: 2px;
     left: 0;
+    top: 0;
     position: relative;
     box-shadow: none;
     margin-top: 30px;
-    background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
-    &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover2}; };
-    &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus2}; outline: none; };
+    background: none;
+    background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+    color: ${(props: { theme: Theme }) => props.theme.color.primary};
+    border: none;
+    &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.white}; };
+    &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.white}; outline: none; };
+  `}
+`;
+
+export const LoginText = styled.p`
+  font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+  font-size: 20px;
+  text-align: center;
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
+  &:focus { outline: none };
+  ${media.phone`
+    height: 24px;
+    font-size: 15px;
+    padding-top: 0px;
+  `}
+`;
+
+export const GoToText = styled.p`
+  display: none;
+
+  ${media.phone`
+    display: block;
+    font-family: ${(props: { theme: Theme }) => props.theme.fontFamily.sansSerif};
+    font-size: 20px;
+    text-align: center;
+    color: ${(props: { theme: Theme }) => props.theme.color.primary};
+    height: 24px;
+    font-size: 15px;
+    padding-top: 0px;
+    &:focus { outline: none };
+    margin-left: 4px;
   `}
 `;
 

@@ -154,7 +154,7 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/new_password/:reset_token',
+      path: '/new_password',
       name: 'newPasswordPage',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
