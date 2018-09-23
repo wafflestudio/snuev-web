@@ -8,8 +8,13 @@ import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
 import messages from './messages';
 import NavSearch from '../../containers/NavSearch';
-import { Creators as Actions } from '../../global/reducer';
-import { makeSelectUser, makeSelectDepartments, makeSelectAppLayout } from '../../global/selectors';
+import { Creators as Actions, initialState } from '../../global/reducer';
+import {
+  makeSelectUser,
+  makeSelectDepartments,
+  makeSelectAppLayout,
+  makeSelectSearchFilter,
+} from '../../global/selectors';
 import {
   NavBarWrapper,
   Logo,
@@ -18,6 +23,7 @@ import {
   NavMenu,
   NavBarInnerWrapper,
   SearchFilterIcon,
+  SearchFilterOnIcon,
   SnuttButton,
   BookmarkButton,
   ProfileButton,
@@ -31,6 +37,7 @@ type Props = {
   user: any,
   departments: Map<string, any>,
   appLayout: Map<string, any>,
+  searchFilter: Map<string, any>,
   signOut: () => void,
   getDepartments: () => void,
   showSearchFilter: () => void,
@@ -54,6 +61,7 @@ export class NavBar extends React.PureComponent<Props> {
   handleOnClickLogo(event: Event) {
     event.preventDefault();
     this.props.hideSideBar();
+    this.props.hideSearchFilter();
     browserHistory.push('/');
   }
 
@@ -61,6 +69,7 @@ export class NavBar extends React.PureComponent<Props> {
     event.preventDefault();
     this.props.signOut();
     browserHistory.push('/');
+    this.props.hideSearchFilter();
   }
 
   handleSearchFilter(event: Event) {
@@ -75,11 +84,12 @@ export class NavBar extends React.PureComponent<Props> {
   handleOnClickProfile(event: Event) {
     event.preventDefault();
     this.props.hideSideBar();
+    this.props.hideSearchFilter();
     browserHistory.push('/profile');
   }
 
   render() {
-    const { user } = this.props;
+    const { user, appLayout, searchFilter } = this.props;
     return (
       <NavBarWrapper>
         <NavBarInnerWrapper>
@@ -88,7 +98,12 @@ export class NavBar extends React.PureComponent<Props> {
           </LogoButton>
           <Search>
             <NavSearch />
-            <SearchFilterIcon onClick={this.handleSearchFilter} />
+            {searchFilter.equals(initialState.get('searchFilter')) &&
+              <SearchFilterIcon onClick={this.handleSearchFilter} open={appLayout.get('showSearchFilter')} />
+            }
+            {!searchFilter.equals(initialState.get('searchFilter')) &&
+              <SearchFilterOnIcon onClick={this.handleSearchFilter} open={appLayout.get('showSearchFilter')} />
+            }
           </Search>
           <NavMenu>
             <SnuttButton href="https://snutt.kr">
@@ -105,7 +120,7 @@ export class NavBar extends React.PureComponent<Props> {
                   <span className="navMenuText">
                     <FormattedMessage
                       {...messages.navItems.profile}
-                      values={{ nickname: this.props.user.get('nickname') }}
+                      values={{ nickname: user.get('nickname') }}
                     />
                   </span>
                 </ProfileButton>
@@ -141,6 +156,7 @@ const mapStateToProps = createStructuredSelector({
   user: makeSelectUser(),
   departments: makeSelectDepartments(),
   appLayout: makeSelectAppLayout(),
+  searchFilter: makeSelectSearchFilter(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

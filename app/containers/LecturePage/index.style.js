@@ -151,9 +151,10 @@ export const LectureSummary = styled.p`
 `;
 
 export const EvaluationsWrapper = styled.div`
-  padding-top: 45px;
+  padding-top: 20px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 14px;
   ${media.phone`
     padding-top: 20px;
   `}
@@ -208,6 +209,10 @@ export const PageWrapper = styled.div`
   padding-top: 30px;
   display: flex;
   justify-content: center;
+
+  ${media.phone`
+    margin: 0 28px;
+  `}
 `;
 
 export const NoEvaluationWrapper = styled.div`

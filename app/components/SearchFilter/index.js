@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
 import ReactAutoComplete from 'react-autocomplete';
+import { ClipLoader } from 'react-spinners';
 
 import { Creators as Actions } from '../../global/reducer';
 import { makeSelectSearchFilter, makeSelectDepartments } from '../../global/selectors';
@@ -57,12 +58,12 @@ class SearchFilter extends React.PureComponent<Props, State> {
     (this: any).handleRemoveDepartment = this.handleRemoveDepartment.bind(this);
   }
 
-  handleResetFiltering(event: SyntheticEvent<HTMLButtonElement>) {
+  handleResetFiltering(event: Event) {
     event.preventDefault();
     this.props.resetSearchFilter();
   }
 
-  handleFilterDepartment(event: SyntheticEvent<HTMLButtonElement>) {
+  handleFilterDepartment(event: Event) {
     event.preventDefault();
     const { query } = this.state;
     const department = this.props.departments.find((singleDepartment: Object) => singleDepartment.get('name') === query);
@@ -90,7 +91,7 @@ class SearchFilter extends React.PureComponent<Props, State> {
     if (!filter) {
       return (
         <div>
-          no filter!
+          <ClipLoader />
         </div>
       );
     }

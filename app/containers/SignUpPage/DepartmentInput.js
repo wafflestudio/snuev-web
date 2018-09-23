@@ -38,7 +38,7 @@ const DepartmentInputWrapper = styled.div`
 
 const DepartmentMenu = styled.div`
   border: solid 1px #ccc;
-  z-index: 10;
+  z-index: 1;
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   position: absolute;
   width: 300px;
@@ -92,7 +92,7 @@ const SearchIconFrame = styled.img`
   height: 30px;
 `;
 
-export const SearchIcon = (props: {}) =>
+export const SearchIcon = (props: Props) =>
   <SearchIconWrapper>
     <SearchIconFrame src={SearchIconImage} {...props} />
   </SearchIconWrapper>;

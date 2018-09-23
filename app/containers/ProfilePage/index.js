@@ -2,6 +2,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
+import { ClipLoader } from 'react-spinners';
 import { createStructuredSelector } from 'reselect';
 import pageState from './pageState';
 import { Creators as Actions } from './reducer';
@@ -43,8 +44,9 @@ type Props = {
   bookmarkedLectures: any,
   bookmarks: any,
   resendConfirmationEmail: () => void,
-  editPassword: (password: string) => void,
+  editPassword: ({ current_password: string, password: string }) => void,
   getMyEvaluations: () => void,
+  updateProfile: ({ nickname: string, department_id: number }) => void,
   vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
   deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
   getBookmarkedLectures: () => void,
@@ -69,7 +71,7 @@ export class ProfilePage extends React.PureComponent<Props, State> {
     (this: any).handleOnClickEditPasswordTab = this.handleOnClickEditPasswordTab.bind(this);
   }
 
-  handleUpdateProfile(event: SyntheticEvent<HTMLButtonElement>) {
+  handleUpdateProfile(event: Event) {
     event.preventDefault();
     this.props.updateProfile(this.state);
   }
@@ -97,6 +99,13 @@ export class ProfilePage extends React.PureComponent<Props, State> {
   }
 
   render() {
+    if (!this.props.user) {
+      return (
+        <div>
+          <ClipLoader />
+        </div>
+      );
+    }
     return (
       <Background>
         <Helmet
@@ -138,6 +147,7 @@ export class ProfilePage extends React.PureComponent<Props, State> {
               departments={this.props.departments}
               user={this.props.user}
               resendConfirmationEmail={this.props.resendConfirmationEmail}
+              updateProfile={this.props.updateProfile}
             />
           }
           {this.state.pageState === pageState.myEvaluation &&
@@ -180,9 +190,9 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
-  updateProfile: (credentials: { password: string, password_confirmation: string, nickname: string, department_id: string }) => dispatch(Actions.updateProfileRequest(credentials)),
+  updateProfile: (credentials: { nickname: string, department_id: number }) => dispatch(Actions.updateProfileRequest(credentials)),
   resendConfirmationEmail: () => dispatch(Actions.resendConfirmationEmailRequest()),
-  editPassword: (password: string) => dispatch(Actions.editPasswordRequest(password)),
+  editPassword: (credentials: { current_password: string, password: string }) => dispatch(Actions.editPasswordRequest(credentials)),
   getMyEvaluations: () => dispatch(Actions.myEvaluationsRequest()),
   vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.voteRequest(lectureId, evaluationId, isUpvote)),
   deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),

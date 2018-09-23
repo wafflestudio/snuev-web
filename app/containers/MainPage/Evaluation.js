@@ -1,14 +1,9 @@
 // @flow
 import React from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router';
 import { Map } from 'immutable';
 import { parseDate, parseSemesterSeason } from '../../utils/parse';
-import UpvoteIconSrc from '../../images/ic-upvote-normal.png';
-import UpvoteIcon2xSrc from '../../images/ic-upvote-normal@2x.png';
-import UpvoteIcon3xSrc from '../../images/ic-upvote-normal@3x.png';
-import DownvoteIconSrc from '../../images/ic-downvote-normal.png';
-import DownvoteIcon2xSrc from '../../images/ic-downvote-normal@2x.png';
-import DownvoteIcon3xSrc from '../../images/ic-downvote-normal@3x.png';
 import { typo, media } from '../../style-utils';
 import Vote from '../../components/Vote';
 
@@ -23,11 +18,12 @@ export const EvaluationCardTitlesWrapper = styled.div`
   align-items: center;
 `;
 
-export const EvaluationCardTitles = styled.div`
+export const EvaluationCardTitles = styled(Link)`
   font-size: 22px;
   font-weight: 500;
   color: rgba(0, 0, 0, 0.8);
   margin-right: 10px;
+  cursor: pointer;
   /* TODO: Ellipsis for multiline **/
   ${media.tablet`
     font-size: 18px;
@@ -48,7 +44,6 @@ export const EvaluationCardSemester = styled.div`
 export const EvaluationMeta = styled.div`
   margin-top: 10px;
   ${typo.body2}
-  color: rgba(0, 0, 0, 0.6);
 `;
 
 export const EvaluationGrades = styled.div`
@@ -62,9 +57,8 @@ export const EvaluationGrades = styled.div`
 `;
 
 export const EvaluationDescription = styled.div`
-  color: rgba(0, 0, 0, 0.6);
+  ${typo.body2}
   font-size: 14px;
-  font-family: ${(props: any) => props.theme.fontFamily.sansSerif};
   margin-right: 16px;
   margin-top: 4px;
   opacity: 0.8;
@@ -116,29 +110,6 @@ export const EvaluationLikesHates = styled.div`
   display: flex;
 `;
 
-const IconFrame = styled.img`
-  margin-right: 6px;
-`;
-
-export const UpvoteIcon = (props: {}) => <IconFrame {...props} src={UpvoteIconSrc} srcSet={`${UpvoteIcon2xSrc} 2x, ${UpvoteIcon3xSrc} 3x`} />;
-
-export const DownvoteIcon = (props: {}) => <IconFrame {...props} src={DownvoteIconSrc} srcSet={`${DownvoteIcon2xSrc} 2x, ${DownvoteIcon3xSrc} 3x`} />;
-
-export const EvaluationVotes = styled.div`
-  margin-left: 16px;
-  span {
-    font-family: ${(props: any) => props.theme.fontFamily.number};
-  }
-`;
-
-export const NoStyleButton = styled.button`
-  padding: 0;
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  }
-`;
-
 type Props = {
   evaluation: Map<string, any>,
   votes: Map<string, any>,
@@ -149,7 +120,7 @@ type Props = {
 export default ({ evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationCard>
     <EvaluationCardTitlesWrapper>
-      <EvaluationCardTitles>
+      <EvaluationCardTitles to={`/lectures/${evaluation.getIn(['lecture', 'id'])}`}>
         {evaluation.getIn(['lecture', 'name'])}
       </EvaluationCardTitles>
       <EvaluationCardSemester>

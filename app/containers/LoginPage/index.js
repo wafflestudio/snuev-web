@@ -34,6 +34,7 @@ import EmailInput from './EmailInput';
 type Props = {
   signIn: ({ username: string, password: string }) => void,
   global: Map<string, any>,
+  hideSearchFilter: () => void,
 };
 
 type State = {
@@ -74,6 +75,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
     }
     if (username && password) {
       this.props.signIn({ username: username.replace('@snu.ac.kr', ''), password });
+      this.props.hideSearchFilter();
     }
   }
 
@@ -154,6 +156,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = (dispatch: Function) => ({
   signIn: (credentials: { username: string, password: string }) => dispatch(Actions.signInRequest(credentials)),
+  hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

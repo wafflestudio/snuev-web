@@ -1,70 +1,71 @@
+// @flow
+
 import styled from 'styled-components';
 
 import { typo, media } from '../../style-utils';
 import SearchButtonImage from '../../images/ic-search-small-normal.png';
 import DeleteButtonImage from '../../images/btn-delete-normal.png';
 import ResetButtonImage from '../../images/ic-reset-disabled.png';
+import ResetButtonHoverImage from '../../images/ic-reset-hover.png';
 import CheckedButtonImage from '../../images/ic-detailsearch-checked.png';
 
+type Props = {
+  theme: Map<string, any>,
+  highlighted: boolean,
+};
+
 export const Wrapper = styled.div`
-  min-width: 1300px;
-  height: 440px;
-  background-color: #ffffff;
+  height: calc(100vh - ${(props: Props) => props.theme.navBarHeight}px);
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   display: flex;
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
   overflow: auto;
 
-  ${media.tablet`
-    min-width: 768px;
-    height: 750px;
-  `}
-
   ${media.phone`
-    min-width: 400px;
-    height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);
+    height: calc(100vh - ${(props: Props) => props.theme.mobileNavBarHeight}px);
   `}
 `;
 
 export const Header = styled.div`
   width: 1220px;
-  height: 36px;
   margin-top: 30px;
   margin-bottom: 30px;
   display: flex;
   align-items: center;
 
+  ${media.desktop`
+    width: 90%;
+  `}
+
   ${media.tablet`
     width: 700px;
-    align-items: flex-end;
   `}
 
   ${media.phone`
     width: 90%;
     margin-top: 20px;
-    align-items: flex-start;
   `}
 `;
 
 export const HeaderText = styled.div`
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 14px;
-  width: 81px;
+  font-family: ${(props: Props) => props.theme.fontFamily.sansSerif};
+  font-size: ${(props: Props) => props.theme.fontSize.header2}px;
   height: 100%;
   margin-right: 10px;
-
-  ${media.phone`
-    justify-content: center;
-  `}
+  line-height: 28px;
 `;
 
 export const ResetButton = styled.button`
   width: 30px;
   height: 30px;
-  background-size: 28px;
   background: url(${ResetButtonImage}) no-repeat 50% 50%;
+  background-size: 30px;
   cursor: pointer;
+  &:hover {
+    background: url(${ResetButtonHoverImage}) no-repeat 50% 50%;
+  }
   &:focus {
     outline: none;
   }
@@ -75,15 +76,21 @@ export const FiltersWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 
+  ${media.desktop`
+    width: 90%;
+    flex-direction: column;
+  `}
+
   ${media.tablet`
+    width: 700px;
     height: 100%;
+    flex-direction: row;
   `}
 
   ${media.phone`
     width: 90%;
     justify-content: flex-start;
     flex-direction: column;
-    height: 100%;
   `}
 `;
 
@@ -93,20 +100,37 @@ export const NondepartmentsWrapper = styled.div`
   flex-wrap: wrap;
   margin-left: 40px;
 
+  ${media.desktop`
+    width: 100%;
+    margin-left: 0;
+  `}
+
   ${media.tablet`
     width: 550px;
-    margin-left: 0;
   `}
 
   ${media.phone`
     width: 100%;
-    margin-left: 0;
   `}
 `;
 
 export const DepartmentWrapper = styled.div`
   width: 140px;
   align-items: center;
+  display: block;
+
+  ${media.desktop`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+  `}
+
+  ${media.tablet`
+    width: 140px;
+    display: block;
+    margin-bottom: 0;
+  `}
 
   ${media.phone`
     width: 100%;
@@ -122,9 +146,23 @@ export const FilterWrapper = styled.div`
 
   & + & {
     margin-left: 40px;
+    ${media.desktop`
+      margin-left: 2%;
+    `}
+    ${media.tablet`
+      margin-left: 40px;
+    `}
+    ${media.phone`
+      margin-left: 0;
+    `}
   }
 
+  ${media.desktop`
+    width: 15%;
+  `}
+
   ${media.tablet`
+    width: 140px;
     margin-left: 40px;
     margin-bottom: 20px;
   `}
@@ -132,9 +170,6 @@ export const FilterWrapper = styled.div`
   ${media.phone`
     width: 100%;
     margin-left: 0;
-    & + & {
-      margin-left: 0;
-    }
   `}
 `;
 
@@ -155,13 +190,11 @@ export const FilterElement = styled.button`
   cursor: pointer;
   opacity: 0.7;
   margin-bottom: 2px;
-
   &:hover {
     background-color: #f7f8fa;
-    color: #000000;
+    color: ${(props: Props) => props.theme.color.black};
     opacity: 1;
   }
-
   &:focus {
     outline: none;
   }
@@ -170,8 +203,7 @@ export const FilterElement = styled.button`
     width: 49%;
     height: 40px;
     margin-right: 1%;
-    font-size: 16px;
-    color: #000000;
+    color: ${(props: Props) => props.theme.color.black};
   `}
 `;
 
@@ -184,6 +216,7 @@ export const FilterElementSelected = styled.button`
   cursor: pointer;
   background: rgba(79, 72, 196, 0.098) url(${CheckedButtonImage}) no-repeat 97% 50%;
   margin-bottom: 2px;
+  color: ${(props: Props) => props.theme.color.primary};
 
   &:hover {
     opacity: 1;
@@ -210,6 +243,14 @@ export const DepartmentSearchWrapper = styled.form`
   margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
+
+  ${media.desktop`
+    margin-right: 30px;
+  `}
+
+  ${media.tablet`
+    margin-right: 0;
+  `}
 
   ${media.phone`
     width: 100%;
@@ -243,24 +284,26 @@ export const AutoCompleteStyle = {
 };
 
 export const AutoCompleteMenu = styled.div`
-  background-color: white;
+  background-color: ${(props: Props) => props.theme.color.white};
   border: solid 1px #ccc;
   position: relative;
-  z-index: 100;
   margin-left: -1px;
-  margin-right: -29px;
+  margin-right: -26px;
   max-height: 200px;
   overflow-y: auto;
+  z-index: ${(props: Props) => props.theme.zIndex.searchFilter + 1};
+
+  ${media.phone`
+    margin-right: -30px;
+  `}
 `;
 
 export const AutoCompleteItem = styled.div`
-  width: 125px;
+  ${typo.body2}
+  width: 100%;
   padding: 5px 0 5px 12px;
-  font-family: NotoSansCJKkr;
-  font-size: 12px;
-  font-weight: normal;
-  color: #000000;
-  background-color: ${(props) => props.highlighted ? '#eee' : '#ffffff'};
+  color: ${(props: Props) => props.theme.color.black};
+  background-color: ${(props: Props) => props.highlighted ? '#eee' : props.theme.color.white};
 
   ${media.phone`
     width: 100%;
@@ -275,11 +318,18 @@ export const DepartmentSearchIcon = styled.div`
 `;
 
 export const SelectedDepartmentWrapper = styled.div`
-  width: fit-content;
   min-height: 18px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
+
+  ${media.desktop`
+    margin-right: 20px;
+  `}
+
+  ${media.tablet`
+    margin-right: 0;
+  `}
 
   ${media.phone`
     margin-right: 20px;
@@ -287,17 +337,19 @@ export const SelectedDepartmentWrapper = styled.div`
 `;
 
 export const SelectedDepartmentText = styled.div`
+  ${typo.body2}
   max-width: 130px;
   height: 100%;
-  font-family: ${(props) => props.theme.fontFamily.sansSerif};
-  font-size: 12px;
-  font-weight: normal;
-  font-style: normal;
-  font-stretch: normal;
-  line-height: normal;
-  letter-spacing: 0px;
-  color: #4f48c4;
+  color: ${(props: Props) => props.theme.color.primary};
   padding-right: 4px;
+
+  ${media.desktop`
+    max-width: 100%;
+  `}
+
+  ${media.tablet`
+    max-width: 130px;
+  `}
 
   ${media.phone`
     max-width: 100%;

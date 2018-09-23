@@ -33,25 +33,27 @@ type Props = {
 const SearchFilterModal = styled(modalWrapper)`
   &__overlay {
     position: fixed;
-    top: 0px;
+    top: ${(props: Props) => props.theme.navBarHeight}px;
     left: 0px;
     right: 0px;
     bottom: 0px;
     background-color: rgba(0, 0, 0, .10);
+    z-index: ${(props: Props) => props.theme.zIndex.searchFilter};
+    ${media.phone`
+      top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
+    `}
   }
 
   &__content {
     border: none;
-    top: ${(props: Props) => props.theme.navBarHeight}px;
     right: auto;
     bottom: auto;
     left: 0;
     width: 100%;
     margin-right: -50%;
     position: relative;
-    ${media.phone`
-      top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
-    `}
+    z-index: ${(props: Props) => props.theme.zIndex.searchFilter};
+    width: 100%;
 
     &:focus {
       outline: none;

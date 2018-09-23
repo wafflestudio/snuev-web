@@ -21,8 +21,10 @@ export const { Types, Creators } = createActions({
 /* ------------- Initial State ------------- */
 
 export const initialState = fromJS({
-  isFetching: false,
-  error: null,
+  updateProfile: {
+    isFetching: false,
+    error: null,
+  },
   resendConfirmationEmail: {
     isFetching: false,
     error: null,
@@ -40,14 +42,14 @@ export const initialState = fromJS({
 
 /* ------------- Reducers ------------- */
 
-export const request = (state) =>
-  state.merge({ isFetching: true, error: null });
+export const updateProfileRequest = (state) =>
+  state.mergeDeep({ updateProfile: { isFetching: true, error: null } });
 
-export const success = (state) =>
-  state.merge({ isFetching: false, error: null });
+export const updateProfileSuccess = (state) =>
+  state.mergeDeep({ updateProfile: { isFetching: false, error: null } });
 
-export const failure = (state, { error }) =>
-  state.merge({ isFetching: false, error });
+export const updateProfileFailure = (state, { error }) =>
+  state.mergeDeep({ updateProfile: { isFetching: false, error } });
 
 export const resendConfirmationEmailRequest = (state) =>
   state.mergeDeep({ resendConfirmationEmail: { isFetching: true, error: null } });
@@ -91,9 +93,9 @@ export const myEvaluationsFailure = (state, { error }) =>
 /* ------------- Hookup Reducers To Types ------------- */
 
 export default createReducer(initialState, {
-  [Types.UPDATE_PROFILE_REQUEST]: request,
-  [Types.UPDATE_PROFILE_SUCCESS]: success,
-  [Types.UPDATE_PROFILE_FAILURE]: failure,
+  [Types.UPDATE_PROFILE_REQUEST]: updateProfileRequest,
+  [Types.UPDATE_PROFILE_SUCCESS]: updateProfileSuccess,
+  [Types.UPDATE_PROFILE_FAILURE]: updateProfileFailure,
   [Types.RESEND_CONFIRMATION_EMAIL_REQUEST]: resendConfirmationEmailRequest,
   [Types.RESEND_CONFIRMATION_EMAIL_SUCCESS]: resendConfirmationEmailSuccess,
   [Types.RESEND_CONFIRMATION_EMAIL_FAILURE]: resendConfirmationEmailFailure,

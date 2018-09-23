@@ -1,34 +1,40 @@
+// @flow
 import styled from 'styled-components';
 import { media, typo } from '../../style-utils';
 import IconView from '../../images/ic-view@2x.png';
 import IconContent from '../../images/ic-content@2x.png';
 
+type Props = {
+  theme: any,
+};
+
 export const SideBarWrapper = styled.aside`
-  position: fixed;
-  width: ${(props) => props.theme.sideBarMaxWidth}px;
-  height: calc(100vh - ${(props) => props.theme.navBarHeight}px);
+  position: absolute;
+  width: ${(props: Props) => props.theme.sideBarMaxWidth}px;
+  height: calc(100vh - ${(props: Props) => props.theme.navBarHeight}px);
   padding-top: 20px;
   padding-left: 20px;
-  margin-top: ${(props) => props.theme.navBarHeight}px;
+  margin-top: ${(props: Props) => props.theme.navBarHeight}px;
   overflow: auto;
-  background-color: white;
+  background-color: ${(props: Props) => props.theme.color.white};
   ${media.tablet`
-    width: ${(props) => props.theme.tabletSideBarMaxWidth}px;
+    width: ${(props: Props) => props.theme.tabletSideBarMaxWidth}px;
   `}
   ${media.phone`
     width: 100%;
-    height: calc(100vh - ${(props) => props.theme.mobileNavBarHeight}px);
-    margin-top: ${(props) => props.theme.mobileNavBarHeight}px;
+    height: calc(100vh - ${(props: Props) => props.theme.mobileNavBarHeight}px);
+    margin-top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
     padding: 0 30px;
     .focusLecture & {
       display: none;
     }
+    z-index: ${(props: Props) => props.theme.zIndex.sideBar};
   `}
 `;
 
 export const NoResultWrapper = styled.div`
   border: dashed 0.5px;
-  border-color: ${(props) => props.theme.lightGray};
+  border-color: ${(props: Props) => props.theme.lightGray};
   height: calc(100% - 20px);
   width: 100%;
 `;
@@ -44,12 +50,12 @@ export const LectureWrapper = styled.div`
 
 export const LectureScore = styled.div`
   ${typo.score3}
-  height: ${(props) => props.theme.fontSize.score3}px;
-  line-height: ${(props) => props.theme.fontSize.score3}px;
+  height: ${(props: Props) => props.theme.fontSize.score3}px;
+  line-height: ${(props: Props) => props.theme.fontSize.score3}px;
   transition: color 1s;
 
   a.active & {
-    color: ${(props) => props.theme.color.primary};
+    color: ${(props: Props) => props.theme.color.primary};
   }
 `;
 
@@ -71,8 +77,8 @@ export const LectureName = styled.div`
   transition: color 1s, border 1s;
 
   a.active & {
-    color: ${(props) => props.theme.color.primary};
-    border-top-color: ${(props) => props.theme.color.primary};
+    color: ${(props: Props) => props.theme.color.primary};
+    border-top-color: ${(props: Props) => props.theme.color.primary};
   }
 `;
 

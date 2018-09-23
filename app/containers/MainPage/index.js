@@ -75,7 +75,9 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
     const renderTopRatedLecture = (lecture: Map<string, any>) => <Lecture key={lecture.get('id')}>
       <LectureNumber>{lecture.get('score')}</LectureNumber>
       <div>
-        <LectureName>{lecture.getIn(['course', 'name'])}</LectureName>
+        <LectureName to={`/lectures/${lecture.get('id')}`}>
+          {lecture.getIn(['course', 'name'])}
+        </LectureName>
         <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
       </div>
     </Lecture>;
@@ -131,7 +133,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                       <Lecture key={lecture.get('id')}>
                         <LectureNumber>{lecture.get('evaluationsCount')}</LectureNumber>
                         <div>
-                          <LectureName>{lecture.getIn(['course', 'name'])}</LectureName>
+                          <LectureName to={`/lectures/${lecture.get('id')}`}>{lecture.getIn(['course', 'name'])}</LectureName>
                           <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
                         </div>
                       </Lecture>)) : null

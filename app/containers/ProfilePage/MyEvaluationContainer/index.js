@@ -34,7 +34,7 @@ export class MyEvaluationContainer extends React.PureComponent<Props> {
         {myEvaluations &&
           myEvaluations.map((evaluation: Object, index: number) => (
             <Wrapper key={index}>
-              <LectureTitle>{evaluation.getIn(['lecture', 'name'])}</LectureTitle>
+              <LectureTitle to={`/lectures/${evaluation.getIn(['lecture', 'id'])}`}>{evaluation.getIn(['lecture', 'name'])}</LectureTitle>
               <LectureBasicInfoWrapper>
                 <LectureBasicInfo>{evaluation.getIn(['lecture', 'course', 'department', 'name'])}</LectureBasicInfo>
                 <Dot />

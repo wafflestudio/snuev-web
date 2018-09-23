@@ -15,17 +15,20 @@ import {
   AutoCompleteItem,
   SearchInput,
   EmailAndResendEmailWrapper,
+  ConfirmButtonWrapper,
+  ConfirmButton,
 } from './index.style';
 
 type Props = {
   departments: Map<string, any>,
   user: Map<string, any>,
   resendConfirmationEmail: () => void,
+  updateProfile: ({ nickname: string, department_id: number }) => void,
 };
 
 type State = {
   nickname: string,
-  departmentId: string,
+  department_id: number,
   query: string,
 };
 
@@ -34,14 +37,20 @@ export class MyInfoContainer extends React.PureComponent<Props, State> {
     super(props);
     this.state = {
       nickname: props.user.get('nickname'),
-      departmentId: props.user.getIn(['department', 'id']),
+      department_id: props.user.getIn(['department', 'id']),
       query: props.user.getIn(['department', 'name']),
     };
+    this.handleUpdateProfile = this.handleUpdateProfile.bind(this);
+  }
+
+  handleUpdateProfile(event: Event) {
+    event.preventDefault();
+    this.props.updateProfile(this.state);
   }
 
   render() {
     return (
-      <Background>
+      <Background onSubmit={this.handleUpdateProfile}>
         <AttributeWrapper>
           <TitleWrapper>이메일</TitleWrapper>
           <EmailAndResendEmailWrapper>
@@ -75,11 +84,19 @@ export class MyInfoContainer extends React.PureComponent<Props, State> {
               renderMenu={((items: Array<Object>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
               value={this.state.query}
               onChange={(event: Event) => this.setState({ query: event.target.value })}
-              onSelect={(value: string) => this.setState({ query: value })}
+              onSelect={(value: string, item: Object) => this.setState({
+                query: value,
+                department_id: item.id,
+              })}
               wrapperStyle={{ width: '100%', height: '100%' }}
             />
           </DepartmentWrapper>
         </AttributeWrapper>
+        <ConfirmButtonWrapper>
+          <ConfirmButton type="submit">
+            수정 완료
+          </ConfirmButton>
+        </ConfirmButtonWrapper>
       </Background>
     );
   }
