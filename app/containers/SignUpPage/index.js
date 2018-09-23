@@ -99,7 +99,7 @@ export class SignUpPage extends React.PureComponent<Props, State> {
     }
   }
 
-  handleSignUp(event: SyntheticEvent<HTMLButtonElement>) {
+  handleSignUp(event: Event) {
     event.preventDefault();
     let isValid = true;
     if (!this.state.username) {
@@ -137,12 +137,12 @@ export class SignUpPage extends React.PureComponent<Props, State> {
       return (
         <IntlProvider messages={messages}>
           <Background>
-          <Helmet
-            title="SNUEV - 회원가입"
-            meta={[
+            <Helmet
+              title="SNUEV - 회원가입"
+              meta={[
               { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 회원가입 페이지입니다.' },
-            ]}
-          />
+              ]}
+            />
             <InnerContainer>
               <DottedLine />
               <ContentContainer>
@@ -174,9 +174,9 @@ export class SignUpPage extends React.PureComponent<Props, State> {
       <IntlProvider messages={messages}>
         <Background>
           <Helmet
-            title="SignUpPage"
+            title="SNUEV - 회원가입"
             meta={[
-              { name: 'description', content: 'Description of SignUpPage' },
+              { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 회원가입 페이지입니다.' },
             ]}
           />
           <InnerContainer>

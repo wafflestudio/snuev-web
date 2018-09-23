@@ -1,5 +1,5 @@
 import { take, call, put } from 'redux-saga/effects';
-import { request } from 'services/api';
+import { request } from '../../services/api';
 import { Types, Creators as Actions } from './reducer';
 
 export function* watchNewPasswordRequest() {
@@ -11,8 +11,9 @@ export function* watchNewPasswordRequest() {
 
 export function* newPassword({ reset_token, password }) {
   try {
-    const response = yield request.put('/v1/user/reset_password', { reset_token, password });
-    yield put(Actions.newPasswordSuccess(response.data));
+    console.log(reset_token, password);
+    yield request.put('/v1/user/reset_password', { reset_token, password });
+    yield put(Actions.newPasswordSuccess());
   } catch (error) {
     yield put(Actions.newPasswordFailure(error.errors));
   }

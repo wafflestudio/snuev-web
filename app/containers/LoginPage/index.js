@@ -5,9 +5,10 @@ import Helmet from 'react-helmet';
 import { IntlProvider, FormattedHTMLMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
+import { browserHistory } from 'react-router';
 import DottedLine from '../../components/DottedLine';
 import { Creators as Actions } from '../../global/reducer';
-import { makeSelectGlobal } from '../../global/selectors';
+import { makeSelectGlobal, makeSelectUser } from '../../global/selectors';
 
 import messages from './messages';
 import {
@@ -35,6 +36,7 @@ type Props = {
   signIn: ({ username: string, password: string }) => void,
   global: Map<string, any>,
   hideSearchFilter: () => void,
+  user: Map<string, any>,
 };
 
 type State = {
@@ -54,6 +56,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
       passwordError: '',
     };
     (this: any).handleSignIn = this.handleSignIn.bind(this);
+    (this: any).handleOnClickLogo = this.handleOnClickLogo.bind(this);
   }
 
   componentDidUpdate(prevProps: Props) {
@@ -64,7 +67,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
     }
   }
 
-  handleSignIn(event: SyntheticEvent<HTMLButtonElement>) {
+  handleSignIn(event: Event) {
     event.preventDefault();
     const { username, password } = this.state;
     if (!username) {
@@ -79,7 +82,15 @@ export class LoginPage extends React.PureComponent<Props, State> {
     }
   }
 
+  handleOnClickLogo(event: Event) {
+    event.preventDefault();
+    browserHistory.push('/');
+  }
+
   render() {
+    if (this.props.user) {
+      browserHistory.push('/');
+    }
     return (
       <IntlProvider messages={messages}>
         <Background>
@@ -93,7 +104,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
             <DottedLine />
             <ContentContainer>
               <LoginForm onSubmit={this.handleSignIn}>
-                <Logo />
+                <Logo onClick={this.handleOnClickLogo} />
                 <WelcomeText>
                   <FormattedHTMLMessage id="welcome" />
                 </WelcomeText>
@@ -152,6 +163,7 @@ export class LoginPage extends React.PureComponent<Props, State> {
 
 const mapStateToProps = createStructuredSelector({
   global: makeSelectGlobal(),
+  user: makeSelectUser(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
