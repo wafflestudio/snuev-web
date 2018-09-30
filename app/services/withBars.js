@@ -147,7 +147,7 @@ export default (Component: React.ComponentType<Props>) => connect(mapStateToProp
       </MainContent>
       <GlobalToast
         position="top-center"
-        autoClose={500000}
+        autoClose={5000}
         hideProgressBar
         closeOnClick
         closeButton={<CloseButton />}
