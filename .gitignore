@@ -12,3 +12,4 @@ npm-debug.log
 .yarnclean
 
 .env
+*.log

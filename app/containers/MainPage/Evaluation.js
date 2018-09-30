@@ -134,9 +134,9 @@ export default ({ evaluation, votes, vote, deleteVote }: Props) => (
       {evaluation.getIn(['lecture', 'course', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
     </EvaluationMeta>
     <EvaluationGrades>
-      <EvaluationGrade>{evaluation.get('score')}</EvaluationGrade><EvaluationDescription> /총점</EvaluationDescription>
-      <EvaluationGrade>{evaluation.get('grading')}</EvaluationGrade><EvaluationDescription> /쉬움</EvaluationDescription>
-      <EvaluationGrade>{evaluation.get('easiness')}</EvaluationGrade><EvaluationDescription> /학점 잘 줌</EvaluationDescription>
+      <EvaluationGrade>{evaluation.get('score').toFixed(1)}</EvaluationGrade><EvaluationDescription> /총점</EvaluationDescription>
+      <EvaluationGrade>{evaluation.get('grading').toFixed(1)}</EvaluationGrade><EvaluationDescription> /쉬움</EvaluationDescription>
+      <EvaluationGrade>{evaluation.get('easiness').toFixed(1)}</EvaluationGrade><EvaluationDescription> /학점 잘 줌</EvaluationDescription>
     </EvaluationGrades>
     <EvaluationContent>
       {evaluation.get('comment')}

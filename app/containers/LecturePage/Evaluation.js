@@ -100,15 +100,15 @@ export default ({ lecture, evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationWrapper>
     <EvaluationHeader>
       <EvaluationScore>
-        <EvaluationScoreValue>{evaluation.get('score')}</EvaluationScoreValue>
+        <EvaluationScoreValue>{evaluation.get('score').toFixed(1)}</EvaluationScoreValue>
         <EvaluationScoreLabel width="30px">/{messages.score}</EvaluationScoreLabel>
       </EvaluationScore>
       <EvaluationScore>
-        <EvaluationScoreValue>{evaluation.get('easiness')}</EvaluationScoreValue>
+        <EvaluationScoreValue>{evaluation.get('easiness').toFixed(1)}</EvaluationScoreValue>
         <EvaluationScoreLabel width="60px">/{messages.easiness}</EvaluationScoreLabel>
       </EvaluationScore>
       <EvaluationScore>
-        <EvaluationScoreValue>{evaluation.get('grading')}</EvaluationScoreValue>
+        <EvaluationScoreValue>{evaluation.get('grading').toFixed(1)}</EvaluationScoreValue>
         <EvaluationScoreLabel width="60px">/{messages.grading}</EvaluationScoreLabel>
       </EvaluationScore>
       <SemesterText>
