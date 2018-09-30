@@ -51,6 +51,7 @@ export const { Types, Creators } = createActions({
   deleteUpvoteSuccess: ['id'],
   deleteDownvoteSuccess: ['id'],
   deleteVoteFailure: ['id', 'error'],
+  showToast: ['message'],
 });
 
 /* ------------- Initial State ------------- */

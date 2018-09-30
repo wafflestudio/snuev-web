@@ -1,5 +1,6 @@
-import { take, call, put, takeLatest, select } from 'redux-saga/effects';
+import { take, call, put, takeLatest, takeEvery, select } from 'redux-saga/effects';
 import { browserHistory } from 'react-router';
+import { toast } from 'react-toastify';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../services/api';
 import { setAuthToken, clearAuthToken } from '../services/localStorage';
@@ -187,6 +188,14 @@ export function* deleteVote({ lectureId, evaluationId, isUpvote }) {
   }
 }
 
+export function* watchShowToast() {
+  yield takeEvery(Types.SHOW_TOAST, showToast);
+}
+
+export function* showToast({ message }) {
+  toast(message);
+}
+
 export default [
   watchSignInRequest,
   watchSignOut,
@@ -199,4 +208,5 @@ export default [
   watchGetDepartmentsRequest,
   watchVoteRequest,
   watchDeleteVoteRequest,
+  watchShowToast,
 ];
