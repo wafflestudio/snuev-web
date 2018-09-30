@@ -20,6 +20,8 @@ const messages = {
   writeReview: '강의평 쓰기',
   leaveReview: '강의평 남기기',
   backToList: '리스트로 돌아가기',
+  createEvaluationSuccess: '강의평 등록 완료!',
+  updateEvaluationSuccess: '강의평 수정 완료!',
 };
 
 export default messages;
