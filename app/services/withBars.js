@@ -14,8 +14,10 @@ import SideBar from '../containers/SideBar';
 import {
   makeSelectAppLayout,
 } from '../global/selectors';
-import { media } from '../style-utils';
+import { media, typo } from '../style-utils';
 import modalWrapper from './modalWrapper';
+import Toast from '../components/Toast';
+import DeleteButtonImage from '../images/btn-delete-primary@3x.png';
 
 Modal.setAppElement('#app');
 
@@ -92,6 +94,38 @@ const MainContent = styled.div`
   `}
 `;
 
+const DeleteButton = styled.img`
+  width: 20px;
+  height: 20px;
+  margin: auto 0;
+`;
+
+const CloseButton = ({ closeToast }) => (
+  <DeleteButton src={DeleteButtonImage} title="Close" onClick={closeToast} />
+);
+
+const GlobalToast = styled(Toast)`
+  .Toastify & {
+    top: ${(props: Props) => props.theme.navBarHeight + 20}px;
+    ${media.phone`
+      top: ${(props: Props) => props.theme.mobileNavBarHeight + 20}px;
+    `}
+    &__toast {
+      min-height: 60px;
+      padding: 0 24px 0 20px;
+      background-color: rgba(255,255,255,0.9);
+      box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.08);
+      ${media.phone`
+        margin: 0 20px;
+      `}
+    }
+    &__body {
+      ${typo.body1}
+      color: ${(props: Props) => props.theme.color.primary};
+    }
+  }
+`;
+
 const mapStateToProps = createStructuredSelector({
   appLayout: makeSelectAppLayout(),
 });
@@ -111,6 +145,13 @@ export default (Component: React.ComponentType<Props>) => connect(mapStateToProp
       <MainContent showSideBar={props.appLayout.get('showSideBar')}>
         <Component {...props} />
       </MainContent>
+      <GlobalToast
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar
+        closeOnClick
+        closeButton={<CloseButton />}
+      />
     </Wrapper>
   )
 );

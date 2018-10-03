@@ -74,7 +74,7 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
 
   renderTopRatedLectures() {
     const renderTopRatedLecture = (lecture: Map<string, any>) => <Lecture key={lecture.get('id')}>
-      <LectureNumber>{lecture.get('score')}</LectureNumber>
+      <LectureNumber>{lecture.get('score').toFixed(1)}</LectureNumber>
       <div>
         <LectureName to={`/lectures/${lecture.get('id')}`}>
           {lecture.getIn(['course', 'name'])}

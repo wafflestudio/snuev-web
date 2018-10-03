@@ -11,7 +11,6 @@ export function* watchNewPasswordRequest() {
 
 export function* newPassword({ reset_token, password }) {
   try {
-    console.log(reset_token, password);
     yield request.put('/v1/user/reset_password', { reset_token, password });
     yield put(Actions.newPasswordSuccess());
   } catch (error) {

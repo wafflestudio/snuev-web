@@ -293,6 +293,7 @@
     "react-router-redux": "4.0.6",
     "react-router-scroll": "0.4.4",
     "react-spinners": "^0.3.2",
+    "react-toastify": "^4.3.2",
     "redux": "^3.7.2",
     "redux-beacon": "^2.0.3",
     "redux-immutable": "3.0.8",
@@ -357,6 +358,7 @@
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
     "webpack": "2.2.0-rc.3",
+    "webpack-bundle-analyzer": "^3.0.2",
     "webpack-dev-middleware": "1.9.0",
     "webpack-hot-middleware": "2.15.0"
   }

@@ -7,6 +7,7 @@ const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const logger = require('../../server/logger');
 const cheerio = require('cheerio');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
@@ -22,6 +23,9 @@ const plugins = [
   new CircularDependencyPlugin({
     exclude: /a\.js|node_modules/, // exclude node_modules
     failOnError: false, // show a warning when there is a circular dependency
+  }),
+  new BundleAnalyzerPlugin({
+    analyzerHost: '0.0.0.0',
   }),
 ];
 

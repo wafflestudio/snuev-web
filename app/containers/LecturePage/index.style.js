@@ -209,6 +209,7 @@ export const CloseIcon = styled.span`
 
 export const PageWrapper = styled.div`
   height: 100%;
+  width: 100%;
   margin: 0 60px;
   padding-top: 30px;
   display: flex;

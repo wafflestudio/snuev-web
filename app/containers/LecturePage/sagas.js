@@ -2,6 +2,7 @@ import { take, call, put, takeEvery, takeLatest, race } from 'redux-saga/effects
 import { Creators as GlobalActions } from 'global/reducer';
 import { Types, Creators as Actions } from './reducer';
 import { request, authRequest } from '../../services/api';
+import messages from './messages';
 
 export function* watchGetLectureRequest() {
   while (true) {
@@ -74,6 +75,7 @@ export function* createEvaluation({ id, data }) {
     yield put(Actions.createEvaluationSuccess(response.data.data.id));
     yield put(Actions.closeEvaluationForm());
     yield put(Actions.getLectureRequest(id));
+    yield put(GlobalActions.showToast(messages.createEvaluationSuccess));
   } catch (error) {
     yield put(Actions.createEvaluationFailure(error.errors));
   }
@@ -90,6 +92,7 @@ export function* updateEvaluation({ lectureId, evaluationId, data }) {
     yield put(Actions.updateEvaluationSuccess());
     yield put(Actions.closeEvaluationForm());
     yield put(Actions.getLectureRequest(lectureId));
+    yield put(GlobalActions.showToast(messages.updateEvaluationSuccess));
   } catch (error) {
     yield put(Actions.updateEvaluationFailure(error.errors));
   }
