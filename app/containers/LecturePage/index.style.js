@@ -11,6 +11,10 @@ import IconRight from '../../images/ic-arrow-right@2x.png';
 
 Modal.setAppElement('#app');
 
+export const Wrapper = styled.div`
+  width: 100%;
+`;
+
 export const Background = styled.div`
   display: flex;
   flex-direction: column;

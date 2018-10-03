@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -21,6 +22,7 @@ import {
   makeSelectEvaluations,
 } from './selectors';
 import {
+  Wrapper,
   EvaluationsWrapper,
   Background,
   EvaluationFormModal,
@@ -49,6 +51,7 @@ import {
   IconRightImage,
 } from './index.style';
 import withBars from '../../services/withBars';
+import withFooter from '../../services/withFooter';
 
 type Props = {
   user: Map<string, any>,
@@ -112,104 +115,105 @@ export class LecturePage extends React.Component<Props> {
     }
 
     return (
-      <PageWrapper>
-        <Background>
-          <Helmet
-            title={`${String(lecture.getIn(['course', 'name']))} - SNUEV`}
-            meta={[
-              { name: 'description', content: `${String(lecture.getIn(['course', 'name']))}에 대한 강의평가 페이지입니다.` },
-            ]}
-          />
-          <EvaluationFormModal
-            isOpen={page.get('evaluationFormOpen')}
-          >
-            <EvaluationForm />
-            <CloseIcon onClick={this.props.closeEvaluationForm} />
-          </EvaluationFormModal>
-          <LectureWrapper>
-            <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
-            <LectureNameBookmarkWrapper>
-              <LectureName>
-                {lecture.getIn(['course', 'name'])}
-              </LectureName>
-              <Bookmark
-                lecture={lecture}
-                onPressWhenMarked={this.props.deleteBookmark}
-                onPressWhenNotMarked={this.props.bookmark}
-                isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
-                error={bookmarks.getIn([lecture.get('id'), 'error'])}
-              />
-            </LectureNameBookmarkWrapper>
-            <LectureInfo>
-              <LectureBasicInfo>
-                <LectureInfoText>
-                  {messages.professor(lecture.get('professor').get('name'))}
-                </LectureInfoText>
-                <LectureInfoText>
-                  {lecture.getIn(['course', 'department', 'name'])}
-                </LectureInfoText>
-                <LectureInfoText>
-                  {lecture.getIn(['course', 'targetGrade'])}
-                </LectureInfoText>
-              </LectureBasicInfo>
-              <LectureScores>
-                <LectureScore>
-                  <LectureScoreLabel>{messages.score}</LectureScoreLabel>
-                  <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
-                </LectureScore>
-                <LectureScore>
-                  <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
-                  <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
-                </LectureScore>
-                <LectureScore>
-                  <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
-                  <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
-                </LectureScore>
-              </LectureScores>
-            </LectureInfo>
-            <LectureSummary>
-              영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가
-              다루어질 수 있다.
-            </LectureSummary>
-          </LectureWrapper>
-          <div>
-            <EvaluationsWrapper>
-              <EvaluationsHeader>
-                {messages.evaluation.header}
-              </EvaluationsHeader>
-              {(user && user.get('isConfirmed')) &&
+      <Wrapper>
+        <PageWrapper>
+          <Background>
+            <Helmet
+              title={`${String(lecture.getIn(['course', 'name']))} - SNUEV`}
+              meta={[
+                { name: 'description', content: `${String(lecture.getIn(['course', 'name']))}에 대한 강의평가 페이지입니다.` },
+              ]}
+            />
+            <EvaluationFormModal
+              isOpen={page.get('evaluationFormOpen')}
+            >
+              <EvaluationForm />
+              <CloseIcon onClick={this.props.closeEvaluationForm} />
+            </EvaluationFormModal>
+            <LectureWrapper>
+              <BackToList onClick={this.props.blurLecture}>{messages.backToList}</BackToList>
+              <LectureNameBookmarkWrapper>
+                <LectureName>
+                  {lecture.getIn(['course', 'name'])}
+                </LectureName>
+                <Bookmark
+                  lecture={lecture}
+                  onPressWhenMarked={this.props.deleteBookmark}
+                  onPressWhenNotMarked={this.props.bookmark}
+                  isFetching={bookmarks.getIn([lecture.get('id'), 'isFetching'])}
+                  error={bookmarks.getIn([lecture.get('id'), 'error'])}
+                />
+              </LectureNameBookmarkWrapper>
+              <LectureInfo>
+                <LectureBasicInfo>
+                  <LectureInfoText>
+                    {messages.professor(lecture.get('professor').get('name'))}
+                  </LectureInfoText>
+                  <LectureInfoText>
+                    {lecture.getIn(['course', 'department', 'name'])}
+                  </LectureInfoText>
+                  <LectureInfoText>
+                    {lecture.getIn(['course', 'targetGrade'])}
+                  </LectureInfoText>
+                </LectureBasicInfo>
+                <LectureScores>
+                  <LectureScore>
+                    <LectureScoreLabel>{messages.score}</LectureScoreLabel>
+                    <LectureScoreValue>{lecture.get('score').toFixed(1)}</LectureScoreValue>
+                  </LectureScore>
+                  <LectureScore>
+                    <LectureScoreLabel>{messages.easiness}</LectureScoreLabel>
+                    <LectureScoreValue>{lecture.get('easiness').toFixed(1)}</LectureScoreValue>
+                  </LectureScore>
+                  <LectureScore>
+                    <LectureScoreLabel>{messages.grading}</LectureScoreLabel>
+                    <LectureScoreValue>{lecture.get('grading').toFixed(1)}</LectureScoreValue>
+                  </LectureScore>
+                </LectureScores>
+              </LectureInfo>
+              <LectureSummary>
+                영어로 쓰인 대중소설을 선별해서 읽음으로써 영어 읽기 능력을 향상시키고 영어권 문화에 대한 이해를 확장한다. 추리소설, 과학소설, 판타지, 아동/청소년 문학 등 다양한 대중문학 장르가
+                다루어질 수 있다.
+              </LectureSummary>
+            </LectureWrapper>
+            <div>
+              <EvaluationsWrapper>
+                <EvaluationsHeader>
+                  {messages.evaluation.header}
+                </EvaluationsHeader>
+                {(user && user.get('isConfirmed')) &&
                 <LeaveReviewButton onClick={this.props.openEvaluationForm}>
                   {messages.writeReview}
                 </LeaveReviewButton>
-              }
-            </EvaluationsWrapper>
-          </div>
-          {!(this.props.evaluations && this.props.evaluations.size > 0) &&
+                }
+              </EvaluationsWrapper>
+            </div>
+            {!(this.props.evaluations && this.props.evaluations.size > 0) &&
             <NoEvaluationWrapper hasUser={this.props.user}>
               <EmptyLectureWrapper>
                 <EmptyLectureIcon />
                 <EmptyLectureText>
                   강의평이 아직 없습니다.
                   첫 강의평을 작성해보세요!
-              </EmptyLectureText>
+                </EmptyLectureText>
                 {!this.props.user &&
-                  <EmptyLectureToLoginWrapper to="/sign_in">
-                    <EmptyLectureToLoginText>
-                      로그인하기
-                </EmptyLectureToLoginText>
-                    <IconRightImage />
-                  </EmptyLectureToLoginWrapper>
+                <EmptyLectureToLoginWrapper to="/sign_in">
+                  <EmptyLectureToLoginText>
+                    로그인하기
+                  </EmptyLectureToLoginText>
+                  <IconRightImage />
+                </EmptyLectureToLoginWrapper>
                 }
               </EmptyLectureWrapper>
             </NoEvaluationWrapper>
-          }
-          <InfiniteScroll
-            pageStart={0}
-            hasMore={page.getIn(['evaluations', 'hasMore'])}
-            loadMore={this.loadEvaluations}
-          >
-            <div>
-              {evaluations &&
+            }
+            <InfiniteScroll
+              pageStart={0}
+              hasMore={page.getIn(['evaluations', 'hasMore'])}
+              loadMore={this.loadEvaluations}
+            >
+              <div>
+                {evaluations &&
                 evaluations.map((evaluation: Object, index: number) => (
                   <div key={index}>
                     <Evaluation
@@ -221,11 +225,12 @@ export class LecturePage extends React.Component<Props> {
                     />
                   </div>
                 ))
-              }
-            </div>
-          </InfiniteScroll>
-        </Background>
-      </PageWrapper>
+                }
+              </div>
+            </InfiniteScroll>
+          </Background>
+        </PageWrapper>
+      </Wrapper>
     );
   }
 }
@@ -252,4 +257,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
-export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
+export default compose(
+  withFooter(true),
+  withBars,
+  connect(mapStateToProps, mapDispatchToProps),
+)(LecturePage);

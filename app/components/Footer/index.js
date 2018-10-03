@@ -1,3 +1,4 @@
+// @flow
 import React from 'react';
 import messages from './messages';
 import {
@@ -7,12 +8,12 @@ import {
   DeveloperWrapper,
 } from './index.style';
 
-export default () => (
-  <Wrapper>
+export default (props: { accent?: boolean }) => (
+  <Wrapper accent={props.accent}>
     <SnuevTeamWrapper>
       {messages.snuevTeam}
     </SnuevTeamWrapper>
-    <SnuevGithubWrapper>
+    <SnuevGithubWrapper href="https://github.com/wafflestudio/snuev-web">
       {messages.snuevGithub}
     </SnuevGithubWrapper>
     <DeveloperWrapper>

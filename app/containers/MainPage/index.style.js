@@ -11,6 +11,10 @@ type Props = {
   theme: any,
 };
 
+export const Wrapper = styled.div`
+  width: 100%;
+`;
+
 export const MainSearchBg = styled.div`
   width: 1920px;
   height: 500px;

@@ -17,8 +17,10 @@ import { makeSelectVotes } from '../../global/selectors';
 import { Creators as Actions } from './reducer';
 import { Creators as GlobalActions } from '../../global/reducer';
 import withBars from '../../services/withBars';
+import withFooter from '../../services/withFooter';
 import Evaluation from './Evaluation';
 import {
+  Wrapper,
   MainSearchBg,
   MainSearchBgWrapper,
   MainSearchBgRelativeWrapper,
@@ -45,7 +47,6 @@ import {
   GrayBackground,
 } from './index.style';
 import messages from './messages';
-
 
 type Props = {
   latestEvaluations: [Map<string, any>],
@@ -92,11 +93,11 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
       <React.Fragment>
         {
           this.props.isFetching ? null : (
-            <div>
+            <Wrapper>
               <Helmet
                 title="SNUEV - 홈"
                 meta={[
-            { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 홈페이지입니다.' },
+                  { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV 홈페이지입니다.' },
                 ]}
               />
               <MainSearchBgWrapper>
@@ -109,12 +110,17 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                   <EvaluationsContent>
                     <FlexContainer>
                       {
-                  this.props.latestEvaluations ? this.props.latestEvaluations.slice(0, 3).map((evaluation: Map<string, any>) =>
-                    <FlexItem key={evaluation.get('id')}>
-                      <Evaluation evaluation={evaluation} votes={this.props.votes} vote={this.props.vote} deleteVote={this.props.deleteVote} />
-                    </FlexItem>
-                  ) : null
-                }
+                        this.props.latestEvaluations ? this.props.latestEvaluations.slice(0, 3).map((evaluation: Map<string, any>) =>
+                          <FlexItem key={evaluation.get('id')}>
+                            <Evaluation
+                              evaluation={evaluation}
+                              votes={this.props.votes}
+                              vote={this.props.vote}
+                              deleteVote={this.props.deleteVote}
+                            />
+                          </FlexItem>
+                        ) : null
+                      }
                     </FlexContainer>
                   </EvaluationsContent>
                 </Evaluations>
@@ -129,15 +135,17 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                       </LecturesHeader>
                       <LecturesContent>
                         {
-                    this.props.mostEvaluatedLectures ? this.props.mostEvaluatedLectures.slice(0, 3).map((lecture: Map<string, any>) => (
-                      <Lecture key={lecture.get('id')}>
-                        <LectureNumber>{lecture.get('evaluationsCount')}</LectureNumber>
-                        <div>
-                          <LectureName to={`/lectures/${lecture.get('id')}`}>{lecture.getIn(['course', 'name'])}</LectureName>
-                          <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
-                        </div>
-                      </Lecture>)) : null
-                  }
+                          this.props.mostEvaluatedLectures ? this.props.mostEvaluatedLectures.slice(0, 3).map((lecture: Map<string, any>) => (
+                            <Lecture key={lecture.get('id')}>
+                              <LectureNumber>{lecture.get('evaluationsCount')}</LectureNumber>
+                              <div>
+                                <LectureName to={`/lectures/${lecture.get('id')}`}>
+                                  {lecture.getIn(['course', 'name'])}
+                                </LectureName>
+                                <LectureDescription>{lecture.getIn(['course', 'department', 'name'])}&nbsp;&middot;&nbsp;{lecture.getIn(['course', 'targetGrade'])}&nbsp;&middot;&nbsp;{lecture.getIn(['professor', 'name'])} 교수</LectureDescription>
+                              </div>
+                            </Lecture>)) : null
+                        }
                       </LecturesContent>
                     </LecturesBox>
                     <LecturesBox>
@@ -163,17 +171,17 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
                   <EvaluationsContent>
                     <FlexContainer>
                       {
-                  this.props.mostLikedEvaluations ? this.props.mostLikedEvaluations.slice(0, 3).map((evaluation: Map<string, any>) =>
-                    <FlexItem key={evaluation.get('id')}>
-                      <Evaluation evaluation={evaluation} />
-                    </FlexItem>
-                  ) : null
-                }
+                        this.props.mostLikedEvaluations ? this.props.mostLikedEvaluations.slice(0, 3).map((evaluation: Map<string, any>) =>
+                          <FlexItem key={evaluation.get('id')}>
+                            <Evaluation evaluation={evaluation} />
+                          </FlexItem>
+                        ) : null
+                      }
                     </FlexContainer>
                   </EvaluationsContent>
                 </Evaluations>
               </MainPage3rdBox>
-            </div>)
+            </Wrapper>)
         }
       </React.Fragment>
     );
@@ -201,5 +209,6 @@ const mapDispatchToProps = (dispatch: Function) => ({
 export default compose(
   injectIntl,
   withBars,
+  withFooter(false),
   connect(mapStateToProps, mapDispatchToProps),
 )(MainPage);

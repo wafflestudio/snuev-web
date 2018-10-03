@@ -4,32 +4,24 @@ import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { ClipLoader } from 'react-spinners';
 import { createStructuredSelector } from 'reselect';
+import { compose } from 'redux';
 import pageState from './pageState';
 import { Creators as Actions } from './reducer';
 import { Creators as GlobalActions } from '../../global/reducer';
 // import messages from './messages';
 import withBars from '../../services/withBars';
+import withFooter from '../../services/withFooter';
+import { makeSelectMyEvaluations, makeSelectPage } from './selectors';
 import {
-  makeSelectPage,
-  makeSelectMyEvaluations,
-} from './selectors';
-import {
-  makeSelectUser,
-  makeSelectDepartments,
-  makeSelectVotes,
-  makeSelectEveryLecture,
-  makeSelectBookmarks,
   makeSelectBookmarkedLectures,
+  makeSelectBookmarks,
+  makeSelectDepartments,
+  makeSelectEveryLecture,
+  makeSelectUser,
+  makeSelectVotes,
 } from '../../global/selectors';
 
-import {
-  Background,
-  PageTabBar,
-  NicknameWrapper,
-  PageTabInnerWrapper,
-  PageTab,
-  InnerWrapper,
-} from './index.style';
+import { Background, InnerWrapper, NicknameWrapper, PageTab, PageTabBar, PageTabInnerWrapper } from './index.style';
 import { MyInfoContainer } from './MyInfoContainer';
 import { MyEvaluationContainer } from './MyEvaluationContainer';
 import { EditPasswordContainer } from './EditPasswordContainer';
@@ -143,34 +135,34 @@ export class ProfilePage extends React.PureComponent<Props, State> {
         </PageTabBar>
         <InnerWrapper>
           {this.state.pageState === pageState.myInfo &&
-            <MyInfoContainer
-              departments={this.props.departments}
-              user={this.props.user}
-              resendConfirmationEmail={this.props.resendConfirmationEmail}
-              updateProfile={this.props.updateProfile}
-            />
+          <MyInfoContainer
+            departments={this.props.departments}
+            user={this.props.user}
+            resendConfirmationEmail={this.props.resendConfirmationEmail}
+            updateProfile={this.props.updateProfile}
+          />
           }
           {this.state.pageState === pageState.myEvaluation &&
-            <MyEvaluationContainer
-              lectures={this.props.lectures}
-              myEvaluations={this.props.myEvaluations}
-              votes={this.props.votes}
-              vote={this.props.vote}
-              deleteVote={this.props.deleteVote}
-            />
+          <MyEvaluationContainer
+            lectures={this.props.lectures}
+            myEvaluations={this.props.myEvaluations}
+            votes={this.props.votes}
+            vote={this.props.vote}
+            deleteVote={this.props.deleteVote}
+          />
           }
           {this.state.pageState === pageState.myBookmark &&
-            <MyBookmarkContainer
-              bookmarkedLectures={this.props.bookmarkedLectures}
-              bookmark={this.props.bookmark}
-              deleteBookmark={this.props.deleteBookmark}
-              bookmarks={this.props.bookmarks}
-            />
+          <MyBookmarkContainer
+            bookmarkedLectures={this.props.bookmarkedLectures}
+            bookmark={this.props.bookmark}
+            deleteBookmark={this.props.deleteBookmark}
+            bookmarks={this.props.bookmarks}
+          />
           }
           {this.state.pageState === pageState.editPassword &&
-            <EditPasswordContainer
-              editPassword={this.props.editPassword}
-            />
+          <EditPasswordContainer
+            editPassword={this.props.editPassword}
+          />
           }
         </InnerWrapper>
       </Background>
@@ -201,4 +193,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   deleteBookmark: (id: number) => dispatch(GlobalActions.deleteBookmarkRequest(id)),
 });
 
-export default withBars(connect(mapStateToProps, mapDispatchToProps)(ProfilePage));
+export default compose(
+  withBars,
+  withFooter(true),
+  connect(mapStateToProps, mapDispatchToProps),
+)(ProfilePage);
