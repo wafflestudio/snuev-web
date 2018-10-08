@@ -3,9 +3,10 @@
  *
  * This contains all the text for the LoginPage component.
  */
+import { defineMessages } from 'react-intl';
 import { numberWithCommas } from '../../utils/parse';
 
-const messages = {
+export default defineMessages({
   evaluationsCount: (count) => `${numberWithCommas(count)}개의 강의평`,
   hitsCount: (count) => `${numberWithCommas(count)} 조회`,
   professor: (name) => `${name} 교수`,
@@ -22,6 +23,7 @@ const messages = {
   backToList: '리스트로 돌아가기',
   createEvaluationSuccess: '강의평 등록 완료!',
   updateEvaluationSuccess: '강의평 수정 완료!',
-};
-
-export default messages;
+  emptyLecture: '강의평이 아직 없습니다.<br />첫 강의평을 작성해보세요!',
+  unauthorized: '인증된 마이스누 계정으로 로그인하면<br />강의평을 조회할 수 있습니다.',
+  login: '로그인하기',
+});

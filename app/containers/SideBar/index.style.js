@@ -1,8 +1,11 @@
 // @flow
+
+import * as React from 'react';
 import styled from 'styled-components';
 import { media, typo } from '../../style-utils';
 import IconView from '../../images/ic-view@2x.png';
 import IconContent from '../../images/ic-content@2x.png';
+import IconNoResult from '../../images/img-noresult.png';
 
 type Props = {
   theme: any,
@@ -33,10 +36,33 @@ export const SideBarWrapper = styled.aside`
 `;
 
 export const NoResultWrapper = styled.div`
-  border: dashed 0.5px;
-  border-color: ${(props: Props) => props.theme.lightGray};
+  background-color: ${(props: Props) => props.theme.color.grayBackground1};
   height: calc(100% - 20px);
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  ${media.phone`
+    background-color: ${(props: Props) => props.theme.color.white};
+  `}
+`;
+
+const NoResultIconFrame = styled.img`
+  width: 108px;
+  height: 108px;
+  margin-bottom: 10px;
+`;
+
+export const NoResultIcon = (props: {}) => <NoResultIconFrame src={IconNoResult} {...props} />;
+
+export const NoResultText = styled.p`
+  ${typo.body2}
+  color: ${(props: Props) => props.theme.color.black};
+  align-items: center;
+  text-align: center;
+  margin: 0;
 `;
 
 export const LectureWrapper = styled.div`

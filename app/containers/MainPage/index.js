@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Map } from 'immutable';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { injectIntl, FormattedMessage, FormattedHTMLMessage } from 'react-intl';
 import { compose } from 'redux';
 import {
   makeSelectLatestEvaluations,
@@ -13,7 +13,7 @@ import {
   makeSelectMostLikedEvaluations,
   makeSelectIsFetching,
 } from './selectors';
-import { makeSelectVotes } from '../../global/selectors';
+import { makeSelectAppLayout, makeSelectVotes } from '../../global/selectors';
 import { Creators as Actions } from './reducer';
 import { Creators as GlobalActions } from '../../global/reducer';
 import withBars from '../../services/withBars';
@@ -43,6 +43,9 @@ import {
   MainPage3rdBox,
   BackgroundsContainer,
   GrayBackground,
+  BeforeSelectBackground,
+  IconChoose,
+  ChooseText,
 } from './index.style';
 import messages from './messages';
 
@@ -59,6 +62,7 @@ type Props = {
   getMostLikedEvaluations: () => void,
   intl: any,
   votes: Map<string, any>,
+  appLayout: Map<string, any>,
   vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
   deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
@@ -88,6 +92,16 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
   }
 
   render() {
+    if (this.props.appLayout.get('showSideBar')) {
+      return (
+        <BeforeSelectBackground>
+          <IconChoose />
+          <ChooseText>
+            <FormattedHTMLMessage {...messages.searchLecture} />
+          </ChooseText>
+        </BeforeSelectBackground>
+      );
+    }
     return (
       <React.Fragment>
         {
@@ -187,6 +201,7 @@ const mapStateToProps = createStructuredSelector({
   mostLikedEvaluations: makeSelectMostLikedEvaluations(),
   isFetching: makeSelectIsFetching(),
   votes: makeSelectVotes(),
+  appLayout: makeSelectAppLayout(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({
