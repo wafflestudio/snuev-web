@@ -5,14 +5,16 @@ import Helmet from 'react-helmet';
 import { ClipLoader } from 'react-spinners';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { FormattedHTMLMessage, IntlProvider } from 'react-intl';
 import pageState from './pageState';
 import { Creators as Actions } from './reducer';
 import { Creators as GlobalActions } from '../../global/reducer';
-// import messages from './messages';
+import messages from './messages';
 import withBars from '../../services/withBars';
 import withFooter from '../../services/withFooter';
 import { makeSelectMyEvaluations, makeSelectPage } from './selectors';
 import {
+  makeSelectAppLayout,
   makeSelectBookmarkedLectures,
   makeSelectBookmarks,
   makeSelectDepartments,
@@ -21,7 +23,18 @@ import {
   makeSelectVotes,
 } from '../../global/selectors';
 
-import { Background, InnerWrapper, NicknameWrapper, PageTab, PageTabBar, PageTabInnerWrapper } from './index.style';
+import {
+  Background,
+  BeforeSelectBackground,
+  ChooseText,
+  IconChoose,
+  InnerWrapper,
+  NicknameWrapper,
+  PageTab,
+  PageTabBar,
+  PageTabInnerWrapper,
+} from './index.style';
+
 import { MyInfoContainer } from './MyInfoContainer';
 import { MyEvaluationContainer } from './MyEvaluationContainer';
 import { EditPasswordContainer } from './EditPasswordContainer';
@@ -35,6 +48,7 @@ type Props = {
   lectures: any,
   bookmarkedLectures: any,
   bookmarks: any,
+  appLayout: Map<string, any>,
   resendConfirmationEmail: () => void,
   editPassword: ({ current_password: string, password: string }) => void,
   getMyEvaluations: () => void,
@@ -96,6 +110,18 @@ export class ProfilePage extends React.PureComponent<Props, State> {
         <div>
           <ClipLoader />
         </div>
+      );
+    }
+    if (this.props.appLayout.get('showSideBar')) {
+      return (
+        <IntlProvider messages={messages}>
+          <BeforeSelectBackground>
+            <IconChoose />
+            <ChooseText>
+              <FormattedHTMLMessage {...messages.searchLecture} />
+            </ChooseText>
+          </BeforeSelectBackground>
+        </IntlProvider>
       );
     }
     return (
@@ -179,6 +205,7 @@ const mapStateToProps = createStructuredSelector({
   lectures: makeSelectEveryLecture(),
   bookmarks: makeSelectBookmarks(),
   bookmarkedLectures: makeSelectBookmarkedLectures(),
+  appLayout: makeSelectAppLayout(),
 });
 
 const mapDispatchToProps = (dispatch: Function) => ({

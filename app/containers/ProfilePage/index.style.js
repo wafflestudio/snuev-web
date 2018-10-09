@@ -1,8 +1,10 @@
 // @flow
 
+import * as React from 'react';
 import styled from 'styled-components';
 import Map from 'immutable';
 import { typo, media } from '../../style-utils';
+import ChooseIcon from '../../images/img-choose.png';
 
 type Props = {
   theme: Map<string, any>,
@@ -88,4 +90,30 @@ export const InnerWrapper = styled.div`
   ${media.phone`
     width: 360px;
   `}
+`;
+
+export const BeforeSelectBackground = styled.div`
+  width: 100%;
+  min-height: 100%;
+  background-color: ${(props: Props) => props.theme.color.white};
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ChooseIconFrame = styled.img`
+  width: 108px;
+  height: 108px;
+  margin-bottom: 10px;
+`;
+
+export const IconChoose = (props: {}) => <ChooseIconFrame src={ChooseIcon} {...props} />;
+
+export const ChooseText = styled.p`
+  ${typo.body1}
+  text-align: center;
+  margin: 0;
+  opacity: 0.6;
+  color: ${(props: Props) => props.theme.color.black};
 `;

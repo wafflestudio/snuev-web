@@ -1,4 +1,6 @@
 // @flow
+
+import * as React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router';
 import { media, typo } from '../../style-utils';
@@ -6,6 +8,7 @@ import MainSearchBgSrc from '../../images/mainsearchbg.png';
 import MainSearchBgTablet from '../../images/img-main-tablet-768-1199-px.png';
 import MainSearchBgPhone from '../../images/img-main-mobile-320-767-px.png';
 import SearchIcon from '../../images/ic-search@2x.png';
+import ChooseIcon from '../../images/img-choose.png';
 
 type Props = {
   theme: any,
@@ -275,4 +278,30 @@ export const GrayBackground = styled.div`
   width: 100%;
   height: 264px;
   background-color: ${(props: Props) => props.theme.color.grayBackground2};
+`;
+
+export const BeforeSelectBackground = styled.div`
+  width: 100%;
+  min-height: 100%;
+  background-color: ${(props: Props) => props.theme.color.white};
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+`;
+
+const ChooseIconFrame = styled.img`
+  width: 108px;
+  height: 108px;
+  margin-bottom: 10px;
+`;
+
+export const IconChoose = (props: {}) => <ChooseIconFrame src={ChooseIcon} {...props} />;
+
+export const ChooseText = styled.p`
+  ${typo.body1}
+  text-align: center;
+  margin: 0;
+  opacity: 0.6;
+  color: ${(props: Props) => props.theme.color.black};
 `;
