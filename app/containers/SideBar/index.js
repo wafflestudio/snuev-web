@@ -6,6 +6,9 @@ import { withRouter, Link } from 'react-router';
 import { createStructuredSelector } from 'reselect';
 import { List, Map } from 'immutable';
 import { ClipLoader } from 'react-spinners';
+import { IntlProvider, FormattedHTMLMessage } from 'react-intl';
+import qs from 'query-string';
+import messages from './messages';
 
 import {
   makeSelectLectures,
@@ -15,6 +18,8 @@ import {
 import {
   SideBarWrapper,
   NoResultWrapper,
+  NoResultIcon,
+  NoResultText,
 } from './index.style';
 
 import Lecture from './Lecture';
@@ -34,9 +39,19 @@ const SideBar = ({ lectures, location, global }: Props) => {
     );
   } else if (lectures.size === 0) {
     return (
-      <SideBarWrapper>
-        <NoResultWrapper />
-      </SideBarWrapper>
+      <IntlProvider messages={messages}>
+        <SideBarWrapper>
+          <NoResultWrapper>
+            <NoResultIcon />
+            <NoResultText>
+              <FormattedHTMLMessage
+                {...messages.noResult}
+                values={{ query: qs.parse(location.search).q }}
+              />
+            </NoResultText>
+          </NoResultWrapper>
+        </SideBarWrapper>
+      </IntlProvider>
     );
   }
   return (

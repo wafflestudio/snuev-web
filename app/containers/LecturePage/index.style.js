@@ -5,7 +5,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router';
 import type { Theme } from '../../theme';
 import { typo, media, sizes } from '../../style-utils';
-import EmptyLectureImage from '../../images/img-emptylecture@3x.png';
+import EmptyLectureImage from '../../images/img-emptylecture.png';
 import IconBack from '../../images/ic-arrow-left@2x.png';
 import IconRight from '../../images/ic-arrow-right@2x.png';
 
@@ -232,8 +232,8 @@ export const NoEvaluationWrapper = styled.div`
 `;
 
 const EmptyLectureFrame = styled.img`
-  width: 216px;
-  height: 216px;
+  width: 108px;
+  height: 108px;
   object-fit: contain;
   ${media.phone`
     width: 108px;

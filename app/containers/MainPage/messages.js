@@ -34,4 +34,8 @@ export default defineMessages({
       defaultMessage: '인기 강의평',
     },
   },
+  searchLecture: {
+    id: 'searchLecture',
+    defaultMessage: '검색 결과 리스트에서<br />과목을 선택해주세요.',
+  },
 });
