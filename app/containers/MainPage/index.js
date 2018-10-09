@@ -60,6 +60,7 @@ type Props = {
   getMostLikedEvaluations: () => void,
   intl: any,
   votes: Map<string, any>,
+  setNeedsFocus: () => void,
   vote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
   deleteVote: (lectureId: string, evaluationId: string, isUpvote: boolean) => void,
 };
@@ -103,7 +104,10 @@ export class MainPage extends React.PureComponent<Props> { // eslint-disable-lin
               <MainSearchBgWrapper>
                 <MainSearchBgRelativeWrapper>
                   <MainSearchBg />
-                  <SearchInput placeholder={this.props.intl.formatMessage(messages.searchPlaceholder)} />
+                  <SearchInput
+                    placeholder={this.props.intl.formatMessage(messages.searchPlaceholder)}
+                    onFocus={() => this.props.setNeedsFocus()}
+                  />
                 </MainSearchBgRelativeWrapper>
                 <Evaluations>
                   <EvaluationsTitle><FormattedMessage {...messages.headers.recentEvaluations} /></EvaluationsTitle>
@@ -202,6 +206,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getMostEvaluatedLectures: () => dispatch(Actions.getMostEvaluatedLecturesRequest()),
   getTopRatedLectures: () => dispatch(Actions.getTopRatedLecturesRequest()),
   getMostLikedEvaluations: () => dispatch(Actions.getMostLikedEvaluationsRequest()),
+  setNeedsFocus: () => dispatch(GlobalActions.setNeedsFocus(true)),
   vote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.voteRequest(lectureId, evaluationId, isUpvote)),
   deleteVote: (lectureId: number, evaluationId: number, isUpvote: boolean) => dispatch(GlobalActions.deleteVoteRequest(lectureId, evaluationId, isUpvote)),
 });

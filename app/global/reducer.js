@@ -14,6 +14,7 @@ export const { Types, Creators } = createActions({
   userSuccess: ['id'],
   userFailure: ['error'],
   signOut: null,
+  setNeedsFocus: ['needsFocus'],
   searchCoursesRequest: ['query'],
   searchCoursesSuccess: ['ids'],
   searchCoursesFailure: ['error'],
@@ -179,8 +180,11 @@ export const userFailure = (state, { error }) =>
 export const signOut = (state) =>
   state.mergeDeep({ user: { id: null }, entities: { users: null } });
 
+export const setNeedsFocus = (state, needsFocus) =>
+  state.set('needsFocus', needsFocus);
+
 export const searchCoursesRequest = (state, { query }) =>
-  state.setIn(['courses', 'ids'], []).mergeDeep({ query, courses: { isFetching: true, error: null } });
+  state.setIn(['courses', 'ids'], []).set('needsFocus', false).mergeDeep({ query, courses: { isFetching: true, error: null } });
 
 export const searchCoursesSuccess = (state, { ids }) =>
   state.setIn(['courses', 'ids'], ids).mergeDeep({ courses: { isFetching: false, error: null } });
@@ -314,6 +318,7 @@ export default createReducer(initialState, {
   [Types.USER_SUCCESS]: userSuccess,
   [Types.USER_FAILURE]: userFailure,
   [Types.SIGN_OUT]: signOut,
+  [Types.SET_NEEDS_FOCUS]: setNeedsFocus,
   [Types.SEARCH_COURSES_REQUEST]: searchCoursesRequest,
   [Types.SEARCH_COURSES_SUCCESS]: searchCoursesSuccess,
   [Types.SEARCH_COURSES_FAILURE]: searchCoursesFailure,
