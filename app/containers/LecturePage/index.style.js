@@ -17,6 +17,7 @@ export const Wrapper = styled.div`
 
 export const Background = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   max-width: ${(props: { theme: Theme }) => props.theme.appMaxWidth}px;
 `;
@@ -79,6 +80,7 @@ export const BackToList = styled.div`
 export const LectureNameBookmarkWrapper = styled.div`
   height: 30px;
   display: flex;
+  flex: 1;
   align-items: center;
 `;
 
@@ -209,10 +211,10 @@ export const CloseIcon = styled.span`
 
 export const PageWrapper = styled.div`
   height: 100%;
-  width: 100%;
   margin: 0 60px;
   padding-top: 30px;
   display: flex;
+  flex: 1;
   justify-content: center;
 
   ${media.phone`

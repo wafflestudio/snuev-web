@@ -256,7 +256,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
 });
 
 export default compose(
-  withFooter(true),
   withBars,
+  withFooter(true),
   connect(mapStateToProps, mapDispatchToProps),
 )(LecturePage);

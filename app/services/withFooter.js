@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   display: flex;
   width: 100%;
   min-height: 100%;
+  min-height: 100vh;
   flex-direction: column;
 `;
 
@@ -19,6 +20,9 @@ const ComponentWrapper = styled.div`
 
 const FooterWrapper = styled.div`
   display: flex;
+  width: 100%;
+  position:absolute;
+  bottom:0;
 `;
 
 export default (accent: boolean) => (Component: React.ComponentType<{}>) => (props: {}) => (

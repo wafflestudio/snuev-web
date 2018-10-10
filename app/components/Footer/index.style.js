@@ -12,10 +12,6 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   background: ${(props: {theme: Theme, accent?: boolean}) => props.accent ? props.theme.color.secondary : props.theme.color.white};
-
-  ${media.phone`
-    height: 54px;
-  `}
 `;
 
 export const SnuevTeamWrapper = styled.a`
