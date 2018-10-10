@@ -3,10 +3,7 @@
 import styled from 'styled-components';
 
 import { typo, media } from '../../../style-utils';
-
-type Props = {
-  theme: any,
-};
+import type { Theme } from '../../../theme';
 
 export const Background = styled.form`
   width: 100%;
@@ -55,7 +52,7 @@ export const Input = styled.input`
   opacity: 0.9;
   border-radius: 2px;
   line-height: 44px;
-  background-color: ${(props: Props) => props.theme.color.grayBackground1};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.grayBackground1};
   padding-left: 20px;
   padding-right: 20px;
 
@@ -89,9 +86,11 @@ export const ConfirmButton = styled.button`
   width: 86px;
   height: 40px;
   border-radius: 1px;
-  background-color: ${(props: Props) => props.theme.color.white};
-  border: solid 1px ${(props: Props) => props.theme.color.primary};
-  color: ${(props: Props) => props.theme.color.primary};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none };
 `;
 
 export const ErrorMessage = styled.div`
@@ -99,7 +98,7 @@ export const ErrorMessage = styled.div`
   height: 20px;
   margin-left: 170px;
   line-height: 1.54;
-  color: ${(props: Props) => props.theme.color.error};
+  color: ${(props: { theme: Theme }) => props.theme.color.error};
   margin-bottom: 10px;
-  visibility: ${(props: Props) => props.error ? 'visible' : 'hidden'};
+  visibility: ${(props: { error: boolean }) => props.error ? 'visible' : 'hidden'};
 `;

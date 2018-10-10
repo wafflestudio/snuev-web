@@ -178,9 +178,9 @@ export const LeaveReviewButton = styled.button`
   color: ${(props: { theme: Theme }) => props.theme.color.primary};
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   align-self: center;
-  &:focus {
-    outline: none;
-  }
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none };
+
 `;
 
 export const CloseIcon = styled.span`

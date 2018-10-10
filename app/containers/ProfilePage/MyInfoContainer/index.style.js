@@ -5,6 +5,8 @@ import styled from 'styled-components';
 import { typo, media } from '../../../style-utils';
 import SearchIcon from '../../../images/ic-search.png';
 
+import type { Theme } from '../../../theme';
+
 export const Background = styled.form`
   width: 100%;
   height: 100%;
@@ -81,7 +83,7 @@ export const NicknameWrapper = styled.input`
   padding-left: 20px;
 
   &:hover {
-    background-color: ${(props: Props) => props.theme.color.grayBackground1};
+    background-color: ${(props: { theme: Theme }) => props.theme.color.grayBackground1};
   }
 
   &:focus {
@@ -108,8 +110,8 @@ export const ResendEmailButton = styled.button`
   ${typo.body2}
   width: fit-content;
   height: 24px;
-  color: ${(props: Props) => props.theme.color.primary};
-  border-bottom: solid 1px ${(props: Props) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
+  border-bottom: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
   cursor: pointer;
   padding: 0;
 
@@ -135,7 +137,7 @@ export const AutoCompleteItem = styled.div`
   ${typo.body2}
   width: 298px;
   padding: 5px 0 5px 12px;
-  background-color: ${(props: Props) => props.highlighted ? '#eee' : props.theme.color.white};
+  background-color: ${(props: { theme: Theme }) => props.highlighted ? '#eee' : props.theme.color.white};
 
   ${media.tablet`
     opacity: 0.9;
@@ -195,7 +197,9 @@ export const ConfirmButton = styled.button`
   width: 86px;
   height: 40px;
   border-radius: 1px;
-  background-color: ${(props: Props) => props.theme.color.white};
-  border: solid 1px ${(props: Props) => props.theme.color.primary};
-  color: ${(props: Props) => props.theme.color.primary};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.white};
+  border: solid 1px ${(props: { theme: Theme }) => props.theme.color.primary};
+  color: ${(props: { theme: Theme }) => props.theme.color.primary};
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none };
 `;
