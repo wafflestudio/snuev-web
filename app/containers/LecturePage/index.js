@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import { compose } from 'redux';
 import { connect } from 'react-redux';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -14,42 +15,39 @@ import messages from './messages';
 import Bookmark from '../../components/Bookmark';
 import EvaluationForm from './EvaluationForm';
 import Evaluation from './Evaluation';
-import { makeSelectUser, makeSelectBookmarks, makeSelectVotes } from '../../global/selectors';
+import { makeSelectBookmarks, makeSelectUser, makeSelectVotes } from '../../global/selectors';
 import { Creators as GlobalActions } from '../../global/reducer';
+import { makeSelectEvaluations, makeSelectLecture, makeSelectPage } from './selectors';
 import {
-  makeSelectPage,
-  makeSelectLecture,
-  makeSelectEvaluations,
-} from './selectors';
-import {
-  EvaluationsWrapper,
   Background,
-  EvaluationFormModal,
-  LectureName,
-  LectureScores,
-  LectureScore,
-  LectureSummary,
-  LectureInfoText,
-  EvaluationsHeader,
-  LeaveReviewButton,
-  CloseIcon,
-  LectureInfo,
-  LectureBasicInfo,
-  LectureScoreLabel,
-  LectureScoreValue,
-  LectureWrapper,
   BackToList,
-  PageWrapper,
-  LectureNameBookmarkWrapper,
-  NoEvaluationWrapper,
+  CloseIcon,
   EmptyLectureIcon,
-  EmptyLectureWrapper,
   EmptyLectureText,
-  EmptyLectureToLoginWrapper,
   EmptyLectureToLoginText,
+  EmptyLectureToLoginWrapper,
+  EmptyLectureWrapper,
+  EvaluationFormModal,
+  EvaluationsHeader,
+  EvaluationsWrapper,
   IconRightImage,
+  LeaveReviewButton,
+  LectureBasicInfo,
+  LectureInfo,
+  LectureInfoText,
+  LectureName,
+  LectureNameBookmarkWrapper,
+  LectureScore,
+  LectureScoreLabel,
+  LectureScores,
+  LectureScoreValue,
+  LectureSummary,
+  LectureWrapper,
+  NoEvaluationWrapper,
+  PageWrapper,
 } from './index.style';
 import withBars from '../../services/withBars';
+import withFooter from '../../services/withFooter';
 
 type Props = {
   user: Map<string, any>,
@@ -119,7 +117,7 @@ export class LecturePage extends React.Component<Props> {
             <Helmet
               title={`${String(lecture.getIn(['course', 'name']))} - SNUEV`}
               meta={[
-              { name: 'description', content: `${String(lecture.getIn(['course', 'name']))}에 대한 강의평가 페이지입니다.` },
+                { name: 'description', content: `${String(lecture.getIn(['course', 'name']))}에 대한 강의평가 페이지입니다.` },
               ]}
             />
             <EvaluationFormModal
@@ -181,7 +179,7 @@ export class LecturePage extends React.Component<Props> {
                 <LeaveReviewButton onClick={this.props.openEvaluationForm}>
                   {messages.writeReview}
                 </LeaveReviewButton>
-              }
+                }
               </EvaluationsWrapper>
             </div>
             {!(evaluations && evaluations.size > 0) &&
@@ -197,12 +195,12 @@ export class LecturePage extends React.Component<Props> {
                   }
                 </EmptyLectureText>
                 {!(user && user.get('isConfirmed')) &&
-                  <EmptyLectureToLoginWrapper to="/sign_in">
-                    <EmptyLectureToLoginText>
-                      {messages.login}
-                    </EmptyLectureToLoginText>
-                    <IconRightImage />
-                  </EmptyLectureToLoginWrapper>
+                <EmptyLectureToLoginWrapper to="/sign_in">
+                  <EmptyLectureToLoginText>
+                    {messages.login}
+                  </EmptyLectureToLoginText>
+                  <IconRightImage />
+                </EmptyLectureToLoginWrapper>
                 }
               </EmptyLectureWrapper>
             </NoEvaluationWrapper>
@@ -225,7 +223,7 @@ export class LecturePage extends React.Component<Props> {
                     />
                   </div>
                 ))
-              }
+                }
               </div>
             </InfiniteScroll>
           </Background>
@@ -257,4 +255,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   blurLecture: () => dispatch(GlobalActions.blurLecture()),
 });
 
-export default withBars(connect(mapStateToProps, mapDispatchToProps)(LecturePage));
+export default compose(
+  withBars,
+  withFooter(true),
+  connect(mapStateToProps, mapDispatchToProps),
+)(LecturePage);

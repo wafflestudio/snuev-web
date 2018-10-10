@@ -57,7 +57,7 @@ export class ResetPasswordPage extends React.PureComponent<Props, State> {
           <Helmet
             title="SNUEV - 비밀번호 재설정"
             meta={[
-            { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV의 비밀번호 재설정 페이지입니다.' },
+              { name: 'description', content: '서울대학교 강의평가 서비스, SNUEV의 비밀번호 재설정 페이지입니다.' },
             ]}
           />
           <InnerContainer>

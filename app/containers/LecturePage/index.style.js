@@ -11,8 +11,13 @@ import IconRight from '../../images/ic-arrow-right@2x.png';
 
 Modal.setAppElement('#app');
 
+export const Wrapper = styled.div`
+  width: 100%;
+`;
+
 export const Background = styled.div`
   display: flex;
+  flex: 1;
   flex-direction: column;
   max-width: ${(props: { theme: Theme }) => props.theme.appMaxWidth}px;
 `;
@@ -75,6 +80,7 @@ export const BackToList = styled.div`
 export const LectureNameBookmarkWrapper = styled.div`
   height: 30px;
   display: flex;
+  flex: 1;
   align-items: center;
 `;
 
@@ -208,6 +214,7 @@ export const PageWrapper = styled.div`
   margin: 0 60px;
   padding-top: 30px;
   display: flex;
+  flex: 1;
   justify-content: center;
 
   ${media.phone`

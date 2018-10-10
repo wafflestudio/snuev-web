@@ -15,6 +15,7 @@ export const Background = styled.div`
   width: 100%;
   left: 0;
   min-height: 700px;
+  height: 100%;
   background-color: ${(props: Props) => props.theme.color.white};
   display: flex;
   flex-direction: column;

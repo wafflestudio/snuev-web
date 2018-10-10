@@ -5,10 +5,15 @@ injectGlobal`
   @import url('https://fonts.googleapis.com/css?family=Lato:300');
   @import url('https://fonts.googleapis.com/earlyaccess/notosanskr.css');
 
-  html,
-  body {
+  html {
     height: 100%;
+  }
+
+  body {
+    min-height: 100%;
+    min-height: 100vh;
     width: 100%;
+    position: relative;
   }
 
   body {
@@ -26,7 +31,8 @@ injectGlobal`
 
   #app {
     background-color: #ffffff;
-    height: 100%;
+    min-height: 100%;
+    min-height: 100vh;
   }
 
   a {

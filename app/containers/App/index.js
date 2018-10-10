@@ -27,6 +27,7 @@ import { makeSelectUser, makeSelectGlobal } from '../../global/selectors';
 const AppWrapper = styled.div`
   display: flex;
   height: 100%;
+  height: 100vh;
   margin: 0 auto;
   font-family: ${(props) => props.theme.fontFamily.sansSerif};
 `;

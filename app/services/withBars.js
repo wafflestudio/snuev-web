@@ -74,15 +74,17 @@ const Wrapper = styled.div`
 `;
 
 const MainContent = styled.div`
-  height: 100%;
+  min-height: 100%;
+  min-height: 100vh;
+  position: relative;
   padding-top: ${(props: Props) => props.theme.navBarHeight}px;
   margin-left: ${(props: Props) =>
-    props.showSideBar ?
-      `${props.theme.sideBarMaxWidth}px` : '0px'};
+  props.showSideBar ?
+    `${props.theme.sideBarMaxWidth}px` : '0px'};
   ${media.tablet`
     margin-left: ${(props: Props) =>
-      props.showSideBar ?
-        `${props.theme.tabletSideBarMaxWidth}px` : '0px'};
+  props.showSideBar ?
+    `${props.theme.tabletSideBarMaxWidth}px` : '0px'};
   `}
   ${media.phone`
     padding-top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
@@ -100,7 +102,7 @@ const DeleteButton = styled.img`
   margin: auto 0;
 `;
 
-const CloseButton = ({ closeToast }) => (
+const CloseButton = ({ closeToast }: { closeToast: Function }) => (
   <DeleteButton src={DeleteButtonImage} title="Close" onClick={closeToast} />
 );
 
@@ -135,7 +137,7 @@ export default (Component: React.ComponentType<Props>) => connect(mapStateToProp
     <Wrapper className={classNames({ focusLecture: props.appLayout.get('focusLecture') })}>
       <NavBar />
       {props.appLayout.get('showSideBar') &&
-        <SideBar />
+      <SideBar />
       }
       <SearchFilterModal
         isOpen={props.appLayout.get('showSearchFilter')}
