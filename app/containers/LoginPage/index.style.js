@@ -125,8 +125,8 @@ export const LoginButton = styled.button`
   position: absolute;
   left: 590px;
   top: 60%;
-  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
-  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
+  &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover2}; };
+  &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus2}; outline: none; };
 
   ${media.phone`
     width: 259px;
