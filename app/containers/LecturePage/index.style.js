@@ -281,3 +281,8 @@ const IconRightFrame = styled.img`
 `;
 
 export const IconRightImage = (props: {}) => <IconRightFrame src={IconRight} {...props} />;
+
+export const NeedConfirmationWrapper = styled.a`
+  display: flex;
+  align-items: center;
+`;

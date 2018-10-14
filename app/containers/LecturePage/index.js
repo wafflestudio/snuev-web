@@ -43,6 +43,7 @@ import {
   LectureScoreValue,
   LectureSummary,
   LectureWrapper,
+  NeedConfirmationWrapper,
   NoEvaluationWrapper,
   PageWrapper,
 } from './index.style';
@@ -187,20 +188,31 @@ export class LecturePage extends React.Component<Props> {
               <EmptyLectureWrapper>
                 <EmptyLectureIcon />
                 <EmptyLectureText>
-                  {!(user && user.get('isConfirmed')) &&
+                  {!user &&
                   <FormattedHTMLMessage id="unauthorized" />
+                  }
+                  {user && !user.get('isConfirmed') &&
+                  <FormattedHTMLMessage id="needConfirmation" />
                   }
                   {user && user.get('isConfirmed') &&
                   <FormattedHTMLMessage id="emptyLecture" />
                   }
                 </EmptyLectureText>
-                {!(user && user.get('isConfirmed')) &&
+                {!user &&
                 <EmptyLectureToLoginWrapper to="/sign_in">
                   <EmptyLectureToLoginText>
                     {messages.login}
                   </EmptyLectureToLoginText>
                   <IconRightImage />
                 </EmptyLectureToLoginWrapper>
+                }
+                {user && !user.get('isConfirmed') &&
+                <NeedConfirmationWrapper href="http://my.snu.ac.kr">
+                  <EmptyLectureToLoginText>
+                    {messages.snuMail}
+                  </EmptyLectureToLoginText>
+                  <IconRightImage />
+                </NeedConfirmationWrapper>
                 }
               </EmptyLectureWrapper>
             </NoEvaluationWrapper>
