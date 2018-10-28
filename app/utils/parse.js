@@ -9,7 +9,7 @@ export const parseSemesterSeason = (season) => {
       return '1학기';
     case 'summer':
       return '여름 계절';
-    case 'fall':
+    case 'autumn':
       return '2학기';
     case 'winter':
       return '겨울 계절';

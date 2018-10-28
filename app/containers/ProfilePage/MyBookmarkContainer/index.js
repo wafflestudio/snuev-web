@@ -53,7 +53,7 @@ export const MyBookmarkContainer = (props: Props) => {
             </BookmarkWrapper>
             <LectureWrapper>
               <LectureTitle to={`/lectures/${lecture.get('id')}`}>
-                {lecture.get('name')}
+                {lecture.getIn(['course', 'name'])}
               </LectureTitle>
               <LectureBasicInfoWrapper>
                 <LectureBasicInfo>{lecture.getIn(['course', 'department', 'name'])}</LectureBasicInfo>
