@@ -131,7 +131,7 @@ class EvaluationForm extends React.PureComponent<Props, State> {
         <SubHeader>강의평 작성</SubHeader>
         <Header>
           <LectureName>
-            {lecture.get('name')}
+            {lecture.getIn(['course', 'name'])}
           </LectureName>
         </Header>
         <RatingWrapper>

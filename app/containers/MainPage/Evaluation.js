@@ -121,7 +121,7 @@ export default ({ evaluation, votes, vote, deleteVote }: Props) => (
   <EvaluationCard>
     <EvaluationCardTitlesWrapper>
       <EvaluationCardTitles to={`/lectures/${evaluation.getIn(['lecture', 'id'])}`}>
-        {evaluation.getIn(['lecture', 'name'])}
+        {evaluation.getIn(['lecture', 'course', 'name'])}
       </EvaluationCardTitles>
       <EvaluationCardSemester>
         {evaluation.getIn(['semester', 'season']) && evaluation.getIn(['semester', 'year']) ?
@@ -131,7 +131,7 @@ export default ({ evaluation, votes, vote, deleteVote }: Props) => (
       </EvaluationCardSemester>
     </EvaluationCardTitlesWrapper>
     <EvaluationMeta>
-      {evaluation.getIn(['lecture', 'course', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
+      {evaluation.getIn(['lectureSession', 'department', 'name'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'course', 'targetGrade'])}&nbsp;&middot;&nbsp;{evaluation.getIn(['lecture', 'professor', 'name'])} 교수
     </EvaluationMeta>
     <EvaluationGrades>
       <EvaluationGrade>{evaluation.get('score').toFixed(1)}</EvaluationGrade><EvaluationDescription> /총점</EvaluationDescription>
