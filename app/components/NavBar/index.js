@@ -65,6 +65,7 @@ export class NavBar extends React.PureComponent<Props> {
     event.preventDefault();
     this.props.hideSideBar();
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
     browserHistory.push('/');
   }
 
@@ -73,6 +74,7 @@ export class NavBar extends React.PureComponent<Props> {
     this.props.signOut();
     browserHistory.push('/');
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
   }
 
   handleSearchFilter(event: Event) {
@@ -88,6 +90,7 @@ export class NavBar extends React.PureComponent<Props> {
     event.preventDefault();
     this.props.hideSideBar();
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
     browserHistory.push('/profile');
   }
 
