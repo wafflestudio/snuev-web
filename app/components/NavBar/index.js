@@ -35,13 +35,15 @@ import {
 
 type Props = {
   user: any,
-  departments: Map<string, any>,
+  // departments: Map<string, any>,
   appLayout: Map<string, any>,
   searchFilter: Map<string, any>,
   signOut: () => void,
   getDepartments: () => void,
   showSearchFilter: () => void,
   hideSearchFilter: () => void,
+  showBookmark: () => void,
+  hideBookmark: () => void,
   hideSideBar: () => void,
 };
 
@@ -52,6 +54,7 @@ export class NavBar extends React.PureComponent<Props> {
     (this: any).handleLogOut = this.handleLogOut.bind(this);
     (this: any).handleSearchFilter = this.handleSearchFilter.bind(this);
     (this: any).handleOnClickProfile = this.handleOnClickProfile.bind(this);
+    (this: any).handleBookmark = this.handleBookmark.bind(this);
   }
 
   componentDidMount() {
@@ -88,6 +91,15 @@ export class NavBar extends React.PureComponent<Props> {
     browserHistory.push('/profile');
   }
 
+  handleBookmark(event: Event) {
+    event.preventDefault();
+    if (this.props.appLayout.get('showBookmark')) {
+      this.props.hideBookmark();
+    } else {
+      this.props.showBookmark();
+    }
+  }
+
   render() {
     const { user, appLayout, searchFilter } = this.props;
     return (
@@ -111,7 +123,7 @@ export class NavBar extends React.PureComponent<Props> {
             </SnuttButton>
             {user &&
               <React.Fragment>
-                <BookmarkButton>
+                <BookmarkButton onClick={this.handleBookmark} open={appLayout.get('showBookmark')}>
                   <span className="navMenuText">
                     <FormattedMessage {...messages.navItems.bookmarks} />
                   </span>
@@ -164,6 +176,8 @@ const mapDispatchToProps = (dispatch: Function) => ({
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
   showSearchFilter: () => dispatch(Actions.showSearchFilter()),
   hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
+  showBookmark: () => dispatch(Actions.showBookmark()),
+  hideBookmark: () => dispatch(Actions.hideBookmark()),
   hideSideBar: () => dispatch(Actions.hideSideBar()),
 });
 

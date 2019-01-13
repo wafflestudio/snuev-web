@@ -25,6 +25,8 @@ export const { Types, Creators } = createActions({
   hideSideBar: null,
   showSearchFilter: null,
   hideSearchFilter: null,
+  showBookmark: null,
+  hideBookmark: null,
   bookmarkRequest: ['id'],
   bookmarkSuccess: ['id'],
   bookmarkFailure: ['id', 'error'],
@@ -61,6 +63,7 @@ export const initialState = fromJS({
   appLayout: {
     showSideBar: false,
     showSearchFilter: false,
+    showBookmark: false,
     focusLecture: false,
   },
   entities: null,
@@ -213,6 +216,12 @@ export const showSearchFilter = (state) =>
 export const hideSearchFilter = (state) =>
   state.setIn(['appLayout', 'showSearchFilter'], false);
 
+export const showBookmark = (state) =>
+  state.setIn(['appLayout', 'showBookmark'], true);
+
+export const hideBookmark = (state) =>
+  state.setIn(['appLayout', 'showBookmark'], false);
+
 export const bookmarkRequest = (state, { id }) =>
   state.setIn(['bookmarks', id], fromJS({ isFetching: true }));
 
@@ -329,6 +338,8 @@ export default createReducer(initialState, {
   [Types.HIDE_SIDE_BAR]: hideSideBar,
   [Types.SHOW_SEARCH_FILTER]: showSearchFilter,
   [Types.HIDE_SEARCH_FILTER]: hideSearchFilter,
+  [Types.SHOW_BOOKMARK]: showBookmark,
+  [Types.HIDE_BOOKMARK]: hideBookmark,
   [Types.BOOKMARK_REQUEST]: bookmarkRequest,
   [Types.BOOKMARK_SUCCESS]: bookmarkSuccess,
   [Types.BOOKMARK_FAILURE]: bookmarkFailure,
