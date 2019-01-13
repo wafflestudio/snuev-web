@@ -9,6 +9,7 @@ import classNames from 'classnames';
 
 import NavBar from '../components/NavBar';
 import SearchFilter from '../components/SearchFilter';
+import NavBookmark from '../components/NavBookmark';
 import SideBar from '../containers/SideBar';
 
 import {
@@ -56,6 +57,37 @@ const SearchFilterModal = styled(modalWrapper)`
     position: relative;
     z-index: ${(props: Props) => props.theme.zIndex.searchFilter};
     width: 100%;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+const BookmarkModal = styled(modalWrapper)`
+  &__overlay {
+    position: fixed;
+    top: ${(props: Props) => props.theme.navBarHeight}px;
+    left: calc((100vw - ${(props: Props) => props.theme.appMaxWidth}px)/2.0 + 680px);
+    width: 320px;
+    height: 360px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, .10);
+    z-index: ${(props: Props) => props.theme.zIndex.bookmark};
+
+    ${media.tablet`
+      left: calc(100vw - 460px);
+    `}
+    ${media.phone`
+      top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
+    `}
+  }
+
+  &__content {
+    border: none;
+    position: relative;
+    z-index: ${(props: Props) => props.theme.zIndex.bookmark};
 
     &:focus {
       outline: none;
@@ -144,6 +176,11 @@ export default (Component: React.ComponentType<Props>) => connect(mapStateToProp
       >
         <SearchFilter />
       </SearchFilterModal>
+      <BookmarkModal
+        isOpen={props.appLayout.get('showBookmark')}
+      >
+        <NavBookmark />
+      </BookmarkModal>
       <MainContent showSideBar={props.appLayout.get('showSideBar')}>
         <Component {...props} />
       </MainContent>
