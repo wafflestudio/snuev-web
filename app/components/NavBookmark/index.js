@@ -3,7 +3,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { Map } from 'immutable';
-
+import { Creators as Actions } from '../../global/reducer';
 import { makeSelectBookmarkedLectures, makeSelectDepartments } from '../../global/selectors';
 
 import {
@@ -19,6 +19,7 @@ import {
 type Props = {
   bookmarkedLectures: Object,
   departments: Map<string, any>,
+  hideBookmark: () => void,
 };
 
 class NavBookmark extends React.PureComponent<Props> { // eslint-disable-line react/prefer-stateless-function
@@ -29,7 +30,7 @@ class NavBookmark extends React.PureComponent<Props> { // eslint-disable-line re
         {bookmarkedLectures &&
           <Wrapper>
             {bookmarkedLectures.map((lecture: Object, index: number) => (
-              <LectureWrapper key={index} to={`/lectures/${lecture.get('id')}`}>
+              <LectureWrapper key={index} to={`/lectures/${lecture.get('id')}`} onClick={this.props.hideBookmark}>
                 <LectureTitle>
                   {lecture.getIn(['course', 'name'])}
                 </LectureTitle>
@@ -55,4 +56,8 @@ const mapStateToProps = createStructuredSelector({
   departments: makeSelectDepartments(),
 });
 
-export default connect(mapStateToProps)(NavBookmark);
+const mapDispatchToProps = (dispatch: Function) => ({
+  hideBookmark: () => dispatch(Actions.hideBookmark()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBookmark);
