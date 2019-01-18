@@ -27,6 +27,7 @@ import DetailSearchOnSelectedImage from '../../images/ic-detailsearch-on-focus.p
 type Props = {
   theme: Map<string, any>,
   open: boolean,
+  show: boolean,
 };
 
 export const NavBarWrapper = styled.header`
@@ -181,13 +182,13 @@ export const SnuttButton = styled.a`
 
 export const BookmarkButton = styled.button`
   ${typo.body2}
-  background: ${(props: Props) => props.open ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmark}) no-repeat 0% 50%`};
+  background: ${(props: Props) => props.show ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmark}) no-repeat 0% 50%`};
   background-size: 20px 20px;
   cursor: pointer;
   margin-left: 40px;
   padding-left: 28px;
   &:hover {
-    background: ${(props: Props) => props.open ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmarkHover}) no-repeat 0% 50%`};
+    background: ${(props: Props) => props.show ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmarkHover}) no-repeat 0% 50%`};
     color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {

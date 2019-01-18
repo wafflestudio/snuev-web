@@ -128,7 +128,7 @@ export class NavBar extends React.PureComponent<Props> {
             </SnuttButton>
             {user &&
               <React.Fragment>
-                <BookmarkButton onClick={this.handleBookmark} open={appLayout.get('showBookmark')}>
+                <BookmarkButton onClick={this.handleBookmark} show={appLayout.get('showBookmark')}>
                   <span className="navMenuText">
                     <FormattedMessage {...messages.navItems.bookmarks} />
                   </span>
