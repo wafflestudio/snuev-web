@@ -81,6 +81,9 @@ const BookmarkModal = styled(modalWrapper)`
     `}
     ${media.phone`
       top: ${(props: Props) => props.theme.mobileNavBarHeight}px;
+      left: 0;
+      width: 100vw;
+      height: 420px;
     `}
   }
 

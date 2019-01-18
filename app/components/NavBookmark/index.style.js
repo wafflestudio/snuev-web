@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 import { Link } from 'react-router';
 
-import { typo } from '../../style-utils';
+import { typo, media } from '../../style-utils';
 
 type Props = {
   theme: Map<string, any>,
@@ -14,6 +14,11 @@ export const Background = styled.div`
   height: 360px;
   background-color: ${(props: { theme: Theme }) => props.theme.color.white};
   display: flex;
+  ${media.phone`
+    left: 0;
+    width: 100vw;
+    height: 420px;
+  `}
 `;
 
 export const Wrapper = styled.div`
