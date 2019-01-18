@@ -86,6 +86,7 @@ export class NavBar extends React.PureComponent<Props> {
     } else {
       this.props.showSearchFilter();
     }
+    this.props.hideBookmark();
   }
 
   handleOnClickProfile(event: Event) {
