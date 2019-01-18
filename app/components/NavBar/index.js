@@ -40,6 +40,7 @@ type Props = {
   searchFilter: Map<string, any>,
   signOut: () => void,
   getDepartments: () => void,
+  getBookmarkedLectures: () => void,
   showSearchFilter: () => void,
   hideSearchFilter: () => void,
   showBookmark: () => void,
@@ -59,6 +60,7 @@ export class NavBar extends React.PureComponent<Props> {
 
   componentDidMount() {
     this.props.getDepartments();
+    this.props.getBookmarkedLectures();
   }
 
   handleOnClickLogo(event: Event) {
@@ -177,6 +179,7 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Function) => ({
   signOut: () => dispatch(Actions.signOut()),
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
+  getBookmarkedLectures: () => dispatch(Actions.bookmarkedLecturesRequest()),
   showSearchFilter: () => dispatch(Actions.showSearchFilter()),
   hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
   showBookmark: () => dispatch(Actions.showBookmark()),
