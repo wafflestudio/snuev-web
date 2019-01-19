@@ -35,7 +35,7 @@ class NavBookmark extends React.PureComponent<Props> { // eslint-disable-line re
                   {lecture.getIn(['course', 'name'])}
                 </LectureTitle>
                 <LectureBasicInfoWrapper>
-                  <LectureBasicInfo>{lecture.getIn(['course', 'department', 'name'])}bookmark</LectureBasicInfo>
+                  <LectureBasicInfo>{lecture.getIn(['course', 'department', 'name'])}</LectureBasicInfo>
                   <Dot />
                   <LectureBasicInfo>{lecture.getIn(['course', 'targetGrade'])}</LectureBasicInfo>
                   <Dot />
