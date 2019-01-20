@@ -4,10 +4,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router';
 
 import { typo, media } from '../../style-utils';
-
-type Props = {
-  theme: Map<string, any>,
-};
+import type { Theme } from '../../theme';
 
 export const Background = styled.div`
   width: 320px;
