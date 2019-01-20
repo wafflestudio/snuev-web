@@ -36,7 +36,7 @@ export const LectureWrapper = styled(Link)`
 
 export const LectureTitle = styled.div`
   ${typo.body2}
-  color: ${(props: Props) => props.theme.color.black};
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
   line-height: 20px; 
   max-height: 40px; 
   text-align: left; 
@@ -58,14 +58,14 @@ export const LectureBasicInfoWrapper = styled.div`
 export const LectureBasicInfo = styled.div`
   font-size: 12px;
   opacity: 0.6;
-  color: ${(props: Props) => props.theme.color.black};
+  color: ${(props: { theme: Theme }) => props.theme.color.black};
 `;
 
 export const Dot = styled.div`
   width: 2px;
   height: 2px;
   opacity: 0.5;
-  background-color: ${(props: Props) => props.theme.color.black};
+  background-color: ${(props: { theme: Theme }) => props.theme.color.black};
   margin-left: 5px;
   margin-right: 5px;
 `;
