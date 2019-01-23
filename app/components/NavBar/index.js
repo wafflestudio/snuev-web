@@ -35,13 +35,16 @@ import {
 
 type Props = {
   user: any,
-  departments: Map<string, any>,
+  // departments: Map<string, any>,
   appLayout: Map<string, any>,
   searchFilter: Map<string, any>,
   signOut: () => void,
   getDepartments: () => void,
+  getBookmarkedLectures: () => void,
   showSearchFilter: () => void,
   hideSearchFilter: () => void,
+  showBookmark: () => void,
+  hideBookmark: () => void,
   hideSideBar: () => void,
 };
 
@@ -52,16 +55,19 @@ export class NavBar extends React.PureComponent<Props> {
     (this: any).handleLogOut = this.handleLogOut.bind(this);
     (this: any).handleSearchFilter = this.handleSearchFilter.bind(this);
     (this: any).handleOnClickProfile = this.handleOnClickProfile.bind(this);
+    (this: any).handleBookmark = this.handleBookmark.bind(this);
   }
 
   componentDidMount() {
     this.props.getDepartments();
+    this.props.getBookmarkedLectures();
   }
 
   handleOnClickLogo(event: Event) {
     event.preventDefault();
     this.props.hideSideBar();
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
     browserHistory.push('/');
   }
 
@@ -70,6 +76,7 @@ export class NavBar extends React.PureComponent<Props> {
     this.props.signOut();
     browserHistory.push('/');
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
   }
 
   handleSearchFilter(event: Event) {
@@ -79,13 +86,24 @@ export class NavBar extends React.PureComponent<Props> {
     } else {
       this.props.showSearchFilter();
     }
+    this.props.hideBookmark();
   }
 
   handleOnClickProfile(event: Event) {
     event.preventDefault();
     this.props.hideSideBar();
     this.props.hideSearchFilter();
+    this.props.hideBookmark();
     browserHistory.push('/profile');
+  }
+
+  handleBookmark(event: Event) {
+    event.preventDefault();
+    if (this.props.appLayout.get('showBookmark')) {
+      this.props.hideBookmark();
+    } else {
+      this.props.showBookmark();
+    }
   }
 
   render() {
@@ -111,7 +129,7 @@ export class NavBar extends React.PureComponent<Props> {
             </SnuttButton>
             {user &&
               <React.Fragment>
-                <BookmarkButton>
+                <BookmarkButton onClick={this.handleBookmark} show={appLayout.get('showBookmark')}>
                   <span className="navMenuText">
                     <FormattedMessage {...messages.navItems.bookmarks} />
                   </span>
@@ -162,8 +180,11 @@ const mapStateToProps = createStructuredSelector({
 const mapDispatchToProps = (dispatch: Function) => ({
   signOut: () => dispatch(Actions.signOut()),
   getDepartments: () => dispatch(Actions.getDepartmentsRequest()),
+  getBookmarkedLectures: () => dispatch(Actions.bookmarkedLecturesRequest()),
   showSearchFilter: () => dispatch(Actions.showSearchFilter()),
   hideSearchFilter: () => dispatch(Actions.hideSearchFilter()),
+  showBookmark: () => dispatch(Actions.showBookmark()),
+  hideBookmark: () => dispatch(Actions.hideBookmark()),
   hideSideBar: () => dispatch(Actions.hideSideBar()),
 });
 

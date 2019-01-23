@@ -10,6 +10,7 @@ import SnuttLogoImage from '../../images/snutt_logo.svg';
 import IconSearch from '../../images/ic-search@2x.png';
 import IconBookmark from '../../images/ic-bookmark.png';
 import IconBookmarkHover from '../../images/ic-bookmark-hover.png';
+import IconBookmarkSelected from '../../images/ic-bookmark-selected.png';
 import IconProfile from '../../images/ic-profile-normal.png';
 import IconProfileHover from '../../images/ic-profile-hover.png';
 import IconLogin from '../../images/ic-login-normal.png';
@@ -26,6 +27,7 @@ import DetailSearchOnSelectedImage from '../../images/ic-detailsearch-on-focus.p
 type Props = {
   theme: Map<string, any>,
   open: boolean,
+  show: boolean,
 };
 
 export const NavBarWrapper = styled.header`
@@ -180,13 +182,13 @@ export const SnuttButton = styled.a`
 
 export const BookmarkButton = styled.button`
   ${typo.body2}
-  background: url(${IconBookmark}) no-repeat 0% 50%;
+  background: ${(props: Props) => props.show ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmark}) no-repeat 0% 50%`};
   background-size: 20px 20px;
   cursor: pointer;
   margin-left: 40px;
   padding-left: 28px;
   &:hover {
-    background: url(${IconBookmarkHover}) no-repeat 0% 50%;
+    background: ${(props: Props) => props.show ? `url(${IconBookmarkSelected}) no-repeat 0% 50%` : `url(${IconBookmarkHover}) no-repeat 0% 50%`};
     color: ${(props: Props) => props.theme.color.primary};
   }
   &:focus {

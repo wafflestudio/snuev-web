@@ -77,6 +77,7 @@ export type Theme = {
     sideBar: number,
     searchFilter: number,
     navBar: number,
+    bookmark: number,
     modal: number,
   },
 };
@@ -161,6 +162,7 @@ const theme = {
     sideBar: 100,
     searchFilter: 200,
     navBar: 300,
+    bookmark: 400,
     modal: 1000,
   },
 };
