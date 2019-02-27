@@ -282,11 +282,12 @@ export const GrayBackground = styled.div`
 
 export const BeforeSelectBackground = styled.div`
   width: 100%;
-  min-height: 100%;
+  min-height: calc(100vh - 50px - ${(props: Props) => props.theme.navBarHeight}px);
   background-color: ${(props: Props) => props.theme.color.white};
   align-items: center;
   justify-content: center;
   display: flex;
+  text-align: center;
   flex-direction: column;
 `;
 
