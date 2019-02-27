@@ -83,6 +83,7 @@ class NavSearch extends React.PureComponent<Props, State> { // eslint-disable-li
           }}
           ref={(this: any).input}
           wrapperStyle={{ display: 'block', width: '100%' }}
+          autoHighlight={false}
           renderInput={(({ ref, ...props }: { ref: any }) => <SearchInput innerRef={ref} {...props} />)} // eslint-disable-line react/no-unused-prop-types
           renderMenu={((items: Array<any>) => <AutoCompleteMenu>{items}</AutoCompleteMenu>)}
           value={this.state.query}
