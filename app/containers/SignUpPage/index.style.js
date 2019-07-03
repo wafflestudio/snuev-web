@@ -37,7 +37,11 @@ export const InnerContainer = styled.div`
   position: relative;
   padding: 20px;
   box-shadow: 0 10px 20px 10px rgba(0, 0, 0, 0.05);
-  
+
+  ${media.tablet`
+    width: 560px;
+  `}
+   
   ${media.phone`
     width: 100%;
     height: 100%;
@@ -153,12 +157,15 @@ export const SignUpButton = styled.button`
   &:hover { background-color: ${(props: { theme: Theme }) => props.theme.color.hover1}; };
   &:focus { background-color: ${(props: { theme: Theme }) => props.theme.color.focus1}; outline: none; };
   
+  ${media.tablet`
+    left: 490px;
+  `}
+  
   ${media.phone`
     width: 259px;
     height: 52px;
     border-radius: 2px;
-    left: 0;
-    position: relative;
+    position: static;
     box-shadow: none;
     margin-top: 30px;
     background-color: ${(props: { theme: Theme }) => props.theme.color.primary};
