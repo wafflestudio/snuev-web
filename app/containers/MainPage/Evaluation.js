@@ -58,22 +58,35 @@ export const EvaluationGrades = styled.div`
 
 export const EvaluationDescription = styled.div`
   ${typo.body2}
-  font-size: 14px;
-  margin-right: 16px;
+  margin-right: 10px;
   margin-top: 4px;
   opacity: 0.8;
 
   ${media.tablet`
     font-size: 11px;
+    margin-right: 5px;
+  `}
+  
+  ${media.phone`
+    font-size: 10px;
+    margin-right: 6px;
   `}
 `;
 
 export const EvaluationGrade = styled.div`
   color: rgba(0, 0, 0, 0.9);
-  font-size: 26px;
+  font-size: 24px;
   font-family: ${(props: any) => props.theme.fontFamily.number};
   font-weight: 300;
   margin-right: 4px;
+  
+  ${media.tablet`
+    font-size: 16px;
+  `}
+  
+  ${media.phone`
+    font-size: 14px;
+  `}
 `;
 
 export const EvaluationContent = styled.div`
