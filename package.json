@@ -275,7 +275,7 @@
     "invariant": "2.2.2",
     "ip": "1.1.4",
     "json-api-normalizer": "^0.4.7",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "minimist": "1.2.0",
     "query-string": "^5.0.1",
     "rc-slider": "^8.6.1",
